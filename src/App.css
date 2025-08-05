@@ -1,0 +1,29 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+  /* Removed padding-top: 70px since navigation is removed */
+}
+
+/* Reset default margins and paddings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+  line-height: 1.6;
+}
+
+/* Global styles for better consistency */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+}
+
+/* Responsive design helper - removed empty rules */

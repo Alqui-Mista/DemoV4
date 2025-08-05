@@ -1,0 +1,528 @@
+/* 🚀 VAPI CHAT BUTTON - EFECTOS ULTRA INNOVADORES DE ALTA TECNOLOGÍA */
+
+/* 🎯 IMPORTAR FUENTE TÉCNICA */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+/* 🔧 CONTENEDOR PRINCIPAL - SISTEMA DE CAPAS AVANZADO */
+.vapi-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  overflow: visible;
+  position: relative;
+  width: 140px;
+  height: 140px;
+  /* 🌟 CAMPO ELECTROMAGNÉTICO BASE */
+  background: radial-gradient(circle at center, 
+    rgba(218, 128, 35, 0.03) 0%,
+    rgba(218, 128, 35, 0.08) 30%,
+    rgba(218, 128, 35, 0.15) 60%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* 🔮 ANILLO HOLOGRÁFICO EXTERIOR */
+.vapi-button-container::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, 
+    transparent 0deg,
+    rgba(218, 128, 35, 0.1) 60deg,
+    rgba(255, 201, 102, 0.2) 120deg,
+    rgba(218, 128, 35, 0.1) 180deg,
+    transparent 240deg,
+    rgba(218, 128, 35, 0.1) 300deg,
+    transparent 360deg
+  );
+  opacity: 0;
+  animation: holographic-rotation 8s linear infinite;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+/* 🌌 PARTÍCULAS CUÁNTICAS */
+.vapi-button-container::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(218, 128, 35, 0.4) 1px, transparent 1px),
+    radial-gradient(circle at 80% 70%, rgba(255, 201, 102, 0.3) 1px, transparent 1px),
+    radial-gradient(circle at 40% 80%, rgba(218, 128, 35, 0.2) 1px, transparent 1px),
+    radial-gradient(circle at 70% 20%, rgba(255, 201, 102, 0.3) 1px, transparent 1px),
+    radial-gradient(circle at 10% 90%, rgba(218, 128, 35, 0.2) 1px, transparent 1px);
+  background-size: 40px 40px, 60px 60px, 35px 35px, 50px 50px, 45px 45px;
+  opacity: 0;
+  animation: quantum-particles 12s linear infinite;
+  transition: opacity 0.5s ease;
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* 🎯 BOTÓN PRINCIPAL - NÚCLEO TECNOLÓGICO */
+.vapi-chat-button {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  position: relative;
+  overflow: visible;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 10;
+  /* 🔬 SISTEMA DE RESPUESTA HÁPTICA VISUAL */
+  transform-origin: center;
+}
+
+/* 🎨 ÍCONO SVG - CONTROL DE CAPAS INDEPENDIENTES */
+.vapi-chat-button svg,
+.vapi-button-icon {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+  transition: all 0.4s ease;
+  filter: drop-shadow(0 0 5px rgba(218, 128, 35, 0.2));
+}
+
+/* 🧠 SILUETA HUMANA - CAPA BASE */
+.vapi-chat-button .cls-1 {
+  fill: #b3b4b0;
+  stroke: #b3b4b0;
+  stroke-width: 1;
+  transition: all 0.4s ease;
+  filter: drop-shadow(0 0 3px rgba(179, 180, 176, 0.3));
+}
+
+/* 🔥 CIRCUITO NEURONAL - CAPA REACTIVA */
+.vapi-chat-button .cls-2 {
+  fill: #da8023;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+/* ⚡ ESTADO INACTIVO - MODO STANDBY */
+.vapi-chat-button--inactive {
+  background: transparent !important;
+}
+
+.vapi-chat-button--inactive:hover {
+  transform: scale(1.08) rotateZ(1deg);
+}
+
+.vapi-chat-button--inactive:hover .vapi-button-container::before {
+  opacity: 0.6;
+}
+
+.vapi-chat-button--inactive:hover .vapi-button-container::after {
+  opacity: 0.4;
+}
+
+.vapi-chat-button--inactive:hover .cls-1 {
+  fill: #c5c6c2;
+  filter: drop-shadow(0 0 8px rgba(179, 180, 176, 0.5));
+}
+
+.vapi-chat-button--inactive:hover .cls-2 {
+  fill: #ff8c00;
+  filter: drop-shadow(0 0 12px rgba(255, 140, 0, 0.6));
+}
+
+/* 🔄 ESTADO LOADING - CONECTANDO AL FUTURO */
+.vapi-chat-button--loading {
+  animation: neural-sync 2.5s ease-in-out infinite;
+}
+
+.vapi-chat-button--loading .vapi-button-container::before {
+  opacity: 1;
+  animation: holographic-rotation 2s linear infinite, 
+             energy-pulse 1.5s ease-in-out infinite;
+}
+
+.vapi-chat-button--loading .vapi-button-container::after {
+  opacity: 0.7;
+  animation: quantum-particles 3s linear infinite;
+}
+
+.vapi-chat-button--loading .cls-1 {
+  fill: #d0d1cd;
+  animation: bio-scan 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px rgba(179, 180, 176, 0.8));
+}
+
+.vapi-chat-button--loading .cls-2 {
+  fill: #ff8c00;
+  animation: data-flow 1.8s linear infinite;
+  filter: drop-shadow(0 0 20px rgba(255, 140, 0, 0.9))
+          drop-shadow(0 0 40px rgba(255, 140, 0, 0.6));
+}
+
+/* 🧠 ESTADO ACTIVE (ESCUCHANDO) - IA PENSANDO */
+.vapi-chat-button--active {
+  animation: consciousness-field 3s ease-in-out infinite;
+}
+
+.vapi-chat-button--active .vapi-button-container::before {
+  opacity: 1;
+  animation: thought-waves 2.2s ease-in-out infinite;
+}
+
+.vapi-chat-button--active .vapi-button-container::after {
+  opacity: 1;
+  animation: neural-activity 1.5s linear infinite;
+}
+
+.vapi-chat-button--active .cls-1 {
+  fill: #e8e9e5;
+  animation: cognitive-resonance 2.8s ease-in-out infinite;
+  filter: drop-shadow(0 0 25px rgba(179, 180, 176, 1))
+          drop-shadow(0 0 50px rgba(179, 180, 176, 0.6));
+}
+
+/* 🔥 CIRCUITO NEURONAL - EFECTO "PENSANDO" ULTRA AVANZADO */
+.vapi-chat-button--active .cls-2 {
+  fill: #ff6600;
+  animation: neural-thinking 0.8s ease-in-out infinite,
+             synaptic-fire 1.2s linear infinite,
+             thought-intensity 2.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px rgba(255, 102, 0, 1))
+          drop-shadow(0 0 30px rgba(255, 140, 0, 0.8))
+          drop-shadow(0 0 60px rgba(255, 140, 0, 0.4))
+          drop-shadow(0 0 90px rgba(255, 201, 102, 0.2));
+  transform-origin: center;
+}
+
+/* 🚀 ANIMACIONES ULTRA TECNOLÓGICAS */
+
+/* 🌀 ROTACIÓN HOLOGRÁFICA */
+@keyframes holographic-rotation {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ⚡ PULSO ENERGÉTICO */
+@keyframes energy-pulse {
+  0%, 100% { 
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* 🌌 PARTÍCULAS CUÁNTICAS */
+@keyframes quantum-particles {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(90deg) scale(1.1); }
+  50% { transform: rotate(180deg) scale(1); }
+  75% { transform: rotate(270deg) scale(0.9); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* 🔄 SINCRONIZACIÓN NEURONAL */
+@keyframes neural-sync {
+  0%, 100% { 
+    transform: scale(1) rotateZ(0deg);
+    filter: hue-rotate(0deg);
+  }
+  25% { 
+    transform: scale(1.02) rotateZ(1deg);
+    filter: hue-rotate(5deg);
+  }
+  50% { 
+    transform: scale(1.04) rotateZ(0deg);
+    filter: hue-rotate(10deg);
+  }
+  75% { 
+    transform: scale(1.02) rotateZ(-1deg);
+    filter: hue-rotate(5deg);
+  }
+}
+
+/* 🔬 ESCÁNER BIOMÉTRICO */
+@keyframes bio-scan {
+  0%, 100% { 
+    fill: #b3b4b0;
+    filter: drop-shadow(0 0 5px rgba(179, 180, 176, 0.3));
+  }
+  25% { 
+    fill: #c0c1bd;
+    filter: drop-shadow(0 0 10px rgba(179, 180, 176, 0.5));
+  }
+  50% { 
+    fill: #d0d1cd;
+    filter: drop-shadow(0 0 15px rgba(179, 180, 176, 0.8));
+  }
+  75% { 
+    fill: #c0c1bd;
+    filter: drop-shadow(0 0 10px rgba(179, 180, 176, 0.5));
+  }
+}
+
+/* 💾 FLUJO DE DATOS */
+@keyframes data-flow {
+  0% { 
+    fill: #da8023;
+    filter: drop-shadow(0 0 8px rgba(218, 128, 35, 0.4));
+    transform: scale(1);
+  }
+  33% { 
+    fill: #ff8c00;
+    filter: drop-shadow(0 0 16px rgba(255, 140, 0, 0.7));
+    transform: scale(1.05);
+  }
+  66% { 
+    fill: #ffa500;
+    filter: drop-shadow(0 0 24px rgba(255, 165, 0, 0.9));
+    transform: scale(1.1);
+  }
+  100% { 
+    fill: #da8023;
+    filter: drop-shadow(0 0 8px rgba(218, 128, 35, 0.4));
+    transform: scale(1);
+  }
+}
+
+/* 🧠 CAMPO DE CONSCIENCIA */
+@keyframes consciousness-field {
+  0%, 100% { 
+    transform: scale(1);
+    filter: brightness(1) contrast(1);
+  }
+  50% { 
+    transform: scale(1.03);
+    filter: brightness(1.1) contrast(1.05);
+  }
+}
+
+/* 🌊 ONDAS DE PENSAMIENTO */
+@keyframes thought-waves {
+  0% { 
+    opacity: 0.4;
+    transform: rotate(0deg) scale(1);
+  }
+  25% { 
+    opacity: 0.7;
+    transform: rotate(90deg) scale(1.1);
+  }
+  50% { 
+    opacity: 1;
+    transform: rotate(180deg) scale(1.2);
+  }
+  75% { 
+    opacity: 0.7;
+    transform: rotate(270deg) scale(1.1);
+  }
+  100% { 
+    opacity: 0.4;
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+/* 🧬 ACTIVIDAD NEURONAL */
+@keyframes neural-activity {
+  0% { 
+    opacity: 0.5;
+    transform: scale(0.8) rotate(0deg);
+  }
+  25% { 
+    opacity: 0.8;
+    transform: scale(1) rotate(90deg);
+  }
+  50% { 
+    opacity: 1;
+    transform: scale(1.2) rotate(180deg);
+  }
+  75% { 
+    opacity: 0.8;
+    transform: scale(1) rotate(270deg);
+  }
+  100% { 
+    opacity: 0.5;
+    transform: scale(0.8) rotate(360deg);
+  }
+}
+
+/* 🎭 RESONANCIA COGNITIVA */
+@keyframes cognitive-resonance {
+  0%, 100% { 
+    fill: #b3b4b0;
+    filter: drop-shadow(0 0 10px rgba(179, 180, 176, 0.5));
+    transform: scale(1);
+  }
+  33% { 
+    fill: #c8c9c5;
+    filter: drop-shadow(0 0 20px rgba(179, 180, 176, 0.8));
+    transform: scale(1.02);
+  }
+  66% { 
+    fill: #e0e1dd;
+    filter: drop-shadow(0 0 35px rgba(179, 180, 176, 1));
+    transform: scale(1.04);
+  }
+}
+
+/* 🔥 PENSAMIENTO NEURONAL ULTRA AVANZADO */
+@keyframes neural-thinking {
+  0%, 100% { 
+    transform: scale(1) rotateZ(0deg);
+    opacity: 0.9;
+  }
+  25% { 
+    transform: scale(1.08) rotateZ(2deg);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.15) rotateZ(0deg);
+    opacity: 0.8;
+  }
+  75% { 
+    transform: scale(1.08) rotateZ(-2deg);
+    opacity: 1;
+  }
+}
+
+/* ⚡ FUEGO SINÁPTICO */
+@keyframes synaptic-fire {
+  0% { 
+    fill: #ff6600;
+    filter: drop-shadow(0 0 15px rgba(255, 102, 0, 0.8));
+  }
+  16% { 
+    fill: #ff7700;
+    filter: drop-shadow(0 0 25px rgba(255, 119, 0, 1));
+  }
+  33% { 
+    fill: #ff8800;
+    filter: drop-shadow(0 0 35px rgba(255, 136, 0, 1));
+  }
+  50% { 
+    fill: #ff9900;
+    filter: drop-shadow(0 0 45px rgba(255, 153, 0, 1));
+  }
+  66% { 
+    fill: #ffaa00;
+    filter: drop-shadow(0 0 35px rgba(255, 170, 0, 1));
+  }
+  83% { 
+    fill: #ff8800;
+    filter: drop-shadow(0 0 25px rgba(255, 136, 0, 1));
+  }
+  100% { 
+    fill: #ff6600;
+    filter: drop-shadow(0 0 15px rgba(255, 102, 0, 0.8));
+  }
+}
+
+/* 🧠 INTENSIDAD DE PENSAMIENTO */
+@keyframes thought-intensity {
+  0%, 100% { 
+    filter: drop-shadow(0 0 15px rgba(255, 102, 0, 1))
+            drop-shadow(0 0 30px rgba(255, 140, 0, 0.8))
+            drop-shadow(0 0 60px rgba(255, 140, 0, 0.4));
+  }
+  25% { 
+    filter: drop-shadow(0 0 25px rgba(255, 102, 0, 1))
+            drop-shadow(0 0 50px rgba(255, 140, 0, 0.9))
+            drop-shadow(0 0 100px rgba(255, 140, 0, 0.6))
+            drop-shadow(0 0 150px rgba(255, 201, 102, 0.3));
+  }
+  50% { 
+    filter: drop-shadow(0 0 35px rgba(255, 102, 0, 1))
+            drop-shadow(0 0 70px rgba(255, 140, 0, 1))
+            drop-shadow(0 0 140px rgba(255, 140, 0, 0.8))
+            drop-shadow(0 0 210px rgba(255, 201, 102, 0.4));
+  }
+  75% { 
+    filter: drop-shadow(0 0 25px rgba(255, 102, 0, 1))
+            drop-shadow(0 0 50px rgba(255, 140, 0, 0.9))
+            drop-shadow(0 0 100px rgba(255, 140, 0, 0.6))
+            drop-shadow(0 0 150px rgba(255, 201, 102, 0.3));
+  }
+}
+
+/* 🎯 INTERACCIONES AVANZADAS */
+.vapi-chat-button:active {
+  transform: scale(0.92);
+  transition: transform 0.1s ease;
+}
+
+/* 🔧 OPTIMIZACIONES DE RENDIMIENTO */
+.vapi-chat-button,
+.vapi-button-container::before,
+.vapi-button-container::after {
+  will-change: transform, opacity, filter;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* 📱 RESPONSIVE ULTRA TECH */
+@media (max-width: 768px) {
+  .vapi-button-container {
+    width: 110px;
+    height: 110px;
+  }
+  
+  .vapi-chat-button {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .vapi-button-container {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .vapi-chat-button {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+/* 🎨 ACCESIBILIDAD Y PREFERENCIAS */
+@media (prefers-reduced-motion: reduce) {
+  .vapi-chat-button--loading,
+  .vapi-chat-button--active,
+  .vapi-button-container::before,
+  .vapi-button-container::after,
+  .cls-1,
+  .cls-2 {
+    animation: none !important;
+  }
+  
+  .vapi-chat-button:hover {
+    transform: scale(1.02);
+  }
+}
+
+@media (prefers-contrast: high) {
+  .vapi-chat-button .cls-1 {
+    stroke-width: 2;
+  }
+  
+  .vapi-chat-button .cls-2 {
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 1));
+  }
+}
+
+
