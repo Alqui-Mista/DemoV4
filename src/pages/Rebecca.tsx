@@ -266,38 +266,6 @@ const Rebecca = memo(() => {
     applyCursorForZone("default");
 
     // ✅ FIX: Simular movimiento inicial para mostrar cursor
-    setTimeout(() => {
-      const rect = container.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-
-      requestAnimationFrame(() => {
-        container.style.setProperty("--cursor-x", `${centerX}px`);
-        container.style.setProperty("--cursor-y", `${centerY}px`);
-        cursorCross.style.setProperty("--cursor-x", `${centerX}px`);
-        cursorCross.style.setProperty("--cursor-y", `${centerY}px`);
-      });
-    }, 100);
-
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      container.removeEventListener("mouseleave", handleMouseLeave);
-      container.removeEventListener("mouseenter", handleMouseEnter);
-
-      // ✅ FIX: Limpiar cursor de manera más robusta
-      if (cursorCross && cursorCross.parentNode) {
-        cursorCross.parentNode.removeChild(cursorCross);
-      }
-
-      // ✅ FIX: Limpiar clases del container
-      container.classList.remove("custom-cursor");
-
-      // ✅ FIX: Resetear cursor global
-      document.body.style.cursor = "";
-    };
-  }, [isActive]); // 🎯 ARREGLO: Agregar isActive como dependencia
-
-  useEffect(() => {
     const timer = setTimeout(() => {
       document.querySelectorAll(".fade-in-delayed").forEach((el) => {
         el.classList.add("fade-in-active");

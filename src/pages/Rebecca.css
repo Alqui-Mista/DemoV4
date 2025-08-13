@@ -1194,6 +1194,35 @@ body,
   }
 }
 
+/* --- OPTIMIZACIÓN DE ANIMACIONES PRINCIPALES --- */
+.glow-ring {
+  animation: rotate 4s linear infinite; /* Duración reducida */
+}
+.pulse-ring {
+  animation: pulse 1.2s ease-in-out infinite; /* Duración reducida */
+}
+.portal-title {
+  animation: gradientShift 2s ease-in-out infinite; /* Duración reducida */
+}
+.button-tooltip {
+  animation: digitalGlitch 0.08s linear infinite alternate; /* Duración reducida */
+}
+.button-tooltip-text {
+  animation: typewriter 1s steps(16) 0.2s forwards, blink 0.7s infinite 1.5s; /* Duración reducida */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-ring,
+  .pulse-ring,
+  .portal-title,
+  .button-tooltip,
+  .button-tooltip-text {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+/* --- FIN OPTIMIZACIÓN --- */
+
 /* ✅ ASEGURAR QUE NO HAYA GAPS ENTRE SECCIONES CONSECUTIVAS */
 .main-content-wrapper + .call-to-action-section {
   margin-top: 0 !important;
@@ -2469,5 +2498,3 @@ section {
     );
   }
 }
-
-/* FIN DEL ARCHIVO - SIN MÁS CÓDIGO DEL BOTÓN CTA */
