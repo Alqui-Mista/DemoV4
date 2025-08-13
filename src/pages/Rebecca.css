@@ -426,6 +426,42 @@ body,
   border: 1px solid rgba(218, 128, 35, 0.2);
 }
 
+/* --- OPTIMIZACIÓN DE EFECTOS COSTOSOS EN TOOLTIP Y TÍTULOS --- */
+.cursor-tooltip {
+  /* Estado base sin blur */
+  backdrop-filter: none;
+}
+.cursor-tooltip[style*="opacity: 1"] {
+  /* Blur solo cuando visible */
+  backdrop-filter: blur(5px);
+}
+
+.button-tooltip {
+  backdrop-filter: none;
+}
+.button-tooltip[style*="opacity: 1"] {
+  backdrop-filter: blur(12px);
+}
+
+.button-tooltip.button-tooltip-3d {
+  box-shadow: none;
+}
+.button-tooltip.button-tooltip-3d[style*="opacity: 1"] {
+  box-shadow: 0 0 30px rgba(0, 255, 136, 0.8), 0 0 60px rgba(0, 255, 136, 0.4);
+}
+
+.portal-title {
+  text-shadow: none;
+}
+.portal-title:hover {
+  text-shadow: 0 0 30px rgba(218, 128, 35, 0.4);
+}
+
+.glow-ring {
+  opacity: 0.2;
+}
+/* --- FIN OPTIMIZACIÓN --- */
+
 /* 📱 RESPONSIVE DESIGN ESPECÍFICO PARA REBECCA */
 @media (max-width: 480px) {
   .rebecca-container {
@@ -2240,254 +2276,6 @@ section {
     opacity: 0.7;
     transform: translateY(-4px);
   }
-}
-
-/* 📱 RESPONSIVE DESIGN */
-@media (max-width: 768px) {
-  .call-to-action-section {
-    padding: 40px 20px;
-  }
-
-  .cta-title {
-    font-size: 4rem;
-    line-height: 0.8;
-  }
-
-  .footer-content {
-    grid-template-columns: 1fr;
-    gap: 60px;
-    text-align: center;
-    padding: 40px 20px;
-  }
-
-  .footer-info {
-    text-align: center;
-    order: 2;
-  }
-
-  .footer-robot {
-    order: 1;
-  }
-
-  .contact-info {
-    text-align: center;
-    order: 3;
-  }
-
-  .footer-info h3 {
-    font-size: 2.5rem;
-  }
-
-  .newsletter-form {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .newsletter-button {
-    align-self: center;
-    width: fit-content;
-    padding: 16px 32px;
-  }
-
-  /* 🚀 BOTÓN CINEMATOGRÁFICO - RESPONSIVE */
-  .homepage-access-button {
-    min-width: 240px;
-    padding: 16px 28px;
-    font-size: 0.85rem;
-    letter-spacing: 1.2px;
-  }
-
-  .footer-info {
-    align-items: center;
-  }
-
-  .navigation-section {
-    align-items: center;
-  }
-}
-
-.footer-info {
-  text-align: left;
-}
-
-.footer-info h4 {
-  font-size: 0.9rem;
-  color: rgba(0, 0, 0, 0.6);
-  margin-bottom: 16px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.footer-info h3 {
-  font-size: 3.5rem;
-  color: rgba(0, 0, 0, 0.9);
-  margin-bottom: 20px;
-  font-weight: 900;
-  line-height: 0.85;
-  letter-spacing: -0.02em;
-}
-
-.footer-info p {
-  font-size: 1.4rem;
-  color: rgba(0, 0, 0, 0.7);
-  margin-bottom: 40px;
-  line-height: 1.4;
-  font-weight: 400;
-}
-
-.newsletter-form {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 40px;
-}
-
-.newsletter-input {
-  flex: 1;
-  padding: 16px 24px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50px;
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(0, 0, 0, 0.8);
-  font-size: 1.1rem;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-}
-
-.newsletter-input::placeholder {
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.newsletter-input:focus {
-  outline: none;
-  border-color: rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.newsletter-button {
-  background: rgba(255, 255, 255, 0.9);
-  color: #da8023;
-  border: none;
-  padding: 16px 24px;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 600;
-  min-width: 60px;
-}
-
-.newsletter-button:hover {
-  background: #ffffff;
-  transform: scale(1.05);
-}
-
-.contact-info {
-  text-align: right;
-}
-
-.contact-info h4 {
-  font-size: 0.9rem;
-  color: rgba(0, 0, 0, 0.6);
-  margin-bottom: 20px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.contact-info p {
-  font-size: 1.1rem;
-  color: rgba(0, 0, 0, 0.7);
-  margin: 8px 0;
-  padding: 0;
-  border: none;
-  font-weight: 500;
-}
-
-/* 🤖 PERSONAJE ROBOT AI - INTELIMARK COLORS */
-.footer-robot {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.ai-character {
-  position: relative;
-  margin-bottom: 30px;
-  transform: scale(1.5);
-}
-
-.robot-head {
-  width: 120px;
-  height: 120px;
-  background: linear-gradient(145deg, #da8023 0%, #ff8c33 100%);
-  border-radius: 30px;
-  margin: 0 auto 20px;
-  position: relative;
-  box-shadow: 0 12px 24px rgba(218, 128, 35, 0.3),
-    inset 0 2px 0 rgba(255, 255, 255, 0.3);
-  animation: robotPulse 3s ease-in-out infinite;
-}
-
-.robot-eye {
-  width: 18px;
-  height: 18px;
-  background: #ffffff;
-  border-radius: 50%;
-  position: absolute;
-  top: 35px;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
-  animation: robotBlink 4s ease-in-out infinite;
-}
-
-.robot-eye.left {
-  left: 30px;
-}
-
-.robot-eye.right {
-  right: 30px;
-}
-
-.robot-mouth {
-  width: 40px;
-  height: 12px;
-  background: rgba(0, 0, 0, 0.7);
-  border-radius: 0 0 20px 20px;
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.robot-body {
-  width: 90px;
-  height: 60px;
-  background: linear-gradient(145deg, #da8023 0%, #ff8c33 100%);
-  border-radius: 20px;
-  margin: 0 auto;
-  position: relative;
-  box-shadow: 0 8px 16px rgba(218, 128, 35, 0.2);
-}
-
-.robot-chest {
-  width: 24px;
-  height: 24px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 50%;
-  position: absolute;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: robotHeartbeat 2s ease-in-out infinite;
-}
-
-.ai-message {
-  font-size: 1.2rem;
-  color: rgba(0, 0, 0, 0.8);
-  font-weight: 600;
-  margin: 20px 0 0 0;
-  animation: robotMessage 5s ease-in-out infinite;
 }
 
 /* 📱 RESPONSIVE DESIGN MEJORADO */
