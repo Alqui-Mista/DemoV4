@@ -47,7 +47,7 @@ const AnimatedTextPhrase1: FC<AnimatedTextPhrase1Props> = memo(({ scrollPercenta
         material-transparent={true}
         material-opacity={opacidades.line1.opacity}
       >
-        El futuro de la ingeniería exige una nueva IA.
+        EL FUTURO DE LA INGENIERÍA EXIGE UNA NUEVA IA.
       </Text>
 
       {/* Línea 2: Fade-in simple - SIN EFECTOS */}

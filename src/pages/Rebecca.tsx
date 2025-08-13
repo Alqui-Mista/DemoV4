@@ -1,7 +1,6 @@
 // src/pages/Rebecca.tsx (Versión Final con Efectos de Texto)
 
 import { useEffect, useRef, useState, memo } from 'react';
-import QuantumGlitchText from '../components/QuantumGlitchText';
 import { VapiChatButton } from '../components/VapiChatButton';
 import { vapiConfig } from '../config/vapi.config';
 import HomePage from './HomePage';
@@ -13,7 +12,6 @@ import './Rebecca.css';
 
 const Rebecca = memo(() => {
   // Estados para la sección CTA
-  const [isCtaFullyVisible, setIsCtaFullyVisible] = useState(false);
   const [ctaScrollPercent, setCtaScrollPercent] = useState(0); // 0 a 1
   // Observer para detectar el porcentaje de visibilidad de la sección CTA
   useEffect(() => {
@@ -21,7 +19,6 @@ const Rebecca = memo(() => {
       (entries) => {
         entries.forEach((entry) => {
           setCtaScrollPercent(entry.intersectionRatio);
-          setIsCtaFullyVisible(entry.intersectionRatio >= 0.9);
         });
       },
       {
@@ -126,45 +123,170 @@ const Rebecca = memo(() => {
     
     const cursorCross = document.createElement('div');
     cursorCross.className = 'cursor-cross';
-    document.body.appendChild(cursorCross);
+    
+    // ✅ FIX: Agregar al container específico en lugar de body
+    container.appendChild(cursorCross);
+
+    // 🎯 NUEVO SISTEMA: Definir zonas de cursor de forma eficiente
+    let currentZone = 'default'; // default, cta, footer, home3d
+    let zoneElements = {
+      cta: null as Element | null,
+      footer: null as Element | null,
+      home3d: null as Element | null
+    };
+    let lastZoneCheck = 0;
+    const ZONE_CHECK_THROTTLE = 16; // 60fps máximo para detectar zonas
+
+    // Cachear elementos para evitar querySelector repetitivos
+    const cacheZoneElements = () => {
+      zoneElements.cta = document.querySelector('.call-to-action-section');
+      zoneElements.footer = document.querySelector('.footer-reveal, #footer-reveal, footer, .footer-content');
+      zoneElements.home3d = document.querySelector('#interactive-container.active');
+    };
+
+    const detectZone = (e: MouseEvent): string => {
+      // Throttling para detectar zona (optimización de rendimiento)
+      const now = performance.now();
+      if (now - lastZoneCheck < ZONE_CHECK_THROTTLE) {
+        return currentZone; // Devolver zona actual si es muy pronto para verificar
+      }
+      lastZoneCheck = now;
+
+      // Prioridad 1: HOME 3D (más alta)
+      if (isActive) return 'home3d';
+      
+      // Cachear elementos si no existen o si han pasado 1000ms
+      if (!zoneElements.cta || !zoneElements.footer || (now % 1000) < ZONE_CHECK_THROTTLE) {
+        cacheZoneElements();
+      }
+
+      // Prioridad 2: Footer
+      if (zoneElements.footer) {
+        const rect = zoneElements.footer.getBoundingClientRect();
+        if (e.clientX >= rect.left && e.clientX <= rect.right && 
+            e.clientY >= rect.top && e.clientY <= rect.bottom) {
+          return 'footer';
+        }
+      }
+
+      // Prioridad 3: CTA
+      if (zoneElements.cta) {
+        const rect = zoneElements.cta.getBoundingClientRect();
+        if (e.clientX >= rect.left && e.clientX <= rect.right && 
+            e.clientY >= rect.top && e.clientY <= rect.bottom) {
+          return 'cta';
+        }
+      }
+
+      return 'default';
+    };
+
+    const applyCursorForZone = (zone: string) => {
+      switch (zone) {
+        case 'home3d':
+          // Cursor normal del sistema en HOME 3D
+          container.classList.remove('custom-cursor');
+          cursorCross.classList.remove('visible');
+          break;
+        case 'cta':
+          // Sin cursor CAD en CTA (tiene su propio cursor de punto de luz)
+          container.classList.remove('custom-cursor');
+          cursorCross.classList.remove('visible');
+          break;
+        case 'footer':
+          // Cursor CAD activo en footer
+          container.classList.add('custom-cursor');
+          cursorCross.classList.add('visible');
+          break;
+        case 'default':
+          // Cursor CAD activo en sección principal
+          container.classList.add('custom-cursor');
+          cursorCross.classList.add('visible');
+          break;
+      }
+    };
 
     const handleMouseMove = (e: MouseEvent) => {
-      container.style.setProperty('--cursor-x', `${e.clientX}px`);
-      container.style.setProperty('--cursor-y', `${e.clientY}px`);
+      const newZone = detectZone(e);
       
-      cursorCross.style.setProperty('--cursor-x', `${e.clientX}px`);
-      cursorCross.style.setProperty('--cursor-y', `${e.clientY}px`);
-      
-      if (!hasMovedOnce) {
-        container.classList.add('custom-cursor');
-        cursorCross.classList.add('visible');
-        hasMovedOnce = true;
+      // Solo aplicar cambios si la zona cambió (optimización)
+      if (newZone !== currentZone) {
+        currentZone = newZone;
+        applyCursorForZone(newZone);
+      }
+
+      // Actualizar posición solo si el cursor CAD debe estar visible
+      if (currentZone === 'default' || currentZone === 'footer') {
+        // Usar requestAnimationFrame para optimizar las actualizaciones de CSS
+        requestAnimationFrame(() => {
+          container.style.setProperty('--cursor-x', `${e.clientX}px`);
+          container.style.setProperty('--cursor-y', `${e.clientY}px`);
+          
+          cursorCross.style.setProperty('--cursor-x', `${e.clientX}px`);
+          cursorCross.style.setProperty('--cursor-y', `${e.clientY}px`);
+        });
+        
+        if (!hasMovedOnce && (currentZone === 'default' || currentZone === 'footer')) {
+          hasMovedOnce = true;
+        }
       }
     };
 
     const handleMouseLeave = () => {
       container.classList.remove('custom-cursor');
       cursorCross.classList.remove('visible');
+      currentZone = 'default';
     };
 
     const handleMouseEnter = () => {
-      container.classList.add('custom-cursor');
-      cursorCross.classList.add('visible');
+      // Re-cachear elementos al entrar (por si la página cambió)
+      cacheZoneElements();
+      
+      // Forzar cursor visible para inicialización rápida
+      currentZone = 'default';
+      applyCursorForZone('default');
     };
 
+    // Event listeners
     document.addEventListener('mousemove', handleMouseMove);
     container.addEventListener('mouseleave', handleMouseLeave);
     container.addEventListener('mouseenter', handleMouseEnter);
+
+    // ✅ FIX: Inicializar cursor inmediatamente
+    currentZone = 'default';
+    applyCursorForZone('default');
+    
+    // ✅ FIX: Simular movimiento inicial para mostrar cursor
+    setTimeout(() => {
+      const rect = container.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      requestAnimationFrame(() => {
+        container.style.setProperty('--cursor-x', `${centerX}px`);
+        container.style.setProperty('--cursor-y', `${centerY}px`);
+        cursorCross.style.setProperty('--cursor-x', `${centerX}px`);
+        cursorCross.style.setProperty('--cursor-y', `${centerY}px`);
+      });
+    }, 100);
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
       container.removeEventListener('mouseleave', handleMouseLeave);
       container.removeEventListener('mouseenter', handleMouseEnter);
+      
+      // ✅ FIX: Limpiar cursor de manera más robusta
       if (cursorCross && cursorCross.parentNode) {
         cursorCross.parentNode.removeChild(cursorCross);
       }
+      
+      // ✅ FIX: Limpiar clases del container
+      container.classList.remove('custom-cursor');
+      
+      // ✅ FIX: Resetear cursor global
+      document.body.style.cursor = '';
     };
-  }, []);
+  }, [isActive]); // 🎯 ARREGLO: Agregar isActive como dependencia
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -241,6 +363,7 @@ const Rebecca = memo(() => {
                 }
                 setIsActive(false);
                 setShowHomePage(false);
+                setIsHoveringButton(false); // 🎯 ARREGLO: Resetear estado del tooltip
               }}
             >
               <div className="homepage-embedded">
@@ -325,49 +448,48 @@ const Rebecca = memo(() => {
               paddingTop: '18px', // desplazamiento hacia arriba
             }}
           >
-            <QuantumGlitchText
-              text="TRABAJEMOS"
-              fontSize={80.6} // 62 * 1.3
+            <span
               style={{
                 display: 'inline-block',
                 transform: `translateX(${(-window.innerWidth * 0.7 + Math.min(ctaScrollPercent, 0.9) / 0.9 * window.innerWidth * 0.7)}px)`,
                 opacity: ctaScrollPercent >= 0.3 ? 1 : 0,
                 transition: 'transform 0.1s linear, opacity 0.2s',
-                fontFamily: 'Montserrat, Arial, sans-serif',
+                fontFamily: 'SohoPro, Montserrat, Arial, sans-serif',
                 fontWeight: 900,
+                fontStyle: 'italic',
                 fontVariationSettings: '"wght" 900',
                 letterSpacing: '0.04em',
                 zIndex: 10,
                 lineHeight: 0.95,
+                fontSize: '80.6px',
+                color: '#ffffff',
+                textShadow: '2px 2px 8px rgba(0, 0, 0, 0.7)',
               }}
-              inactive={!((Math.min(ctaScrollPercent, 0.9) / 0.9) === 1)}
-            />
-            <QuantumGlitchText
-              text="juntos"
-              fontSize={80.6}
+            >
+              TRABAJEMOS
+            </span>
+            <span
               style={{
                 display: 'inline-block',
                 transform: `translateX(${(window.innerWidth * 0.7 - Math.min(ctaScrollPercent, 0.9) / 0.9 * window.innerWidth * 0.7)}px)`,
                 opacity: ctaScrollPercent >= 0.3 ? 1 : 0,
                 transition: 'transform 0.1s linear, opacity 0.2s',
-                fontFamily: 'Montserrat, Arial, sans-serif',
+                fontFamily: 'SohoPro, Montserrat, Arial, sans-serif',
                 fontWeight: 900,
+                fontStyle: 'italic',
                 fontVariationSettings: '"wght" 900',
                 letterSpacing: '0.04em',
                 zIndex: 10,
                 lineHeight: 0.95,
-                textTransform: 'lowercase',
+                textTransform: 'uppercase',
+                fontSize: '80.6px',
+                color: '#ffffff',
+                textShadow: '2px 2px 8px rgba(0, 0, 0, 0.7)',
               }}
-              inactive={!((Math.min(ctaScrollPercent, 0.9) / 0.9) === 1)}
-            />
+            >
+              JUNTOS
+            </span>
           </h2>
-          <button 
-            className={`cta-button${isCtaFullyVisible ? ' animate-cta-button' : ''}`}
-            style={{ opacity: isCtaFullyVisible ? 1 : 0 }}
-            onClick={() => window.open('https://wa.me/56949459379', '_blank')}
-          >
-            Contáctanos
-          </button>
         </div>
       </section>
 
@@ -450,9 +572,9 @@ const Rebecca = memo(() => {
           <div className="footer-robot">
             <div className="robot-3d-container">
               <Robot3D 
-                width="300px" 
-                height="300px" 
-                scale={13.5}
+                width="380px" 
+                height="480px" 
+                scale={1.2}
                 enableScrollRotation={true}
               />
             </div>

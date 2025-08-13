@@ -35,11 +35,13 @@ const QuantumGlitchText: React.FC<QuantumGlitchTextProps> = ({ text, fontSize = 
   const [parallax, setParallax] = useState({ x: 0, y: 0 });
   const ref = useRef<HTMLDivElement>(null);
 
-  // Glitch loop
+  // Glitch loop - SOLO SI NO ESTÁ INACTIVE
   useEffect(() => {
+    if (inactive) return; // 🎯 ARREGLO: No animar si está inactive
+    
     let running = true;
     function animate() {
-      if (!running) return;
+      if (!running || inactive) return; // 🎯 ARREGLO: Verificar inactive también aquí
       if (glitch || dragging) {
         setGlitchLayers([
           {
@@ -72,10 +74,12 @@ const QuantumGlitchText: React.FC<QuantumGlitchTextProps> = ({ text, fontSize = 
     }
     animate();
     return () => { running = false; };
-  }, [glitch, dragging, offset]);
+  }, [glitch, dragging, offset, inactive]); // 🎯 ARREGLO: Agregar inactive como dependencia
 
-  // Partículas al soltar el drag
+  // Partículas al soltar el drag - SOLO SI NO ESTÁ INACTIVE
   useEffect(() => {
+    if (inactive) return; // 🎯 ARREGLO: No crear partículas si está inactive
+    
     if (!dragging && offset.x !== 0 && offset.y !== 0) {
       // Lanzar partículas
       const newParticles = Array.from({ length: 18 }, () => ({
@@ -91,7 +95,7 @@ const QuantumGlitchText: React.FC<QuantumGlitchTextProps> = ({ text, fontSize = 
       setParticles(newParticles);
       setOffset({ x: 0, y: 0 });
     }
-  }, [dragging]);
+  }, [dragging, inactive]); // 🎯 ARREGLO: Agregar inactive como dependencia
 
   // Animar partículas
   useEffect(() => {

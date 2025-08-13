@@ -242,8 +242,25 @@ const HomePage: FC<HomePageProps> = ({
     updateInterval: 300
   });
 
-  // 🧹 LIMPIEZA DE WEBGL OPTIMIZADA
+  // 🧹 LIMPIEZA DE WEBGL OPTIMIZADA Y FIX DE CURSOR
   useEffect(() => {
+    // ✅ FIX: Forzar cursor normal en HomePage
+    console.log('🎯 HomePage: Forzando cursor normal...');
+    document.body.style.cursor = 'auto';
+    document.documentElement.style.cursor = 'auto';
+    
+    // ✅ FIX: Remover cualquier cursor personalizado heredado
+    const removeCustomCursors = () => {
+      document.querySelectorAll('*').forEach((element) => {
+        const htmlElement = element as HTMLElement;
+        if (htmlElement.style.cursor === 'none') {
+          htmlElement.style.cursor = 'auto';
+        }
+      });
+    };
+    
+    removeCustomCursors();
+    
     // ✅ DEBUG: Verificar inicialización en la primera carga
     console.log('🏁 HomePage montado, verificando condiciones iniciales...');
     console.log('📱 isMobile:', isMobile, 'isTablet:', isTablet);
@@ -278,6 +295,12 @@ const HomePage: FC<HomePageProps> = ({
         if ((window as any).gc) {
           (window as any).gc();
         }
+        
+        // ✅ FIX: Limpiar cursor al salir de HomePage
+        console.log('🎯 HomePage: Limpiando cursor al desmontar...');
+        document.body.style.cursor = '';
+        document.documentElement.style.cursor = '';
+        
       } catch (error) {
         // Ignorar errores de limpieza
         console.debug('Cleanup WebGL context:', error);
@@ -658,6 +681,53 @@ const HomePage: FC<HomePageProps> = ({
   // 🎯 NUEVO: Hook para coordinar inicialización de Canvas con ScrollTrigger
   const [isCanvasReady, setIsCanvasReady] = useState(false);
   const setupScrollTriggerRef = useRef<(() => void) | null>(null);
+
+  // ✅ FIX: Interceptor de cursor para HomePage - AGRESIVO
+  useEffect(() => {
+    console.log('🎯 HomePage: Configurando interceptor agresivo de cursor...');
+    
+    const forceCursor = () => {
+      document.body.style.cursor = 'auto';
+      document.documentElement.style.cursor = 'auto';
+    };
+    
+    // Interceptor de eventos de mouse
+    const mouseEventHandler = (e: MouseEvent) => {
+      forceCursor();
+    };
+    
+    // MutationObserver para interceptar cambios de estilo
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+          const target = mutation.target as HTMLElement;
+          if (target && target.style.cursor && target.style.cursor !== 'auto' && target.style.cursor !== 'pointer') {
+            console.log('🎯 Interceptado cambio de cursor:', target.style.cursor);
+            forceCursor();
+          }
+        }
+      });
+    });
+    
+    // Observar cambios en body y documentElement
+    observer.observe(document.body, { 
+      attributes: true, 
+      attributeFilter: ['style'], 
+      subtree: true 
+    });
+    
+    document.addEventListener('mousemove', mouseEventHandler, { passive: true });
+    document.addEventListener('mouseenter', forceCursor, { passive: true });
+    
+    // Forzar cursor inicial
+    forceCursor();
+    
+    return () => {
+      observer.disconnect();
+      document.removeEventListener('mousemove', mouseEventHandler);
+      document.removeEventListener('mouseenter', forceCursor);
+    };
+  }, []);
 
   // ✅ COORDINACIÓN MEJORADA: Sincronizar Canvas ready con ScrollTrigger setup
   useEffect(() => {

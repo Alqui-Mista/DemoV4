@@ -1,3 +1,14 @@
+/* Fuente SOHO */
+@font-face {
+  font-family: 'SohoPro';
+  src: url('./assets/fonts/SohoPro-UltraItalic.woff2') format('woff2'),
+       url('./assets/fonts/SohoPro-UltraItalic.woff') format('woff'),
+       url('./assets/fonts/SohoPro-UltraItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
   font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -41,7 +52,7 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
-  cursor: pointer;
+  cursor: pointer !important; /* ✅ FIX: Forzar cursor pointer en botones */
   transition: border-color 0.25s;
 }
 button:hover {

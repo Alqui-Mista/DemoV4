@@ -5,6 +5,41 @@
 /* 🎯 Importar sistema responsive avanzado */
 @import '../styles/responsive.css';
 
+/* ✅ FIX: Asegurar cursores normales en HomePage - FORZADO AGRESIVO */
+
+/* Reset global cuando HomePage está activa */
+body:has(.homepage-container),
+html:has(.homepage-container) {
+  cursor: auto !important;
+}
+
+.homepage-container,
+.homepage-container *,
+.homepage-container div,
+.homepage-container span,
+.homepage-container p,
+.homepage-container h1,
+.homepage-container h2,
+.homepage-container h3,
+.homepage-container section,
+.homepage-container article,
+.homepage-container canvas {
+  cursor: auto !important;
+}
+
+.homepage-container button,
+.homepage-container a,
+.homepage-container .clickable,
+.homepage-container [role="button"] {
+  cursor: pointer !important;
+}
+
+/* ✅ FIX: Específico para Canvas de Three.js */
+.homepage-container canvas,
+canvas[data-engine="three.js r170"] {
+  cursor: auto !important;
+}
+
 /* ✅ Reset global para asegurar scroll correcto */
 * {
   box-sizing: border-box;
@@ -15,11 +50,6 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden; /* ✅ Evita scroll horizontal */
-}
-
-/* 🌟 CURSOR INVISIBLE Y ESTELA NARANJA OPTIMIZADA */
-.homepage-container {
-  cursor: none; /* Ocultar cursor por defecto */
 }
 
 /* Canvas trail optimizado con transform3d para GPU */
@@ -488,7 +518,6 @@ body {
   font-size: var(--font-size-base); /* 🎯 RESPONSIVE: Tamaño adaptativo */
   padding: var(--space-md) var(--space-xl); /* 🎯 RESPONSIVE: Padding adaptativo */
   border-radius: calc(var(--border-radius) * 4); /* Rounded button */
-  cursor: pointer;
   z-index: 100;
   transition: all var(--animation-duration) ease;
   box-shadow: 
@@ -506,7 +535,6 @@ body {
 
 .portal-test-button:disabled {
   opacity: 0.7;
-  cursor: not-allowed;
   animation: portalButtonLoading 1s linear infinite;
 }
 
