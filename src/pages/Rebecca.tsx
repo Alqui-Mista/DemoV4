@@ -232,11 +232,10 @@ const Rebecca = memo(() => {
       if (currentZone === "default" || currentZone === "footer") {
         // Usar requestAnimationFrame para optimizar las actualizaciones de CSS
         requestAnimationFrame(() => {
+          // Solo actualizar variables CSS en el contenedor principal
           container.style.setProperty("--cursor-x", `${e.clientX}px`);
           container.style.setProperty("--cursor-y", `${e.clientY}px`);
-
-          cursorCross.style.setProperty("--cursor-x", `${e.clientX}px`);
-          cursorCross.style.setProperty("--cursor-y", `${e.clientY}px`);
+          // El cursorCross puede usar directamente left/top si se requiere, pero no es necesario duplicar la variable
         });
       }
     };
