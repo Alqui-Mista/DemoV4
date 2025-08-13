@@ -1,9 +1,9 @@
 /* HomePage.css */
 
 /* ✅ Importar fuente Oxanium */
-@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Oxanium:wght@700&display=swap");
 /* 🎯 Importar sistema responsive avanzado */
-@import '../styles/responsive.css';
+@import "../styles/responsive.css";
 
 /* ✅ FIX: Asegurar cursores normales en HomePage - FORZADO AGRESIVO */
 
@@ -85,7 +85,7 @@ body {
   pointer-events: none; /* ✅ Permite que el scroll funcione a través del canvas */
   /* ✅ OPTIMIZACIÓN: Eliminar transition para evitar micro-trabados durante scroll */
   /* transition: opacity 0.3s ease-out; ← REMOVIDO */
-  
+
   /* 🚀 ACELERACIÓN HARDWARE para mejor rendimiento */
   transform: translateZ(0);
   will-change: auto; /* Solo cuando sea necesario */
@@ -433,7 +433,9 @@ body {
 .scroll-content {
   position: relative;
   z-index: 10; /* Encima del canvas */
-  height: var(--scroll-height); /* 🚀 RESPONSIVE: Altura adaptativa según dispositivo */
+  height: var(
+    --scroll-height
+  ); /* 🚀 RESPONSIVE: Altura adaptativa según dispositivo */
   width: 100%;
   /* ✅ DIMENSIONES MÍNIMAS GARANTIZADAS para evitar problemas de inicialización */
   min-height: 300vh;
@@ -480,7 +482,7 @@ body {
   color: white;
   padding: var(--space-sm) var(--space-md);
   border-radius: var(--border-radius);
-  font-family: 'Oxanium', monospace;
+  font-family: "Oxanium", monospace;
   font-size: var(--font-size-sm); /* 🎯 RESPONSIVE: Tamaño adaptativo */
   z-index: 100;
 }
@@ -513,23 +515,21 @@ body {
   background: linear-gradient(135deg, #64ffda, #ff64da);
   border: none;
   color: #000;
-  font-family: 'Oxanium', monospace;
+  font-family: "Oxanium", monospace;
   font-weight: 700;
   font-size: var(--font-size-base); /* 🎯 RESPONSIVE: Tamaño adaptativo */
   padding: var(--space-md) var(--space-xl); /* 🎯 RESPONSIVE: Padding adaptativo */
   border-radius: calc(var(--border-radius) * 4); /* Rounded button */
   z-index: 100;
   transition: all var(--animation-duration) ease;
-  box-shadow: 
-    0 4px 15px rgba(100, 255, 218, 0.4),
+  box-shadow: 0 4px 15px rgba(100, 255, 218, 0.4),
     0 0 20px rgba(255, 100, 218, 0.3);
   animation: portalButtonPulse 2s ease-in-out infinite;
 }
 
 .portal-test-button:hover {
   transform: translateX(-50%) scale(1.05);
-  box-shadow: 
-    0 6px 20px rgba(100, 255, 218, 0.6),
+  box-shadow: 0 6px 20px rgba(100, 255, 218, 0.6),
     0 0 30px rgba(255, 100, 218, 0.5);
 }
 
@@ -570,7 +570,7 @@ body {
     min-height: 3rem;
     padding: var(--space-md) var(--space-xl);
   }
-  
+
   .portal-test-button:hover {
     /* Remover hover effects en touch devices */
     transform: translateX(-50%);
@@ -578,11 +578,22 @@ body {
 }
 
 @keyframes portalButtonPulse {
-  0%, 100% { box-shadow: 0 4px 15px rgba(100, 255, 218, 0.4), 0 0 20px rgba(255, 100, 218, 0.3); }
-  50% { box-shadow: 0 6px 20px rgba(100, 255, 218, 0.6), 0 0 30px rgba(255, 100, 218, 0.5); }
+  0%,
+  100% {
+    box-shadow: 0 4px 15px rgba(100, 255, 218, 0.4),
+      0 0 20px rgba(255, 100, 218, 0.3);
+  }
+  50% {
+    box-shadow: 0 6px 20px rgba(100, 255, 218, 0.6),
+      0 0 30px rgba(255, 100, 218, 0.5);
+  }
 }
 
 @keyframes portalButtonLoading {
-  0% { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(360deg); }
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
 }
