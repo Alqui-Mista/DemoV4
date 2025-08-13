@@ -81,7 +81,6 @@ const Rebecca = memo(() => {
   }, []);
 
   // Estados para la sección CTA
-  // Estados para la sección CTA (ya definidos y usados en el render)
 
   useEffect(() => {
     console.log("🎵 Inicializando sonido HOME 3D...");
@@ -118,8 +117,6 @@ const Rebecca = memo(() => {
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-
-    let hasMovedOnce = false;
 
     const cursorCross = document.createElement("div");
     cursorCross.className = "cursor-cross";
@@ -241,13 +238,6 @@ const Rebecca = memo(() => {
           cursorCross.style.setProperty("--cursor-x", `${e.clientX}px`);
           cursorCross.style.setProperty("--cursor-y", `${e.clientY}px`);
         });
-
-        if (
-          !hasMovedOnce &&
-          (currentZone === "default" || currentZone === "footer")
-        ) {
-          hasMovedOnce = true;
-        }
       }
     };
 
