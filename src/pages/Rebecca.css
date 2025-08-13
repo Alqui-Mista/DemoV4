@@ -2498,3 +2498,28 @@ section {
     );
   }
 }
+
+/* --- OPTIMIZACIÓN DE SELECTORES UNIVERSALES --- */
+/* Antes: .rebecca-container * { ... } */
+.rebecca-container > div,
+.rebecca-container > section,
+.rebecca-container > footer {
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  line-height: 1 !important;
+}
+
+/* Antes: .rebecca-container *, .rebecca-container button, ... */
+.rebecca-container button,
+.rebecca-container .vapi-chat-button,
+.rebecca-container a {
+  cursor: none !important;
+}
+
+/* Mantener excepción para homepage-wrapper y homepage-embedded */
+.rebecca-container .homepage-wrapper *,
+.rebecca-container .homepage-embedded *,
+.rebecca-container #interactive-container.active * {
+  cursor: revert !important;
+}
+/* --- FIN OPTIMIZACIÓN --- */
