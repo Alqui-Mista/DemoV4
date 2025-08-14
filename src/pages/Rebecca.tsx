@@ -41,6 +41,11 @@ const Rebecca = memo(() => {
 
   const [isActive, setIsActive] = useState(false);
   const [showHomePage, setShowHomePage] = useState(false);
+  // Ref para reflejar el estado actual de showHomePage dentro del efecto
+  const showHomePageRef = useRef(false);
+  useEffect(() => {
+    showHomePageRef.current = showHomePage;
+  }, [showHomePage]);
   const [isHoveringButton, setIsHoveringButton] = useState(false);
 
   const home3dAudioRef = useRef<HTMLAudioElement | null>(null);
@@ -53,17 +58,159 @@ const Rebecca = memo(() => {
 
   // useEffect para controlar la visibilidad del cursor CAD completo
   useEffect(() => {
-    const cursorCrossElement = document.querySelector(".cursor-cross");
-    const mainContainer = containerRef.current;
+    const container = containerRef.current;
+    if (!container) return;
 
-    if (isEffectActive) {
-      cursorCrossElement?.classList.add("hidden-by-effect");
-      mainContainer?.classList.add("fuente-cero-active");
-    } else {
-      cursorCrossElement?.classList.remove("hidden-by-effect");
-      mainContainer?.classList.remove("fuente-cero-active");
+    // Solo agregar la cruz si no existe
+    let cursorCross = container.querySelector(
+      ".cursor-cross"
+    ) as HTMLDivElement | null;
+    if (!cursorCross) {
+      cursorCross = document.createElement("div");
+      cursorCross.className = "cursor-cross";
+      container.appendChild(cursorCross);
     }
-  }, [isEffectActive]);
+
+    // Elementos de zona
+    let zoneElements: {
+      footer?: HTMLElement;
+      cta?: HTMLElement;
+      home3d?: HTMLElement;
+    } = {};
+    const cacheZoneElements = () => {
+      zoneElements = {
+        footer: document.getElementById("footer-reveal") as HTMLElement,
+        cta: document.getElementById("cta-section") as HTMLElement,
+        home3d: document.getElementById(
+          "homepage-scroll-container"
+        ) as HTMLElement,
+      };
+    };
+
+    // Detectar zona del mouse
+    let currentZone: string = "default";
+    const detectZone = (e: MouseEvent): string => {
+      cacheZoneElements();
+      // Prioridad 1: HOME 3D
+      if (zoneElements.home3d) {
+        const rect = zoneElements.home3d.getBoundingClientRect();
+        if (
+          e.clientX >= rect.left &&
+          e.clientX <= rect.right &&
+          e.clientY >= rect.top &&
+          e.clientY <= rect.bottom
+        ) {
+          return "home3d";
+        }
+      }
+      // Prioridad 2: Footer
+      if (zoneElements.footer) {
+        const rect = zoneElements.footer.getBoundingClientRect();
+        if (
+          e.clientX >= rect.left &&
+          e.clientX <= rect.right &&
+          e.clientY >= rect.top &&
+          e.clientY <= rect.bottom
+        ) {
+          return "footer";
+        }
+      }
+      // Prioridad 3: CTA
+      if (zoneElements.cta) {
+        const rect = zoneElements.cta.getBoundingClientRect();
+        if (
+          e.clientX >= rect.left &&
+          e.clientX <= rect.right &&
+          e.clientY >= rect.top &&
+          e.clientY <= rect.bottom
+        ) {
+          return "cta";
+        }
+      }
+      return "default";
+    };
+
+    const applyCursorForZone = (zone: string) => {
+      if (showHomePage) {
+        container.classList.remove("custom-cursor");
+        cursorCross.classList.remove("visible");
+        cursorCross.style.display = "none";
+        return;
+      }
+      switch (zone) {
+        case "home3d":
+        case "cta":
+          container.classList.remove("custom-cursor");
+          cursorCross.classList.remove("visible");
+          cursorCross.style.display = "none";
+          break;
+        case "footer":
+        case "default":
+          container.classList.add("custom-cursor");
+          cursorCross.classList.add("visible");
+          cursorCross.style.display = "block";
+          break;
+      }
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (showHomePage) {
+        container.classList.remove("custom-cursor");
+        cursorCross.classList.remove("visible");
+        cursorCross.style.display = "none";
+        return;
+      }
+      const newZone = detectZone(e);
+      if (newZone !== currentZone) {
+        currentZone = newZone;
+        applyCursorForZone(newZone);
+      }
+      if (currentZone === "default" || currentZone === "footer") {
+        requestAnimationFrame(() => {
+          container.style.setProperty("--cursor-x", `${e.clientX}px`);
+          container.style.setProperty("--cursor-y", `${e.clientY}px`);
+          cursorCross.style.left = `${e.clientX}px`;
+          cursorCross.style.top = `${e.clientY}px`;
+        });
+      }
+    };
+
+    const handleMouseLeave = () => {
+      container.classList.remove("custom-cursor");
+      cursorCross.classList.remove("visible");
+      cursorCross.style.display = "none";
+      currentZone = "default";
+    };
+
+    const handleMouseEnter = () => {
+      cacheZoneElements();
+      currentZone = "default";
+      applyCursorForZone("default");
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+    container.addEventListener("mouseleave", handleMouseLeave);
+    container.addEventListener("mouseenter", handleMouseEnter);
+
+    currentZone = "default";
+    applyCursorForZone("default");
+
+    const timer = setTimeout(() => {
+      document.querySelectorAll(".fade-in-delayed").forEach((el) => {
+        el.classList.add("fade-in-active");
+      });
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener("mousemove", handleMouseMove);
+      container.removeEventListener("mouseleave", handleMouseLeave);
+      container.removeEventListener("mouseenter", handleMouseEnter);
+      if (cursorCross && container.contains(cursorCross)) {
+        container.removeChild(cursorCross);
+      }
+    };
+  }, [showHomePage]);
 
   // Eliminado observer antiguo para animaciones de textos en CTA
 
@@ -114,166 +261,6 @@ const Rebecca = memo(() => {
     };
   }, [isHovering, isHoveringButton]);
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const cursorCross = document.createElement("div");
-    cursorCross.className = "cursor-cross";
-
-    // ✅ FIX: Agregar al container específico en lugar de body
-    container.appendChild(cursorCross);
-
-    // 🎯 NUEVO SISTEMA: Definir zonas de cursor de forma eficiente
-    let currentZone = "default"; // default, cta, footer, home3d
-    let zoneElements = {
-      cta: null as Element | null,
-      footer: null as Element | null,
-      home3d: null as Element | null,
-    };
-    let lastZoneCheck = 0;
-    const ZONE_CHECK_THROTTLE = 16; // 60fps máximo para detectar zonas
-
-    // Cachear elementos para evitar querySelector repetitivos
-    const cacheZoneElements = () => {
-      zoneElements.cta = document.querySelector(".call-to-action-section");
-      zoneElements.footer = document.querySelector(
-        ".footer-reveal, #footer-reveal, footer, .footer-content"
-      );
-      zoneElements.home3d = document.querySelector(
-        "#interactive-container.active"
-      );
-    };
-
-    const detectZone = (e: MouseEvent): string => {
-      // Throttling para detectar zona (optimización de rendimiento)
-      const now = performance.now();
-      if (now - lastZoneCheck < ZONE_CHECK_THROTTLE) {
-        return currentZone; // Devolver zona actual si es muy pronto para verificar
-      }
-      lastZoneCheck = now;
-
-      // Prioridad 1: HOME 3D (más alta)
-      if (isActive) return "home3d";
-
-      // Cachear elementos si no existen o si han pasado 1000ms
-      if (
-        !zoneElements.cta ||
-        !zoneElements.footer ||
-        now % 1000 < ZONE_CHECK_THROTTLE
-      ) {
-        cacheZoneElements();
-      }
-
-      // Prioridad 2: Footer
-      if (zoneElements.footer) {
-        const rect = zoneElements.footer.getBoundingClientRect();
-        if (
-          e.clientX >= rect.left &&
-          e.clientX <= rect.right &&
-          e.clientY >= rect.top &&
-          e.clientY <= rect.bottom
-        ) {
-          return "footer";
-        }
-      }
-
-      // Prioridad 3: CTA
-      if (zoneElements.cta) {
-        const rect = zoneElements.cta.getBoundingClientRect();
-        if (
-          e.clientX >= rect.left &&
-          e.clientX <= rect.right &&
-          e.clientY >= rect.top &&
-          e.clientY <= rect.bottom
-        ) {
-          return "cta";
-        }
-      }
-
-      return "default";
-    };
-
-    const applyCursorForZone = (zone: string) => {
-      switch (zone) {
-        case "home3d":
-          // Cursor normal del sistema en HOME 3D
-          container.classList.remove("custom-cursor");
-          cursorCross.classList.remove("visible");
-          break;
-        case "cta":
-          // Sin cursor CAD en CTA (tiene su propio cursor de punto de luz)
-          container.classList.remove("custom-cursor");
-          cursorCross.classList.remove("visible");
-          break;
-        case "footer":
-          // Cursor CAD activo en footer
-          container.classList.add("custom-cursor");
-          cursorCross.classList.add("visible");
-          break;
-        case "default":
-          // Cursor CAD activo en sección principal
-          container.classList.add("custom-cursor");
-          cursorCross.classList.add("visible");
-          break;
-      }
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const newZone = detectZone(e);
-
-      // Solo aplicar cambios si la zona cambió (optimización)
-      if (newZone !== currentZone) {
-        currentZone = newZone;
-        applyCursorForZone(newZone);
-      }
-
-      // Actualizar posición solo si el cursor CAD debe estar visible
-      if (currentZone === "default" || currentZone === "footer") {
-        // Usar requestAnimationFrame para optimizar las actualizaciones de CSS
-        requestAnimationFrame(() => {
-          // Solo actualizar variables CSS en el contenedor principal
-          container.style.setProperty("--cursor-x", `${e.clientX}px`);
-          container.style.setProperty("--cursor-y", `${e.clientY}px`);
-          // El cursorCross puede usar directamente left/top si se requiere, pero no es necesario duplicar la variable
-        });
-      }
-    };
-
-    const handleMouseLeave = () => {
-      container.classList.remove("custom-cursor");
-      cursorCross.classList.remove("visible");
-      currentZone = "default";
-    };
-
-    const handleMouseEnter = () => {
-      // Re-cachear elementos al entrar (por si la página cambió)
-      cacheZoneElements();
-
-      // Forzar cursor visible para inicialización rápida
-      currentZone = "default";
-      applyCursorForZone("default");
-    };
-
-    // Event listeners
-    document.addEventListener("mousemove", handleMouseMove);
-    container.addEventListener("mouseleave", handleMouseLeave);
-    container.addEventListener("mouseenter", handleMouseEnter);
-
-    // ✅ FIX: Inicializar cursor inmediatamente
-    currentZone = "default";
-    applyCursorForZone("default");
-
-    // ✅ FIX: Simular movimiento inicial para mostrar cursor
-    const timer = setTimeout(() => {
-      document.querySelectorAll(".fade-in-delayed").forEach((el) => {
-        el.classList.add("fade-in-active");
-      });
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   const handleInteractiveClick = () => {
     if (!isActive) {
       if (home3dAudioRef.current) {
@@ -283,7 +270,6 @@ const Rebecca = memo(() => {
           console.log("⚠️ No se pudo reproducir el sonido HOME 3D:", error);
         });
       }
-
       setIsActive(true);
       setShowHomePage(true);
     }
@@ -292,7 +278,6 @@ const Rebecca = memo(() => {
   return (
     <div ref={containerRef} className="rebecca-container">
       <div id="message-box"></div>
-
       <div className="main-content-wrapper">
         <div
           id="interactive-container"
@@ -327,7 +312,6 @@ const Rebecca = memo(() => {
               id="homepage-scroll-container"
               onClick={(e) => {
                 e.stopPropagation();
-                // Reproducir sonido al cerrar
                 if (home3dAudioRef.current) {
                   home3dAudioRef.current.currentTime = 0;
                   home3dAudioRef.current.play().catch((error) => {
@@ -339,7 +323,7 @@ const Rebecca = memo(() => {
                 }
                 setIsActive(false);
                 setShowHomePage(false);
-                setIsHoveringButton(false); // 🎯 ARREGLO: Resetear estado del tooltip
+                setIsHoveringButton(false);
               }}
             >
               <div className="homepage-embedded">
@@ -352,7 +336,6 @@ const Rebecca = memo(() => {
             </div>
           )}
         </div>
-
         <div
           ref={buttonTooltipRef}
           className="button-tooltip button-tooltip-3d"
@@ -368,13 +351,10 @@ const Rebecca = memo(() => {
             </div>
           </div>
         </div>
-
         <h1 className="portal-title">¡Bienvenido al futuro!</h1>
-
         <div className="vapi-content">
           <VapiChatButton config={vapiConfig} variant="center" size="large" />
         </div>
-
         <div
           className="portal-effects"
           onMouseEnter={() => setIsHovering(true)}
@@ -383,7 +363,6 @@ const Rebecca = memo(() => {
           <div className="glow-ring"></div>
           <div className="pulse-ring"></div>
         </div>
-
         <div
           ref={tooltipRef}
           className="cursor-tooltip"
