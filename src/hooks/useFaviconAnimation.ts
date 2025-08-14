@@ -52,10 +52,9 @@ export const useFaviconAnimation = (config: FaviconAnimationConfig = {}) => {
           ctx.clearRect(0, 0, faviconSize, faviconSize);
           ctx.save();
           ctx.translate(faviconSize / 2, faviconSize / 2);
-          // Simular giro 3D con escala en X
+          // Giro 3D sobre eje Y, manteniendo la cabeza arriba
           const scaleX = Math.cos(currentAngle);
           ctx.scale(scaleX, 1);
-          ctx.rotate(currentAngle);
           ctx.drawImage(
             faviconImg,
             -faviconSize / 2,
