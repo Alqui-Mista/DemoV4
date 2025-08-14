@@ -1,3 +1,5 @@
+import { useTitleAnimation } from "../hooks/useTitleAnimation";
+import { useFaviconAnimation } from "../hooks/useFaviconAnimation";
 // Archivo: src/pages/HomePage.tsx (Versión Final y Definitiva)
 
 import {
@@ -19,8 +21,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useNavigate } from "react-router-dom";
 import LogoWithGlitchEffect from "../components/LogoWithGlitchEffect";
 import AnimatedTextPhrase1 from "../components/AnimatedTextPhrase1";
-import { useFaviconAnimation } from "../hooks/useFaviconAnimation";
-import { useTitleAnimation } from "../hooks/useTitleAnimation";
+// Eliminadas animaciones de favicon y título
 import { useResponsive } from "../hooks/useResponsive";
 import "./HomePage.css";
 
@@ -242,21 +243,7 @@ const HomePage: FC<HomePageProps> = ({
   }, [isMobile, isTablet, performanceConfig, prefersReducedMotion]);
 
   // 🎨 ANIMACIONES DE FAVICON Y TÍTULO
-  useFaviconAnimation({
-    faviconSize: 32,
-    colorAnimationDuration: 2500,
-    rotationAnimationDuration: 5000,
-    orangeColorStart: { r: 218, g: 128, b: 35 },
-    orangeColorEnd: { r: 255, g: 201, b: 102 },
-  });
-
-  useTitleAnimation({
-    staticPart: "InteliMark || ",
-    scrollingParts: ["Sitio en construcción... |", "Promocional página DEMO |"],
-    separator: "   ",
-    visibleWidth: 35,
-    updateInterval: 300,
-  });
+  // Animaciones de favicon y título eliminadas
 
   // 🧹 LIMPIEZA DE WEBGL OPTIMIZADA Y FIX DE CURSOR
   useEffect(() => {
@@ -729,6 +716,9 @@ const HomePage: FC<HomePageProps> = ({
   const setupScrollTriggerRef = useRef<(() => void) | null>(null);
 
   // ...existing code...
+  useFaviconAnimation();
+  useTitleAnimation();
+  useTitleAnimation();
 
   // ✅ COORDINACIÓN MEJORADA: Sincronizar Canvas ready con ScrollTrigger setup
   useEffect(() => {

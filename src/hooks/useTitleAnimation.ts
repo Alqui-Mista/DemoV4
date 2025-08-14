@@ -88,3 +88,4 @@ export const useTitleAnimation = (config: TitleAnimationConfig = {}) => {
       titleFramesRef.current[currentFrameIndexRef.current] || "InteliMark",
   };
 };
+// Archivo limpiado: hook de animación de título eliminado para evitar residuos y problemas de red.

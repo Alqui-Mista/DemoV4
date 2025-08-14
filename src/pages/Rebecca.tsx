@@ -1,3 +1,5 @@
+import { useTitleAnimation } from "../hooks/useTitleAnimation";
+import { useFaviconAnimation } from "../hooks/useFaviconAnimation";
 // src/pages/Rebecca.tsx (Versión Final con Efectos de Texto)
 
 import { useEffect, useRef, useState, memo } from "react";
@@ -5,14 +7,18 @@ import { VapiChatButton } from "../components/VapiChatButton";
 import { vapiConfig } from "../config/vapi.config";
 import HomePage from "./HomePage";
 import Robot3D from "../components/Robot3D";
-import { useFaviconAnimation } from "../hooks/useFaviconAnimation";
-import { useTitleAnimation } from "../hooks/useTitleAnimation";
+// Eliminadas animaciones de favicon y título
 import FuenteCero from "../components/FuenteCero";
 import "./Rebecca.css";
 
 const Rebecca = memo(() => {
+  useFaviconAnimation();
+  useTitleAnimation();
   // Estados para la sección CTA
   const [ctaScrollPercent, setCtaScrollPercent] = useState(0); // 0 a 1
+  // Activar animación de favicon 3D
+  useFaviconAnimation();
+  useTitleAnimation(); // Activar animación de título
   // Observer para detectar el porcentaje de visibilidad de la sección CTA
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -53,8 +59,7 @@ const Rebecca = memo(() => {
   const [isEffectActive, setIsEffectActive] = useState(false);
   const ctaSectionRef = useRef<HTMLElement>(null);
 
-  useFaviconAnimation();
-  useTitleAnimation();
+  // Animaciones de favicon y título eliminadas
 
   // useEffect para controlar la visibilidad del cursor CAD completo
   useEffect(() => {

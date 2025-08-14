@@ -1,5 +1,3 @@
-import { useEffect, useRef } from "react";
-
 interface FaviconAnimationConfig {
   faviconSize?: number;
   colorAnimationDuration?: number;
@@ -8,146 +6,97 @@ interface FaviconAnimationConfig {
   orangeColorEnd?: { r: number; g: number; b: number };
 }
 
+import { useEffect, useRef } from "react";
+
+interface FaviconAnimationConfig {
+  faviconSize?: number;
+  rotationAnimationDuration?: number;
+}
+
 export const useFaviconAnimation = (config: FaviconAnimationConfig = {}) => {
-  const {
-    faviconSize = 32,
-    colorAnimationDuration = 2000,
-    rotationAnimationDuration = 3000,
-    orangeColorStart = { r: 255, g: 140, b: 0 },
-    orangeColorEnd = { r: 255, g: 200, b: 0 },
-  } = config;
+  const { faviconSize = 32, rotationAnimationDuration = 3000 } = config;
   const animationFrameRef = useRef<number>(0);
-  const startTimeRef = useRef<number | null>(null);
   const isActiveRef = useRef<boolean>(false);
 
   useEffect(() => {
-    // Crear SVG dinámicamente
+    const faviconCanvas = document.createElement("canvas");
+    faviconCanvas.width = faviconSize;
+    faviconCanvas.height = faviconSize;
+    const ctx = faviconCanvas.getContext("2d");
+    const faviconImg = new window.Image();
+    faviconImg.src = "/src/assets/favicon_intelimark.png";
 
-    // Cargar el SVG original del isotipo y animar favicon
-    fetch("/src/assets/favicon_intelimark.svg")
-      .then((response) => response.text())
-      .then((svgText) => {
-        const parser = new DOMParser();
-        const svgDoc = parser.parseFromString(svgText, "image/svg+xml");
-        const svgElement = svgDoc.documentElement;
-        svgElement.setAttribute("width", faviconSize.toString());
-        svgElement.setAttribute("height", faviconSize.toString());
-        svgElement.setAttribute("viewBox", `0 0 203.39 235.25`);
+    let favicon = document.querySelector(
+      "link[rel~='icon']"
+    ) as HTMLLinkElement;
+    if (!favicon) {
+      favicon = document.createElement("link");
+      favicon.rel = "icon";
+      document.head.appendChild(favicon);
+    }
 
-        const faviconCanvas = document.createElement("canvas");
-        faviconCanvas.width = faviconSize;
-        faviconCanvas.height = faviconSize;
-        const faviconCtx = faviconCanvas.getContext("2d");
-        const faviconImg = new window.Image();
+    let lastUpdate = 0;
+    const updateInterval = 300; // ms
+    let startTime: number | null = null;
 
-        let favicon = document.querySelector(
-          "link[rel~='icon']"
-        ) as HTMLLinkElement;
-        if (!favicon) {
-          favicon = document.createElement("link");
-          favicon.rel = "icon";
-          document.head.appendChild(favicon);
+    const mainLoop = (timestamp: number) => {
+      if (document.hidden) return;
+      if (!startTime) startTime = timestamp;
+      if (timestamp - lastUpdate > updateInterval) {
+        lastUpdate = timestamp;
+        const elapsedTime = timestamp - startTime;
+        const rotationProgress =
+          (elapsedTime % rotationAnimationDuration) / rotationAnimationDuration;
+        const currentAngle = rotationProgress * Math.PI * 2;
+        if (ctx) {
+          ctx.clearRect(0, 0, faviconSize, faviconSize);
+          ctx.save();
+          ctx.translate(faviconSize / 2, faviconSize / 2);
+          // Simular giro 3D con escala en X
+          const scaleX = Math.cos(currentAngle);
+          ctx.scale(scaleX, 1);
+          ctx.rotate(currentAngle);
+          ctx.drawImage(
+            faviconImg,
+            -faviconSize / 2,
+            -faviconSize / 2,
+            faviconSize,
+            faviconSize
+          );
+          ctx.restore();
+          favicon.href = faviconCanvas.toDataURL("image/png");
         }
+      }
+      if (isActiveRef.current) {
+        animationFrameRef.current = requestAnimationFrame(mainLoop);
+      }
+    };
 
-        const orangeElements = svgElement.querySelectorAll(".cls-2");
-
-        let lastUpdate = 0;
-        const updateInterval = 200; // ms
-
-        const mainLoop = (timestamp: number) => {
-          if (document.hidden) return;
-          if (!startTimeRef.current) startTimeRef.current = timestamp;
-          if (timestamp - lastUpdate > updateInterval) {
-            lastUpdate = timestamp;
-            const elapsedTime = timestamp - startTimeRef.current;
-            const colorProgress =
-              (elapsedTime % colorAnimationDuration) / colorAnimationDuration;
-            const easeProgress =
-              (Math.sin(colorProgress * Math.PI * 2 - Math.PI / 2) + 1) / 2;
-            const orangeR =
-              orangeColorStart.r +
-              (orangeColorEnd.r - orangeColorStart.r) * easeProgress;
-            const orangeG =
-              orangeColorStart.g +
-              (orangeColorEnd.g - orangeColorStart.g) * easeProgress;
-            const orangeB =
-              orangeColorStart.b +
-              (orangeColorEnd.b - orangeColorStart.b) * easeProgress;
-            const currentOrangeColor = `rgb(${Math.round(
-              orangeR
-            )}, ${Math.round(orangeG)}, ${Math.round(orangeB)})`;
-            orangeElements.forEach((el) => {
-              (el as SVGElement).setAttribute("fill", currentOrangeColor);
-            });
-            const svgString = new XMLSerializer().serializeToString(svgElement);
-            const svgDataUrl =
-              "data:image/svg+xml;base64," +
-              btoa(unescape(encodeURIComponent(svgString)));
-            faviconImg.src = svgDataUrl;
-            faviconImg.onload = () => {
-              if (faviconCtx) {
-                faviconCtx.clearRect(0, 0, faviconSize, faviconSize);
-                faviconCtx.drawImage(
-                  faviconImg,
-                  0,
-                  0,
-                  faviconSize,
-                  faviconSize
-                );
-                if (favicon) {
-                  favicon.href = faviconCanvas.toDataURL("image/png");
-                }
-              }
-            };
-          }
-          if (isActiveRef.current) {
-            animationFrameRef.current = requestAnimationFrame(mainLoop);
-          }
-        };
-
-        const handleVisibilityChange = () => {
-          if (document.hidden) {
-            isActiveRef.current = false;
-            if (animationFrameRef.current)
-              cancelAnimationFrame(animationFrameRef.current);
-          } else {
-            isActiveRef.current = true;
-            animationFrameRef.current = requestAnimationFrame(mainLoop);
-          }
-        };
-
-        document.addEventListener("visibilitychange", handleVisibilityChange);
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        isActiveRef.current = false;
+        if (animationFrameRef.current)
+          cancelAnimationFrame(animationFrameRef.current);
+      } else {
         isActiveRef.current = true;
         animationFrameRef.current = requestAnimationFrame(mainLoop);
+      }
+    };
 
-        // Cleanup
-        return () => {
-          isActiveRef.current = false;
-          if (animationFrameRef.current)
-            cancelAnimationFrame(animationFrameRef.current);
-          document.removeEventListener(
-            "visibilitychange",
-            handleVisibilityChange
-          );
-        };
-      });
+    faviconImg.onload = () => {
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+      isActiveRef.current = true;
+      animationFrameRef.current = requestAnimationFrame(mainLoop);
+    };
 
-    // Cleanup for the effect
     return () => {
       isActiveRef.current = false;
       if (animationFrameRef.current)
         cancelAnimationFrame(animationFrameRef.current);
-      // Remove visibilitychange event listener if needed (handled in fetch then block)
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [
-    faviconSize,
-    colorAnimationDuration,
-    rotationAnimationDuration,
-    orangeColorStart,
-    orangeColorEnd,
-  ]);
+  }, [faviconSize, rotationAnimationDuration]);
 
-  // Only return the hook state from the hook, not inside useEffect
   return {
     isActive: isActiveRef.current,
   };
