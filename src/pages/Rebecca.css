@@ -220,11 +220,6 @@ body,
 }
 
 /* 🎯 EXCEPCIÓN: Permitir cursores normales en el visualizador HOME 3D */
-.rebecca-container .homepage-wrapper *,
-.rebecca-container .homepage-embedded *,
-.rebecca-container #interactive-container.active * {
-  cursor: revert !important;
-}
 
 /* 🎯 CONTENIDO PRINCIPAL - CENTRADO SIMPLE Y ESTABLE */
 .vapi-content {
