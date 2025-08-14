@@ -760,7 +760,7 @@ const HomePage: FC<HomePageProps> = ({
     };
 
     // Interceptor de eventos de mouse
-    const mouseEventHandler = (e: MouseEvent) => {
+    const mouseEventHandler = () => {
       forceCursor();
     };
 

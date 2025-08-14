@@ -1,7 +1,7 @@
-import React, { Suspense, useRef, useEffect } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, Html, OrbitControls } from '@react-three/drei';
-import * as THREE from 'three';
+import React, { Suspense, useRef, useEffect } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { useGLTF, Html, OrbitControls } from "@react-three/drei";
+import * as THREE from "three";
 
 // Error Boundary para el Canvas 3D
 class Robot3DErrorBoundary extends React.Component<
@@ -14,30 +14,32 @@ class Robot3DErrorBoundary extends React.Component<
   }
 
   static getDerivedStateFromError(error: Error) {
-    console.error('🤖 Robot3D Error:', error);
+    console.error("🤖 Robot3D Error:", error);
     return { hasError: true };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('🤖 Robot3D Error Details:', error, errorInfo);
+    console.error("🤖 Robot3D Error Details:", error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
       return (
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          color: '#da8023',
-          fontSize: '16px',
-          fontWeight: 'bold',
-          textAlign: 'center',
-          background: 'rgba(26, 26, 26, 0.8)',
-          borderRadius: '10px',
-          padding: '20px',
-          height: '100%'
-        }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "#da8023",
+            fontSize: "16px",
+            fontWeight: "bold",
+            textAlign: "center",
+            background: "rgba(26, 26, 26, 0.8)",
+            borderRadius: "10px",
+            padding: "20px",
+            height: "100%",
+          }}
+        >
           🤖 Robot no disponible
         </div>
       );
@@ -54,7 +56,12 @@ interface RobotModelProps {
   scrollRotation?: number;
 }
 
-function RobotModel({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0], scrollRotation = 0 }: RobotModelProps) {
+function RobotModel({
+  scale = 1,
+  position = [0, 0, 0],
+  rotation = [0, 0, 0],
+  scrollRotation = 0,
+}: RobotModelProps) {
   const meshRef = useRef<THREE.Group>(null);
   const rayTarget1 = useRef<THREE.Object3D>(new THREE.Object3D());
   const rayTarget2 = useRef<THREE.Object3D>(new THREE.Object3D());
@@ -66,9 +73,9 @@ function RobotModel({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0], scr
   const [thinkingPattern, setThinkingPattern] = React.useState(0);
   const [eyeGlowIntensity, setEyeGlowIntensity] = React.useState(1);
   const [isFooterVisible, setIsFooterVisible] = React.useState(false);
-  
+
   // Cargar modelo correctamente usando useGLTF hook
-  const { scene } = useGLTF('/cabeza_robot.glb');
+  const { scene } = useGLTF("/cabeza_robot.glb");
 
   // Configurar posiciones de los targets para los rayos
   React.useEffect(() => {
@@ -83,21 +90,22 @@ function RobotModel({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0], scr
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         setIsFooterVisible(entry.isIntersecting);
-        console.log('🦶 Footer visible:', entry.isIntersecting); // Debug
+        console.log("🦶 Footer visible:", entry.isIntersecting); // Debug
       });
     };
 
     const observer = new IntersectionObserver(observerCallback, {
       root: null,
-      rootMargin: '50px', // Empezar a cargar 50px antes de que sea visible
-      threshold: 0.1 // Activar cuando el 10% del footer sea visible
+      rootMargin: "50px", // Empezar a cargar 50px antes de que sea visible
+      threshold: 0.1, // Activar cuando el 10% del footer sea visible
     });
 
     // Buscar el footer
-    const footerElement = document.querySelector('.footer-reveal') || 
-                         document.querySelector('#footer-reveal') || 
-                         document.querySelector('footer') ||
-                         document.querySelector('.footer-content');
+    const footerElement =
+      document.querySelector(".footer-reveal") ||
+      document.querySelector("#footer-reveal") ||
+      document.querySelector("footer") ||
+      document.querySelector(".footer-content");
 
     if (footerElement) {
       observer.observe(footerElement);
@@ -124,14 +132,14 @@ function RobotModel({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0], scr
 
     const animatePulsation = () => {
       const time = Date.now() * 0.004;
-      
+
       // Pulsación base para elementos generales
       const basePulse = Math.sin(time) * 0.5 + 0.5;
       const sharpPulse = Math.pow(basePulse, 3);
       const electricNoise = Math.random() * 0.2;
       const intensity = 0.1 + (sharpPulse + electricNoise) * 2.4;
       setPulsateIntensity(Math.min(intensity, 2.5));
-      
+
       // Efecto de "pensando" para circuitos del cerebro - ondas secuenciales
       const thinkingTime = time * 0.7; // Más lento para efecto cerebral
       const wave1 = Math.sin(thinkingTime) * 0.5 + 0.5;
@@ -139,7 +147,7 @@ function RobotModel({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0], scr
       const wave3 = Math.sin(thinkingTime + Math.PI) * 0.5 + 0.5;
       const thinking = (wave1 + wave2 * 0.7 + wave3 * 0.4) / 2.1;
       setThinkingPattern(thinking);
-      
+
       // Intensidad especial para el ojo con variaciones más dramáticas
       const eyeTime = time * 1.2;
       const eyePulse = Math.sin(eyeTime) * 0.5 + 0.5;
@@ -154,25 +162,25 @@ function RobotModel({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0], scr
   // Aplicar efectos a los materiales naranjas del modelo
   React.useEffect(() => {
     if (scene) {
-      scene.traverse((child) => {
+      scene.traverse((child: THREE.Object3D) => {
         if (child instanceof THREE.Mesh && child.material) {
           const material = child.material;
-          
+
           // Buscar materiales con colores naranjas/rojizos
           if (material.color) {
             const color = material.color;
             const hsl = { h: 0, s: 0, l: 0 };
             color.getHSL(hsl);
-            
-            if ((hsl.h >= 0 && hsl.h <= 0.15) && hsl.s > 0.5) {
+
+            if (hsl.h >= 0 && hsl.h <= 0.15 && hsl.s > 0.5) {
               if (!material.emissive) material.emissive = new THREE.Color();
-              
+
               // Detectar si es parte del cerebro/circuitos (parte superior) o ojo
               const isEyeArea = child.position.y < 0; // Área del ojo (parte inferior)
               const isBrainArea = child.position.y > 0.2; // Área del cerebro (parte superior)
-              
+
               let finalIntensity = pulsateIntensity;
-              
+
               if (isEyeArea) {
                 // Efecto especial para el ojo
                 finalIntensity = eyeGlowIntensity * 2;
@@ -180,19 +188,19 @@ function RobotModel({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0], scr
                 // Efecto de "pensando" para circuitos del cerebro
                 finalIntensity = thinkingPattern * 1.8 + 0.3;
               }
-              
+
               const emissionIntensity = finalIntensity * 1.5;
-              
+
               material.emissive.setRGB(
                 color.r * emissionIntensity * 0.9,
                 color.g * emissionIntensity * 0.5,
                 color.b * emissionIntensity * 0.1
               );
-              
+
               material.emissiveIntensity = finalIntensity * 5; // Aún más intenso
               material.roughness = Math.max(0.1, 1 - finalIntensity * 0.6);
               material.metalness = Math.min(1, 0.2 + finalIntensity * 0.5);
-              
+
               material.needsUpdate = true;
             }
           }
@@ -205,54 +213,56 @@ function RobotModel({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0], scr
   React.useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
       // Buscar el footer completo usando los selectores correctos
-      const footerContainer = document.querySelector('.footer-reveal') || 
-                             document.querySelector('#footer-reveal') || 
-                             document.querySelector('footer') ||
-                             document.querySelector('.footer-content');
-      
+      const footerContainer =
+        document.querySelector(".footer-reveal") ||
+        document.querySelector("#footer-reveal") ||
+        document.querySelector("footer") ||
+        document.querySelector(".footer-content");
+
       if (footerContainer) {
         const rect = footerContainer.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-        
+
         // Verificar si el mouse está dentro de todo el footer
-        const isInside = event.clientX >= rect.left && 
-                        event.clientX <= rect.right && 
-                        event.clientY >= rect.top && 
-                        event.clientY <= rect.bottom;
-        
+        const isInside =
+          event.clientX >= rect.left &&
+          event.clientX <= rect.right &&
+          event.clientY >= rect.top &&
+          event.clientY <= rect.bottom;
+
         setIsMouseInside(isInside);
-        
+
         if (isInside) {
           // Calcular posición relativa del mouse basada en todo el footer (-1 a 1)
           const x = (event.clientX - centerX) / (rect.width / 2);
           const y = (event.clientY - centerY) / (rect.height / 2);
-          
+
           // Limitar el rango de movimiento
           const clampedX = Math.max(-1, Math.min(1, x));
           const clampedY = Math.max(-1, Math.min(1, y));
-          
+
           setMousePosition({ x: clampedX, y: clampedY });
         }
       }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
-  
+
   // Aplicar rotación basada en scroll y mouse
   useFrame(() => {
     if (meshRef.current) {
       // Rotación Y base por scroll
       let baseRotationY = rotation[1] + scrollRotation;
-      
+
       // Si el mouse está dentro del contenedor, agregar seguimiento
       if (isMouseInside) {
         // Rotación horizontal basada en posición X del mouse (máximo ±30 grados)
         const mouseRotationY = mousePosition.x * 0.5; // 0.5 radianes ≈ 30 grados
         baseRotationY += mouseRotationY;
-        
+
         // Rotación vertical basada en posición Y del mouse (máximo ±20 grados)
         // CORREGIDO: Cambiado el signo para que sea natural (mouse abajo = cabeza abajo)
         const mouseRotationX = mousePosition.y * 0.35; // Removido el signo negativo
@@ -261,16 +271,16 @@ function RobotModel({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0], scr
         // Volver a la posición neutral cuando el mouse sale
         meshRef.current.rotation.x = rotation[0];
       }
-      
+
       meshRef.current.rotation.y = baseRotationY;
     }
   });
-  
+
   // Si no hay escena, no renderizar nada
   if (!scene) {
     return null;
   }
-  
+
   return (
     <group>
       {/* Targets invisibles para los rayos */}
@@ -278,15 +288,15 @@ function RobotModel({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0], scr
       <primitive ref={rayTarget2} object={rayTarget2.current} />
       <primitive ref={rayTarget3} object={rayTarget3.current} />
       <primitive ref={rayTarget4} object={rayTarget4.current} />
-      
-      <primitive 
+
+      <primitive
         ref={meshRef}
-        object={scene.clone()} 
-        scale={scale} 
+        object={scene.clone()}
+        scale={scale}
         position={position}
         rotation={rotation}
       />
-      
+
       {/* SISTEMA DE LUCES - SOLO ACTIVO SI EL FOOTER ES VISIBLE */}
       {isFooterVisible && (
         <>
@@ -299,7 +309,7 @@ function RobotModel({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0], scr
             distance={10} // Mayor alcance
             decay={0.3} // Decay muy bajo para rayos largos
           />
-          
+
           {/* RAYOS DE LUZ DEL OJO - SISTEMA CORREGIDO CON TARGETS */}
           {/* Rayo central hacia adelante */}
           <spotLight
@@ -312,7 +322,7 @@ function RobotModel({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0], scr
             penumbra={0.2} // Bordes definidos
             decay={0.3}
           />
-          
+
           {/* Rayo hacia abajo derecha */}
           <spotLight
             position={[0.2, 0.1, 0.5]}
@@ -324,7 +334,7 @@ function RobotModel({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0], scr
             penumbra={0.3}
             decay={0.4}
           />
-          
+
           {/* Rayo hacia abajo izquierda */}
           <spotLight
             position={[0.2, 0.1, 0.5]}
@@ -336,7 +346,7 @@ function RobotModel({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0], scr
             penumbra={0.3}
             decay={0.4}
           />
-          
+
           {/* Rayo hacia abajo centro */}
           <spotLight
             position={[0.2, 0.1, 0.5]}
@@ -348,7 +358,7 @@ function RobotModel({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0], scr
             penumbra={0.1}
             decay={0.2}
           />
-          
+
           {/* LUCES PARA CIRCUITOS DEL CEREBRO - EFECTOS DE PENSAMIENTO */}
           {/* Luces secuenciales para simular actividad cerebral */}
           <pointLight
@@ -358,23 +368,28 @@ function RobotModel({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0], scr
             distance={2}
             decay={2}
           />
-          
+
           <pointLight
             position={[0, 0.5, 0.2]} // Centro del cerebro
             color="#ff5500"
-            intensity={Math.sin(thinkingPattern * Math.PI * 2 + Math.PI/3) * 3 + 4}
+            intensity={
+              Math.sin(thinkingPattern * Math.PI * 2 + Math.PI / 3) * 3 + 4
+            }
             distance={2.5}
             decay={1.8}
           />
-          
+
           <pointLight
             position={[0.3, 0.4, 0.3]} // Lado derecho del cerebro
             color="#ff4400"
-            intensity={Math.sin(thinkingPattern * Math.PI * 2 + Math.PI*2/3) * 4 + 3}
+            intensity={
+              Math.sin(thinkingPattern * Math.PI * 2 + (Math.PI * 2) / 3) * 4 +
+              3
+            }
             distance={2}
             decay={2}
           />
-          
+
           {/* LUCES ADICIONALES PARA CREAR AMBIENTE DE "PENSAMIENTO" */}
           <pointLight
             position={[-0.15, 0.3, 0.4]}
@@ -383,7 +398,7 @@ function RobotModel({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0], scr
             distance={1.5}
             decay={2.5}
           />
-          
+
           <pointLight
             position={[0.15, 0.3, 0.4]}
             color="#ff6600"
@@ -401,16 +416,18 @@ function RobotModel({ scale = 1, position = [0, 0, 0], rotation = [0, 0, 0], scr
 function LoadingSpinner() {
   return (
     <Html center>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: '#da8023',
-        fontSize: '18px',
-        fontWeight: 'bold',
-        textAlign: 'center',
-        padding: '20px'
-      }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          color: "#da8023",
+          fontSize: "18px",
+          fontWeight: "bold",
+          textAlign: "center",
+          padding: "20px",
+        }}
+      >
         🤖 Cargando robot...
       </div>
     </Html>
@@ -424,11 +441,11 @@ interface Robot3DProps {
   enableScrollRotation?: boolean;
 }
 
-const Robot3D: React.FC<Robot3DProps> = ({ 
-  width = '300px', 
-  height = '300px', 
+const Robot3D: React.FC<Robot3DProps> = ({
+  width = "300px",
+  height = "300px",
   scale = 15,
-  enableScrollRotation = false 
+  enableScrollRotation = false,
 }) => {
   const [scrollRotation, setScrollRotation] = React.useState(0);
 
@@ -438,87 +455,100 @@ const Robot3D: React.FC<Robot3DProps> = ({
     const handleScroll = () => {
       // Obtener la posición del scroll
       const scrollY = window.scrollY;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      
+      const maxScroll =
+        document.documentElement.scrollHeight - window.innerHeight;
+
       // Normalizar el scroll entre -1 y 1
       const normalizedScroll = (scrollY / Math.max(maxScroll, 1)) * 2 - 1;
-      
+
       // Convertir a rotación (90 grados = ~1.57 radianes) - MUCHO MÁS VISIBLE
       const rotationAngle = normalizedScroll * 1.57;
-      
-      console.log('Scroll Y:', scrollY, 'Normalized:', normalizedScroll, 'Rotation:', rotationAngle);
-      
+
+      console.log(
+        "Scroll Y:",
+        scrollY,
+        "Normalized:",
+        normalizedScroll,
+        "Rotation:",
+        rotationAngle
+      );
+
       setScrollRotation(rotationAngle);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [enableScrollRotation]);
   return (
     <Robot3DErrorBoundary>
-      <div style={{ width, height, pointerEvents: 'auto' }}>
+      <div style={{ width, height, pointerEvents: "auto" }}>
         <Canvas
-          camera={{ 
-            position: [0, 0, 3.2], // Alejado mínimamente para dar espacio al movimiento
+          camera={{
+            position: [0, 0, 3.2],
             fov: 50,
             near: 0.1,
-            far: 1000 
+            far: 1000,
           }}
-          style={{ 
-            background: 'transparent',
-            borderRadius: '10px'
+          style={{
+            background: "transparent",
+            borderRadius: "10px",
           }}
-          onError={(error) => {
-            console.error('🤖 Canvas Error:', error);
+          shadows // Activa sombras
+          gl={{ antialias: true }} // Activa antialiasing
+          onError={(error: unknown) => {
+            console.error("🤖 Canvas Error:", error);
           }}
         >
-        <Suspense fallback={<LoadingSpinner />}>
-          {/* Iluminación básica simplificada */}
-          <ambientLight intensity={0.3} color="#ffffff" />
-          <directionalLight 
-            position={[5, 5, 5]} 
-            intensity={0.8} 
-            color="#ffffff"
-          />
-          <directionalLight 
-            position={[-3, -3, 3]} 
-            intensity={0.5} 
-            color="#da8023"
-          />
-          
-          {/* Modelo del robot */}
-          <RobotModel 
-            scale={scale}
-            position={[0, -1.05, 0]}
-            rotation={[0, 0, 0]}
-            scrollRotation={scrollRotation}
-          />
-          
-          {/* Controles de órbita para interacción con mouse - SIN ZOOM */}
-          <OrbitControls 
-            enableZoom={false}
-            enablePan={false}
-            enableRotate={true}
-            autoRotate={false}
-            dampingFactor={0.1}
-            enableDamping={true}
-            minPolarAngle={0}
-            maxPolarAngle={Math.PI}
-          />
-          
-          {/* Ambiente local sin HDR externo */}
-          <mesh visible={false}>
-            <sphereGeometry args={[100, 64, 64]} />
-            <meshBasicMaterial color="#1a1a1a" side={THREE.BackSide} />
-          </mesh>
-        </Suspense>
-      </Canvas>
-    </div>
+          <Suspense fallback={<LoadingSpinner />}>
+            {/* Iluminación básica simplificada */}
+            <ambientLight intensity={0.3} color="#ffffff" />
+            <directionalLight
+              position={[5, 5, 5]}
+              intensity={0.8}
+              color="#ffffff"
+              castShadow // Activa sombras en la luz
+              shadow-mapSize-width={1024}
+              shadow-mapSize-height={1024}
+            />
+            <directionalLight
+              position={[-3, -3, 3]}
+              intensity={0.5}
+              color="#da8023"
+              castShadow
+              shadow-mapSize-width={1024}
+              shadow-mapSize-height={1024}
+            />
+            {/* Modelo del robot con sombras activas */}
+            <RobotModel
+              scale={scale}
+              position={[0, -1.05, 0]}
+              rotation={[0, 0, 0]}
+              scrollRotation={scrollRotation}
+            />
+            {/* Controles de órbita para interacción con mouse - SIN ZOOM */}
+            <OrbitControls
+              enableZoom={false}
+              enablePan={false}
+              enableRotate={true}
+              autoRotate={false}
+              dampingFactor={0.1}
+              enableDamping={true}
+              minPolarAngle={0}
+              maxPolarAngle={Math.PI}
+            />
+            {/* Ambiente local sin HDR externo */}
+            <mesh visible={false}>
+              <sphereGeometry args={[100, 64, 64]} />
+              <meshBasicMaterial color="#1a1a1a" side={THREE.BackSide} />
+            </mesh>
+          </Suspense>
+        </Canvas>
+      </div>
     </Robot3DErrorBoundary>
   );
 };
 
 // Precargar el modelo
-useGLTF.preload('/cabeza_robot.glb');
+useGLTF.preload("/cabeza_robot.glb");
 
 export default Robot3D;
