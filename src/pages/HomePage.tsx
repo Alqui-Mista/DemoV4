@@ -375,26 +375,39 @@ const HomePage: FC<HomePageProps> = ({
   }, []);
 
   // 🎵 ACTIVAR SONIDO AMBIENTE CON PRIMER SCROLL (ScrollTrigger)
+  // 🎵 ACTIVAR SONIDO AMBIENTE SOLO CON PRIMERA INTERACCIÓN DEL USUARIO
   useEffect(() => {
     if (hasStartedAmbientSound || !ambientAudioRef.current) return;
 
-    // Activar audio cuando scrollPercentage cambie por primera vez (indicando que hay scroll)
-    if (scrollPercentage > 0) {
-      const startAmbientSound = async () => {
-        try {
-          await ambientAudioRef.current?.play();
-          setHasStartedAmbientSound(true);
-          console.log(
-            "✅ Sonido ambiente iniciado con scroll (ScrollTrigger detectado)"
-          );
-        } catch (error) {
-          console.log("⚠️ No se pudo iniciar el sonido ambiente:", error);
-        }
-      };
+    const startAmbientSound = async () => {
+      try {
+        await ambientAudioRef.current?.play();
+        setHasStartedAmbientSound(true);
+        console.log("✅ Sonido ambiente iniciado por interacción del usuario");
+      } catch (error) {
+        console.log("⚠️ No se pudo iniciar el sonido ambiente:", error);
+      }
+    };
 
-      startAmbientSound();
-    }
-  }, [scrollPercentage, hasStartedAmbientSound]);
+    const handleUserInteraction = () => {
+      if (!hasStartedAmbientSound) {
+        startAmbientSound();
+        window.removeEventListener("mousedown", handleUserInteraction);
+        window.removeEventListener("keydown", handleUserInteraction);
+        window.removeEventListener("touchstart", handleUserInteraction);
+      }
+    };
+
+    window.addEventListener("mousedown", handleUserInteraction);
+    window.addEventListener("keydown", handleUserInteraction);
+    window.addEventListener("touchstart", handleUserInteraction);
+
+    return () => {
+      window.removeEventListener("mousedown", handleUserInteraction);
+      window.removeEventListener("keydown", handleUserInteraction);
+      window.removeEventListener("touchstart", handleUserInteraction);
+    };
+  }, [hasStartedAmbientSound]);
 
   // 🎵 PAUSAR AUDIO AL CAMBIAR DE PÁGINA
   useEffect(() => {

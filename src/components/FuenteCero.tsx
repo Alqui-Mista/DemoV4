@@ -1,6 +1,6 @@
 // src/components/FuenteCero.tsx
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from "react";
 
 // --- Tipos para la Simulación ---
 interface Point {
@@ -11,40 +11,56 @@ interface Point {
 // --- Hook para el Aura ---
 // Aumentar el desfase entre el aura y el puntero (más lento)
 const useArchitectAura = (easingFactor: number = 0.025) => {
+  // Aura aún más rápida y visible
   const [auraStyle, setAuraStyle] = React.useState<React.CSSProperties>({});
   const [cursorStyle, setCursorStyle] = React.useState<React.CSSProperties>({});
-  const mouse = useRef<Point>({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
-  const aura = useRef<Point>({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
-  const prevMouse = useRef<Point>({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+  const mouse = useRef<Point>({
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2,
+  });
+  const aura = useRef<Point>({
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2,
+  });
+  const prevMouse = useRef<Point>({
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2,
+  });
   const animationFrameId = useRef<number>(0);
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
       mouse.current = { x: event.clientX, y: event.clientY };
       setCursorStyle({
-        transform: `translate(${event.clientX}px, ${event.clientY}px)`
+        transform: `translate(${event.clientX}px, ${event.clientY}px)`,
       });
     };
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
 
     const animate = () => {
       const dx = mouse.current.x - aura.current.x;
       const dy = mouse.current.y - aura.current.y;
       aura.current.x += dx * easingFactor;
       aura.current.y += dy * easingFactor;
-      const speed = Math.min(Math.hypot(mouse.current.x - prevMouse.current.x, mouse.current.y - prevMouse.current.y) / 15, 1.5);
+      const speed = Math.min(
+        Math.hypot(
+          mouse.current.x - prevMouse.current.x,
+          mouse.current.y - prevMouse.current.y
+        ) / 15,
+        1.5
+      );
 
       setAuraStyle({
         transform: `translate(${aura.current.x}px, ${aura.current.y}px)`,
         // @ts-ignore: Permitir variable CSS personalizada
-        '--mouse-speed': `${1 + speed}`,
+        "--mouse-speed": `${1 + speed}`,
       } as React.CSSProperties);
       prevMouse.current = { ...mouse.current };
       animationFrameId.current = requestAnimationFrame(animate);
     };
     animate();
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(animationFrameId.current);
     };
   }, [easingFactor]);
@@ -53,22 +69,25 @@ const useArchitectAura = (easingFactor: number = 0.025) => {
 };
 
 // --- Componente del Canvas de Matrix ---
-const MatrixCanvas: React.FC<{ auraPosition: Point, parentRef: React.RefObject<HTMLElement> }> = ({ auraPosition, parentRef }) => {
+const MatrixCanvas: React.FC<{
+  auraPosition: Point;
+  parentRef: React.RefObject<HTMLElement>;
+}> = ({ auraPosition, parentRef }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   // Números, letras y símbolos de programación
   const characterSet = (
-    '0123456789' +
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
-    'abcdefghijklmnopqrstuvwxyz' +
-    '{}[]()<>;:,.=+-*/%&|!?' +
-    '"\'#@^~$'
-  ).split('');
+    "0123456789" +
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+    "abcdefghijklmnopqrstuvwxyz" +
+    "{}[]()<>;:,.=+-*/%&|!?" +
+    "\"'#@^~$"
+  ).split("");
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const parent = parentRef.current;
     if (!canvas || !parent) return;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     let animationFrameId: number;
@@ -83,7 +102,7 @@ const MatrixCanvas: React.FC<{ auraPosition: Point, parentRef: React.RefObject<H
     };
 
     resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener("resize", resizeCanvas);
 
     // --- Cambios solicitados ---
     // - Fuente VT323, tamaño más delgado
@@ -94,14 +113,19 @@ const MatrixCanvas: React.FC<{ auraPosition: Point, parentRef: React.RefObject<H
     const fontSize = 24.95 * 1.03 * 1.05; // aumento del 3% y luego 5% más
     const columns = Math.floor(parent.clientWidth / fontSize);
     // Aumentar la cantidad de caracteres por columna en un 20% adicional
-    const minTrail = Math.round(5 * 1.45), maxTrail = Math.round(8 * 1.45);
+    const minTrail = Math.round(5 * 1.45),
+      maxTrail = Math.round(8 * 1.45);
     // Disminuir la velocidad de cambio de carácter en otro 20% adicional
     const changeTickLimit = 5.86 / 0.8; // era ~5.86, ahora ~7.33
     const rainDrops = Array.from({ length: columns }, () => {
-      const trailLength = Math.floor(Math.random() * (maxTrail - minTrail + 1)) + minTrail;
+      const trailLength =
+        Math.floor(Math.random() * (maxTrail - minTrail + 1)) + minTrail;
       return {
-        y: Math.floor(Math.random() * parent.clientHeight / fontSize),
-        chars: Array.from({ length: trailLength }, () => characterSet[Math.floor(Math.random() * characterSet.length)]),
+        y: Math.floor((Math.random() * parent.clientHeight) / fontSize),
+        chars: Array.from(
+          { length: trailLength },
+          () => characterSet[Math.floor(Math.random() * characterSet.length)]
+        ),
         speed: Math.random() * 0.11 + 0.045,
         changeTick: Math.floor(Math.random() * changeTickLimit),
         trailLength,
@@ -111,15 +135,17 @@ const MatrixCanvas: React.FC<{ auraPosition: Point, parentRef: React.RefObject<H
     const draw = () => {
       const rect = parent.getBoundingClientRect();
       // --- Estela corta y de apagado rápido, semitransparente ---
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.12)';
-      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = "rgba(0, 0, 0, 0.12)";
+      ctx.globalCompositeOperation = "source-over";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       for (let i = 0; i < rainDrops.length; i++) {
         rainDrops[i].changeTick = (rainDrops[i].changeTick || 0) + 1;
         if (rainDrops[i].changeTick > changeTickLimit) {
           rainDrops[i].chars.pop();
-          rainDrops[i].chars.unshift(characterSet[Math.floor(Math.random() * characterSet.length)]);
+          rainDrops[i].chars.unshift(
+            characterSet[Math.floor(Math.random() * characterSet.length)]
+          );
           rainDrops[i].changeTick = 0;
         }
         const x = i * fontSize;
@@ -133,26 +159,34 @@ const MatrixCanvas: React.FC<{ auraPosition: Point, parentRef: React.RefObject<H
           ctx.save();
           if (t === 0 && distToAura < 90) {
             // Carácter principal cerca del aura: efecto premium y dramático, tonos naranjos más oscuros
-            const intensity = 1 - (distToAura / 90);
-            const highlightColor = `rgba(180, 90, 20, ${Math.min(intensity * 2.5, 0.6)})`;
-            const coreColor = `rgba(220, 140, 60, ${Math.min(intensity * 2.5, 0.7)})`;
-            ctx.globalCompositeOperation = 'lighter';
+            const intensity = 1 - distToAura / 90;
+            const highlightColor = `rgba(180, 90, 20, ${Math.min(
+              intensity * 2.5,
+              0.6
+            )})`;
+            const coreColor = `rgba(220, 140, 60, ${Math.min(
+              intensity * 2.5,
+              0.7
+            )})`;
+            ctx.globalCompositeOperation = "lighter";
             ctx.fillStyle = coreColor;
             ctx.shadowColor = highlightColor;
             ctx.shadowBlur = 32 * intensity;
-            ctx.font = `normal ${fontSize + 10 * intensity}px 'VT323', monospace`;
-            ctx.globalAlpha = 0.7;
+            ctx.font = `normal ${
+              fontSize + 10 * intensity
+            }px 'VT323', monospace`;
+            ctx.globalAlpha = 5.0;
           } else if (t === 0) {
             // Carácter principal lejos del aura: visible y oscuro
             ctx.globalAlpha = 0.32;
-            ctx.fillStyle = '#232323'; // gris oscuro pero visible
-            ctx.shadowColor = 'transparent';
+            ctx.fillStyle = "#232323"; // gris oscuro pero visible
+            ctx.shadowColor = "transparent";
             ctx.shadowBlur = 0;
             ctx.font = `${fontSize}px 'VT323', monospace`;
           } else {
             // Estela corta y de apagado rápido, tonos más oscuros
             ctx.globalAlpha = Math.max(0.13 - t * 0.07, 0.03);
-            ctx.fillStyle = '#101010';
+            ctx.fillStyle = "#101010";
             ctx.font = `${fontSize}px 'VT323', monospace`;
           }
           ctx.fillText(rainDrops[i].chars[t], x, y);
@@ -160,10 +194,14 @@ const MatrixCanvas: React.FC<{ auraPosition: Point, parentRef: React.RefObject<H
         }
         // Velocidad diferenciada: cerca del aura cae más lento
         const yHead = rainDrops[i].y * fontSize;
-        const distHeadToAura = Math.hypot(x - relativeAuraX, yHead - relativeAuraY);
+        const distHeadToAura = Math.hypot(
+          x - relativeAuraX,
+          yHead - relativeAuraY
+        );
         if (distHeadToAura < 90) {
-          const intensity = 1 - (distHeadToAura / 90);
-          rainDrops[i].y += rainDrops[i].speed * (0.25 + 0.75 * (1 - intensity)); // mucho más lento cerca del aura
+          const intensity = 1 - distHeadToAura / 90;
+          rainDrops[i].y +=
+            rainDrops[i].speed * (0.25 + 0.75 * (1 - intensity)); // mucho más lento cerca del aura
         } else {
           rainDrops[i].y += rainDrops[i].speed;
         }
@@ -179,7 +217,7 @@ const MatrixCanvas: React.FC<{ auraPosition: Point, parentRef: React.RefObject<H
 
     return () => {
       cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener("resize", resizeCanvas);
     };
   }, [auraPosition, parentRef]);
 
@@ -199,20 +237,25 @@ const ChromaticAura: React.FC<ChromaticAuraProps> = ({ style }) => (
 );
 
 // --- Componente Principal "Fuente Cero" ---
-const FuenteCero: React.FC<{ parentRef: React.RefObject<HTMLElement> }> = ({ parentRef }) => {
-  const [mousePos, setMousePos] = React.useState<Point>({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+const FuenteCero: React.FC<{ parentRef: React.RefObject<HTMLElement> }> = ({
+  parentRef,
+}) => {
+  const [mousePos, setMousePos] = React.useState<Point>({
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2,
+  });
   React.useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
       setMousePos({ x: event.clientX, y: event.clientY });
     };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
-  const { auraStyle, auraPosition } = useArchitectAura();
+  const { auraStyle, auraPosition } = useArchitectAura(0.06);
 
   return (
     <div className="fuente-cero-container">
-       <style>{`
+      <style>{`
         @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
         html, body, #root, .rebecca-container, .fuente-cero-container {
@@ -299,16 +342,17 @@ const FuenteCero: React.FC<{ parentRef: React.RefObject<HTMLElement> }> = ({ par
       <div
         className="aura-cursor-dot-global"
         style={{
-          position: 'fixed',
-          left: mousePos.x + 'px',
-          top: mousePos.y + 'px',
-          width: '5px',
-          height: '5px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255, 220, 120, 1) 0%, rgba(255, 130, 0, 0.5) 60%, transparent 100%)',
-          boxShadow: '0 0 8px 2px rgba(255, 220, 120, 0.5)',
+          position: "fixed",
+          left: mousePos.x + "px",
+          top: mousePos.y + "px",
+          width: "5px",
+          height: "5px",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle, rgba(255, 220, 120, 1) 0%, rgba(255, 130, 0, 0.5) 60%, transparent 100%)",
+          boxShadow: "0 0 8px 2px rgba(255, 220, 120, 0.5)",
           zIndex: 9999,
-          pointerEvents: 'none',
+          pointerEvents: "none",
         }}
       ></div>
     </div>

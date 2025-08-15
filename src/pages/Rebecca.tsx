@@ -25,6 +25,12 @@ const Rebecca = memo(() => {
       (entries) => {
         entries.forEach((entry) => {
           setCtaScrollPercent(entry.intersectionRatio);
+          // Activar/desactivar lluvia de códigos según visibilidad
+          if (entry.intersectionRatio >= 0.3) {
+            setIsEffectActive(true);
+          } else {
+            setIsEffectActive(false);
+          }
         });
       },
       {
@@ -383,8 +389,6 @@ const Rebecca = memo(() => {
           isEffectActive ? "active-effect" : ""
         }`}
         id="cta-section"
-        onMouseEnter={() => setIsEffectActive(true)}
-        onMouseLeave={() => setIsEffectActive(false)}
       >
         {isEffectActive && <FuenteCero parentRef={ctaSectionRef} />}
 
