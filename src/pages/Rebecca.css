@@ -28,8 +28,9 @@ body,
 }
 
 /* RESET ESPECÍFICO PARA REBECCA */
-.rebecca-container,
-.rebecca-container * {
+.rebecca-container > div,
+.rebecca-container > section,
+.rebecca-container > footer {
   margin: 0 !important;
   box-sizing: border-box !important;
   line-height: 1 !important;
@@ -56,10 +57,15 @@ body,
 }
 
 /* OVERRIDE PARA ELEMENTOS QUE NECESITAN PADDING INTERNO */
-.cta-content,
+.cta-content {
+  padding: clamp(24px, 4vw, 40px) !important;
+  margin: 0 auto !important;
+  max-width: clamp(320px, 80vw, 1000px);
+}
 .footer-content {
-  padding: 40px !important;
-  margin: 0 !important;
+  padding: clamp(24px, 4vw, 40px) !important;
+  margin: 0 auto !important;
+  max-width: clamp(320px, 90vw, 1400px);
 }
 
 .cta-title {
@@ -1290,14 +1296,20 @@ section {
 
 /* Estilos originales que ya tenías para los textos y el botón */
 .cta-title {
-  font-size: 8rem;
+  font-size: clamp(2.5rem, 10vw, 8rem);
   font-weight: 900;
   color: #ffffff;
-  margin-bottom: 80px !important;
+  margin-bottom: clamp(32px, 8vw, 80px) !important;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
   font-family: "SF Pro Display", "Helvetica Neue", sans-serif;
-  line-height: 0.9 !important;
+  line-height: 1 !important;
   letter-spacing: -0.02em;
+  white-space: normal !important;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 /* ¡NUEVO! Keyframes para las animaciones de texto */
@@ -2443,16 +2455,21 @@ section {
 /* 🎬 ANIMACIONES PARA FUENTE CERO */
 
 .cta-image-button-wrapper {
+  position: relative;
+  width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-top: 32px;
+  align-items: flex-start;
+  flex: none;
+  margin-top: clamp(16px, 4vw, 32px);
 }
 
 .cta-image-button {
-  width: 520px;
-  height: 120px;
-  border-radius: 60px;
+  width: 100%;
+  max-width: clamp(220px, 60vw, 520px);
+  height: clamp(40px, 12vw, 120px);
+  flex: none;
+  border-radius: clamp(24px, 6vw, 60px);
   background: linear-gradient(180deg, #232323 80%, #181818 100%);
   box-shadow: 0 4px 32px 0 rgba(0, 0, 0, 0.45), 0 1.5px 0 0 #fff inset,
     0 -2px 16px 0 #ffae00 inset;
@@ -2549,10 +2566,15 @@ section {
 }
 
 /* Antes: .rebecca-container *, .rebecca-container button, ... */
-.rebecca-container button,
-.rebecca-container .vapi-chat-button,
-.rebecca-container a {
-  cursor: none !important;
+
+/* Independencia total de CTA y Footer: los botones del CTA no afectan el footer */
+.call-to-action-section button,
+.call-to-action-section .cta-image-button {
+  cursor: pointer !important;
+}
+.footer-reveal button,
+.footer-reveal .newsletter-button {
+  cursor: pointer !important;
 }
 
 /* Mantener excepción para homepage-wrapper y homepage-embedded */
