@@ -458,6 +458,25 @@ const Rebecca = memo(() => {
             >
               JUNTOS
             </span>
+            {/* Botón visual estilo metálico futurista, animado igual que los textos */}
+            <div
+              className="cta-image-button-wrapper"
+              style={{
+                opacity: ctaScrollPercent >= 0.3 ? 1 : 0,
+                transition: "opacity 0.2s",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                transform: "translateY(100px)",
+              }}
+            >
+              <button
+                className="cta-image-button"
+                tabIndex={-1}
+                aria-label="Botón decorativo CTA"
+              />
+            </div>
           </h2>
         </div>
       </section>
