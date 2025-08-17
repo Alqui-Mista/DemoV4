@@ -1288,10 +1288,14 @@ section {
 
 .cta-content {
   max-width: 1000px;
-  margin: 0 auto !important; /* Asegurar que no haya márgenes externos */
-  padding: 40px !important; /* Padding interno para el contenido */
+  margin: 0 auto !important;
+  padding: 40px 24px clamp(64px, 10vw, 120px) 24px !important;
   position: relative;
-  z-index: 5; /* Asegura que el texto esté sobre Fuente Cero */
+  z-index: 5;
+  box-sizing: border-box;
+  min-height: 320px;
+  /* Eliminar max-height y overflow para evitar scroll interno */
+  padding-bottom: clamp(48px, 8vw, 120px) !important;
 }
 
 /* Estilos originales que ya tenías para los textos y el botón */
@@ -2438,7 +2442,8 @@ section {
 .call-to-action-section {
   /* ¡CLAVE! Permite que el componente FuenteCero se posicione correctamente dentro */
   position: relative;
-  overflow: hidden; /* Contiene el efecto dentro de la sección */
+  min-height: 100vh;
+  /* Eliminar overflow: hidden para permitir que el contenido crezca */
 }
 
 /* Ocultar el cursor por defecto DENTRO de la sección */
@@ -2459,7 +2464,7 @@ section {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   flex: none;
   margin-top: clamp(16px, 4vw, 32px);
 }
