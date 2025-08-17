@@ -49,6 +49,7 @@ body,
 .footer-reveal {
   padding: 0 !important;
   display: flex !important;
+  min-height: calc(100px - 50px) !important; /* Disminuir altura en 50px */
 }
 
 .main-content-wrapper {
@@ -66,6 +67,7 @@ body,
   padding: clamp(24px, 4vw, 40px) !important;
   margin: 0 auto !important;
   max-width: clamp(320px, 90vw, 1400px);
+  min-height: calc(100px - 50px) !important; /* Disminuir altura en 50px */
 }
 
 .cta-title {
@@ -1549,17 +1551,17 @@ section {
     rgba(64, 64, 64, 0.8) 100%
   );
   border: 1px solid rgba(218, 128, 35, 0.2);
-  border-radius: 10px;
-  padding: 12px 20px;
+  border-radius: 15px;
+  padding: 12px 10px;
   font-size: 0.8rem;
   font-weight: 500;
   font-family: "Consolas", "Monaco", "Courier New", monospace;
   color: rgba(218, 128, 35, 0.6);
   cursor: pointer;
   overflow: hidden;
-  margin-top: 24px;
+  margin-top: -90px;
   width: 190px; /* Reducido 5% de 200px */
-  height: 47px; /* Reducido 5% de 50px */
+  height: 50px; /* Reducido 5% de 50px */
 
   /* 🌟 EFECTOS BASE */
   backdrop-filter: blur(10px);
