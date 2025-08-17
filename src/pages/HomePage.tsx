@@ -84,45 +84,6 @@ const LandscapeScene: FC = memo(() => {
 LandscapeScene.displayName = "LandscapeScene";
 
 // --- Componentes de Texto ---
-// Componente original - comentado temporalmente mientras usamos AnimatedTextPhrase1
-/* 
-const TextPhrase1: FC = () => {
-  return (
-    <group>
-      <Text
-        position={[0, 7, -46]}
-        fontSize={1.2}
-        color="white"
-        anchorX="center"
-        anchorY="middle"
-        material-transparent={true}
-      >
-        Estamos construyendo la pieza inteligente perfecta para la ingeniería.
-      </Text>
-      <Text
-        position={[0, 5, -47]}
-        fontSize={1.2}
-        color="white"
-        anchorX="center"
-        anchorY="middle"
-        material-transparent={true}
-      >
-        El lanzamiento está cerca.
-      </Text>
-      <Text
-        position={[0, 2, -48]}
-        fontSize={1.2}
-        color="white"
-        anchorX="center"
-        anchorY="middle"
-        material-transparent={true}
-      >
-        ¡Prepárate para una nueva era!
-      </Text>
-    </group>
-  );
-};
-*/
 
 const TextPhrase2: FC<{ scrollPercentage: number }> = memo(
   ({ scrollPercentage }) => {
@@ -243,7 +204,7 @@ const HomePage: FC<HomePageProps> = ({
   }, [isMobile, isTablet, performanceConfig, prefersReducedMotion]);
 
   // 🎨 ANIMACIONES DE FAVICON Y TÍTULO
-  // Animaciones de favicon y título eliminadas
+  
 
   // 🧹 LIMPIEZA DE WEBGL OPTIMIZADA Y FIX DE CURSOR
   useEffect(() => {
@@ -729,8 +690,7 @@ const HomePage: FC<HomePageProps> = ({
   const setupScrollTriggerRef = useRef<(() => void) | null>(null);
 
   // ...existing code...
-  useFaviconAnimation();
-  useTitleAnimation();
+      useFaviconAnimation();
   useTitleAnimation();
 
   // ✅ COORDINACIÓN MEJORADA: Sincronizar Canvas ready con ScrollTrigger setup

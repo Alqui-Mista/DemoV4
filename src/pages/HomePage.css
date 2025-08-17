@@ -5,10 +5,10 @@
 /* 🎯 Importar sistema responsive avanzado */
 @import "../styles/responsive.css";
 
-/* ✅ FIX: Asegurar cursores normales en HomePage - FORZADO AGRESIVO */
 
-/* Reset global cuando HomePage está activa */
-/* Eliminadas reglas que forzaban cursor nativo. Dejar solo cursores personalizados definidos por el usuario. */
+
+
+
 
 /* ✅ Reset global para asegurar scroll correcto */
 * {
@@ -35,13 +35,6 @@ body {
   will-change: auto; /* Solo cuando sea necesario */
   opacity: 1; /* Opacidad completa para mejor visibilidad */
   background: transparent; /* Asegurar fondo transparente */
-}
-
-/* ✅ Contenedor principal que permite el scroll */
-.app-main {
-  position: relative;
-  width: 100%;
-  height: auto;
 }
 
 /* Contenedor del Canvas 3D (Fondo fijo) */
@@ -443,37 +436,6 @@ body {
   }
 }
 
-/* Indicador de porcentaje de scroll */
-.scroll-percentage-indicator {
-  position: fixed;
-  top: var(--space-lg); /* 🎯 RESPONSIVE: Spacing adaptativo */
-  right: var(--space-lg);
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--border-radius);
-  font-family: "Oxanium", monospace;
-  font-size: var(--font-size-sm); /* 🎯 RESPONSIVE: Tamaño adaptativo */
-  z-index: 100;
-}
 
-/* 📱 RESPONSIVE SCROLL INDICATOR */
-@media (max-width: 480px) {
-  .scroll-percentage-indicator {
-    top: var(--space-md);
-    right: var(--space-md);
-    padding: var(--space-xs) var(--space-sm);
-    font-size: var(--font-size-xs);
-  }
-}
-
-@media (min-width: 1441px) {
-  .scroll-percentage-indicator {
-    top: var(--space-xl);
-    right: var(--space-xl);
-    padding: var(--space-md) var(--space-lg);
-    font-size: var(--font-size-base);
-  }
-}
 
 /* 🧪 BOTÓN DE PRUEBA PARA TRANSICIÓN PORTAL */
