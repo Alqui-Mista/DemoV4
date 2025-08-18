@@ -25,6 +25,47 @@ import AnimatedTextPhrase1 from "../components/AnimatedTextPhrase1";
 import { useResponsive } from "../hooks/useResponsive";
 import "./HomePage.css";
 
+// 🎯 CONSTANTES: Valores reutilizables para mejor mantenibilidad
+const AUDIO_CONFIG = {
+  AMBIENT_VOLUME: 0.15,
+  TRANSITION_VOLUME: 0.4,
+  TRANSITION_DURATION: 3500,
+  AMBIENT_PATH: "/ambient_sound_HomePage.mp3",
+  TRANSITION_PATH: "/transition.mp3",
+} as const;
+
+const SCROLL_CONFIG = {
+  PORTAL_TRIGGER_PERCENTAGE: 70,
+  GLITCH_TRIGGER_PERCENTAGE: 68,
+  GLITCH_DURATION: 600,
+  TEXT_VISIBILITY_THRESHOLD: 70,
+  SETUP_RETRY_DELAY: 300,
+  MOUSE_IDLE_TIMEOUT: 300,
+} as const;
+
+const ANIMATION_CONFIG = {
+  CAMERA_TARGET_Z: -50,
+  CAMERA_TUNNEL_Z: -300,
+  LOGO_TARGET_Z: 50,
+  TEXT_LINE1_Z: 50,
+  TEXT_LINE2_Z: 40,
+  TEXT_LINE3_Z: 35,
+  TEXT2_LINE1_Z: 20,
+  TEXT2_LINE2_Z: 15,
+} as const;
+
+const TRAIL_CONFIG = {
+  COLOR_RGB: "218, 128, 35", // Color base del trail
+  LINE_WIDTH: 3,
+  SHADOW_BLUR: 10,
+  OPACITY_DECAY: 0.85,
+  MIN_OPACITY: 0.05,
+} as const;
+
+const ROUTES = {
+  REBECCA: "/rebecca",
+} as const;
+
 // ✅ Registro explícito de ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
@@ -207,11 +248,8 @@ const HomePage: FC<HomePageProps> = ({
 
   // 🧹 LIMPIEZA DE WEBGL OPTIMIZADA Y FIX DE CURSOR
   useEffect(() => {
-    // ✅ DEBUG: Verificar inicialización en la primera carga
-    console.log("🏁 HomePage montado, verificando condiciones iniciales...");
-    console.log("📱 isMobile:", isMobile, "isTablet:", isTablet);
-    console.log("🎮 prefersReducedMotion:", prefersReducedMotion);
-    console.log("📊 performanceConfig:", performanceConfig);
+    // ✅ DEBUG: Verificación inicial consolidada
+    console.log("🏁 HomePage:", { isMobile, isTablet, prefersReducedMotion });
 
     return () => {
       // Limpiar cache de Three.js y geometrías al desmontar el componente
@@ -259,18 +297,13 @@ const HomePage: FC<HomePageProps> = ({
         const hasScrollableHeight =
           scrollElement.scrollHeight > scrollElement.clientHeight;
 
-        console.log("📏 Diagnóstico de scroll:", {
-          hasHeight,
-          hasScrollableHeight,
-          offsetHeight: scrollElement.offsetHeight,
-          scrollHeight: scrollElement.scrollHeight,
-          clientHeight: scrollElement.clientHeight,
-        });
-
+        // Solo loggear si hay problemas
         if (!hasHeight || !hasScrollableHeight) {
-          console.warn(
-            "⚠️ PROBLEMA DETECTADO: Elemento de scroll sin dimensiones adecuadas"
-          );
+          console.warn("⚠️ Scroll element dimensions issue:", {
+            offsetHeight: scrollElement.offsetHeight,
+            scrollHeight: scrollElement.scrollHeight,
+            clientHeight: scrollElement.clientHeight,
+          });
         }
       }
     };
@@ -325,12 +358,10 @@ const HomePage: FC<HomePageProps> = ({
 
   // � INICIALIZACIÓN DEL SONIDO AMBIENTE (usando helper)
   useEffect(() => {
-    console.log("🎵 Inicializando sonido ambiente...");
-
     // Crear elemento de audio usando helper consolidado con manejo de errores
     const audio = createAudioElement({
-      src: "/ambient_sound_HomePage.mp3",
-      volume: 0.15, // Volumen reducido para ambiente más sutil
+      src: AUDIO_CONFIG.AMBIENT_PATH,
+      volume: AUDIO_CONFIG.AMBIENT_VOLUME,
       loop: true, // Con loop - reproducir en bucle continuo
       preload: "auto",
       onError: (error) => {
@@ -339,11 +370,6 @@ const HomePage: FC<HomePageProps> = ({
     });
 
     ambientAudioRef.current = audio;
-
-    // NO reproducir automáticamente al cargar - solo con scroll
-    console.log(
-      "🎵 Audio ambiente configurado, esperando scroll para iniciar..."
-    );
 
     return () => {
       if (ambientAudioRef.current) {
@@ -355,12 +381,10 @@ const HomePage: FC<HomePageProps> = ({
 
   // 🎵 INICIALIZACIÓN DEL SONIDO DE TRANSICIÓN (usando helper)
   useEffect(() => {
-    console.log("🎵 Inicializando sonido de transición...");
-
     // Crear elemento de audio para transición usando helper consolidado con manejo de errores
     const transitionAudio = createAudioElement({
-      src: "/transition.mp3",
-      volume: 0.4, // Volumen moderado para transición
+      src: AUDIO_CONFIG.TRANSITION_PATH,
+      volume: AUDIO_CONFIG.TRANSITION_VOLUME,
       preload: "auto",
       onError: (error) => {
         console.warn("⚠️ Error cargando audio de transición:", error.message);
@@ -373,9 +397,6 @@ const HomePage: FC<HomePageProps> = ({
       if (transitionAudioRef.current) {
         // NO pausar el audio de transición al cambiar de página
         // Permitir que continúe reproduciéndose durante la transición
-        console.log(
-          "🎵 Manteniendo audio de transición activo durante cambio de página"
-        );
         // Solo limpiar la referencia, pero no pausar el audio
         transitionAudioRef.current = null;
       }
@@ -391,9 +412,8 @@ const HomePage: FC<HomePageProps> = ({
       try {
         await ambientAudioRef.current?.play();
         setHasStartedAmbientSound(true);
-        console.log("✅ Sonido ambiente iniciado por interacción del usuario");
       } catch (error) {
-        console.log("⚠️ No se pudo iniciar el sonido ambiente:", error);
+        console.warn("⚠️ Audio ambiente autoplay blocked:", error);
       }
     };
 
@@ -423,7 +443,6 @@ const HomePage: FC<HomePageProps> = ({
       // Pausar audio ambiente al desmontar el componente (cambio de página)
       if (ambientAudioRef.current && hasStartedAmbientSound) {
         ambientAudioRef.current.pause();
-        console.log("🎵 Audio ambiente pausado al cambiar de página");
       }
     };
   }, [hasStartedAmbientSound]);
@@ -448,27 +467,21 @@ const HomePage: FC<HomePageProps> = ({
 
     // 🎵 REPRODUCIR SONIDO DE TRANSICIÓN
     if (transitionAudioRef.current) {
-      console.log("🎵 Reproduciendo sonido de transición...");
       transitionAudioRef.current.currentTime = 0; // Reiniciar desde el principio
 
       // Intentar reproducir y configurar auto-stop extendido
       const playTransitionSound = async () => {
         try {
           await transitionAudioRef.current?.play();
-          console.log("✅ Sonido de transición iniciado correctamente");
 
-          // Auto-stop del audio después de su duración completa (mantener 3.5s para continuidad)
+          // Auto-stop del audio después de su duración completa
           setTimeout(() => {
             if (transitionAudioRef.current) {
               transitionAudioRef.current.pause();
-              console.log("🎵 Sonido de transición finalizado automáticamente");
             }
-          }, 3500); // 3.5 segundos - duración completa del audio (no se corta)
+          }, AUDIO_CONFIG.TRANSITION_DURATION);
         } catch (error) {
-          console.log(
-            "⚠️ No se pudo reproducir el sonido de transición (posible política de autoplay):",
-            error
-          );
+          console.warn("⚠️ Transition audio autoplay blocked:", error);
           // No intentar fallbacks aquí ya que es un momento específico de transición
         }
       };
@@ -483,16 +496,11 @@ const HomePage: FC<HomePageProps> = ({
     // Crear timeline específico para el efecto portal
     const portalTimeline = gsap.timeline({
       ease: "power3.out",
-      onComplete: () => {
-        console.log(
-          "🎯 Portal transition complete - Timeline terminado correctamente"
-        );
-      },
     });
 
     // ⚡ NAVEGACIÓN OPTIMIZADA: Activar Rebecca después del efecto completo de 2 segundos
     setTimeout(() => {
-      navigate("/rebecca");
+      navigate(ROUTES.REBECCA);
     }, 2000); // ⚡ Navegación exactamente a los 2s
 
     // 🎯 ANIMACIÓN DE ESCENA 3D - Efecto "túnel" comprimido a 2 segundos
@@ -525,7 +533,7 @@ const HomePage: FC<HomePageProps> = ({
       .to(
         camera.position,
         {
-          z: -300,
+          z: ANIMATION_CONFIG.CAMERA_TUNNEL_Z,
           duration: 0.7, // Comprimido de 1.2 a 0.7
           ease: "power3.in",
         },
@@ -614,12 +622,12 @@ const HomePage: FC<HomePageProps> = ({
           lastPoint.y
         );
 
-        gradient.addColorStop(0, "rgba(218, 128, 35, 0.1)"); // Inicio muy transparente
-        gradient.addColorStop(0.5, "rgba(218, 128, 35, 0.4)"); // Medio visible
-        gradient.addColorStop(1, "rgba(218, 128, 35, 0.8)"); // Final más opaco
+        gradient.addColorStop(0, `rgba(${TRAIL_CONFIG.COLOR_RGB}, 0.1)`); // Inicio muy transparente
+        gradient.addColorStop(0.5, `rgba(${TRAIL_CONFIG.COLOR_RGB}, 0.4)`); // Medio visible
+        gradient.addColorStop(1, `rgba(${TRAIL_CONFIG.COLOR_RGB}, 0.8)`); // Final más opaco
 
         ctx.strokeStyle = gradient;
-        ctx.lineWidth = 3;
+        ctx.lineWidth = TRAIL_CONFIG.LINE_WIDTH;
 
         // Dibujar línea continua
         ctx.beginPath();
@@ -632,8 +640,8 @@ const HomePage: FC<HomePageProps> = ({
         ctx.stroke();
 
         // Efecto de brillo
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = "rgba(218, 128, 35, 0.6)";
+        ctx.shadowBlur = TRAIL_CONFIG.SHADOW_BLUR;
+        ctx.shadowColor = `rgba(${TRAIL_CONFIG.COLOR_RGB}, 0.6)`;
         ctx.stroke();
         ctx.shadowBlur = 0;
       }
@@ -643,9 +651,9 @@ const HomePage: FC<HomePageProps> = ({
     trailPointsRef.current = trailPointsRef.current
       .map((point) => ({
         ...point,
-        opacity: point.opacity * 0.85, // Reducción más gradual
+        opacity: point.opacity * TRAIL_CONFIG.OPACITY_DECAY, // Reducción más gradual
       }))
-      .filter((point) => point.opacity > 0.05); // Umbral más alto
+      .filter((point) => point.opacity > TRAIL_CONFIG.MIN_OPACITY); // Umbral más alto
 
     // 4. Continuar animación si hay puntos o mouse activo
     if (trailPointsRef.current.length > 0 || isMouseActiveRef.current) {
@@ -695,7 +703,7 @@ const HomePage: FC<HomePageProps> = ({
       // Configurar timeout para cuando el mouse se detiene
       mouseStoppedTimeoutRef.current = setTimeout(() => {
         isMouseActiveRef.current = false;
-      }, 300); // Mouse considerado "detenido" después de 300ms sin movimiento
+      }, SCROLL_CONFIG.MOUSE_IDLE_TIMEOUT);
     },
     [
       renderTrail,
@@ -707,7 +715,7 @@ const HomePage: FC<HomePageProps> = ({
   const handleMouseLeave = useCallback(() => {
     isMouseActiveRef.current = false;
 
-    // Limpiar timeout si existe
+    // ✅ SIMPLIFICADO: Cleanup consolidado
     if (mouseStoppedTimeoutRef.current) {
       clearTimeout(mouseStoppedTimeoutRef.current);
       mouseStoppedTimeoutRef.current = null;
@@ -716,13 +724,11 @@ const HomePage: FC<HomePageProps> = ({
     // Limpiar trail INMEDIATAMENTE
     trailPointsRef.current = [];
 
-    // Forzar un frame de limpieza total del canvas
+    // Limpiar canvas y cancelar animaciones
     const canvas = trailCanvasRef.current;
     if (canvas) {
       const ctx = canvas.getContext("2d");
-      if (ctx) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-      }
+      ctx?.clearRect(0, 0, canvas.width, canvas.height);
     }
 
     // Cancelar cualquier animación pendiente
@@ -743,7 +749,6 @@ const HomePage: FC<HomePageProps> = ({
   // ✅ COORDINACIÓN MEJORADA: Sincronizar Canvas ready con ScrollTrigger setup
   useEffect(() => {
     if (isCanvasReady && setupScrollTriggerRef.current) {
-      console.log("🎯 Canvas listo, ejecutando setup de ScrollTrigger...");
       setupScrollTriggerRef.current();
     }
   }, [isCanvasReady]);
@@ -773,55 +778,37 @@ const HomePage: FC<HomePageProps> = ({
       container.removeEventListener("mousemove", handleMouseMove);
       container.removeEventListener("mouseleave", handleMouseLeave);
 
-      // Limpiar timeout si existe
-      if (mouseStoppedTimeoutRef.current) {
+      // ✅ SIMPLIFICADO: Cleanup consolidado
+      mouseStoppedTimeoutRef.current &&
         clearTimeout(mouseStoppedTimeoutRef.current);
-      }
-
-      if (animationFrameRef.current) {
+      animationFrameRef.current &&
         cancelAnimationFrame(animationFrameRef.current);
-        animationFrameRef.current = 0;
-      }
+      animationFrameRef.current = 0;
     };
   }, [handleMouseMove, handleMouseLeave]);
 
   useLayoutEffect(() => {
-    const checkReferences = () => {
-      // ✅ VERIFICACIÓN ROBUSTA: Verificar que todos los componentes estén completamente montados
-      const hasScene = !!(
-        sceneRef.current && sceneRef.current.children.length >= 4
+    // ✅ VERIFICACIÓN SIMPLIFICADA: Verificar elementos esenciales para ScrollTrigger
+    const isReady = () => {
+      return !!(
+        sceneRef.current?.children.length >= 4 &&
+        cameraRef.current?.position &&
+        scrollRef.current?.offsetHeight > 0
       );
-      const hasCamera = !!(cameraRef.current && cameraRef.current.position);
-      const hasScrollDiv = !!(
-        scrollRef.current && scrollRef.current.offsetHeight > 0
-      );
-
-      // ✅ VERIFICACIÓN ADICIONAL: Verificar que los componentes Three.js estén inicializados
-      const hasValidChildren =
-        hasScene &&
-        sceneRef.current.children.every(
-          (child) =>
-            child &&
-            (child.type === "Mesh" || child.type === "Group") &&
-            child.position
-        );
-
-      return hasScene && hasCamera && hasScrollDiv && hasValidChildren;
     };
 
     const setupScrollTrigger = (attempt = 1) => {
-      // ✅ LÍMITE AUMENTADO: Dar más tiempo para la inicialización completa
-      if (!checkReferences()) {
+      if (!isReady()) {
         if (attempt < 10) {
-          // Aumentado de 5 a 10 intentos
-          setTimeout(() => setupScrollTrigger(attempt + 1), 300); // Aumentado de 200ms a 300ms
+          setTimeout(
+            () => setupScrollTrigger(attempt + 1),
+            SCROLL_CONFIG.SETUP_RETRY_DELAY
+          );
         } else {
           console.warn("⚠️ ScrollTrigger setup failed after 10 attempts");
         }
         return;
       }
-
-      console.log("✅ Referencias verificadas, configurando ScrollTrigger...");
 
       const logoMesh = sceneRef.current.children[1] as THREE.Mesh;
       const textPhrase1 = sceneRef.current.children[2] as THREE.Group;
@@ -874,8 +861,8 @@ const HomePage: FC<HomePageProps> = ({
 
             // 🔥 Activar efecto de falla digital al 68%
             if (
-              progress >= 68 &&
-              progress < 70 &&
+              progress >= SCROLL_CONFIG.GLITCH_TRIGGER_PERCENTAGE &&
+              progress < SCROLL_CONFIG.PORTAL_TRIGGER_PERCENTAGE &&
               !glitchTriggeredRef.current
             ) {
               glitchTriggeredRef.current = true;
@@ -884,12 +871,12 @@ const HomePage: FC<HomePageProps> = ({
               // Desactivar el efecto después de 600ms (duración de la animación)
               setTimeout(() => {
                 setIsDigitalGlitch(false);
-              }, 600);
+              }, SCROLL_CONFIG.GLITCH_DURATION);
             }
 
             // Activar portal exactamente al 70% del scroll progress
             if (
-              progress >= 70 &&
+              progress >= SCROLL_CONFIG.PORTAL_TRIGGER_PERCENTAGE &&
               !portalTriggeredRef.current &&
               !isTransitioning
             ) {
@@ -925,7 +912,7 @@ const HomePage: FC<HomePageProps> = ({
               // Desactivar el efecto después de 600ms
               setTimeout(() => {
                 setIsDigitalGlitch(false);
-              }, 600);
+              }, SCROLL_CONFIG.GLITCH_DURATION);
             }
 
             // 🚫 NO ACTIVAR PORTAL EN VERSIÓN EMBEBIDA
@@ -938,96 +925,66 @@ const HomePage: FC<HomePageProps> = ({
         cameraRef.current.position,
         {
           y: 2,
-          z: -50,
+          z: ANIMATION_CONFIG.CAMERA_TARGET_Z,
           ease: "none",
         },
         0
       );
 
-      if (logoMesh) {
+      // ✅ SIMPLIFICADO: Animaciones de elementos de la escena sin verificaciones redundantes
+      if (logoMesh?.position) {
         timeline.to(
           logoMesh.position,
-          {
-            z: 50,
-            ease: "none",
-          },
+          { z: ANIMATION_CONFIG.LOGO_TARGET_Z, ease: "none" },
           0
         );
       }
 
-      if (textPhrase1) {
-        const line1 = textPhrase1.children[0];
-        const line2 = textPhrase1.children[1];
-        const line3 = textPhrase1.children[2];
-
-        if (line1?.position) {
+      if (textPhrase1?.children) {
+        const [line1, line2, line3] = textPhrase1.children;
+        if (line1?.position)
           timeline.to(
             line1.position,
-            {
-              z: 50,
-              ease: "none",
-            },
+            { z: ANIMATION_CONFIG.TEXT_LINE1_Z, ease: "none" },
             0
           );
-        }
-
-        if (line2?.position) {
+        if (line2?.position)
           timeline.to(
             line2.position,
-            {
-              z: 40,
-              ease: "none",
-            },
+            { z: ANIMATION_CONFIG.TEXT_LINE2_Z, ease: "none" },
             0
           );
-        }
-
-        if (line3?.position) {
+        if (line3?.position)
           timeline.to(
             line3.position,
-            {
-              z: 35,
-              ease: "none",
-            },
+            { z: ANIMATION_CONFIG.TEXT_LINE3_Z, ease: "none" },
             0
           );
-        }
       }
 
-      if (textPhrase2) {
-        const line1 = textPhrase2.children[0];
-        const line2 = textPhrase2.children[1];
-
-        if (line1?.position) {
+      if (textPhrase2?.children) {
+        const [line1, line2] = textPhrase2.children;
+        if (line1?.position)
           timeline.to(
             line1.position,
-            {
-              z: 20,
-              ease: "none",
-            },
+            { z: ANIMATION_CONFIG.TEXT2_LINE1_Z, ease: "none" },
             0
           );
-        }
-
-        if (line2?.position) {
+        if (line2?.position)
           timeline.to(
             line2.position,
-            {
-              z: 15,
-              ease: "none",
-            },
+            { z: ANIMATION_CONFIG.TEXT2_LINE2_Z, ease: "none" },
             0
           );
-        }
       }
 
       ScrollTrigger.refresh();
 
-      // ✅ VALIDACIÓN FINAL: Verificar que ScrollTrigger se configuró correctamente
+      // ✅ VALIDACIÓN FINAL: Solo loggear en caso de problemas
       const activeScrollTriggers = ScrollTrigger.getAll();
-      console.log(
-        `✅ ScrollTrigger configurado exitosamente. Triggers activos: ${activeScrollTriggers.length}`
-      );
+      if (activeScrollTriggers.length === 0) {
+        console.warn("⚠️ No ScrollTriggers were created");
+      }
     };
 
     // ✅ INICIALIZACIÓN MEJORADA: Usar requestAnimationFrame para mejor sincronización
@@ -1046,9 +1003,6 @@ const HomePage: FC<HomePageProps> = ({
     const timeoutId = setTimeout(() => {
       // Solo ejecutar si el Canvas no está listo aún (fallback)
       if (!isCanvasReady) {
-        console.log(
-          "🕒 Timeout fallback: ejecutando setup sin esperar Canvas ready"
-        );
         initializeScrollTrigger();
       }
     }, 500); // Aumentado para dar más tiempo
@@ -1097,7 +1051,6 @@ const HomePage: FC<HomePageProps> = ({
             gl.outputColorSpace = THREE.SRGBColorSpace;
 
             // ✅ NUEVA COORDINACIÓN: Señalar que el Canvas está listo
-            console.log("🎨 Canvas inicializado correctamente");
             setIsCanvasReady(true);
           }}
         >
