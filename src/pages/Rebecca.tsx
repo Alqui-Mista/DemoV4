@@ -1,4 +1,4 @@
-// src/pages/Rebecca.tsx (Versión Final con Efectos de Texto)
+// src/pages/Rebecca.tsx (Versión Optimizada para Performance)
 
 import { useEffect, useRef, useState, memo } from "react";
 import { VapiChatButton } from "../components/VapiChatButton";
