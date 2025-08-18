@@ -186,8 +186,9 @@ body,
 .footer-content {
   padding: clamp(24px, 4vw, 40px) !important;
   margin: 0 auto !important;
-  max-width: clamp(320px, 90vw, 1400px);
-  min-height: calc(100px - 50px) !important; /* Disminuir altura en 50px */
+  max-width: clamp(320px, 85vw, 1200px);
+  min-height: auto !important; /* Cambiar a auto para altura natural */
+  height: auto; /* Altura automática basada en contenido */
 }
 
 .cta-title {
@@ -2031,12 +2032,12 @@ section {
 .footer-reveal {
   position: relative;
   width: 100vw;
-  min-height: 100vh;
+  min-height: 100vh; /* Restaurado a 100vh para ocupar toda la pantalla */
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0;
-  padding: 80px 40px;
+  padding: 40px 20px; /* Reducido padding lateral para menos margen */
   box-sizing: border-box;
   z-index: 3;
   background: linear-gradient(
@@ -2058,29 +2059,32 @@ section {
 }
 
 .footer-content {
-  max-width: 1400px;
+  max-width: 1400px; /* Aumentado para mejor uso del espacio */
   width: 100%;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  gap: 80px;
-  align-items: center;
-  height: 100%;
+  gap: 40px; /* Reducido de 60px para menos separación */
+  align-items: center; /* Centrado vertical para mejor alineación */
+  height: auto; /* Cambiado de 100% a auto para mejor adaptación */
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .footer-info {
   text-align: left;
   display: flex;
   flex-direction: column;
-  gap: 32px; /* Espaciado consistente entre secciones */
-  max-width: 450px;
+  gap: 20px; /* Reducido gap para menos separación */
+  max-width: 500px; /* Aumentado para mejor uso del espacio */
+  align-self: center; /* Centrado verticalmente */
+  padding-right: 20px; /* Pequeño padding para separación */
 }
 
 /* 📧 SECCIÓN NEWSLETTER - MEJOR ORGANIZACIÓN */
 .newsletter-section {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px; /* Reducido de 16px */
 }
 
 .footer-info h4 {
@@ -2096,7 +2100,7 @@ section {
 
 /* 📝 TÍTULO Y DESCRIPCIÓN DE NEWSLETTER */
 .footer-info h3 {
-  font-size: 3.2rem;
+  font-size: 2.8rem; /* Reducido de 3.2rem */
   color: rgba(0, 0, 0, 0.9);
   margin: 0;
   font-weight: 900;
@@ -2105,7 +2109,7 @@ section {
 }
 
 .footer-info p {
-  font-size: 1.3rem;
+  font-size: 1.1rem; /* Reducido de 1.3rem */
   color: rgba(0, 0, 0, 0.7);
   margin: 0;
   line-height: 1.4;
@@ -2227,6 +2231,9 @@ section {
 
 .contact-info {
   text-align: right;
+  max-width: 500px; /* Añadido max-width para mejor control */
+  align-self: center; /* Centrado verticalmente */
+  padding-left: 20px; /* Pequeño padding para separación */
 }
 
 .contact-info h4 {
@@ -2743,19 +2750,38 @@ section {
   text-align: right;
   display: flex;
   flex-direction: column;
-  gap: 16px; /* Reducido de 24px */
+  gap: 10px; /* Reducido de 14px para mayor compacidad */
   width: 100%;
-  max-width: 350px; /* Límite de ancho */
+  max-width: 320px; /* Reducido para mejor adaptación */
   overflow: hidden; /* Evitar desbordamiento */
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  align-self: flex-start; /* Alinear al inicio del container */
+  justify-self: end; /* Alinear a la derecha en el grid */
+  padding-top: 0; /* Asegurar que empiece al mismo nivel */
+}
+
+/* 🎯 ADAPTACIÓN DINÁMICA CUANDO EL BOTÓN MATRIX SE EXPANDE */
+.footer-content:has(.ai-matrix-button:hover) .contact-info {
+  max-width: 280px; /* Se comprime cuando el botón se expande */
+  gap: 8px; /* Gap aún más compacto en hover */
+}
+
+.footer-content:has(.ai-matrix-button:hover) .contact-item {
+  padding: 6px 10px; /* Padding más compacto en hover */
+  transform: scale(0.95); /* Ligera reducción de escala */
 }
 
 .contact-info h4 {
-  font-size: 0.8rem; /* Reducido de 0.9rem */
+  font-size: 0.85rem; /* Igualado con el lado izquierdo */
   color: rgba(0, 0, 0, 0.6);
-  margin-bottom: 16px; /* Reducido de 20px */
+  margin: 0; /* Eliminar márgenes */
+  margin-bottom: 16px; /* Mismo margin-bottom que el lado izquierdo */
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1.5px; /* Reducido de 2px */
+  letter-spacing: 2.2px; /* Igualado con el lado izquierdo */
+  line-height: 1; /* Control de altura */
+  padding-bottom: 8px; /* Mismo padding que el lado izquierdo */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Mismo border que el lado izquierdo */
 }
 
 /* 📧 ELEMENTOS DE CONTACTO INDIVIDUALES */
@@ -2764,8 +2790,8 @@ section {
   flex-direction: column;
   align-items: flex-end;
   position: relative;
-  padding: 12px 16px;
-  border-radius: 10px;
+  padding: 8px 12px; /* Reducido de 12px 16px */
+  border-radius: 8px; /* Reducido de 10px */
   /* 🎯 ESTILO UNIFICADO COMO VENTAS PARA TODOS LOS CUADROS */
   background: linear-gradient(
     135deg,
@@ -2775,10 +2801,12 @@ section {
   );
   border: 2px solid rgba(218, 128, 35, 0.3);
   backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
   overflow: hidden;
+  min-height: 60px; /* Altura mínima controlada */
   /* 🌟 EFECTOS DE CONTRASTE */
   box-shadow: 0 4px 12px rgba(218, 128, 35, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -2815,20 +2843,31 @@ section {
 /* 🎯 ICONOS DE CONTACTO */
 .contact-icon {
   position: relative;
-  width: 32px; /* Reducido de 40px */
-  height: 32px; /* Reducido de 40px */
+  width: 28px; /* Reducido de 32px */
+  height: 28px; /* Reducido de 32px */
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px !important; /* Ajustado a 10px para separación óptima */
+  margin-bottom: 6px !important; /* Reducido de 10px */
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .contact-icon div {
-  font-size: 16px; /* Reducido de 20px */
+  font-size: 14px; /* Reducido de 16px */
   filter: grayscale(1);
-  transition: all 0.3s ease;
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 🎯 ADAPTACIÓN CUANDO EL BOTÓN MATRIX SE EXPANDE */
+.footer-content:has(.ai-matrix-button:hover) .contact-icon {
+  width: 24px; /* Reducido de 28px */
+  height: 24px; /* Reducido de 28px */
+}
+
+.footer-content:has(.ai-matrix-button:hover) .contact-icon div {
+  font-size: 12px; /* Reducido de 14px */
 }
 
 .contact-item:hover .contact-icon div {
@@ -2847,19 +2886,19 @@ section {
 
 /* 📧 TEXTOS GENERALES */
 .contact-item p {
-  font-size: 1rem;
+  font-size: 0.9rem; /* Reducido de 1rem */
   /* 🎯 TEXTO BLANCO CON EFECTOS DE CONTRASTE */
   color: #ffffff;
-  margin: 3px 0;
+  margin: 2px 0; /* Reducido de 3px */
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), 0 0 4px rgba(255, 255, 255, 0.1);
   font-weight: 500;
   text-align: right;
   word-break: break-word; /* Permitir quiebre de palabras largas */
-  line-height: 1.3; /* Mejorar espaciado de líneas */
+  line-height: 1.2; /* Reducido de 1.3 para mayor compacidad */
 }
 
 .contact-label {
-  font-size: 0.7rem;
+  font-size: 0.65rem; /* Reducido de 0.7rem */
   /* 🎯 TEXTO GRIS CLARO CON EFECTOS DE CONTRASTE */
   color: rgba(255, 255, 255, 0.7);
   font-weight: 400;
@@ -2877,7 +2916,8 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* Cambiar de center a flex-start */
+  align-self: flex-start; /* Alinear al inicio del container */
 }
 
 .ai-character {
@@ -2969,16 +3009,19 @@ section {
 /* 🤖 CONTENEDOR DEL ROBOT 3D - INVISIBLE */
 .robot-3d-container {
   position: relative;
-  margin-bottom: 20px;
-  /* Dimensiones aumentadas para acomodar mejor la cabeza del robot */
-  width: 380px; /* Ancho mantenido */
-  height: 480px; /* Aumentado de 420px a 480px para más espacio vertical */
+  margin: 0 auto; /* Centrado horizontal */
+  /* Dimensiones optimizadas para mejor proporción */
+  width: 350px; /* Ligeramente aumentado para mejor presencia */
+  height: 420px; /* Ligeramente aumentado */
   /* Contenedor completamente transparente e invisible */
   background: transparent;
   border: none;
   box-shadow: none;
   padding: 0;
   transition: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .robot-3d-container:hover {
@@ -3029,6 +3072,11 @@ section {
 
 /* 📱 RESPONSIVE DESIGN MEJORADO */
 @media (max-width: 768px) {
+  .footer-reveal {
+    min-height: 100vh; /* Mantenido 100vh para ocupar toda la pantalla en tablets */
+    padding: 30px 15px; /* Reducido padding lateral */
+  }
+
   .call-to-action-section {
     padding: 40px 20px;
     margin-top: 100vh;
@@ -3041,27 +3089,59 @@ section {
 
   .footer-content {
     grid-template-columns: 1fr;
-    gap: 60px;
+    gap: 30px; /* Reducido para mejor uso del espacio */
     text-align: center;
-    padding: 40px 20px;
+    padding: 10px; /* Reducido padding */
+    max-width: 100%;
   }
 
   .footer-info {
     text-align: center;
     order: 2;
+    gap: 15px; /* Reducido gap */
+    max-width: 100%;
+    padding-right: 0;
   }
 
   .footer-robot {
     order: 1;
   }
 
+  .robot-3d-container {
+    width: 300px; /* Optimizado para tablets */
+    height: 380px; /* Optimizado para tablets */
+    margin: 0 auto;
+  }
+
   .contact-info {
     text-align: center;
     order: 3;
+    max-width: 100%;
+    padding-left: 0;
+  }
+
+  /* 🎯 OPTIMIZACIÓN PARA TABLETS */
+  .contact-item {
+    padding: 10px 14px;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .contact-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .contact-icon div {
+    font-size: 15px;
   }
 
   .footer-info h3 {
-    font-size: 2.5rem;
+    font-size: 2.2rem; /* Reducido de 2.5rem */
+  }
+
+  .footer-info p {
+    font-size: 1rem; /* Reducido para tablets */
   }
 
   .newsletter-form {
@@ -3078,6 +3158,11 @@ section {
 
 /* 📱 MEDIA QUERY ESPECÍFICA PARA BOTÓN MATRIX AI EN MÓVILES */
 @media (max-width: 480px) {
+  .footer-reveal {
+    min-height: 100vh; /* Restaurado a 100vh para móviles también */
+    padding: 20px 10px; /* Padding muy reducido */
+  }
+
   .ai-matrix-button {
     width: 161px; /* Reducido 5% de 170px */
     height: 43px; /* Reducido 5% de 45px */
@@ -3086,8 +3171,78 @@ section {
   }
 
   .ai-matrix-button:hover {
-    width: 220px; /* Mantenido para una buena transformación */
-    height: 60px; /* Aumentado proporcionalmente */
+    width: 200px; /* Reducido para móviles */
+    height: 55px; /* Reducido para móviles */
+  }
+
+  .footer-content {
+    gap: 20px; /* Compacto pero usable para móviles */
+    padding: 10px; /* Padding mínimo */
+    max-width: 100%;
+  }
+
+  .footer-info {
+    gap: 12px; /* Gap reducido */
+    max-width: 100%;
+    padding-right: 0;
+  }
+
+  .footer-info h3 {
+    font-size: 1.8rem; /* Muy reducido para móviles */
+  }
+
+  .footer-info p {
+    font-size: 0.9rem; /* Texto pequeño para móviles */
+  }
+
+  .robot-3d-container {
+    width: 260px; /* Optimizado para móviles */
+    height: 320px; /* Optimizado para móviles */
+    margin: 0 auto;
+  }
+
+  /* 🎯 CONTACT-INFO OPTIMIZADO PARA MÓVILES */
+  .contact-info {
+    max-width: 100%;
+    gap: 8px; /* Reducido de 10px para móviles */
+    padding-left: 0;
+  }
+
+  .contact-item {
+    padding: 6px 10px; /* Reducido de 8px 12px */
+    border-radius: 6px; /* Reducido de 8px */
+    min-height: 50px; /* Reducido de 60px */
+  }
+
+  .contact-icon {
+    width: 22px; /* Reducido de 24px */
+    height: 22px; /* Reducido de 24px */
+    margin-bottom: 4px !important; /* Reducido de 6px */
+  }
+
+  .contact-icon div {
+    font-size: 11px; /* Reducido de 12px */
+  }
+
+  .contact-item p {
+    font-size: 0.8rem; /* Reducido de 0.85rem */
+    line-height: 1.1; /* Reducido de 1.2 */
+    margin: 1px 0; /* Reducido de 2px */
+  }
+
+  .contact-label {
+    font-size: 0.6rem; /* Reducido de 0.65rem */
+  }
+
+  /* 🎯 ADAPTACIÓN MÓVIL CUANDO EL BOTÓN SE EXPANDE */
+  .footer-content:has(.ai-matrix-button:hover) .contact-info {
+    max-width: 240px;
+    gap: 6px; /* Reducido de 8px */
+  }
+
+  .footer-content:has(.ai-matrix-button:hover) .contact-item {
+    padding: 4px 8px; /* Reducido de 6px 10px */
+    transform: scale(0.9);
   }
 
   .holo-text {
@@ -3168,124 +3323,7 @@ section {
 
 /* 🎬 ANIMACIONES PARA FUENTE CERO */
 
-.cta-image-button-wrapper {
-  position: relative;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: none;
-  margin-top: clamp(16px, 4vw, 32px);
-}
-
-.cta-image-button {
-  width: 100%;
-  max-width: clamp(220px, 60vw, 520px);
-  height: clamp(40px, 12vw, 120px);
-  flex: none;
-  border-radius: clamp(24px, 6vw, 60px);
-  background: linear-gradient(180deg, #232323 80%, #181818 100%);
-  box-shadow: 0 4px 32px 0 rgba(0, 0, 0, 0.45), 0 1.5px 0 0 #fff inset,
-    0 -2px 16px 0 #ffae00 inset;
-  border: 2.5px solid #bfc2c7;
-  outline: none;
-  position: relative;
-  transition: box-shadow 0.2s, border-color 0.2s;
-  cursor: default;
-}
-
-.cta-image-button::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 100px;
-  border-radius: 0 0 100px 100px;
-  background: linear-gradient(
-    180deg,
-    rgba(253, 101, 0, 0.144) 0%,
-    rgba(255, 115, 0, 0) 0%
-  );
-  filter: blur(5px);
-  pointer-events: none;
-}
-
-.cta-image-button:focus {
-  border-color: #ffd700;
-  box-shadow: 0 4px 32px 0 rgba(0, 0, 0, 0.45), 0 1.5px 0 0 #ffd700 inset,
-    0 -2px 16px 0 #ffae00 inset;
-}
-
-/* Animación para la morfología cuántica del aura */
-@keyframes morph-shape {
-  0% {
-    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
-  }
-  25% {
-    border-radius: 30% 70% 40% 60% / 60% 30% 70% 40%;
-  }
-  50% {
-    border-radius: 60% 40% 30% 70% / 40% 60% 30% 70%;
-  }
-  75% {
-    border-radius: 70% 30% 60% 40% / 55% 65% 35% 45%;
-  }
-  100% {
-    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
-  }
-}
-
-/* Animación para la órbita de los ecos */
-@keyframes orbit {
-  from {
-    transform: rotate(0deg) translateX(70px)
-      scale(calc(0.6 * var(--mouse-speed, 1))) rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg) translateX(70px)
-      scale(calc(0.6 * var(--mouse-speed, 1))) rotate(-360deg);
-  }
-}
-
-/* Animación para el pulso de color del núcleo */
-@keyframes cinematic-glow {
-  0%,
-  100% {
-    background: radial-gradient(
-      circle,
-      rgba(255, 130, 0, 0.1) 0%,
-      rgba(255, 130, 0, 0) 30%,
-      transparent 70%
-    );
-  }
-  50% {
-    background: radial-gradient(
-      circle,
-      rgba(210, 210, 210, 0.08) 10%,
-      rgba(150, 150, 150, 0) 50%,
-      transparent 80%
-    );
-  }
-}
-
-/* --- OPTIMIZACIÓN DE SELECTORES UNIVERSALES --- */
-/* Antes: .rebecca-container * { ... } */
-.rebecca-container > div,
-.rebecca-container > section,
-.rebecca-container > footer {
-  margin: 0 !important;
-  box-sizing: border-box !important;
-  line-height: 1 !important;
-}
-
-/* Antes: .rebecca-container *, .rebecca-container button, ... */
-
-/* Independencia total de CTA y Footer: los botones del CTA no afectan el footer */
-.call-to-action-section button,
-.call-to-action-section .cta-image-button {
-  cursor: pointer !important;
-}
+/* Independencia total de CTA y Footer: no afectan el footer */
 .footer-reveal button,
 .footer-reveal .newsletter-button {
   cursor: pointer !important;
