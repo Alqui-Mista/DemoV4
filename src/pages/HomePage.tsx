@@ -204,7 +204,6 @@ const HomePage: FC<HomePageProps> = ({
   }, [isMobile, isTablet, performanceConfig, prefersReducedMotion]);
 
   // 🎨 ANIMACIONES DE FAVICON Y TÍTULO
-  
 
   // 🧹 LIMPIEZA DE WEBGL OPTIMIZADA Y FIX DE CURSOR
   useEffect(() => {
@@ -690,7 +689,7 @@ const HomePage: FC<HomePageProps> = ({
   const setupScrollTriggerRef = useRef<(() => void) | null>(null);
 
   // ...existing code...
-      useFaviconAnimation();
+  useFaviconAnimation();
   useTitleAnimation();
 
   // ✅ COORDINACIÓN MEJORADA: Sincronizar Canvas ready con ScrollTrigger setup
