@@ -5,6 +5,14 @@
 /* 🎯 Importar sistema responsive avanzado */
 @import "../styles/responsive.css";
 
+/* 📱 VARIABLES CSS: Mobile-First Responsive Heights */
+:root {
+  --scroll-height-mobile: 250vh; /* Móvil pequeño */
+  --scroll-height-medium: 275vh; /* Móvil grande/tablet pequeño */
+  --scroll-height-desktop: 300vh; /* Desktop */
+  --scroll-height-landscape: 200vh; /* Landscape móvil */
+}
+
 /* ✅ Reset global para asegurar scroll correcto */
 * {
   box-sizing: border-box;
@@ -17,7 +25,13 @@ body {
   overflow-x: hidden; /* ✅ Evita scroll horizontal */
 }
 
-/* Canvas trail optimizado con transform3d para GPU */
+/* 🚀 CLASE UTILITARIA: Hardware Acceleration consolidada para reutilización */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: auto;
+}
+
+/* Canvas trail optimizado con hardware acceleration */
 .cursor-trail-canvas {
   position: fixed;
   top: 0;
@@ -26,13 +40,11 @@ body {
   height: 100vh;
   pointer-events: none;
   z-index: 10001; /* Por encima del scroll indicator pero debajo de otros elementos críticos */
-  transform: translate3d(0, 0, 0); /* Forzar aceleración GPU */
-  will-change: auto; /* Solo cuando sea necesario */
   opacity: 1; /* Opacidad completa para mejor visibilidad */
   background: transparent; /* Asegurar fondo transparente */
 }
 
-/* Contenedor del Canvas 3D (Fondo fijo) */
+/* Contenedor del Canvas 3D (Fondo fijo) con hardware acceleration optimizada */
 .canvas-container {
   position: fixed;
   top: 0;
@@ -44,7 +56,7 @@ body {
   /* ✅ OPTIMIZACIÓN: Eliminar transition para evitar micro-trabados durante scroll */
   /* transition: opacity 0.3s ease-out; ← REMOVIDO */
 
-  /* 🚀 ACELERACIÓN HARDWARE para mejor rendimiento */
+  /* 🚀 ACELERACIÓN HARDWARE CONSOLIDADA para mejor rendimiento */
   transform: translateZ(0);
   will-change: auto; /* Solo cuando sea necesario */
 }
@@ -53,7 +65,7 @@ body {
 .canvas-container.transitioning {
   pointer-events: auto;
   z-index: 1000; /* Encima de todo durante la transición */
-  will-change: opacity, filter; /* Optimizar solo durante transición */
+  will-change: opacity, filter; /* Optimizar solo durante transición activa */
 }
 
 /* 🔥 EFECTO DE FALLA DIGITAL - PANTALLA COMPLETA */
@@ -387,20 +399,21 @@ body {
   }
 }
 
-/* Div que genera la barra de scroll */
+/* Div que genera la barra de scroll con optimización hardware consolidada */
 .scroll-content {
   position: relative;
   z-index: 10; /* Encima del canvas */
-  height: var(
-    --scroll-height
-  ); /* 🚀 RESPONSIVE: Altura adaptativa según dispositivo */
   width: 100%;
   /* ✅ DIMENSIONES MÍNIMAS GARANTIZADAS para evitar problemas de inicialización */
-  min-height: 300vh;
   min-width: 100vw;
-  /* ✅ FORZAR REFLOW para asegurar que ScrollTrigger detecte las dimensiones */
+  /* ✅ HARDWARE ACCELERATION CONSOLIDADA para asegurar que ScrollTrigger detecte las dimensiones */
   transform: translateZ(0);
   will-change: scroll-position;
+
+  /* 📱 MOBILE-FIRST: Altura base usando variables CSS */
+  height: var(--scroll-height-mobile);
+  min-height: var(--scroll-height-mobile);
+
   /* ✅ Gradiente activado - descomenta si quieres verlo */
   background: linear-gradient(
     to bottom,
@@ -412,21 +425,28 @@ body {
   );
 }
 
-/* 📱 RESPONSIVE SCROLL ADJUSTMENTS */
-@media (max-width: 480px) {
+/* 📱 RESPONSIVE UNIFIED: Estrategia Mobile-First consolidada con variables CSS */
+
+/* 📱 Móvil grande y tablet pequeño */
+@media (min-width: 481px) {
   .scroll-content {
-    height: 250vh; /* Scroll más corto en móvil para mejor UX */
+    height: var(--scroll-height-medium);
+    min-height: var(--scroll-height-medium);
   }
 }
 
-@media (min-width: 481px) and (max-width: 768px) {
+/* 💻 Tablet y desktop pequeño */
+@media (min-width: 769px) {
   .scroll-content {
-    height: 275vh; /* Scroll intermedio en móvil grande */
+    height: var(--scroll-height-desktop);
+    min-height: var(--scroll-height-desktop);
   }
 }
 
-@media (orientation: landscape) and (max-height: 600px) {
+/* 🔄 Orientación landscape en móviles - sobrescribe otras reglas */
+@media (max-height: 600px) and (orientation: landscape) {
   .scroll-content {
-    height: 200vh; /* Scroll aún más corto en landscape móvil */
+    height: var(--scroll-height-landscape) !important;
+    min-height: var(--scroll-height-landscape) !important;
   }
 }

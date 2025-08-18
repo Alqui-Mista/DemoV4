@@ -285,15 +285,58 @@ const HomePage: FC<HomePageProps> = ({
     };
   }, []);
 
-  // � INICIALIZACIÓN DEL SONIDO AMBIENTE
+  // 🎵 HELPER FUNCTION: Configuración consolidada de audio con TypeScript y manejo de errores
+  const createAudioElement = useCallback(
+    (config: {
+      src: string;
+      volume: number;
+      loop?: boolean;
+      preload?: "auto" | "metadata" | "none";
+      onError?: (error: Error) => void;
+    }): HTMLAudioElement => {
+      try {
+        const audio = new Audio(config.src);
+
+        // Configuración básica
+        audio.volume = Math.max(0, Math.min(1, config.volume)); // Clamp entre 0 y 1
+        audio.preload = config.preload || "auto";
+
+        // Configuración opcional
+        if (config.loop) {
+          audio.loop = config.loop;
+        }
+
+        // Manejo de errores opcional
+        if (config.onError) {
+          audio.addEventListener("error", () => {
+            config.onError?.(new Error(`Audio load failed: ${config.src}`));
+          });
+        }
+
+        return audio;
+      } catch (error) {
+        console.error(`Error creating audio element for ${config.src}:`, error);
+        // Retornar un elemento audio dummy en caso de error
+        return new Audio();
+      }
+    },
+    []
+  );
+
+  // � INICIALIZACIÓN DEL SONIDO AMBIENTE (usando helper)
   useEffect(() => {
     console.log("🎵 Inicializando sonido ambiente...");
 
-    // Crear elemento de audio
-    const audio = new Audio("/ambient_sound_HomePage.mp3");
-    audio.loop = true; // Con loop - reproducir en bucle continuo
-    audio.volume = 0.15; // Volumen reducido para ambiente más sutil
-    audio.preload = "auto";
+    // Crear elemento de audio usando helper consolidado con manejo de errores
+    const audio = createAudioElement({
+      src: "/ambient_sound_HomePage.mp3",
+      volume: 0.15, // Volumen reducido para ambiente más sutil
+      loop: true, // Con loop - reproducir en bucle continuo
+      preload: "auto",
+      onError: (error) => {
+        console.warn("⚠️ Error cargando audio ambiente:", error.message);
+      },
+    });
 
     ambientAudioRef.current = audio;
 
@@ -310,14 +353,19 @@ const HomePage: FC<HomePageProps> = ({
     };
   }, []);
 
-  // 🎵 INICIALIZACIÓN DEL SONIDO DE TRANSICIÓN
+  // 🎵 INICIALIZACIÓN DEL SONIDO DE TRANSICIÓN (usando helper)
   useEffect(() => {
     console.log("🎵 Inicializando sonido de transición...");
 
-    // Crear elemento de audio para transición
-    const transitionAudio = new Audio("/transition.mp3");
-    transitionAudio.volume = 0.4; // Volumen moderado para transición
-    transitionAudio.preload = "auto";
+    // Crear elemento de audio para transición usando helper consolidado con manejo de errores
+    const transitionAudio = createAudioElement({
+      src: "/transition.mp3",
+      volume: 0.4, // Volumen moderado para transición
+      preload: "auto",
+      onError: (error) => {
+        console.warn("⚠️ Error cargando audio de transición:", error.message);
+      },
+    });
 
     transitionAudioRef.current = transitionAudio;
 
