@@ -1941,6 +1941,8 @@ body,
 
 .call-to-action-section + .footer-reveal {
   margin-top: 0 !important;
+  position: relative;
+  top: 0;
 }
 
 /* ✅ FORZAR PEGADO DE SECCIONES */
@@ -2032,7 +2034,7 @@ section {
 .footer-reveal {
   position: relative;
   width: 100vw;
-  min-height: 100vh; /* Restaurado a 100vh para ocupar toda la pantalla */
+  height: 100vh; /* Cambio de min-height a height fijo */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3073,7 +3075,7 @@ section {
 /* 📱 RESPONSIVE DESIGN MEJORADO */
 @media (max-width: 768px) {
   .footer-reveal {
-    min-height: 100vh; /* Mantenido 100vh para ocupar toda la pantalla en tablets */
+    height: 100vh; /* Altura fija en lugar de min-height */
     padding: 30px 15px; /* Reducido padding lateral */
   }
 
@@ -3159,7 +3161,7 @@ section {
 /* 📱 MEDIA QUERY ESPECÍFICA PARA BOTÓN MATRIX AI EN MÓVILES */
 @media (max-width: 480px) {
   .footer-reveal {
-    min-height: 100vh; /* Restaurado a 100vh para móviles también */
+    height: 100vh; /* Altura fija para móviles también */
     padding: 20px 10px; /* Padding muy reducido */
   }
 
