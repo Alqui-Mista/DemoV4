@@ -211,6 +211,12 @@ const HomePage: FC<HomePageProps> = ({
   // 🎵 SONIDO AMBIENTE
   const ambientAudioRef = useRef<HTMLAudioElement | null>(null);
   const [hasStartedAmbientSound, setHasStartedAmbientSound] = useState(false);
+  const hasStartedAmbientSoundRef = useRef(false); // ✅ Ref para evitar re-renders del ScrollTrigger
+
+  // ✅ Sincronizar ref con estado
+  useEffect(() => {
+    hasStartedAmbientSoundRef.current = hasStartedAmbientSound;
+  }, [hasStartedAmbientSound]);
 
   // 🎵 SONIDO DE TRANSICIÓN
   const transitionAudioRef = useRef<HTMLAudioElement | null>(null);
@@ -248,8 +254,10 @@ const HomePage: FC<HomePageProps> = ({
 
   // 🧹 LIMPIEZA DE WEBGL OPTIMIZADA Y FIX DE CURSOR
   useEffect(() => {
-    // ✅ DEBUG: Verificación inicial consolidada
-    console.log("🏁 HomePage:", { isMobile, isTablet, prefersReducedMotion });
+    // ✅ DEBUG: Verificación inicial consolidada (optimizada para evitar spam en desarrollo)
+    if (import.meta.env.DEV) {
+      console.log("🏁 HomePage:", { isMobile, isTablet, prefersReducedMotion });
+    }
 
     return () => {
       // Limpiar cache de Three.js y geometrías al desmontar el componente
@@ -294,27 +302,38 @@ const HomePage: FC<HomePageProps> = ({
       const scrollElement = scrollRef.current;
       if (scrollElement) {
         const hasHeight = scrollElement.offsetHeight > 0;
-        const hasScrollableHeight =
-          scrollElement.scrollHeight > scrollElement.clientHeight;
 
-        // Solo loggear si hay problemas
-        if (!hasHeight || !hasScrollableHeight) {
-          console.warn("⚠️ Scroll element dimensions issue:", {
+        // ✅ CORREGIDO: Solo loggear si hay problemas reales
+        // Si no hay altura, es un problema real
+        if (!hasHeight) {
+          console.warn("⚠️ Scroll element has no height:", {
             offsetHeight: scrollElement.offsetHeight,
             scrollHeight: scrollElement.scrollHeight,
             clientHeight: scrollElement.clientHeight,
           });
         }
+        // Si hay altura pero scrollHeight es menor que clientHeight, es un problema real
+        else if (
+          hasHeight &&
+          scrollElement.scrollHeight < scrollElement.clientHeight
+        ) {
+          console.warn("⚠️ Scroll element height inconsistency:", {
+            offsetHeight: scrollElement.offsetHeight,
+            scrollHeight: scrollElement.scrollHeight,
+            clientHeight: scrollElement.clientHeight,
+          });
+        }
+        // ✅ CASO NORMAL: scrollHeight === clientHeight (no hay contenido que desborde)
+        // No mostrar warning en este caso
       }
     };
 
-    // Verificar múltiples veces durante la inicialización
-    const timeouts = [100, 300, 500, 1000].map((delay) =>
-      setTimeout(detectScrollIssues, delay)
-    );
+    // ✅ OPTIMIZADO: Verificar solo una vez después de que el componente se estabilice
+    // En modo desarrollo, React ejecuta efectos dos veces, así que esto previene spam de logs
+    const timeoutId = setTimeout(detectScrollIssues, 500); // Una sola verificación optimizada
 
     return () => {
-      timeouts.forEach((timeout) => clearTimeout(timeout));
+      clearTimeout(timeoutId);
     };
   }, []);
 
@@ -465,8 +484,8 @@ const HomePage: FC<HomePageProps> = ({
 
     if (!canvas || !scene || !camera) return;
 
-    // 🎵 REPRODUCIR SONIDO DE TRANSICIÓN
-    if (transitionAudioRef.current) {
+    // 🎵 REPRODUCIR SONIDO DE TRANSICIÓN (solo si hay interacción del usuario)
+    if (transitionAudioRef.current && hasStartedAmbientSoundRef.current) {
       transitionAudioRef.current.currentTime = 0; // Reiniciar desde el principio
 
       // Intentar reproducir y configurar auto-stop extendido
@@ -481,8 +500,12 @@ const HomePage: FC<HomePageProps> = ({
             }
           }, AUDIO_CONFIG.TRANSITION_DURATION);
         } catch (error) {
-          console.warn("⚠️ Transition audio autoplay blocked:", error);
-          // No intentar fallbacks aquí ya que es un momento específico de transición
+          // ✅ SILENCIOSO: El usuario puede no haber interactuado aún, esto es normal
+          if (import.meta.env.DEV) {
+            console.log(
+              "ℹ️ Transition audio skipped (no user interaction yet)"
+            );
+          }
         }
       };
 
@@ -586,7 +609,7 @@ const HomePage: FC<HomePageProps> = ({
         },
         1.7
       ); // Timing final ajustado a 2s
-  }, [navigate]);
+  }, [navigate]); // ✅ CORREGIDO: Removido hasStartedAmbientSound para evitar re-renders
 
   // 🌟 EFECTO DE ESTELA DEL CURSOR CORREGIDO
   const renderTrail = useCallback(() => {
@@ -1021,7 +1044,7 @@ const HomePage: FC<HomePageProps> = ({
     scrollContainer,
     isEmbedded,
     maxScrollPercentage,
-  ]); // 🎯 Dependencias corregidas
+  ]); // 🎯 Dependencias corregidas - hasStartedAmbientSound removido para estabilidad
 
   return (
     <div ref={mainRef} className="homepage-container">
