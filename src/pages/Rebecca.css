@@ -2077,7 +2077,8 @@ section {
   display: flex;
   flex-direction: column;
   gap: 20px; /* Reducido gap para menos separación */
-  max-width: 500px; /* Aumentado para mejor uso del espacio */
+  max-width: 320px !important; /* Más restrictivo con !important para forzar cambio */
+  width: 320px; /* Añadido width fijo para asegurar el efecto */
   align-self: center; /* Centrado verticalmente */
   padding-right: 20px; /* Pequeño padding para separación */
 }
@@ -2087,6 +2088,14 @@ section {
   display: flex;
   flex-direction: column;
   gap: 12px; /* Reducido de 16px */
+}
+
+/* 🎯 FORZAR DIVISIÓN DEL TEXTO EN PÁRRAFOS DEL FOOTER */
+.footer-info p:first-of-type {
+  max-width: 290px !important; /* Ajustado a 290px para asegurar que "regalos" no se divida */
+  word-wrap: break-word;
+  hyphens: none; /* Desactivar guiones para evitar división de palabras */
+  overflow-wrap: break-word;
 }
 
 .footer-info h4 {
@@ -2116,6 +2125,8 @@ section {
   margin: 0;
   line-height: 1.4;
   font-weight: 400;
+  max-width: 300px; /* Añadido para forzar división en líneas */
+  word-wrap: break-word; /* Asegurar división de palabras */
 }
 
 /* 📧 FORMULARIO DE NEWSLETTER - MEJORADO */
@@ -3101,7 +3112,7 @@ section {
     text-align: center;
     order: 2;
     gap: 15px; /* Reducido gap */
-    max-width: 100%;
+    max-width: 90%; /* Cambiado de 100% para mantener división de líneas */
     padding-right: 0;
   }
 
@@ -3185,7 +3196,7 @@ section {
 
   .footer-info {
     gap: 12px; /* Gap reducido */
-    max-width: 100%;
+    max-width: 85%; /* Cambiado de 100% para permitir división de líneas en móviles */
     padding-right: 0;
   }
 
