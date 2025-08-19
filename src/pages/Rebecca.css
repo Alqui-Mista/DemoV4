@@ -2165,6 +2165,7 @@ section {
   width: 320px; /* Añadido width fijo para asegurar el efecto */
   align-self: center; /* Centrado verticalmente */
   padding-right: 20px; /* Pequeño padding para separación */
+  transform: translateY(50px); /* 🎯 MOVER 50px HACIA ABAJO */
 }
 
 /* 📧 SECCIÓN NEWSLETTER - MEJOR ORGANIZACIÓN */
@@ -2331,6 +2332,7 @@ section {
   max-width: 500px; /* Añadido max-width para mejor control */
   align-self: center; /* Centrado verticalmente */
   padding-left: 20px; /* Pequeño padding para separación */
+  transform: translateY(50px); /* 🎯 MOVER 50px HACIA ABAJO */
 }
 
 .contact-info h4 {
@@ -2370,9 +2372,13 @@ section {
   color: rgba(218, 128, 35, 0.6);
   cursor: pointer;
   overflow: hidden;
-  margin-top: -90px;
+  margin: 20px auto 0 auto; /* 🎯 CENTRADO PERFECTO: auto horizontal + margen superior */
   width: 190px; /* Reducido 5% de 200px */
   height: 50px; /* Reducido 5% de 50px */
+  display: block; /* 🎯 ASEGURAR DISPLAY BLOCK PARA CENTRADO */
+  transform: translateY(
+    -50px
+  ); /* 🎯 CONTRARRESTAR EL MOVIMIENTO DEL PADRE - MANTENER EN POSICIÓN ORIGINAL */
 
   /* 🌟 EFECTOS BASE */
   backdrop-filter: blur(10px);
@@ -2855,6 +2861,7 @@ section {
   align-self: flex-start; /* Alinear al inicio del container */
   justify-self: end; /* Alinear a la derecha en el grid */
   padding-top: 0; /* Asegurar que empiece al mismo nivel */
+  transform: translateY(50px); /* 🎯 MOVER 50px HACIA ABAJO */
 }
 
 /* 🎯 ADAPTACIÓN DINÁMICA CUANDO EL BOTÓN MATRIX SE EXPANDE */
@@ -3015,6 +3022,7 @@ section {
   align-items: center;
   justify-content: flex-start; /* Cambiar de center a flex-start */
   align-self: flex-start; /* Alinear al inicio del container */
+  transform: translateY(50px); /* 🎯 MOVER 50px HACIA ABAJO */
 }
 
 .ai-character {
@@ -3103,7 +3111,7 @@ section {
   animation: robotMessage 5s ease-in-out infinite;
 }
 
-/* 🤖 CONTENEDOR DEL ROBOT 3D - INVISIBLE */
+/* 🤖 CONTENEDOR DEL ROBOT 3D - CENTRADO PERFECTO */
 .robot-3d-container {
   position: relative;
   margin: 0 auto; /* Centrado horizontal */
@@ -3118,7 +3126,7 @@ section {
   transition: none;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; /* 🎯 CENTRADO PERFECTO */
 }
 
 .robot-3d-container:hover {
@@ -3200,84 +3208,230 @@ section {
     margin-top: clamp(30px, 6vh, 60px) !important;
   }
 
-  .cta-subtitle-space {
-    min-height: clamp(30px, 5vh, 60px);
+  @media (min-width: 481px) and (max-width: 768px) {
+    .footer-reveal {
+      height: auto; /* 🎯 También auto para tablets */
+      min-height: 100vh;
+      padding: 30px 20px;
+    }
+
+    .footer-content {
+      display: flex; /* 🎯 Flexbox también para tablets */
+      flex-direction: column;
+      align-items: center;
+      gap: 35px;
+      padding: 15px;
+      max-width: 100%;
+    }
+
+    /* 🎯 ORDEN OPTIMIZADO PARA TABLETS */
+    .footer-info {
+      order: 1;
+      text-align: center;
+      gap: 18px;
+      max-width: 90%;
+      padding-right: 0;
+      transform: translateY(50px); /* 🎯 MANTENER MOVIMIENTO 50px HACIA ABAJO */
+    }
+
+    .footer-robot {
+      order: 2;
+      margin: 15px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      transform: translateY(50px); /* 🎯 MANTENER MOVIMIENTO 50px HACIA ABAJO */
+    }
+
+    .contact-info {
+      order: 3;
+      text-align: center;
+      max-width: 100%;
+      padding-left: 0;
+      margin: 15px 0;
+      transform: translateY(50px); /* 🎯 MANTENER MOVIMIENTO 50px HACIA ABAJO */
+    }
+
+    /* 🎯 BOTÓN "VOLVER AL INICIO" AL FINAL EN TABLETS */
+    .ai-matrix-button {
+      order: 4; /* Último elemento en tablets también */
+      margin: 25px auto 15px auto !important;
+      display: block !important;
+      transform: translateY(
+        -50px
+      ) !important; /* 🎯 CONTRARRESTAR MOVIMIENTO DEL PADRE */
+    }
+    .robot-3d-container {
+      width: 300px; /* Optimizado para tablets */
+      height: 380px; /* Optimizado para tablets */
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 🎯 OPTIMIZACIÓN PARA TABLETS */
+    .contact-item {
+      padding: 10px 14px;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .contact-icon {
+      width: 30px;
+      height: 30px;
+    }
+
+    .contact-icon div {
+      font-size: 15px;
+    }
+
+    .footer-info h3 {
+      font-size: 2.2rem; /* Reducido de 2.5rem */
+    }
+
+    .footer-info p {
+      font-size: 1rem; /* Reducido para tablets */
+    }
+
+    .newsletter-form {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .newsletter-button {
+      align-self: center;
+      width: fit-content;
+      padding: 16px 32px;
+    }
+  }
+}
+
+/* 📱 MEDIA QUERY PARA PANTALLAS EXTRA PEQUEÑAS */
+@media (max-width: 400px) {
+  .footer-reveal {
+    padding: 30px 10px;
   }
 
   .footer-content {
-    grid-template-columns: 1fr;
-    gap: 30px; /* Reducido para mejor uso del espacio */
-    text-align: center;
-    padding: 10px; /* Reducido padding */
-    max-width: 100%;
-  }
-
-  .footer-info {
-    text-align: center;
-    order: 2;
-    gap: 15px; /* Reducido gap */
-    max-width: 90%; /* Cambiado de 100% para mantener división de líneas */
-    padding-right: 0;
-  }
-
-  .footer-robot {
-    order: 1;
-  }
-
-  .robot-3d-container {
-    width: 300px; /* Optimizado para tablets */
-    height: 380px; /* Optimizado para tablets */
-    margin: 0 auto;
-  }
-
-  .contact-info {
-    text-align: center;
-    order: 3;
-    max-width: 100%;
-    padding-left: 0;
-  }
-
-  /* 🎯 OPTIMIZACIÓN PARA TABLETS */
-  .contact-item {
-    padding: 10px 14px;
-    max-width: 300px;
-    margin: 0 auto;
-  }
-
-  .contact-icon {
-    width: 30px;
-    height: 30px;
-  }
-
-  .contact-icon div {
-    font-size: 15px;
+    gap: 30px;
+    padding: 15px 5px;
   }
 
   .footer-info h3 {
-    font-size: 2.2rem; /* Reducido de 2.5rem */
+    font-size: 1.8rem; /* Más pequeño para pantallas muy pequeñas */
   }
 
   .footer-info p {
-    font-size: 1rem; /* Reducido para tablets */
+    font-size: 0.9rem;
+  }
+
+  .robot-3d-container {
+    width: 250px;
+    height: 320px;
+    margin: 0 auto; /* 🎯 CENTRADO PERFECTO */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contact-item {
+    max-width: 260px;
+    padding: 10px 12px;
+    margin: 0 auto; /* 🎯 CENTRADO PERFECTO */
+  }
+
+  .ai-matrix-button {
+    width: 160px;
+    height: 45px;
+    margin: 20px auto !important; /* Centrado perfecto */
+    display: block !important;
+    order: 4; /* Último elemento también en pantallas extra pequeñas */
+    transform: translateY(
+      -50px
+    ); /* 🎯 CONTRARRESTAR MOVIMIENTO PARA MANTENER POSICIÓN ORIGINAL */
+  }
+
+  .ai-matrix-button:hover {
+    width: 200px;
+    height: 55px;
   }
 
   .newsletter-form {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .newsletter-button {
-    align-self: center;
-    width: fit-content;
-    padding: 16px 32px;
+    max-width: 280px;
   }
 }
 
 /* 📱 MEDIA QUERY ESPECÍFICA PARA BOTÓN MATRIX AI EN MÓVILES */
 @media (max-width: 480px) {
   .footer-reveal {
-    height: 100vh; /* Altura fija para móviles también */
-    padding: 20px 10px; /* Padding muy reducido */
+    height: auto; /* 🎯 CAMBIO CLAVE: Auto height para pantallas pequeñas */
+    min-height: 100vh; /* Mínimo de pantalla completa pero permite crecer */
+    padding: 40px 15px; /* Más padding vertical, menos horizontal */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Alinear contenido hacia arriba */
+  }
+
+  .footer-content {
+    display: flex; /* 🎯 CAMBIO: De grid a flexbox para mejor control */
+    flex-direction: column;
+    align-items: center;
+    gap: 40px; /* Espaciado generoso entre secciones */
+    padding: 20px 10px;
+    max-width: 100%;
+    height: auto; /* Altura automática */
+  }
+
+  /* 🎯 ORDEN Y ESPACIADO OPTIMIZADO PARA MÓVILES */
+  .footer-info {
+    order: 1; /* Boletín primero */
+    text-align: center;
+    gap: 20px;
+    max-width: 90%;
+    padding: 0;
+    width: 100%;
+    transform: translateY(50px); /* 🎯 MANTENER MOVIMIENTO 50px HACIA ABAJO */
+  }
+
+  .footer-robot {
+    order: 2; /* Robot 3D en el medio (sin botón) */
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    transform: translateY(50px); /* 🎯 MANTENER MOVIMIENTO 50px HACIA ABAJO */
+  }
+
+  .contact-info {
+    order: 3; /* Contacto tercero */
+    text-align: center;
+    max-width: 100%;
+    padding: 0;
+    width: 100%;
+    margin: 20px 0; /* Espacio arriba y abajo */
+    transform: translateY(50px); /* 🎯 MANTENER MOVIMIENTO 50px HACIA ABAJO */
+  }
+
+  /* 🎯 BOTÓN "VOLVER AL INICIO" COMO ELEMENTO INDEPENDIENTE AL FINAL */
+  .ai-matrix-button {
+    order: 4; /* ÚLTIMO ELEMENTO - Botón independiente al final */
+    width: 180px; /* Tamaño visible apropiado para móviles */
+    height: 50px;
+    padding: 12px 16px;
+    margin: 30px auto 20px auto !important; /* Centrado perfecto con separación */
+    display: block !important;
+    position: relative !important; /* Anular cualquier posicionamiento */
+    transform: translateY(
+      -50px
+    ); /* 🎯 CONTRARRESTAR MOVIMIENTO PARA MANTENER POSICIÓN ORIGINAL */
+  }
+
+  .ai-matrix-button:hover {
+    width: 220px; /* Expansión moderada para móviles */
+    height: 60px;
   }
 
   /* 🎯 CTA TITLE RESPONSIVE PARA MÓVILES */
@@ -3305,114 +3459,140 @@ section {
     min-height: clamp(35px, 7vh, 70px); /* Proporcional para móviles */
   }
 
-  .ai-matrix-button {
-    width: 161px; /* Reducido 5% de 170px */
-    height: 43px; /* Reducido 5% de 45px */
-    padding: 10px 16px;
-    margin-top: 20px;
-  }
-
-  .ai-matrix-button:hover {
-    width: 200px; /* Reducido para móviles */
-    height: 55px; /* Reducido para móviles */
-  }
-
-  .footer-content {
-    gap: 20px; /* Compacto pero usable para móviles */
-    padding: 10px; /* Padding mínimo */
-    max-width: 100%;
-  }
-
-  .footer-info {
-    gap: 12px; /* Gap reducido */
-    max-width: 85%; /* Cambiado de 100% para permitir división de líneas en móviles */
-    padding-right: 0;
-  }
-
+  /* 🎯 NEWSLETTER SECTION OPTIMIZADA */
   .footer-info h3 {
-    font-size: 1.8rem; /* Muy reducido para móviles */
+    font-size: 2.2rem; /* Tamaño legible */
+    margin-bottom: 15px;
   }
 
   .footer-info p {
-    font-size: 0.9rem; /* Texto pequeño para móviles */
+    font-size: 1rem; /* Texto legible */
+    line-height: 1.4;
+    margin-bottom: 20px;
   }
 
-  .robot-3d-container {
-    width: 260px; /* Optimizado para móviles */
-    height: 320px; /* Optimizado para móviles */
+  .newsletter-form {
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 300px;
     margin: 0 auto;
   }
 
-  /* 🎯 CONTACT-INFO OPTIMIZADO PARA MÓVILES */
+  .newsletter-input {
+    width: 100%;
+    padding: 16px 20px;
+    font-size: 1rem;
+  }
+
+  .newsletter-button {
+    align-self: center;
+    width: fit-content;
+    padding: 16px 32px;
+    font-size: 1rem;
+  }
+
+  /* 🎯 ROBOT 3D OPTIMIZADO */
+  .robot-3d-container {
+    width: 280px;
+    height: 350px;
+    margin: 0 auto; /* 🎯 CENTRADO PERFECTO */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 🎯 CONTACT-INFO COMPLETAMENTE REDISEÑADO PARA MÓVILES */
   .contact-info {
-    max-width: 100%;
-    gap: 8px; /* Reducido de 10px para móviles */
-    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px 0;
+  }
+
+  .contact-info h4 {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: rgba(0, 0, 0, 0.7);
   }
 
   .contact-item {
-    padding: 6px 10px; /* Reducido de 8px 12px */
-    border-radius: 6px; /* Reducido de 8px */
-    min-height: 50px; /* Reducido de 60px */
+    padding: 12px 16px;
+    border-radius: 10px;
+    min-height: auto;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 0 auto;
+    max-width: 280px;
+    width: 100%;
   }
 
   .contact-icon {
-    width: 22px; /* Reducido de 24px */
-    height: 22px; /* Reducido de 24px */
-    margin-bottom: 4px !important; /* Reducido de 6px */
+    width: 28px;
+    height: 28px;
+    margin-bottom: 8px;
   }
 
   .contact-icon div {
-    font-size: 11px; /* Reducido de 12px */
+    font-size: 14px;
   }
 
   .contact-item p {
-    font-size: 0.8rem; /* Reducido de 0.85rem */
-    line-height: 1.1; /* Reducido de 1.2 */
-    margin: 1px 0; /* Reducido de 2px */
+    font-size: 0.95rem;
+    line-height: 1.3;
+    margin: 3px 0;
+    color: rgba(0, 0, 0, 0.8);
   }
 
   .contact-label {
-    font-size: 0.6rem; /* Reducido de 0.65rem */
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(0, 0, 0, 0.6);
   }
 
-  /* 🎯 ADAPTACIÓN MÓVIL CUANDO EL BOTÓN SE EXPANDE */
+  /* 🎯 ELIMINAR EFECTOS DE HOVER COMPLEJOS EN MÓVILES */
   .footer-content:has(.ai-matrix-button:hover) .contact-info {
-    max-width: 240px;
-    gap: 6px; /* Reducido de 8px */
+    max-width: 280px; /* Mantener tamaño estable */
+    gap: 15px;
   }
 
   .footer-content:has(.ai-matrix-button:hover) .contact-item {
-    padding: 4px 8px; /* Reducido de 6px 10px */
-    transform: scale(0.9);
+    transform: none; /* No escalar en móviles */
+    padding: 12px 16px; /* Mantener padding estable */
   }
 
+  /* 🎯 OPTIMIZACIÓN DE ELEMENTOS INTERNOS DEL BOTÓN */
   .holo-text {
-    font-size: 0.6rem;
-    letter-spacing: 1px;
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
   }
 
   .ai-core {
-    width: 16px; /* Reducido */
-    height: 16px; /* Reducido */
-    left: 12px; /* Ajustado */
+    width: 18px;
+    height: 18px;
+    left: 14px;
   }
 
   .neuron {
-    width: 2px; /* Reducido */
-    height: 2px; /* Reducido */
+    width: 3px;
+    height: 3px;
   }
 
   .data-stream {
-    font-size: 6px;
+    font-size: 7px;
   }
 
+  /* 🎯 ESPACIADO ADICIONAL PARA MEJOR LEGIBILIDAD */
   .footer-info {
-    gap: 20px;
+    margin-bottom: 20px;
   }
 
   .newsletter-section {
-    gap: 10px;
+    gap: 15px;
+    margin-bottom: 10px;
   }
 }
 
