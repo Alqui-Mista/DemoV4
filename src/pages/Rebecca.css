@@ -2001,17 +2001,15 @@ section {
 .cta-content {
   max-width: 1000px;
   margin: 0 auto !important;
-  padding: 40px 24px clamp(100px, 15vw, 200px) 24px !important; /* Más espacio inferior para subtítulo y botón */
+  padding: 40px 24px 40px 24px !important; /* Padding normal sin exceso */
   position: relative;
   z-index: 5;
   box-sizing: border-box;
-  min-height: 320px;
-  /* Eliminar max-height y overflow para evitar scroll interno */
-  padding-bottom: clamp(
-    80px,
-    12vw,
-    200px
-  ) !important; /* Aumentado para más espacio */
+  min-height: 100vh; /* Asegurar que ocupe toda la altura */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centrar verticalmente todo el contenido */
+  align-items: center;
 }
 
 /* Estilos originales que ya tenías para los textos y el botón */
@@ -2020,10 +2018,10 @@ section {
   font-weight: 900;
   color: var(--color-white);
   margin-bottom: clamp(
-    40px,
-    10vw,
-    80px
-  ) !important; /* Más espacio para subtítulo y botón */
+    30px,
+    6vh,
+    60px
+  ) !important; /* Espacio moderado para subtítulo */
   text-shadow: 2px 2px 8px var(--color-black-alpha-70);
   font-family: "SohoPro", "SF Pro Display", "Helvetica Neue", sans-serif;
   line-height: 0.95 !important; /* Mantener líneas compactas */
@@ -2035,7 +2033,60 @@ section {
   box-sizing: border-box;
   text-align: center;
   position: relative;
-  top: 0; /* Posicionado en la parte superior */
+  width: 100%;
+}
+
+/* 🔥 BOTÓN CTA - ESTILOS PRINCIPALES */
+.cta-button-container {
+  position: relative;
+  z-index: 10;
+  padding: clamp(10px, 2vw, 20px);
+  margin-top: clamp(
+    40px,
+    8vh,
+    80px
+  ) !important; /* Espacio desde el subtítulo */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cta-button-image {
+  display: block;
+  margin: 0 auto;
+  max-width: clamp(180px, 20vw, 280px) !important;
+  height: auto;
+  cursor: pointer;
+  opacity: 0.5; /* Más transparente en estado inactivo */
+  transform: scale(0.85); /* Más pequeño en estado inactivo */
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  border-radius: 8px; /* Suave redondeado */
+}
+
+.cta-button-image:hover {
+  transform: scale(1.15) translateY(-3px); /* Agrandamiento significativo */
+  opacity: 1; /* Opacidad completa en hover */
+  filter: drop-shadow(
+    0 12px 24px rgba(0, 0, 0, 0.5)
+  ); /* Sombra más dramática */
+}
+
+.cta-button-image:active {
+  transform: scale(1.1) translateY(-1px);
+  opacity: 1;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
+}
+
+/* 📏 ESPACIO PARA SUBTÍTULO */
+.cta-subtitle-space {
+  min-height: clamp(40px, 6vh, 80px); /* Espacio moderado para subtítulo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
 }
 
 /* ¡NUEVO! Keyframes para las animaciones de texto */
@@ -3103,12 +3154,31 @@ section {
   .call-to-action-section {
     padding: 40px 20px;
     margin-top: 100vh;
+    height: 100vh; /* Asegurar altura completa en tablets */
+  }
+
+  .cta-content {
+    min-height: 100vh; /* Mantener altura completa */
+    padding: 20px 15px 20px 15px !important;
   }
 
   .cta-title {
     font-size: clamp(2.5rem, 6vw, 4rem); /* Responsive para tablets */
     line-height: 0.9; /* Ajustado para mantener 2 líneas */
-    margin-bottom: clamp(30px, 8vw, 60px) !important;
+    margin-bottom: clamp(25px, 5vh, 50px) !important;
+  }
+
+  /* 🔥 BOTÓN CTA - TABLETS */
+  .cta-button-image {
+    max-width: clamp(160px, 18vw, 240px) !important;
+  }
+
+  .cta-button-container {
+    margin-top: clamp(30px, 6vh, 60px) !important;
+  }
+
+  .cta-subtitle-space {
+    min-height: clamp(30px, 5vh, 60px);
   }
 
   .footer-content {
@@ -3197,6 +3267,19 @@ section {
     line-height: 0.95 !important; /* Mantener 2 líneas compactas */
     margin-bottom: clamp(25px, 6vw, 40px) !important;
     letter-spacing: 0.02em; /* Reducido para pantallas pequeñas */
+  }
+
+  /* 🔥 BOTÓN CTA - MÓVILES */
+  .cta-button-image {
+    max-width: clamp(140px, 16vw, 200px) !important;
+  }
+
+  .cta-button-container {
+    margin-top: clamp(10px, 2vh, 20px) !important; /* Ajustado para móviles */
+  }
+
+  .cta-subtitle-space {
+    min-height: clamp(35px, 7vh, 70px); /* Proporcional para móviles */
   }
 
   .ai-matrix-button {

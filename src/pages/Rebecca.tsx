@@ -8,6 +8,7 @@ import Robot3D from "../components/Robot3D";
 import FuenteCero from "../components/FuenteCero";
 import { useTitleAnimation } from "../hooks/useTitleAnimation";
 import { useFaviconAnimation } from "../hooks/useFaviconAnimation";
+import CTAButtonImage from "../assets/CTAButtom.png"; // Importar imagen del botón CTA
 import "./Rebecca.css";
 
 const Rebecca = memo(() => {
@@ -394,15 +395,12 @@ const Rebecca = memo(() => {
             style={{
               textAlign: "center",
               position: "relative",
-              minHeight: "clamp(80px, 15vh, 120px)" /* Responsive min-height */,
               display: "flex",
               flexDirection: "column",
               alignItems: "flex-end", // alineación derecha
-              justifyContent: "flex-start", // arriba
-              gap: "clamp(8px, 2vw, 12px)" /* Responsive gap */,
-              paddingTop: "clamp(12px, 3vw, 18px)" /* Responsive padding-top */,
-              marginBottom:
-                "clamp(20px, 5vh, 40px)" /* Espacio para subtítulo y botón */,
+              justifyContent: "center", // centrado vertical
+              gap: "clamp(8px, 2vw, 12px)",
+              width: "100%",
             }}
           >
             <span
@@ -457,6 +455,45 @@ const Rebecca = memo(() => {
               JUNTOS
             </span>
           </h2>
+
+          {/* Espacio reservado para el subtítulo que se agregará después */}
+          <div className="cta-subtitle-space">
+            {/* Aquí irá el subtítulo */}
+          </div>
+
+          {/* Botón CTA */}
+          <div className="cta-button-container">
+            <img
+              src={CTAButtonImage}
+              alt="CTA Button"
+              className="cta-button-image"
+              style={{
+                maxWidth: "clamp(200px, 25vw, 300px)",
+                height: "auto",
+                cursor: "pointer",
+                opacity: "0.5" /* Más transparente en estado inactivo */,
+                transform: "scale(0.85)" /* Más pequeño en estado inactivo */,
+                transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+                filter: "drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform =
+                  "scale(1.15)"; /* Agrandamiento significativo */
+                e.currentTarget.style.opacity =
+                  "1"; /* Opacidad 100% en hover */
+                e.currentTarget.style.filter =
+                  "drop-shadow(0 12px 24px rgba(0, 0, 0, 0.5))";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform =
+                  "scale(0.85)"; /* Volver a estado pequeño */
+                e.currentTarget.style.opacity =
+                  "0.5"; /* Volver a opacidad reducida */
+                e.currentTarget.style.filter =
+                  "drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))";
+              }}
+            />
+          </div>
         </div>
       </section>
 
