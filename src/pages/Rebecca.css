@@ -2001,31 +2001,41 @@ section {
 .cta-content {
   max-width: 1000px;
   margin: 0 auto !important;
-  padding: 40px 24px clamp(64px, 10vw, 120px) 24px !important;
+  padding: 40px 24px clamp(100px, 15vw, 200px) 24px !important; /* Más espacio inferior para subtítulo y botón */
   position: relative;
   z-index: 5;
   box-sizing: border-box;
   min-height: 320px;
   /* Eliminar max-height y overflow para evitar scroll interno */
-  padding-bottom: clamp(48px, 8vw, 120px) !important;
+  padding-bottom: clamp(
+    80px,
+    12vw,
+    200px
+  ) !important; /* Aumentado para más espacio */
 }
 
 /* Estilos originales que ya tenías para los textos y el botón */
 .cta-title {
-  font-size: clamp(2.5rem, 10vw, 8rem);
+  font-size: clamp(3rem, 8vw, 5.5rem); /* Ajustado para mejor responsive */
   font-weight: 900;
   color: var(--color-white);
-  margin-bottom: clamp(32px, 8vw, 80px) !important;
+  margin-bottom: clamp(
+    40px,
+    10vw,
+    80px
+  ) !important; /* Más espacio para subtítulo y botón */
   text-shadow: 2px 2px 8px var(--color-black-alpha-70);
-  font-family: "SF Pro Display", "Helvetica Neue", sans-serif;
-  line-height: 1 !important;
-  letter-spacing: -0.02em;
-  white-space: normal !important;
-  word-break: break-word;
-  overflow-wrap: anywhere;
+  font-family: "SohoPro", "SF Pro Display", "Helvetica Neue", sans-serif;
+  line-height: 0.95 !important; /* Mantener líneas compactas */
+  letter-spacing: 0.04em; /* Consistente con JSX */
+  white-space: nowrap !important; /* Evitar división extra en líneas */
+  word-break: keep-all; /* Mantener palabras enteras */
+  overflow-wrap: normal; /* No romper palabras */
   max-width: 100%;
   box-sizing: border-box;
   text-align: center;
+  position: relative;
+  top: 0; /* Posicionado en la parte superior */
 }
 
 /* ¡NUEVO! Keyframes para las animaciones de texto */
@@ -3096,8 +3106,9 @@ section {
   }
 
   .cta-title {
-    font-size: 4rem;
-    line-height: 0.8;
+    font-size: clamp(2.5rem, 6vw, 4rem); /* Responsive para tablets */
+    line-height: 0.9; /* Ajustado para mantener 2 líneas */
+    margin-bottom: clamp(30px, 8vw, 60px) !important;
   }
 
   .footer-content {
@@ -3174,6 +3185,18 @@ section {
   .footer-reveal {
     height: 100vh; /* Altura fija para móviles también */
     padding: 20px 10px; /* Padding muy reducido */
+  }
+
+  /* 🎯 CTA TITLE RESPONSIVE PARA MÓVILES */
+  .cta-title {
+    font-size: clamp(
+      2rem,
+      5vw,
+      3rem
+    ) !important; /* Responsive específico para móviles */
+    line-height: 0.95 !important; /* Mantener 2 líneas compactas */
+    margin-bottom: clamp(25px, 6vw, 40px) !important;
+    letter-spacing: 0.02em; /* Reducido para pantallas pequeñas */
   }
 
   .ai-matrix-button {

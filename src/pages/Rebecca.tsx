@@ -394,13 +394,15 @@ const Rebecca = memo(() => {
             style={{
               textAlign: "center",
               position: "relative",
-              minHeight: "120px",
+              minHeight: "clamp(80px, 15vh, 120px)" /* Responsive min-height */,
               display: "flex",
               flexDirection: "column",
               alignItems: "flex-end", // alineación derecha
               justifyContent: "flex-start", // arriba
-              gap: "12px", // menos separación
-              paddingTop: "18px", // desplazamiento hacia arriba
+              gap: "clamp(8px, 2vw, 12px)" /* Responsive gap */,
+              paddingTop: "clamp(12px, 3vw, 18px)" /* Responsive padding-top */,
+              marginBottom:
+                "clamp(20px, 5vh, 40px)" /* Espacio para subtítulo y botón */,
             }}
           >
             <span
@@ -421,7 +423,7 @@ const Rebecca = memo(() => {
                 letterSpacing: "0.04em",
                 zIndex: 10,
                 lineHeight: 0.95,
-                fontSize: "80.6px",
+                fontSize: "clamp(3rem, 8vw, 5.5rem)" /* Responsive font-size */,
                 color: "#ffffff",
                 textShadow: "2px 2px 8px rgba(0, 0, 0, 0.7)",
               }}
@@ -447,7 +449,7 @@ const Rebecca = memo(() => {
                 zIndex: 10,
                 lineHeight: 0.95,
                 textTransform: "uppercase",
-                fontSize: "80.6px",
+                fontSize: "clamp(3rem, 8vw, 5.5rem)" /* Responsive font-size */,
                 color: "#ffffff",
                 textShadow: "2px 2px 8px rgba(0, 0, 0, 0.7)",
               }}
