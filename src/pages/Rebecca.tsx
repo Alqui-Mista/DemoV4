@@ -638,6 +638,11 @@ const Rebecca = memo(() => {
             </div>
           </div>
         </div>
+
+        {/* 🎯 SECCIÓN DE CRÉDITOS */}
+        <div className="footer-credits">
+          <p>© 2025 InteliMark - Todos los derechos reservados</p>
+        </div>
       </footer>
     </div>
   );

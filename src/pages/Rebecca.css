@@ -2372,13 +2372,13 @@ section {
   color: rgba(218, 128, 35, 0.6);
   cursor: pointer;
   overflow: hidden;
-  margin: 20px auto 0 auto; /* 🎯 CENTRADO PERFECTO: auto horizontal + margen superior */
-  width: 190px; /* Reducido 5% de 200px */
-  height: 50px; /* Reducido 5% de 50px */
+  margin: 8px auto 60px auto; /* 🎯 ACERCADO AL FORMULARIO + ESPACIO INFERIOR PARA CRÉDITOS */
+  width: 190px; /* Tamaño base inicial */
+  height: 54px; /* 🎯 ALTURA EXACTA DEL INPUT (16px padding + contenido + 16px) */
   display: block; /* 🎯 ASEGURAR DISPLAY BLOCK PARA CENTRADO */
   transform: translateY(
-    -50px
-  ); /* 🎯 CONTRARRESTAR EL MOVIMIENTO DEL PADRE - MANTENER EN POSICIÓN ORIGINAL */
+    5px
+  ); /* 🎯 CENTRADO VERTICALMENTE CON EL CAMPO DE CORREO */
 
   /* 🌟 EFECTOS BASE */
   backdrop-filter: blur(10px);
@@ -2676,8 +2676,8 @@ section {
 
 /* 🌟 ESTADO HOVER - ACTIVACIÓN COMPLETA (AMPLIADA) */
 .ai-matrix-button:hover {
-  /* 🎭 TRANSFORMACIÓN DRAMÁTICA MÁS GRANDE */
-  transform: translateY(-8px) scale(1.05);
+  /* 🎭 TRANSFORMACIÓN ALINEADA CON EL FORMULARIO DE NEWSLETTER */
+  transform: translateY(0px) scale(1.01); /* 🎯 PERFECTAMENTE CENTRADO CON EL FORMULARIO */
   background: linear-gradient(
     135deg,
     rgba(26, 26, 26, 0.95) 0%,
@@ -2686,8 +2686,8 @@ section {
   );
   border: 2px solid rgba(218, 128, 35, 0.8);
   border-radius: 18px; /* Aumentado de 16px */
-  width: 300px; /* Aumentado de 280px */
-  height: 80px; /* Aumentado de 70px */
+  width: 286px; /* 🎯 ANCHO EXACTO DEL FORMULARIO COMPLETO */
+  height: 54px; /* 🎯 MISMA ALTURA QUE EL INPUT DEL NEWSLETTER */
 
   /* 🔥 EFECTOS HOLOGRÁFICOS */
   box-shadow: 0 0 0 1px rgba(218, 128, 35, 0.4),
@@ -3256,12 +3256,21 @@ section {
     /* 🎯 BOTÓN "VOLVER AL INICIO" AL FINAL EN TABLETS */
     .ai-matrix-button {
       order: 4; /* Último elemento en tablets también */
-      margin: 25px auto 15px auto !important;
+      margin: 8px auto 50px auto !important; /* 🎯 ACERCADO AL FORMULARIO */
       display: block !important;
+      width: 200px; /* Tamaño base para tablets */
+      height: 54px; /* Altura alineada con input */
       transform: translateY(
-        -50px
-      ) !important; /* 🎯 CONTRARRESTAR MOVIMIENTO DEL PADRE */
+        5px
+      ) !important; /* 🎯 CENTRADO CON EL CAMPO DE CORREO */
     }
+
+    .ai-matrix-button:hover {
+      width: 270px; /* 🎯 ANCHO AJUSTADO PARA TABLETS */
+      height: 54px;
+      transform: translateY(0px) !important; /* 🎯 PERFECTAMENTE CENTRADO */
+    }
+
     .robot-3d-container {
       width: 300px; /* Optimizado para tablets */
       height: 380px; /* Optimizado para tablets */
@@ -3344,18 +3353,17 @@ section {
 
   .ai-matrix-button {
     width: 160px;
-    height: 45px;
-    margin: 20px auto !important; /* Centrado perfecto */
+    height: 54px; /* 🎯 ALTURA ALINEADA CON INPUT */
+    margin: 8px auto 45px auto !important; /* 🎯 ACERCADO AL FORMULARIO */
     display: block !important;
     order: 4; /* Último elemento también en pantallas extra pequeñas */
-    transform: translateY(
-      -50px
-    ); /* 🎯 CONTRARRESTAR MOVIMIENTO PARA MANTENER POSICIÓN ORIGINAL */
+    transform: translateY(5px); /* 🎯 CENTRADO CON EL CAMPO DE CORREO */
   }
 
   .ai-matrix-button:hover {
-    width: 200px;
-    height: 55px;
+    width: 280px; /* 🎯 EXACTAMENTE EL ANCHO DEL FORMULARIO EN PANTALLAS EXTRA PEQUEÑAS */
+    height: 54px; /* 🎯 MISMA ALTURA QUE EL INPUT */
+    transform: translateY(0px); /* 🎯 PERFECTAMENTE CENTRADO */
   }
 
   .newsletter-form {
@@ -3418,20 +3426,19 @@ section {
   /* 🎯 BOTÓN "VOLVER AL INICIO" COMO ELEMENTO INDEPENDIENTE AL FINAL */
   .ai-matrix-button {
     order: 4; /* ÚLTIMO ELEMENTO - Botón independiente al final */
-    width: 180px; /* Tamaño visible apropiado para móviles */
-    height: 50px;
+    width: 180px; /* Tamaño base para móviles */
+    height: 54px; /* 🎯 ALTURA ALINEADA CON INPUT DEL NEWSLETTER */
     padding: 12px 16px;
-    margin: 30px auto 20px auto !important; /* Centrado perfecto con separación */
+    margin: 8px auto 50px auto !important; /* 🎯 ACERCADO AL FORMULARIO */
     display: block !important;
     position: relative !important; /* Anular cualquier posicionamiento */
-    transform: translateY(
-      -50px
-    ); /* 🎯 CONTRARRESTAR MOVIMIENTO PARA MANTENER POSICIÓN ORIGINAL */
+    transform: translateY(5px); /* 🎯 CENTRADO CON EL CAMPO DE CORREO */
   }
 
   .ai-matrix-button:hover {
-    width: 220px; /* Expansión moderada para móviles */
-    height: 60px;
+    width: 300px; /* 🎯 EXACTAMENTE EL ANCHO DEL FORMULARIO EN MÓVILES */
+    height: 54px; /* 🎯 MISMA ALTURA QUE EL INPUT */
+    transform: translateY(0px); /* 🎯 PERFECTAMENTE CENTRADO */
   }
 
   /* 🎯 CTA TITLE RESPONSIVE PARA MÓVILES */
@@ -3815,5 +3822,53 @@ section {
   100% {
     text-shadow: 0 0 20px rgba(218, 128, 35, 0.6),
       0 0 40px rgba(128, 128, 128, 0.3);
+  }
+}
+
+/* 🎯 SECCIÓN DE CRÉDITOS DEL FOOTER */
+.footer-credits {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+  z-index: 10;
+}
+
+.footer-credits p {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+.footer-credits p:hover {
+  color: rgba(218, 128, 35, 0.6);
+}
+
+/* 📱 RESPONSIVE PARA CRÉDITOS */
+@media (max-width: 768px) {
+  .footer-credits {
+    bottom: 10px;
+  }
+
+  .footer-credits p {
+    font-size: 0.7rem;
+    letter-spacing: 0.3px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-credits {
+    bottom: 8px;
+    padding: 0 15px;
+  }
+
+  .footer-credits p {
+    font-size: 0.65rem;
+    line-height: 1.2;
   }
 }
