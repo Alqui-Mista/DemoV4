@@ -536,7 +536,13 @@ const Rebecca = memo(() => {
 
             <div className="navigation-section">
               <button
-                className="homepage-access-button ai-matrix-button"
+                className="homepage-access-button ai-matrix-button debug-button-position"
+                style={{
+                  marginLeft: "35px", // 🎯 MOVIDO 10px HACIA LA DERECHA (25px + 10px = 35px)
+                  transform: "translateY(-65px)",
+                  position: "relative",
+                  zIndex: 999,
+                }}
                 onClick={() => {
                   window.location.href = "/";
                 }}
