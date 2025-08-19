@@ -595,11 +595,11 @@ body,
   pointer-events: auto;
   z-index: 5;
   width: clamp(
-    750px,
-    105vw,
-    975px
-  ); /* ✅ CORRECCIÓN: Aumentado 50% más (500→750, 70vw→105vw, 650→975) */
-  height: clamp(750px, 105vw, 975px);
+    350px,
+    75vw,
+    650px
+  ); /* 🎯 RESPONSIVE: Tamaños optimizados para mejor proporción */
+  height: clamp(350px, 75vw, 650px);
   border-radius: 50%;
 }
 
@@ -652,18 +652,16 @@ body,
   background-position: 0% 0%, 0% 0%, 0% 0%;
   background-clip: border-box;
 
-  /* 🌟 EFECTOS DE SOMBRA Y RESPLANDOR MULTICAPA - REDUCIDOS PARA PROTAGONISMO DEL BOTÓN */
+  /* 🌟 EFECTOS DE SOMBRA Y RESPLANDOR MULTICAPA - RESPONSIVE */
   box-shadow: 
-    /* Resplandor exterior principal */ 0 0 20px
+    /* Resplandor exterior principal */ 0 0 clamp(10px, 2vw, 20px)
       rgba(138, 138, 138, 0.3),
-    /* 🎯 Reducido de 30px/0.6 a 20px/0.3 */ /* Resplandor interior sutil */
-      inset 0 0 10px rgba(255, 255, 255, 0.05),
-    /* 🎯 Reducido de 20px/0.1 a 10px/0.05 */ /* Sombra de profundidad */ 0 0
-      40px rgba(42, 42, 42, 0.2),
-    /* 🎯 Reducido de 60px/0.4 a 40px/0.2 */ /* Reflejo metálico */ inset 1px
-      1px 5px rgba(255, 255, 255, 0.1),
-    /* 🎯 Reducido de 2px/0.2 a 1px/0.1 */ inset -1px -1px 5px
-      rgba(0, 0, 0, 0.15); /* 🎯 Reducido de 2px/0.3 a 1px/0.15 */
+    /* Resplandor interior sutil */ inset 0 0 clamp(5px, 1vw, 10px)
+      rgba(255, 255, 255, 0.05),
+    /* Sombra de profundidad */ 0 0 clamp(20px, 4vw, 40px) rgba(42, 42, 42, 0.2),
+    /* Reflejo metálico */ inset 1px 1px clamp(3px, 0.5vw, 5px)
+      rgba(255, 255, 255, 0.1),
+    inset -1px -1px clamp(3px, 0.5vw, 5px) rgba(0, 0, 0, 0.15);
 
   /* 🎬 ANIMACIÓN CINEMATOGRÁFICA COMPLEJA */
   animation: metallic-rotate 12s linear infinite,
@@ -697,9 +695,9 @@ body,
     #1a1a1a 360deg
   );
 
-  /* Efectos de brillo y textura - REDUCIDOS */
-  box-shadow: 0 0 25px rgba(138, 138, 138, 0.15),
-    /* 🎯 Reducido de 40px/0.3 a 25px/0.15 */ inset 0 0 10px rgba(0, 0, 0, 0.25); /* 🎯 Reducido de 15px/0.5 a 10px/0.25 */
+  /* Efectos de brillo y textura - RESPONSIVE */
+  box-shadow: 0 0 clamp(15px, 3vw, 25px) rgba(138, 138, 138, 0.15),
+    inset 0 0 clamp(5px, 1vw, 10px) rgba(0, 0, 0, 0.25);
 
   animation: metallic-rotate 15s linear infinite reverse;
 }
@@ -727,11 +725,11 @@ body,
   animation: reflective-pulse 6s ease-in-out infinite;
 }
 
-/* 🔥 ANILLO DE PULSO OPTIMIZADO - COORDINADO CON ANILLO METÁLICO */
+/* 🔥 ANILLO DE PULSO OPTIMIZADO - RESPONSIVE */
 .pulse-ring {
   width: 75%; /* 🎯 RESPONSIVE: Percentage del contenedor */
   height: 75%;
-  border: 2px solid var(--color-orange-primary); /* 🎨 Borde más visible */
+  border: clamp(1px, 0.2vw, 2px) solid var(--color-orange-primary); /* 🎨 Borde responsive */
   border-radius: 50%;
   background: transparent; /* 🔍 Interior completamente transparente */
   position: absolute;
@@ -741,9 +739,9 @@ body,
   z-index: 7; /* 🎯 Z-index mayor para estar encima del glow-ring */
   opacity: 0.8; /* 🎨 Opacidad optimizada */
 
-  /* 🌟 Efectos de resplandor coordinados */
-  box-shadow: 0 0 15px var(--color-orange-alpha-30),
-    inset 0 0 10px var(--color-orange-alpha-20);
+  /* 🌟 Efectos de resplandor responsive */
+  box-shadow: 0 0 clamp(8px, 1.5vw, 15px) var(--color-orange-alpha-30),
+    inset 0 0 clamp(5px, 1vw, 10px) var(--color-orange-alpha-20);
 
   /* 🎬 Animación de pulso suave */
   animation: pulse-optimized 2.5s ease-in-out infinite;
@@ -753,33 +751,49 @@ body,
 @media (max-width: 480px) {
   .portal-effects {
     width: clamp(
-      525px,
-      135vw,
-      630px
-    ); /* ✅ CORRECCIÓN: Aumentado 50% más para móvil (350→525, 90vw→135vw, 420→630) */
-    height: clamp(525px, 135vw, 630px);
+      280px,
+      80vw,
+      400px
+    ); /* 🎯 MÓVIL: Tamaños optimizados para pantallas pequeñas */
+    height: clamp(280px, 80vw, 400px);
+  }
+
+  .glow-ring {
+    border: clamp(2px, 0.5vw, 3px) solid transparent;
+  }
+
+  .pulse-ring {
+    border: clamp(1px, 0.3vw, 2px) solid var(--color-orange-primary);
   }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
   .portal-effects {
     width: clamp(
-      600px,
-      112.5vw,
-      750px
-    ); /* ✅ CORRECCIÓN: Aumentado 50% más para tablet (400→600, 75vw→112.5vw, 500→750) */
-    height: clamp(600px, 112.5vw, 750px);
+      350px,
+      70vw,
+      500px
+    ); /* 🎯 TABLET: Tamaños balanceados para tablets */
+    height: clamp(350px, 70vw, 500px);
+  }
+
+  .glow-ring {
+    border: clamp(3px, 0.4vw, 4px) solid transparent;
   }
 }
 
 @media (min-width: 1441px) {
   .portal-effects {
     width: clamp(
-      975px,
-      90vw,
-      1200px
-    ); /* ✅ CORRECCIÓN: Aumentado 50% más para pantallas grandes (650→975, 60vw→90vw, 800→1200) */
-    height: clamp(975px, 90vw, 1200px);
+      500px,
+      60vw,
+      700px
+    ); /* 🎯 ESCRITORIO: Tamaños proporcionados para pantallas grandes */
+    height: clamp(500px, 60vw, 700px);
+  }
+
+  .glow-ring {
+    border: clamp(3px, 0.3vw, 5px) solid transparent;
   }
 }
 
@@ -1388,27 +1402,36 @@ body,
   }
 }
 
-/* Pulsación de resplandor metálico con variaciones */
+/* Pulsación de resplandor metálico responsive */
 @keyframes reflective-pulse {
   0% {
-    box-shadow: 0 0 30px rgba(138, 138, 138, 0.6),
-      inset 0 0 20px rgba(255, 255, 255, 0.1), 0 0 60px rgba(42, 42, 42, 0.4),
-      inset 2px 2px 10px rgba(255, 255, 255, 0.2),
-      inset -2px -2px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 clamp(15px, 3vw, 30px) rgba(138, 138, 138, 0.6),
+      inset 0 0 clamp(10px, 2vw, 20px) rgba(255, 255, 255, 0.1),
+      0 0 clamp(30px, 6vw, 60px) rgba(42, 42, 42, 0.4),
+      inset clamp(1px, 0.2vw, 2px) clamp(1px, 0.2vw, 2px) clamp(5px, 1vw, 10px)
+        rgba(255, 255, 255, 0.2),
+      inset clamp(-1px, -0.2vw, -2px) clamp(-1px, -0.2vw, -2px)
+        clamp(5px, 1vw, 10px) rgba(0, 0, 0, 0.3);
     opacity: 0.9;
   }
   50% {
-    box-shadow: 0 0 45px rgba(138, 138, 138, 0.7),
-      inset 0 0 25px rgba(255, 255, 255, 0.15), 0 0 70px rgba(42, 42, 42, 0.5),
-      inset 2.5px 2.5px 12px rgba(255, 255, 255, 0.25),
-      inset -2.5px -2.5px 12px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 0 clamp(22px, 4.5vw, 45px) rgba(138, 138, 138, 0.7),
+      inset 0 0 clamp(12px, 2.5vw, 25px) rgba(255, 255, 255, 0.15),
+      0 0 clamp(35px, 7vw, 70px) rgba(42, 42, 42, 0.5),
+      inset clamp(1.2px, 0.25vw, 2.5px) clamp(1.2px, 0.25vw, 2.5px)
+        clamp(6px, 1.2vw, 12px) rgba(255, 255, 255, 0.25),
+      inset clamp(-1.2px, -0.25vw, -2.5px) clamp(-1.2px, -0.25vw, -2.5px)
+        clamp(6px, 1.2vw, 12px) rgba(0, 0, 0, 0.35);
     opacity: 0.95;
   }
   100% {
-    box-shadow: 0 0 50px rgba(138, 138, 138, 0.8),
-      inset 0 0 30px rgba(255, 255, 255, 0.2), 0 0 80px rgba(42, 42, 42, 0.6),
-      inset 3px 3px 15px rgba(255, 255, 255, 0.3),
-      inset -3px -3px 15px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 clamp(25px, 5vw, 50px) rgba(138, 138, 138, 0.8),
+      inset 0 0 clamp(15px, 3vw, 30px) rgba(255, 255, 255, 0.2),
+      0 0 clamp(40px, 8vw, 80px) rgba(42, 42, 42, 0.6),
+      inset clamp(1.5px, 0.3vw, 3px) clamp(1.5px, 0.3vw, 3px)
+        clamp(7px, 1.5vw, 15px) rgba(255, 255, 255, 0.3),
+      inset clamp(-1.5px, -0.3vw, -3px) clamp(-1.5px, -0.3vw, -3px)
+        clamp(7px, 1.5vw, 15px) rgba(0, 0, 0, 0.4);
     opacity: 1;
   }
 }
@@ -1450,25 +1473,25 @@ body,
   }
 }
 
-/* 🎯 ANIMACIÓN DE PULSO OPTIMIZADA PARA COORDINACIÓN CON ANILLO METÁLICO */
+/* 🎯 ANIMACIÓN DE PULSO OPTIMIZADA RESPONSIVE */
 @keyframes pulse-optimized {
   0% {
     transform: scale(1);
     opacity: 0.8;
-    box-shadow: 0 0 15px var(--color-orange-alpha-30),
-      inset 0 0 10px var(--color-orange-alpha-20);
+    box-shadow: 0 0 clamp(8px, 1.5vw, 15px) var(--color-orange-alpha-30),
+      inset 0 0 clamp(5px, 1vw, 10px) var(--color-orange-alpha-20);
   }
   50% {
     transform: scale(1.05);
     opacity: 0.9;
-    box-shadow: 0 0 25px var(--color-orange-alpha-40),
-      inset 0 0 15px var(--color-orange-alpha-30);
+    box-shadow: 0 0 clamp(12px, 2.5vw, 25px) var(--color-orange-alpha-40),
+      inset 0 0 clamp(8px, 1.5vw, 15px) var(--color-orange-alpha-30);
   }
   100% {
     transform: scale(1);
     opacity: 0.8;
-    box-shadow: 0 0 15px var(--color-orange-alpha-30),
-      inset 0 0 10px var(--color-orange-alpha-20);
+    box-shadow: 0 0 clamp(8px, 1.5vw, 15px) var(--color-orange-alpha-30),
+      inset 0 0 clamp(5px, 1vw, 10px) var(--color-orange-alpha-20);
   }
 }
 
@@ -2001,14 +2024,14 @@ section {
 .cta-content {
   max-width: 1000px;
   margin: 0 auto !important;
-  padding: 40px 24px 40px 24px !important; /* Padding normal sin exceso */
+  padding: clamp(10px, 2vh, 20px) clamp(15px, 3vw, 24px) !important; /* Padding vertical reducido */
   position: relative;
   z-index: 5;
   box-sizing: border-box;
   min-height: 100vh; /* Asegurar que ocupe toda la altura */
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centrar verticalmente todo el contenido */
+  justify-content: space-evenly; /* Distribuir espacio uniformemente */
   align-items: center;
 }
 
@@ -2018,10 +2041,10 @@ section {
   font-weight: 900;
   color: var(--color-white);
   margin-bottom: clamp(
-    30px,
-    6vh,
-    60px
-  ) !important; /* Espacio moderado para subtítulo */
+    15px,
+    3vh,
+    30px
+  ) !important; /* Espacio más compacto para subtítulo */
   text-shadow: 2px 2px 8px var(--color-black-alpha-70);
   font-family: "SohoPro", "SF Pro Display", "Helvetica Neue", sans-serif;
   line-height: 0.95 !important; /* Mantener líneas compactas */
@@ -2040,12 +2063,12 @@ section {
 .cta-button-container {
   position: relative;
   z-index: 10;
-  padding: clamp(10px, 2vw, 20px);
+  padding: clamp(5px, 1vh, 15px); /* Padding más compacto y responsive */
   margin-top: clamp(
-    40px,
-    8vh,
-    80px
-  ) !important; /* Espacio desde el subtítulo */
+    5px,
+    1vh,
+    15px
+  ) !important; /* Margen mínimo para acercar al borde */
   width: 100%;
   display: flex;
   justify-content: center;
@@ -2081,7 +2104,7 @@ section {
 
 /* 📏 ESPACIO PARA SUBTÍTULO */
 .cta-subtitle-space {
-  min-height: clamp(40px, 6vh, 80px); /* Espacio moderado para subtítulo */
+  min-height: clamp(20px, 3vh, 40px); /* Espacio más compacto y responsive */
   display: flex;
   align-items: center;
   justify-content: center;
