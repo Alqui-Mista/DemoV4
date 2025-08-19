@@ -538,7 +538,7 @@ const Rebecca = memo(() => {
               <button
                 className="homepage-access-button ai-matrix-button debug-button-position"
                 style={{
-                  marginLeft: "10px", // 🎯 MOVIDO 5px HACIA LA IZQUIERDA (15px - 5px = 10px)
+                  marginLeft: "5px", // 🎯 MOVIDO 5px HACIA LA IZQUIERDA (10px - 5px = 5px)
                   transform: "translateY(-65px)",
                   position: "relative",
                   zIndex: 999,
