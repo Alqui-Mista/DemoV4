@@ -2156,9 +2156,9 @@ section {
   display: inline-block;
   cursor: pointer;
 
-  /* 🌟 EFECTO DE TRANSPARENCIA COMPLEJA - CASI INVISIBLE */
-  opacity: 0.12;
-  filter: contrast(0.25) brightness(0.35) saturate(0.15) blur(0.8px)
+  /* 🌟 EFECTO DE TRANSPARENCIA COMPLEJA - LIGERAMENTE MÁS VISIBLE */
+  opacity: 0.65;
+  filter: contrast(0.25) brightness(0.42) saturate(0.15) blur(0.8px)
     drop-shadow(0 0 1px rgba(0, 0, 0, 0.2));
 
   /* 🎭 MEZCLA DE EFECTOS PARA TRANSPARENCIA AVANZADA */

@@ -549,7 +549,7 @@ const Rebecca = memo(() => {
             <div
               className="cta-button-wrapper"
               onClick={() => {
-                window.open("https://wa.me/+56999999999", "_blank");
+                window.open("https://wa.me/56949459379", "_blank");
               }}
               onMouseEnter={(e) => {
                 const wrapper = e.currentTarget;
