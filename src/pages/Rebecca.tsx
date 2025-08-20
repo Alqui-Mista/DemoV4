@@ -526,36 +526,75 @@ const Rebecca = memo(() => {
 
           {/* Botón CTA */}
           <div className="cta-button-container">
-            <img
-              src={CTAButtonImage}
-              alt="CTA Button"
-              className="cta-button-image"
-              style={{
-                maxWidth: "clamp(200px, 25vw, 300px)",
-                height: "auto",
-                cursor: "pointer",
-                opacity: "0.5" /* Más transparente en estado inactivo */,
-                transform: "scale(0.85)" /* Más pequeño en estado inactivo */,
-                transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
-                filter: "drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))",
-              }}
+            <div
+              className="cta-button-wrapper"
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform =
-                  "scale(1.15)"; /* Agrandamiento significativo */
-                e.currentTarget.style.opacity =
-                  "1"; /* Opacidad 100% en hover */
-                e.currentTarget.style.filter =
-                  "drop-shadow(0 12px 24px rgba(0, 0, 0, 0.5))";
+                // Aplicar efectos a toda la unidad del botón
+                const img = e.currentTarget.querySelector(
+                  ".cta-button-image"
+                ) as HTMLElement;
+                const text = e.currentTarget.querySelector(
+                  ".cta-button-text"
+                ) as HTMLElement;
+
+                if (img) {
+                  img.style.transform = "scale(1.15)";
+                  img.style.opacity = "1";
+                  img.style.filter =
+                    "drop-shadow(0 12px 24px rgba(0, 0, 0, 0.5))";
+                }
+
+                if (text) {
+                  text.style.transform = "translate(-50%, -50%) scale(1.15)";
+                  text.classList.add("active"); // 🔥 ACTIVAR RESPLANDOR
+                }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform =
-                  "scale(0.85)"; /* Volver a estado pequeño */
-                e.currentTarget.style.opacity =
-                  "0.5"; /* Volver a opacidad reducida */
-                e.currentTarget.style.filter =
-                  "drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))";
+                // Restaurar estado inicial de toda la unidad
+                const img = e.currentTarget.querySelector(
+                  ".cta-button-image"
+                ) as HTMLElement;
+                const text = e.currentTarget.querySelector(
+                  ".cta-button-text"
+                ) as HTMLElement;
+
+                if (img) {
+                  img.style.transform = "scale(0.85)";
+                  img.style.opacity = "0.5";
+                  img.style.filter =
+                    "drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))";
+                }
+
+                if (text) {
+                  text.style.transform = "translate(-50%, -50%) scale(0.85)";
+                  text.classList.remove("active"); // 🔥 DESACTIVAR RESPLANDOR
+                }
               }}
-            />
+            >
+              <img
+                src={CTAButtonImage}
+                alt="CTA Button"
+                className="cta-button-image"
+                style={{
+                  maxWidth: "clamp(200px, 25vw, 300px)",
+                  height: "auto",
+                  cursor: "pointer",
+                  opacity: "0.5",
+                  transform: "scale(0.85)",
+                  transition:
+                    "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+                  filter: "drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))",
+                  pointerEvents: "none" /* Evitar eventos duplicados */,
+                }}
+              />
+              {/* Texto WHATSAPP estilo calculadora digital */}
+              <span
+                className="cta-button-text"
+                style={{ pointerEvents: "none" }}
+              >
+                WHATSAPP
+              </span>
+            </div>
           </div>
         </div>
       </section>

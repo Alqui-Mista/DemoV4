@@ -2132,7 +2132,132 @@ section {
   filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
 }
 
-/* 📏 ESPACIO PARA SUBTÍTULO */
+/* 🔥 TEXTO WHATSAPP ESTILO CALCULADORA DIGITAL */
+.cta-button-wrapper {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  /* 🎯 UNIDAD COMPLETA DEL BOTÓN */
+  width: auto;
+  height: auto;
+}
+
+.cta-button-text {
+  /* 🎯 POSICIONAMIENTO: Centrado DENTRO del botón */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.85);
+  z-index: 15;
+
+  /* 📱 TIPOGRAFÍA ORBITRON DELGADA - FUTURISTA */
+  font-family: "Orbitron", "Arial", sans-serif;
+  font-size: clamp(16px, 3.5vw, 24px); /* 🎯 AUMENTADO significativamente */
+  font-weight: 100; /* 🎯 ORBITRON MÁS DELGADA (Thin) */
+  letter-spacing: 0.15em; /* 🎯 ESPACIADO AUMENTADO para Orbitron */
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+
+  /* 🌟 TEXTURA BASE - ESTADO APAGADO */
+  color: transparent;
+  background: linear-gradient(
+    90deg,
+    rgba(218, 128, 35, 0.6) 0%,
+    rgba(180, 180, 180, 0.7) 25%,
+    rgba(200, 200, 200, 0.8) 50%,
+    rgba(180, 180, 180, 0.7) 75%,
+    rgba(218, 128, 35, 0.6) 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* ✨ ESTADO BASE - SIN RESPLANDOR (APAGADO) */
+  filter: none;
+
+  /* 🎭 OPACIDAD REDUCIDA EN ESTADO APAGADO */
+  opacity: 0.6;
+
+  /* 🎬 TRANSICIONES PERFECTAMENTE SINCRONIZADAS */
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* 🔥 SIN ANIMACIONES EN ESTADO BASE */
+  animation: none;
+
+  /* 🎯 SOMBRA MÍNIMA SOLO PARA DEFINICIÓN */
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+/* 🔥 ESTADO ENCENDIDO - CLASE PARA HOVER */
+.cta-button-text.active {
+  /* 🌟 COLOR SÓLIDO NARANJA - SIN GRADIENTE RECTANGULAR */
+  color: var(--color-orange-primary);
+  background: none;
+  -webkit-text-fill-color: var(--color-orange-primary);
+
+  /* ✨ SIN FILTROS QUE CAUSEN RECTÁNGULOS */
+  filter: none;
+
+  /* 🎭 OPACIDAD COMPLETA */
+  opacity: 1;
+
+  /* 🔥 ANIMACIONES ACTIVADAS */
+  animation: digital-glow-subtle 3s ease-in-out infinite alternate,
+    background-shift-smooth 4s linear infinite;
+
+  /* 🎯 CONTORNO LUMINOSO REAL CON TEXT-STROKE */
+  -webkit-text-stroke: 0.3px rgba(255, 180, 0, 0.6);
+
+  /* 🌟 SOMBRAS MÚLTIPLES PARA CONTORNO LUMINOSO */
+  text-shadow: 
+    /* Contorno luminoso en 8 direcciones */ -0.5px -0.5px 0 rgba(255, 180, 0, 0.8),
+    0.5px -0.5px 0 rgba(255, 180, 0, 0.8), -0.5px 0.5px 0 rgba(255, 180, 0, 0.8),
+    0.5px 0.5px 0 rgba(255, 180, 0, 0.8), -0.5px 0 0 rgba(255, 180, 0, 0.8),
+    0.5px 0 0 rgba(255, 180, 0, 0.8), 0 -0.5px 0 rgba(255, 180, 0, 0.8),
+    0 0.5px 0 rgba(255, 180, 0, 0.8),
+    /* Resplandor muy sutil */ 0 0 2px rgba(255, 180, 0, 0.6),
+    0 0 4px rgba(218, 128, 35, 0.4),
+    /* Sombra de profundidad */ 0 1px 2px rgba(0, 0, 0, 0.9);
+}
+
+/* 🎬 ANIMACIONES SUTILES PARA CONTORNO LUMINOSO */
+@keyframes digital-glow-subtle {
+  0% {
+    -webkit-text-stroke: 0.3px rgba(255, 180, 0, 0.6);
+    text-shadow: -0.5px -0.5px 0 rgba(255, 180, 0, 0.8),
+      0.5px -0.5px 0 rgba(255, 180, 0, 0.8),
+      -0.5px 0.5px 0 rgba(255, 180, 0, 0.8),
+      0.5px 0.5px 0 rgba(255, 180, 0, 0.8), -0.5px 0 0 rgba(255, 180, 0, 0.8),
+      0.5px 0 0 rgba(255, 180, 0, 0.8), 0 -0.5px 0 rgba(255, 180, 0, 0.8),
+      0 0.5px 0 rgba(255, 180, 0, 0.8), 0 0 2px rgba(255, 180, 0, 0.6),
+      0 0 4px rgba(218, 128, 35, 0.4), 0 1px 2px rgba(0, 0, 0, 0.9);
+  }
+  100% {
+    -webkit-text-stroke: 0.3px rgba(255, 180, 0, 0.8);
+    text-shadow: -0.5px -0.5px 0 rgba(255, 180, 0, 1),
+      0.5px -0.5px 0 rgba(255, 180, 0, 1), -0.5px 0.5px 0 rgba(255, 180, 0, 1),
+      0.5px 0.5px 0 rgba(255, 180, 0, 1), -0.5px 0 0 rgba(255, 180, 0, 1),
+      0.5px 0 0 rgba(255, 180, 0, 1), 0 -0.5px 0 rgba(255, 180, 0, 1),
+      0 0.5px 0 rgba(255, 180, 0, 1), 0 0 3px rgba(255, 180, 0, 0.8),
+      0 0 5px rgba(218, 128, 35, 0.6), 0 1px 2px rgba(0, 0, 0, 0.9);
+  }
+}
+
+@keyframes background-shift-smooth {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/*  ESPACIO PARA SUBTÍTULO */
 .cta-subtitle-space {
   min-height: clamp(20px, 3vh, 40px); /* Espacio más compacto y responsive */
   display: flex;
@@ -3240,6 +3365,15 @@ section {
     margin-top: clamp(30px, 6vh, 60px) !important;
   }
 
+  /* 🔥 TEXTO WHATSAPP - TABLETS OPTIMIZADO */
+  .cta-button-text {
+    font-family: "Orbitron", "Arial", sans-serif !important;
+    font-weight: 100 !important; /* 🎯 ORBITRON THIN */
+    font-size: clamp(14px, 3.2vw, 20px) !important; /* 🎯 TAMAÑO VISIBLE */
+    letter-spacing: 0.15em !important; /* 🎯 ESPACIADO ORBITRON */
+    transform: translate(-50%, -50%) scale(0.8) !important;
+  }
+
   @media (min-width: 481px) and (max-width: 768px) {
     .footer-reveal {
       height: auto; /* 🎯 También auto para tablets */
@@ -3498,6 +3632,15 @@ section {
 
   .cta-subtitle-space {
     min-height: clamp(35px, 7vh, 70px); /* Proporcional para móviles */
+  }
+
+  /* 🔥 TEXTO WHATSAPP - MÓVILES OPTIMIZADO */
+  .cta-button-text {
+    font-family: "Orbitron", "Arial", sans-serif !important;
+    font-weight: 100 !important; /* 🎯 ORBITRON THIN */
+    font-size: clamp(12px, 3vw, 16px) !important; /* 🎯 TAMAÑO VISIBLE */
+    letter-spacing: 0.15em !important; /* 🎯 ESPACIADO ORBITRON */
+    transform: translate(-50%, -50%) scale(0.75) !important;
   }
 
   /* 🎯 NEWSLETTER SECTION OPTIMIZADA */
