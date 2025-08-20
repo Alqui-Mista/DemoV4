@@ -2101,12 +2101,53 @@ section {
   justify-content: center;
   align-items: center;
 
-  /* 🎬 ANIMACIÓN DE ENTRADA ELEGANTE - Aparece después del título */
+  /* � ESTADO INICIAL - OCULTO */
   opacity: 0;
-  transform: translateY(30px) scale(0.9);
-  animation: cta-button-entrance 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)
-    forwards;
-  animation-delay: 2.5s; /* Después que termine "TRABAJEMOS JUNTOS" */
+  transform: translateY(50px) scale(0.6) rotateX(45deg);
+  transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none;
+}
+
+/* 🎯 BOTÓN CTA - FADE-IN TECNOLÓGICO ELEGANTE */
+.cta-button-container {
+  position: relative;
+  z-index: 10;
+  padding: clamp(5px, 1vh, 15px);
+  margin-top: clamp(5px, 1vh, 15px) !important;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* 🌫️ ESTADO INICIAL - OCULTO */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.95);
+  filter: blur(2px) brightness(0.3);
+  transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+  pointer-events: none;
+}
+
+/* ✨ ESTADO VISIBLE - EMERGIENDO DE LA LLUVIA DE CÓDIGOS */
+.cta-button-container.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  filter: blur(0px) brightness(1);
+  pointer-events: auto;
+
+  /* 🔥 EFECTO DE MATERIALIZACIÓN DESDE EL FONDO */
+  animation: tech-emerge 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* 💨 ESTADO OCULTO - DESVANECIMIENTO ELEGANTE */
+.cta-button-container.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(15px) scale(0.97);
+  filter: blur(1px) brightness(0.5);
+  pointer-events: none;
+  transition: all 0.8s cubic-bezier(0.55, 0.085, 0.68, 0.53);
 }
 
 /* 🎯 WRAPPER DEL BOTÓN - CONTENEDOR PRINCIPAL */
@@ -2115,8 +2156,8 @@ section {
   display: inline-block;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  transform: scale(0.85);
-  opacity: 0.5;
+  transform: scale(1); /* Tamaño base cuando está visible */
+  opacity: 1;
 }
 
 /* 🖼️ IMAGEN DEL BOTÓN - BASE VISUAL */
@@ -2164,13 +2205,27 @@ section {
     0 0 8px var(--color-orange-primary), 0 0 15px var(--color-orange-primary),
     0 0 25px rgba(218, 128, 35, 0.8), 0 0 35px rgba(218, 128, 35, 0.6);
 
-  /* ⌨️ ANIMACIÓN DE ESCRITURA LETRA POR LETRA */
+  /* ⌨️ ESTADO INICIAL - TEXTO OCULTO */
   overflow: hidden;
   white-space: nowrap;
   width: 0;
-  animation: awwwards-typewriter 2s steps(9, end) forwards,
-    digital-power-glitch 4s ease-in-out infinite;
-  animation-delay: 3.2s, 5.5s; /* Escritura primero, luego parpadeos */
+  opacity: 0;
+  animation: none; /* Sin animación por defecto */
+}
+
+/* 📝 ESTADO VISIBLE DEL TEXTO - EFECTO ELEGANTE COORDINADO */
+.cta-button-text-overlay.text-visible .cta-button-text-display {
+  animation: elegant-text-appear 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards,
+    awwwards-typewriter 1.8s steps(9, end) 0.3s forwards,
+    digital-power-glitch 4s ease-in-out 2.5s infinite;
+  opacity: 1;
+}
+
+/* 🚫 ESTADO OCULTO DEL TEXTO */
+.cta-button-text-overlay.text-hidden .cta-button-text-display {
+  width: 0;
+  opacity: 0;
+  animation: none;
 }
 
 /* ⚡ OVERLAY DE INTERFERENCIA ELÉCTRICA */
@@ -2186,7 +2241,7 @@ section {
 
   /* 🔌 EFECTOS DE INTERFERENCIA ELÉCTRICA */
   animation: electrical-malfunction 6s ease-in-out infinite;
-  animation-delay: 5.5s; /* Sincronizado con el parpadeo del texto */
+  animation-delay: 2.5s; /* Sincronizado con el parpadeo del texto */
 }
 
 /* � OVERLAY DE GLITCH DIGITAL */
@@ -2202,7 +2257,7 @@ section {
 
   /* 📺 EFECTOS DE FALLA DIGITAL */
   animation: premium-digital-glitch 8s ease-in-out infinite;
-  animation-delay: 5.8s; /* Ligeramente después de la interferencia */
+  animation-delay: 2.8s; /* Ligeramente después de la interferencia */
 }
 
 /* 🎯 ESTADOS HOVER - SINCRONIZADO PREMIUM */
@@ -5027,5 +5082,80 @@ section {
   .electrical-interference,
   .digital-glitch-overlay {
     display: none;
+  }
+}
+
+/* 🚀 ANIMACIÓN DE MATERIALIZACIÓN TECNOLÓGICA */
+@keyframes tech-materialize {
+  0% {
+    transform: translateY(50px) scale(0.6) rotateX(45deg);
+    filter: blur(4px) brightness(0.3);
+    opacity: 0;
+  }
+
+  30% {
+    transform: translateY(20px) scale(0.7) rotateX(20deg);
+    filter: blur(2px) brightness(0.6);
+    opacity: 0.4;
+  }
+
+  60% {
+    transform: translateY(5px) scale(0.8) rotateX(5deg);
+    filter: blur(1px) brightness(0.9);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateY(0) scale(0.85) rotateX(0deg);
+    filter: blur(0px) brightness(1);
+    opacity: 1;
+  }
+}
+
+/* ✨ ANIMACIÓN DE EMERGENCIA DESDE LA LLUVIA DE CÓDIGOS */
+@keyframes tech-emerge {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+    filter: blur(3px) brightness(0.2) contrast(0.5);
+  }
+
+  25% {
+    opacity: 0.3;
+    transform: translateY(15px) scale(0.95);
+    filter: blur(2px) brightness(0.5) contrast(0.8);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: translateY(5px) scale(0.98);
+    filter: blur(1px) brightness(0.8) contrast(1);
+  }
+
+  75% {
+    opacity: 0.9;
+    transform: translateY(-2px) scale(1.01);
+    filter: blur(0.5px) brightness(1.1) contrast(1.1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px) brightness(1) contrast(1);
+  }
+}
+
+/* ✨ ANIMACIÓN ELEGANTE PARA LA APARICIÓN DEL TEXTO */
+@keyframes elegant-text-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+    filter: blur(2px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
   }
 }

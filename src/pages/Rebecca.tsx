@@ -17,6 +17,8 @@ const Rebecca = memo(() => {
 
   // Estados para la sección CTA
   const [ctaScrollPercent, setCtaScrollPercent] = useState(0); // 0 a 1
+  const [isCtaButtonVisible, setIsCtaButtonVisible] = useState(false); // Control de fade-in tecnológico
+  const [isCtaTextVisible, setIsCtaTextVisible] = useState(false); // Control de texto
 
   // Observer para detectar el porcentaje de visibilidad de la sección CTA
   useEffect(() => {
@@ -24,6 +26,20 @@ const Rebecca = memo(() => {
       (entries) => {
         entries.forEach((entry) => {
           setCtaScrollPercent(entry.intersectionRatio);
+
+          // 🎯 CONTROL ELEGANTE DE FADE-IN DEL BOTÓN CTA (95% visible)
+          if (entry.intersectionRatio >= 0.95) {
+            setIsCtaButtonVisible(true);
+            // Activar texto después de un pequeño delay
+            setTimeout(() => {
+              setIsCtaTextVisible(true);
+            }, 600);
+          } else if (entry.intersectionRatio < 0.3) {
+            // Desvanecimiento elegante al salir
+            setIsCtaButtonVisible(false);
+            setIsCtaTextVisible(false);
+          }
+
           // Activar/desactivar lluvia de códigos según visibilidad
           if (entry.intersectionRatio >= 0.3) {
             setIsEffectActive(true);
@@ -525,7 +541,11 @@ const Rebecca = memo(() => {
           </div>
 
           {/* Botón CTA */}
-          <div className="cta-button-container">
+          <div
+            className={`cta-button-container ${
+              isCtaButtonVisible ? "visible" : "hidden"
+            }`}
+          >
             <div
               className="cta-button-wrapper"
               onClick={() => {
@@ -545,10 +565,19 @@ const Rebecca = memo(() => {
                 src={CTAButtonImage}
                 alt="WhatsApp Button"
                 className="cta-button-image"
+                style={{
+                  maxWidth: "100%",
+                  height: "auto",
+                  display: "block",
+                }}
               />
 
               {/* Texto del botón adaptado a la pantalla rectangular existente */}
-              <div className="cta-button-text-overlay">
+              <div
+                className={`cta-button-text-overlay ${
+                  isCtaTextVisible ? "text-visible" : "text-hidden"
+                }`}
+              >
                 <span className="cta-button-text-display">WHATSAPP</span>
                 <div className="digital-glitch-overlay"></div>
                 <div className="electrical-interference"></div>
