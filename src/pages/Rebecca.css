@@ -2093,8 +2093,12 @@ section {
 .cta-button-container {
   position: relative;
   z-index: 10;
-  padding: clamp(5px, 1vh, 15px);
-  margin-top: clamp(15px, 3vh, 30px) !important;
+  padding: clamp(5px, 1vh, 15px); /* Padding más compacto y responsive */
+  margin-top: clamp(
+    5px,
+    1vh,
+    15px
+  ) !important; /* Margen mínimo para acercar al borde */
   width: 100%;
   display: flex;
   justify-content: center;
@@ -2104,24 +2108,22 @@ section {
 .cta-button-image {
   display: block;
   margin: 0 auto;
-  max-width: clamp(
-    200px,
-    22vw,
-    300px
-  ) !important; /* Aumentado el tamaño base */
+  max-width: clamp(180px, 20vw, 280px) !important;
   height: auto;
   cursor: pointer;
-  opacity: 0.5;
-  transform: scale(0.85);
+  opacity: 0.5; /* Más transparente en estado inactivo */
+  transform: scale(0.85); /* Más pequeño en estado inactivo */
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-  border-radius: 8px;
+  border-radius: 8px; /* Suave redondeado */
 }
 
 .cta-button-image:hover {
-  transform: scale(1.15) translateY(-3px);
-  opacity: 1;
-  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.5));
+  transform: scale(1.15) translateY(-3px); /* Agrandamiento significativo */
+  opacity: 1; /* Opacidad completa en hover */
+  filter: drop-shadow(
+    0 12px 24px rgba(0, 0, 0, 0.5)
+  ); /* Sombra más dramática */
 }
 
 .cta-button-image:active {
@@ -2130,46 +2132,14 @@ section {
   filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
 }
 
-/* 🔥 HOVER SINCRONIZADO - WRAPPER ESCALA TODO EL CONJUNTO */
-.cta-button-wrapper:hover .cta-button-text {
-  transform: translate(-50%, -50%) scale(0.98) !important; /* Escala sincronizada con botón */
-}
-
-.cta-button-wrapper:active .cta-button-text {
-  transform: translate(-50%, -50%) scale(0.94) !important; /* Escala activa sincronizada */
-}
-
-/* 🔥 SINCRONIZACIÓN TÁCTIL - ESPECÍFICO PARA MÓVILES */
-.cta-button-image:active + .cta-button-text,
-.cta-button-image:focus + .cta-button-text {
-  transform: translate(-50%, -50%) scale(0.94) !important;
-}
-
-/* 🔥 EVENTOS TÁCTILES ADICIONALES */
-@media (hover: none) and (pointer: coarse) {
-  .cta-button-wrapper:active .cta-button-text,
-  .cta-button-image:active ~ .cta-button-text {
-    transform: translate(-50%, -50%) scale(0.94) !important;
-    transition: transform 0.1s ease-out !important;
-  }
-}
-
 /* 🔥 TEXTO WHATSAPP ESTILO CALCULADORA DIGITAL */
 .cta-button-wrapper {
   position: relative;
   display: inline-block;
   cursor: pointer;
+  /* 🎯 UNIDAD COMPLETA DEL BOTÓN */
   width: auto;
   height: auto;
-  /* 🔥 MEJORAR USABILIDAD - INDICAR QUE ES CLICKEABLE */
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* 🔥 EFECTO VISUAL AL HACER CLIC */
-.cta-button-wrapper:active {
-  transform: scale(0.98);
-  transition: transform 0.1s ease-out;
 }
 
 .cta-button-text {
@@ -2180,88 +2150,61 @@ section {
   transform: translate(-50%, -50%) scale(0.85);
   z-index: 15;
 
-  /* 📱 TIPOGRAFÍA ORBITRON DELGADA - FUTURISTA */
-  font-family: "Orbitron", "Arial", sans-serif;
-  font-size: clamp(18px, 4vw, 26px) !important; /* Escalado proporcionalmente */
-  font-weight: 100;
-  letter-spacing: 0.15em;
+  /* 📱 TIPOGRAFÍA ESTILO CALCULADORA DIGITAL - TAMAÑO AUMENTADO */
+  font-family: "Courier New", "Monaco", "Menlo", "DejaVu Sans Mono", monospace;
+  font-size: clamp(16px, 3.5vw, 24px); /* 🎯 AUMENTADO significativamente */
+  font-weight: 900;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   line-height: 1;
   white-space: nowrap;
 
-  /* 🌟 TEXTURA BASE - ESTADO APAGADO */
+  /* 🌟 TEXTURA LUMINOSA NEÓN NARANJA */
   color: transparent;
   background: linear-gradient(
     90deg,
-    rgba(218, 128, 35, 0.6) 0%,
-    rgba(180, 180, 180, 0.7) 25%,
-    rgba(200, 200, 200, 0.8) 50%,
-    rgba(180, 180, 180, 0.7) 75%,
-    rgba(218, 128, 35, 0.6) 100%
+    var(--color-orange-primary) 0%,
+    rgba(255, 200, 80, 0.95) 25%,
+    rgba(255, 255, 255, 0.9) 50%,
+    rgba(255, 200, 80, 0.95) 75%,
+    var(--color-orange-primary) 100%
   );
   background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: none;
-  opacity: 0.6;
+
+  /* ✨ EFECTOS LUMINOSOS NEÓN MEJORADOS */
+  filter: drop-shadow(0 0 8px rgba(218, 128, 35, 0.9))
+    drop-shadow(0 0 16px rgba(255, 180, 0, 0.7))
+    drop-shadow(0 0 24px rgba(218, 128, 35, 0.5));
+
+  /* 🎭 OPACIDAD OPTIMIZADA */
+  opacity: 0.8;
+
+  /* 🎬 TRANSICIONES PERFECTAMENTE SINCRONIZADAS */
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  animation: none;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
-}
 
-/* 🔥 ESTADO ENCENDIDO - CLASE PARA HOVER */
-.cta-button-text.active {
-  /* 🌟 COLOR SÓLIDO NARANJA - SIN GRADIENTE RECTANGULAR */
-  color: var(--color-orange-primary);
-  background: none;
-  -webkit-text-fill-color: var(--color-orange-primary);
-
-  /* ✨ SIN FILTROS QUE CAUSEN RECTÁNGULOS */
-  filter: none;
-
-  /* 🎭 OPACIDAD COMPLETA */
-  opacity: 1;
-
-  /* 🔥 ANIMACIONES ACTIVADAS */
+  /* 🔥 ANIMACIÓN DIGITAL SUTIL */
   animation: digital-glow-subtle 3s ease-in-out infinite alternate,
     background-shift-smooth 4s linear infinite;
 
-  /* 🎯 CONTORNO LUMINOSO REAL CON TEXT-STROKE */
-  -webkit-text-stroke: 0.3px rgba(255, 180, 0, 0.6);
-
-  /* 🌟 SOMBRAS MÚLTIPLES PARA CONTORNO LUMINOSO */
-  text-shadow: 
-    /* Contorno luminoso en 8 direcciones */ -0.5px -0.5px 0 rgba(255, 180, 0, 0.8),
-    0.5px -0.5px 0 rgba(255, 180, 0, 0.8), -0.5px 0.5px 0 rgba(255, 180, 0, 0.8),
-    0.5px 0.5px 0 rgba(255, 180, 0, 0.8), -0.5px 0 0 rgba(255, 180, 0, 0.8),
-    0.5px 0 0 rgba(255, 180, 0, 0.8), 0 -0.5px 0 rgba(255, 180, 0, 0.8),
-    0 0.5px 0 rgba(255, 180, 0, 0.8),
-    /* Resplandor muy sutil */ 0 0 2px rgba(255, 180, 0, 0.6),
-    0 0 4px rgba(218, 128, 35, 0.4),
-    /* Sombra de profundidad */ 0 1px 2px rgba(0, 0, 0, 0.9);
+  /* 🎯 SOMBRA MEJORADA PARA LEGIBILIDAD */
+  text-shadow: 0 0 4px rgba(218, 128, 35, 0.8), 0 0 8px rgba(255, 180, 0, 0.6),
+    0 2px 4px rgba(0, 0, 0, 0.9), 0 0 12px rgba(218, 128, 35, 0.4);
 }
 
-/* 🎬 ANIMACIONES SUTILES PARA CONTORNO LUMINOSO */
+/* 🎬 ANIMACIONES OPTIMIZADAS PARA TEXTO DIGITAL */
 @keyframes digital-glow-subtle {
   0% {
-    -webkit-text-stroke: 0.3px rgba(255, 180, 0, 0.6);
-    text-shadow: -0.5px -0.5px 0 rgba(255, 180, 0, 0.8),
-      0.5px -0.5px 0 rgba(255, 180, 0, 0.8),
-      -0.5px 0.5px 0 rgba(255, 180, 0, 0.8),
-      0.5px 0.5px 0 rgba(255, 180, 0, 0.8), -0.5px 0 0 rgba(255, 180, 0, 0.8),
-      0.5px 0 0 rgba(255, 180, 0, 0.8), 0 -0.5px 0 rgba(255, 180, 0, 0.8),
-      0 0.5px 0 rgba(255, 180, 0, 0.8), 0 0 2px rgba(255, 180, 0, 0.6),
-      0 0 4px rgba(218, 128, 35, 0.4), 0 1px 2px rgba(0, 0, 0, 0.9);
+    filter: drop-shadow(0 0 8px rgba(218, 128, 35, 0.9))
+      drop-shadow(0 0 16px rgba(255, 180, 0, 0.7))
+      drop-shadow(0 0 24px rgba(218, 128, 35, 0.5));
   }
   100% {
-    -webkit-text-stroke: 0.3px rgba(255, 180, 0, 0.8);
-    text-shadow: -0.5px -0.5px 0 rgba(255, 180, 0, 1),
-      0.5px -0.5px 0 rgba(255, 180, 0, 1), -0.5px 0.5px 0 rgba(255, 180, 0, 1),
-      0.5px 0.5px 0 rgba(255, 180, 0, 1), -0.5px 0 0 rgba(255, 180, 0, 1),
-      0.5px 0 0 rgba(255, 180, 0, 1), 0 -0.5px 0 rgba(255, 180, 0, 1),
-      0 0.5px 0 rgba(255, 180, 0, 1), 0 0 3px rgba(255, 180, 0, 0.8),
-      0 0 5px rgba(218, 128, 35, 0.6), 0 1px 2px rgba(0, 0, 0, 0.9);
+    filter: drop-shadow(0 0 12px rgba(218, 128, 35, 1))
+      drop-shadow(0 0 20px rgba(255, 180, 0, 0.8))
+      drop-shadow(0 0 28px rgba(218, 128, 35, 0.6));
   }
 }
 
@@ -3376,39 +3319,20 @@ section {
     margin-bottom: clamp(25px, 5vh, 50px) !important;
   }
 
-  /* 🔥 BOTÓN CTA - TABLETS - ESCALADO COORDINADO */
+  /* 🔥 BOTÓN CTA - TABLETS */
   .cta-button-image {
-    max-width: clamp(
-      180px,
-      20vw,
-      260px
-    ) !important; /* Proporcionalmente reducido */
+    max-width: clamp(160px, 18vw, 240px) !important;
   }
 
   .cta-button-container {
-    margin-top: clamp(20px, 4vh, 40px) !important;
+    margin-top: clamp(30px, 6vh, 60px) !important;
   }
 
-  /* 🔥 TEXTO WHATSAPP - TABLETS - ESCALADO PROPORCIONALMENTE */
+  /* 🔥 TEXTO WHATSAPP - TABLETS OPTIMIZADO */
   .cta-button-text {
-    font-family: "Orbitron", "Arial", sans-serif !important;
-    font-weight: 100 !important;
-    font-size: clamp(
-      16px,
-      3.6vw,
-      22px
-    ) !important; /* Escalado proporcionalmente con el botón */
-    letter-spacing: 0.15em !important;
-    transform: translate(-50%, -50%) scale(0.82) !important; /* Mantiene proporción */
-  }
-
-  /* 🔥 HOVER SINCRONIZADO - TABLETS */
-  .cta-button-wrapper:hover .cta-button-text {
-    transform: translate(-50%, -50%) scale(0.94) !important; /* Escala hover para tablets */
-  }
-
-  .cta-button-wrapper:active .cta-button-text {
-    transform: translate(-50%, -50%) scale(0.9) !important; /* Escala activa para tablets */
+    font-size: clamp(14px, 3.2vw, 20px) !important; /* 🎯 TAMAÑO VISIBLE */
+    letter-spacing: 0.11em !important;
+    transform: translate(-50%, -50%) scale(0.8) !important;
   }
 
   @media (min-width: 481px) and (max-width: 768px) {
@@ -3658,91 +3582,24 @@ section {
     letter-spacing: 0.02em; /* Reducido para pantallas pequeñas */
   }
 
-  /* 🔥 BOTÓN CTA - MÓVILES - ESCALADO COORDINADO */
+  /* 🔥 BOTÓN CTA - MÓVILES */
   .cta-button-image {
-    max-width: clamp(
-      160px,
-      18vw,
-      220px
-    ) !important; /* Proporcionalmente reducido */
+    max-width: clamp(140px, 16vw, 200px) !important;
   }
 
   .cta-button-container {
-    margin-top: clamp(15px, 3vh, 25px) !important; /* Espaciado consistente */
+    margin-top: clamp(10px, 2vh, 20px) !important; /* Ajustado para móviles */
   }
 
   .cta-subtitle-space {
-    min-height: clamp(35px, 7vh, 70px);
+    min-height: clamp(35px, 7vh, 70px); /* Proporcional para móviles */
   }
 
-  /* 🔥 TEXTO WHATSAPP - MÓVILES - ESCALADO PROPORCIONALMENTE */
+  /* 🔥 TEXTO WHATSAPP - MÓVILES OPTIMIZADO */
   .cta-button-text {
-    font-family: "Orbitron", "Arial", sans-serif !important;
-    font-weight: 100 !important;
-    font-size: clamp(
-      14px,
-      3.2vw,
-      18px
-    ) !important; /* Escalado proporcionalmente con el botón */
-    letter-spacing: 0.15em !important;
-    transform: translate(-50%, -50%) scale(0.78) !important; /* Mantiene proporción */
-  }
-
-  /* 🔥 HOVER SINCRONIZADO - MÓVILES */
-  .cta-button-wrapper:hover .cta-button-text {
-    transform: translate(-50%, -50%) scale(0.9) !important; /* Escala hover para móviles */
-  }
-
-  .cta-button-wrapper:active .cta-button-text {
-    transform: translate(-50%, -50%) scale(0.86) !important; /* Escala activa para móviles */
-  }
-
-  /* 🔥 EVENTOS TÁCTILES ESPECÍFICOS - MÓVILES */
-  .cta-button-image:active ~ .cta-button-text,
-  .cta-button-image:focus ~ .cta-button-text {
-    transform: translate(-50%, -50%) scale(0.86) !important;
-    transition: transform 0.1s ease-out !important;
-  }
-
-  /* 🔥 SINCRONIZACIÓN TÁCTIL REFORZADA */
-  .cta-button-wrapper:active .cta-button-text,
-  .cta-button-wrapper:focus .cta-button-text {
-    transform: translate(-50%, -50%) scale(0.86) !important;
-  }
-}
-
-/* 📱 MEDIA QUERY EXTRA PEQUEÑA - COORDINACIÓN PERFECTA */
-@media (max-width: 360px) {
-  .cta-button-image {
-    max-width: clamp(140px, 20vw, 180px) !important;
-  }
-
-  .cta-button-text {
-    font-size: clamp(12px, 4vw, 16px) !important;
-    letter-spacing: 0.12em !important; /* Ligeramente reducido para pantallas muy pequeñas */
+    font-size: clamp(12px, 3vw, 16px) !important; /* 🎯 TAMAÑO VISIBLE */
+    letter-spacing: 0.1em !important;
     transform: translate(-50%, -50%) scale(0.75) !important;
-  }
-
-  /* 🔥 HOVER SINCRONIZADO - EXTRA PEQUEÑAS */
-  .cta-button-wrapper:hover .cta-button-text {
-    transform: translate(-50%, -50%) scale(0.86) !important; /* Escala hover para pantallas extra pequeñas */
-  }
-
-  .cta-button-wrapper:active .cta-button-text {
-    transform: translate(-50%, -50%) scale(0.82) !important; /* Escala activa para pantallas extra pequeñas */
-  }
-
-  /* 🔥 EVENTOS TÁCTILES ESPECÍFICOS - EXTRA PEQUEÑAS */
-  .cta-button-image:active ~ .cta-button-text,
-  .cta-button-image:focus ~ .cta-button-text {
-    transform: translate(-50%, -50%) scale(0.82) !important;
-    transition: transform 0.1s ease-out !important;
-  }
-
-  /* 🔥 SINCRONIZACIÓN TÁCTIL REFORZADA - EXTRA PEQUEÑAS */
-  .cta-button-wrapper:active .cta-button-text,
-  .cta-button-wrapper:focus .cta-button-text {
-    transform: translate(-50%, -50%) scale(0.82) !important;
   }
 
   /* 🎯 NEWSLETTER SECTION OPTIMIZADA */
