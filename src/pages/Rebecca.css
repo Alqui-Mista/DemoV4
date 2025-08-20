@@ -2161,6 +2161,15 @@ section {
   cursor: pointer;
   width: auto;
   height: auto;
+  /* 🔥 MEJORAR USABILIDAD - INDICAR QUE ES CLICKEABLE */
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 🔥 EFECTO VISUAL AL HACER CLIC */
+.cta-button-wrapper:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease-out;
 }
 
 .cta-button-text {

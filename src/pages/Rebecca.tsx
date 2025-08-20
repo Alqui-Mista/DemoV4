@@ -528,6 +528,16 @@ const Rebecca = memo(() => {
           <div className="cta-button-container">
             <div
               className="cta-button-wrapper"
+              onClick={() => {
+                // 🔥 ABRIR WHATSAPP AL NÚMERO DEL FOOTER
+                const phoneNumber = "56949459379"; // Número sin espacios ni signos
+                const message =
+                  "Hola! Me interesa conocer más sobre sus servicios de IA."; // Mensaje predefinido
+                const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+                  message
+                )}`;
+                window.open(whatsappURL, "_blank");
+              }}
               onMouseEnter={(e) => {
                 // Aplicar efectos a toda la unidad del botón
                 const img = e.currentTarget.querySelector(
