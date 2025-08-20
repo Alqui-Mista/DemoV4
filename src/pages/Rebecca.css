@@ -3449,7 +3449,7 @@ section {
     .footer-reveal {
       height: auto; /* 🎯 También auto para tablets */
       min-height: 100vh;
-      padding: 30px 20px;
+      padding: 30px 20px 60px 20px; /* 🎯 PADDING BOTTOM PARA CRÉDITOS */
     }
 
     .footer-content {
@@ -3457,7 +3457,7 @@ section {
       flex-direction: column;
       align-items: center;
       gap: 35px;
-      padding: 15px;
+      padding: 15px 15px 60px 15px; /* 🎯 PADDING BOTTOM PARA CRÉDITOS */
       max-width: 100%;
     }
 
@@ -3485,7 +3485,7 @@ section {
       order: 3;
       text-align: center;
       max-width: 100%;
-      padding-left: 0;
+      padding: 0 0 40px 0; /* 🎯 PADDING BOTTOM PARA SEPARAR DE CRÉDITOS */
       margin: 15px 0;
       transform: translateY(50px); /* 🎯 MANTENER MOVIMIENTO 50px HACIA ABAJO */
     }
@@ -3493,66 +3493,281 @@ section {
     /* 🎯 BOTÓN "VOLVER AL INICIO" AL FINAL EN TABLETS */
     .ai-matrix-button {
       order: 4; /* Último elemento en tablets también */
-      margin: 20px auto 50px auto !important; /* 🎯 POSICIONAMIENTO ADECUADO */
+      margin: 20px auto 40px auto !important; /* 🎯 POSICIONAMIENTO ADECUADO */
       display: block !important;
       width: 200px; /* Tamaño base para tablets */
       height: 54px; /* Altura alineada con input */
-      transform: translateY(
-        -45px
-      ) !important; /* 🎯 COMPENSAR PADRE (-50px) Y CENTRAR (+5px) */
+      transform: translateY(-15px); /* 🎯 CENTRADO CON EL CAMPO DE CORREO */
     }
 
-    .ai-matrix-button:hover {
-      width: 250px; /* 🎯 REDUCIDO 10px ADICIONALES DEL ANCHO */
-      height: 54px;
-      transform: translateY(
-        -50px
-      ) !important; /* 🎯 COMPENSAR PADRE Y CENTRAR */
+    /* 🎯 CRÉDITOS RESPONSIVOS PARA TABLETS */
+    .footer-credits {
+      position: relative !important; /* 🎯 CAMBIAR DE ABSOLUTE A RELATIVE */
+      bottom: auto !important;
+      left: auto !important;
+      transform: none !important;
+      width: 100%;
+      text-align: center;
+      z-index: 10;
+      order: 5; /* 🎯 ÚLTIMO ELEMENTO EN EL FLUJO */
+      margin-top: 15px;
+      padding: 15px;
     }
 
-    .robot-3d-container {
-      width: 300px; /* Optimizado para tablets */
-      height: 380px; /* Optimizado para tablets */
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .footer-credits p {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin: 0;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      transition: color 0.3s ease;
     }
+  }
 
-    /* 🎯 OPTIMIZACIÓN PARA TABLETS */
-    .contact-item {
-      padding: 10px 14px;
-      max-width: 300px;
-      margin: 0 auto;
-    }
+  .ai-matrix-button:hover {
+    width: 280px; /* 🎯 REDUCIDO 10px ADICIONALES DEL ANCHO */
+    height: 54px; /* 🎯 MISMA ALTURA QUE EL INPUT */
+    transform: translateY(-20px); /* 🎯 CENTRADO PERFECTO */
+  }
 
-    .contact-icon {
-      width: 30px;
-      height: 30px;
-    }
+  /* 🎯 CTA TITLE RESPONSIVE PARA MÓVILES */
+  .cta-title {
+    font-size: clamp(
+      2rem,
+      5vw,
+      3rem
+    ) !important; /* Responsive específico para móviles */
+    line-height: 0.95 !important; /* Mantener 2 líneas compactas */
+    margin-bottom: clamp(25px, 6vw, 40px) !important;
+    letter-spacing: 0.02em; /* Reducido para pantallas pequeñas */
+  }
 
-    .contact-icon div {
-      font-size: 15px;
-    }
+  /* 🔥 BOTÓN CTA - MÓVILES */
+  .cta-button-image {
+    max-width: clamp(140px, 16vw, 200px) !important;
+  }
 
-    .footer-info h3 {
-      font-size: 2.2rem; /* Reducido de 2.5rem */
-    }
+  .cta-button-container {
+    margin-top: clamp(20px, 5vh, 40px) !important;
+  }
 
-    .footer-info p {
-      font-size: 1rem; /* Reducido para tablets */
-    }
+  /* 🎯 CONTACT-INFO COMPLETAMENTE REDISEÑADO PARA MÓVILES */
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px 0;
+  }
 
-    .newsletter-form {
-      flex-direction: column;
-      gap: 12px;
-    }
+  .contact-info h4 {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: rgba(0, 0, 0, 0.7);
+  }
 
-    .newsletter-button {
-      align-self: center;
-      width: fit-content;
-      padding: 16px 32px;
-    }
+  .contact-item {
+    padding: 12px 16px;
+    border-radius: 10px;
+    min-height: auto;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 0 auto;
+    max-width: 280px;
+    width: 100%;
+  }
+
+  .contact-icon {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 8px;
+  }
+
+  .contact-icon div {
+    font-size: 14px;
+  }
+
+  .contact-item p {
+    font-size: 0.95rem;
+    line-height: 1.3;
+    margin: 3px 0;
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .contact-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  /* 🎯 ELIMINAR EFECTOS DE HOVER COMPLEJOS EN MÓVILES */
+  .footer-content:has(.ai-matrix-button:hover) .contact-info {
+    max-width: 280px; /* Mantener tamaño estable */
+    gap: 15px;
+  }
+
+  .footer-content:has(.ai-matrix-button:hover) .contact-item {
+    transform: none; /* No escalar en móviles */
+    padding: 12px 16px; /* Mantener padding estable */
+  }
+
+  /* 🎯 OPTIMIZACIÓN DE ELEMENTOS INTERNOS DEL BOTÓN */
+  .holo-text {
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+  }
+
+  .ai-core {
+    width: 18px;
+    height: 18px;
+    left: 14px;
+  }
+
+  .neuron {
+    width: 3px;
+    height: 3px;
+  }
+
+  .data-stream {
+    font-size: 7px;
+  }
+
+  /* 🎯 ESPACIADO ADICIONAL PARA MEJOR LEGIBILIDAD */
+  .footer-info {
+    margin-bottom: 20px;
+  }
+
+  .newsletter-section {
+    gap: 15px;
+    margin-bottom: 10px;
+  }
+}
+
+/* 📱 MEDIA QUERY PARA TABLETS */
+@media (min-width: 481px) and (max-width: 768px) {
+  .footer-reveal {
+    height: auto;
+    min-height: 100vh;
+    padding: 30px 20px 60px 20px;
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 35px;
+    padding: 15px 15px 60px 15px;
+    max-width: 100%;
+  }
+
+  .footer-info {
+    order: 1;
+    text-align: center;
+    gap: 18px;
+    max-width: 90%;
+    padding-right: 0;
+    transform: translateY(50px);
+  }
+
+  .footer-robot {
+    order: 2;
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    transform: translateY(50px);
+  }
+
+  .contact-info {
+    order: 3;
+    text-align: center;
+    max-width: 100%;
+    padding: 0 0 40px 0;
+    margin: 15px 0;
+    transform: translateY(50px);
+  }
+
+  .ai-matrix-button {
+    order: 4;
+    margin: 20px auto 40px auto !important;
+    display: block !important;
+    width: 200px;
+    height: 54px;
+    transform: translateY(-15px);
+  }
+
+  .footer-credits {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    order: 5;
+    margin-top: 15px;
+    padding: 15px;
+  }
+
+  .footer-credits p {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+  }
+
+  .robot-3d-container {
+    width: 300px;
+    height: 380px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contact-item {
+    padding: 10px 14px;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .contact-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .contact-icon div {
+    font-size: 15px;
+  }
+
+  .footer-info h3 {
+    font-size: 2.2rem;
+  }
+
+  .footer-info p {
+    font-size: 1rem;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .newsletter-button {
+    align-self: center;
+    width: fit-content;
+    padding: 16px 32px;
+  }
+
+  .ai-matrix-button:hover {
+    width: 250px;
+    height: 54px;
+    transform: translateY(-20px);
   }
 }
 
@@ -3615,7 +3830,7 @@ section {
   .footer-reveal {
     height: auto; /* 🎯 CAMBIO CLAVE: Auto height para pantallas pequeñas */
     min-height: 100vh; /* Mínimo de pantalla completa pero permite crecer */
-    padding: 40px 15px; /* Más padding vertical, menos horizontal */
+    padding: 40px 15px 60px 15px; /* 🎯 PADDING BOTTOM AUMENTADO PARA CRÉDITOS */
     display: flex;
     flex-direction: column;
     justify-content: flex-start; /* Alinear contenido hacia arriba */
@@ -3626,7 +3841,7 @@ section {
     flex-direction: column;
     align-items: center;
     gap: 40px; /* Espaciado generoso entre secciones */
-    padding: 20px 10px;
+    padding: 20px 10px 60px 10px; /* 🎯 PADDING BOTTOM PARA EVITAR SUPERPOSICIÓN */
     max-width: 100%;
     height: auto; /* Altura automática */
   }
@@ -3656,7 +3871,7 @@ section {
     order: 3; /* Contacto tercero */
     text-align: center;
     max-width: 100%;
-    padding: 0;
+    padding: 0 0 40px 0; /* 🎯 PADDING BOTTOM PARA SEPARAR DE CRÉDITOS */
     width: 100%;
     margin: 20px 0; /* Espacio arriba y abajo */
     transform: translateY(50px); /* 🎯 MANTENER MOVIMIENTO 50px HACIA ABAJO */
@@ -3668,7 +3883,7 @@ section {
     width: 180px; /* Tamaño base para móviles */
     height: 54px; /* 🎯 ALTURA ALINEADA CON INPUT DEL NEWSLETTER */
     padding: 12px 16px;
-    margin: 20px auto 50px auto !important; /* 🎯 POSICIONAMIENTO ADECUADO */
+    margin: 20px auto 40px auto !important; /* 🎯 MARGIN BOTTOM REDUCIDO */
     display: block !important;
     position: relative !important; /* Anular cualquier posicionamiento */
     transform: translateY(-15px); /* 🎯 CENTRADO CON EL CAMPO DE CORREO */
@@ -3678,6 +3893,30 @@ section {
     width: 280px; /* 🎯 REDUCIDO 10px ADICIONALES DEL ANCHO */
     height: 54px; /* 🎯 MISMA ALTURA QUE EL INPUT */
     transform: translateY(-20px); /* 🎯 CENTRADO PERFECTO */
+  }
+
+  /* 🎯 CRÉDITOS RESPONSIVOS - FUERA DEL ABSOLUTE POSITIONING */
+  .footer-credits {
+    position: relative !important; /* 🎯 CAMBIAR DE ABSOLUTE A RELATIVE */
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    order: 5; /* 🎯 ÚLTIMO ELEMENTO EN EL FLUJO */
+    margin-top: 20px;
+    padding: 20px 15px 10px 15px;
+  }
+
+  .footer-credits p {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+    line-height: 1.3;
   }
 
   /* 🎯 CTA TITLE RESPONSIVE PARA MÓVILES */
