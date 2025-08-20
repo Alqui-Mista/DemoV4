@@ -269,6 +269,49 @@ const Rebecca = memo(() => {
     };
   }, [isHovering, isHoveringButton]);
 
+  // 🎯 CONTROL DE SCROLL LIMITADO EN VISUALIZADOR HOME 3D
+  useEffect(() => {
+    if (showHomePage && isActive) {
+      const scrollContainer = document.getElementById(
+        "homepage-scroll-container"
+      );
+
+      if (scrollContainer) {
+        // 🎯 RESETEAR POSICIÓN DE SCROLL AL ABRIR
+        scrollContainer.scrollTop = 0;
+        scrollContainer.scrollLeft = 0;
+
+        // 🎯 LIMITADOR DE SCROLL: Permitir llegar hasta la frase específica
+        const handleScroll = (e: Event) => {
+          const container = e.target as HTMLElement;
+          const maxScroll = container.scrollHeight * 0.55; // Aumentado de 0.4 a 0.55 para alcanzar la frase
+
+          if (container.scrollTop > maxScroll) {
+            container.scrollTop = maxScroll;
+          }
+        };
+
+        // 🎯 PREVENIR SCROLL EXCESIVO
+        scrollContainer.addEventListener("scroll", handleScroll, {
+          passive: false,
+        });
+
+        // 🎯 FORZAR RECÁLCULO DESPUÉS DEL MONTAJE
+        const timeoutId = setTimeout(() => {
+          scrollContainer.style.height = "99.99%";
+          requestAnimationFrame(() => {
+            scrollContainer.style.height = "100%";
+          });
+        }, 100);
+
+        return () => {
+          clearTimeout(timeoutId);
+          scrollContainer.removeEventListener("scroll", handleScroll);
+        };
+      }
+    }
+  }, [showHomePage, isActive]);
+
   const handleInteractiveClick = () => {
     if (!isActive) {
       if (home3dAudioRef.current) {
@@ -318,6 +361,15 @@ const Rebecca = memo(() => {
             <div
               className="homepage-wrapper"
               id="homepage-scroll-container"
+              style={{
+                // 🎯 VISUALIZADOR LIMITADO: Solo mostrar escena inicial
+                overflow: "auto",
+                overflowX: "hidden",
+                height: "100%",
+                width: "100%",
+                WebkitOverflowScrolling: "touch",
+                scrollBehavior: "smooth",
+              }}
               onClick={(e) => {
                 e.stopPropagation();
                 if (home3dAudioRef.current) {
@@ -334,11 +386,22 @@ const Rebecca = memo(() => {
                 setIsHoveringButton(false);
               }}
             >
-              <div className="homepage-embedded">
+              <div
+                className="homepage-embedded"
+                style={{
+                  // 🎯 ALTURA AJUSTADA: Para llegar hasta la frase específica
+                  minHeight: "250vh", // Aumentado para alcanzar más contenido
+                  height: "250vh", // Altura suficiente para la frase objetivo
+                  width: "100%",
+                  position: "relative",
+                  isolation: "isolate",
+                  overflow: "hidden", // Cortar contenido que exceda
+                }}
+              >
                 <HomePage
                   scrollContainer="homepage-scroll-container"
                   isEmbedded={true}
-                  maxScrollPercentage={60}
+                  maxScrollPercentage={60} // Aumentado de 45 a 60 para llegar a la frase específica
                 />
               </div>
             </div>

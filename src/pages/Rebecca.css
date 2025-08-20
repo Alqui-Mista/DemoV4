@@ -1178,8 +1178,9 @@ body,
   border-radius: 10px;
   background: var(--color-black) !important;
   box-shadow: 0 0 50px rgba(255, 140, 0, 0.8), 0 0 100px rgba(255, 140, 0, 0.4);
-  overflow: hidden; /* 🎯 MANTENER CONTENIDO DENTRO DEL BORDE */
-  z-index: 9999; /* 🎯 ASEGURAR QUE ESTÉ POR ENCIMA DE TODO */
+  /* 🎯 OPTIMIZACIÓN SCROLL: Permitir scroll interno */
+  overflow: hidden; /* Solo el container principal */
+  z-index: 1001; /* Por encima de otros elementos */
   /* 🎯 OCULTAR IMAGEN DE FONDO CUANDO ESTÁ EXPANDIDO */
   background-image: none;
   filter: none;
@@ -1194,16 +1195,27 @@ body,
   height: 100%;
   opacity: 0;
   transition: opacity 1.2s ease-in-out;
-  overflow: auto; /* 🎯 HABILITAR SCROLL */
+  /* 🎯 VISUALIZADOR CONTROLADO: Solo escena inicial */
+  overflow: auto;
+  overflow-x: hidden;
   border-radius: 10px;
-  position: relative; /* 🎯 POSICIONAMIENTO PARA SCROLL */
-  scroll-behavior: smooth; /* 🎯 SCROLL SUAVE */
+  position: relative;
+  scroll-behavior: smooth;
+  /* 🎯 LIMITACIÓN DE SCROLL: Evitar transiciones */
+  max-height: 100%; /* Limitar altura del contenedor */
 }
 
 .homepage-embedded {
   width: 100%;
-  min-height: 400vh; /* 🎯 MÁS ALTURA PARA ASEGURAR SCROLL COMPLETO */
+  /* 🎯 ALTURA CONTROLADA: Solo mostrar escena inicial */
+  min-height: 300vh;
+  height: 300vh; /* Altura fija limitada */
+  max-height: 300vh; /* Máximo para evitar scroll excesivo */
   position: relative;
+  /* 🎯 CORTAR CONTENIDO EXCESIVO */
+  overflow: hidden;
+  isolation: isolate;
+  box-sizing: border-box;
 }
 
 /* 🎯 OVERRIDE ESPECÍFICO PARA HOMEPAGE EMBEBIDA */
