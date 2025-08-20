@@ -5,12 +5,12 @@
 /* 🎯 Importar sistema responsive avanzado */
 @import "../styles/responsive.css";
 
-/* 📱 VARIABLES CSS: Mobile-First Responsive Heights */
+/* 📱 VARIABLES CSS: Mobile-First Responsive Heights - AJUSTADAS PARA 60% SCROLL */
 :root {
-  --scroll-height-mobile: 250vh; /* Móvil pequeño */
-  --scroll-height-medium: 275vh; /* Móvil grande/tablet pequeño */
-  --scroll-height-desktop: 300vh; /* Desktop */
-  --scroll-height-landscape: 200vh; /* Landscape móvil */
+  --scroll-height-mobile: 150vh; /* Móvil pequeño - OPTIMIZADO para 60% */
+  --scroll-height-medium: 160vh; /* Móvil grande/tablet pequeño - OPTIMIZADO para 60% */
+  --scroll-height-desktop: 170vh; /* Desktop - OPTIMIZADO para 60% */
+  --scroll-height-landscape: 120vh; /* Landscape móvil - OPTIMIZADO para 60% */
 }
 
 /* ✅ Reset global para asegurar scroll correcto */

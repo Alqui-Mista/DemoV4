@@ -338,7 +338,7 @@ const Rebecca = memo(() => {
                 <HomePage
                   scrollContainer="homepage-scroll-container"
                   isEmbedded={true}
-                  maxScrollPercentage={65}
+                  maxScrollPercentage={60}
                 />
               </div>
             </div>

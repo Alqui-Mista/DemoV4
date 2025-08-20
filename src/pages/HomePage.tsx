@@ -811,24 +811,38 @@ const HomePage: FC<HomePageProps> = ({
   }, [handleMouseMove, handleMouseLeave]);
 
   useLayoutEffect(() => {
-    // ✅ VERIFICACIÓN SIMPLIFICADA: Verificar elementos esenciales para ScrollTrigger
-    const isReady = () => {
-      return !!(
-        sceneRef.current?.children.length >= 4 &&
-        cameraRef.current?.position &&
-        scrollRef.current?.offsetHeight > 0
-      );
-    };
-
     const setupScrollTrigger = (attempt = 1) => {
-      if (!isReady()) {
-        if (attempt < 10) {
+      // 🎯 VERIFICACIÓN MEJORADA: Validar que todos los elementos estén listos
+      const isElementsReady = () => {
+        return (
+          sceneRef.current &&
+          sceneRef.current.children.length >= 4 &&
+          scrollRef.current &&
+          cameraRef.current &&
+          // 🔧 VERIFICACIÓN ADICIONAL: Los elementos 3D están completamente cargados
+          sceneRef.current.children[1] && // logoMesh
+          sceneRef.current.children[2] && // textPhrase1
+          sceneRef.current.children[3] && // textPhrase2
+          // 🎯 VERIFICACIÓN PARA EMBEBIDO: El contenedor scroll está disponible
+          (!isEmbedded || document.getElementById(scrollContainer || ""))
+        );
+      };
+
+      if (!isElementsReady()) {
+        if (attempt <= 5) {
+          // 🎯 REDUCIDO de 10 a 5 intentos
           setTimeout(
             () => setupScrollTrigger(attempt + 1),
-            SCROLL_CONFIG.SETUP_RETRY_DELAY
+            SCROLL_CONFIG.SETUP_RETRY_DELAY * attempt // 🎯 DELAY PROGRESIVO
           );
         } else {
-          console.warn("⚠️ ScrollTrigger setup failed after 10 attempts");
+          console.warn(
+            `⚠️ ScrollTrigger setup failed after ${
+              attempt - 1
+            } attempts. Skipping ScrollTrigger setup.`
+          );
+          // 🎯 FALLBACK: Continuar sin ScrollTrigger en lugar de fallar
+          return;
         }
         return;
       }
@@ -842,12 +856,13 @@ const HomePage: FC<HomePageProps> = ({
 
       const scrollElement = scrollRef.current;
 
-      // 🎯 TIMELINE PRINCIPAL - Solo maneja scroll hasta 70% (o máximo permitido en embebido)
+      // 🎯 TIMELINE PRINCIPAL - Configuración mejorada para versión embebida
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: scrollElement,
           start: "top top",
-          end: "bottom bottom",
+          // 🎯 AJUSTE CRÍTICO: End reducido para versión embebida
+          end: isEmbedded ? "65% bottom" : "bottom bottom",
           scrub: 1,
           invalidateOnRefresh: true,
           refreshPriority: -1,
@@ -867,6 +882,14 @@ const HomePage: FC<HomePageProps> = ({
               Math.abs(effectiveProgress - scrollPercentage) >= throttleInterval
             ) {
               setScrollPercentage(effectiveProgress);
+            }
+
+            // 🎯 SOLUCIÓN: Evitar problemas de scroll al final en embebido
+            if (isEmbedded && effectiveProgress >= maxScrollPercentage) {
+              const container = document.getElementById(scrollContainer || "");
+              if (container) {
+                container.style.overflowY = "auto";
+              }
             }
           },
         },
@@ -910,22 +933,23 @@ const HomePage: FC<HomePageProps> = ({
           },
         });
       } else {
-        // 🎯 SCROLL TRIGGER PARA VERSIÓN EMBEBIDA - Sin transición de portal
+        // 🎯 SCROLL TRIGGER PARA VERSIÓN EMBEBIDA - Configuración optimizada
         ScrollTrigger.create({
           trigger: scrollElement,
           start: "top top",
-          end: "bottom bottom",
+          // 🎯 CRITICAL: End ajustado para terminar en la última frase
+          end: `${maxScrollPercentage}% bottom`,
           scroller: scrollContainer ? `#${scrollContainer}` : window,
           onUpdate: (self) => {
             const progress = self.progress * 100;
 
-            // 🎯 LIMITAR SCROLL AL MÁXIMO PERMITIDO (por defecto 65% para evitar portal)
+            // 🎯 LIMITAR SCROLL AL MÁXIMO PERMITIDO para evitar portal
             const clampedProgress = Math.min(progress, maxScrollPercentage);
 
             // 🔥 Activar efecto de falla digital solo si está dentro del rango permitido
             if (
               clampedProgress >= 60 &&
-              clampedProgress < 65 &&
+              clampedProgress < maxScrollPercentage - 5 && // 🎯 MARGEN DE SEGURIDAD
               !glitchTriggeredRef.current &&
               maxScrollPercentage > 65
             ) {
@@ -939,6 +963,17 @@ const HomePage: FC<HomePageProps> = ({
             }
 
             // 🚫 NO ACTIVAR PORTAL EN VERSIÓN EMBEBIDA
+            // 🎯 SOLUCIÓN: Mantener scroll responsive hasta el final
+            if (clampedProgress >= maxScrollPercentage) {
+              // Asegurar que el scroll siga siendo funcional
+              const container = document.getElementById(scrollContainer || "");
+              if (container) {
+                container.scrollTop = Math.min(
+                  container.scrollTop,
+                  container.scrollHeight * (maxScrollPercentage / 100)
+                );
+              }
+            }
           },
         });
       }
