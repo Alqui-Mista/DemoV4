@@ -526,9 +526,24 @@ const Rebecca = memo(() => {
                 <button
                   type="submit"
                   id="boletinSubmitButton"
-                  className="newsletter-button"
+                  className="newsletter-button modern-arrow-button"
                 >
-                  →
+                  <div className="button-background">
+                    <div className="metallic-surface"></div>
+                    <div className="inner-border"></div>
+                  </div>
+                  <div className="arrow-container">
+                    <svg className="arrow-icon" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M8 4L16 12L8 20"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div className="neon-glow"></div>
                 </button>
               </form>
               <p id="boletinMensaje"></p>
