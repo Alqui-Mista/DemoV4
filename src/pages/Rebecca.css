@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import "../styles/responsive.css";
 
 /* � VARIABLES CSS - COLORES Y GRADIENTES CONSOLIDADOS */
@@ -2089,138 +2090,164 @@ section {
   width: 100%;
 }
 
-/* 🔥 BOTÓN CTA - ESTILOS PRINCIPALES */
+/* 🔥 BOTÓN CTA - NUEVA ESTRUCTURA PREMIUM AWWWARDS-LEVEL */
 .cta-button-container {
   position: relative;
   z-index: 10;
-  padding: clamp(5px, 1vh, 15px); /* Padding más compacto y responsive */
-  margin-top: clamp(
-    5px,
-    1vh,
-    15px
-  ) !important; /* Margen mínimo para acercar al borde */
+  padding: clamp(5px, 1vh, 15px);
+  margin-top: clamp(5px, 1vh, 15px) !important;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  /* 🎬 ANIMACIÓN DE ENTRADA ELEGANTE - Aparece después del título */
+  opacity: 0;
+  transform: translateY(30px) scale(0.9);
+  animation: cta-button-entrance 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+    forwards;
+  animation-delay: 2.5s; /* Después que termine "TRABAJEMOS JUNTOS" */
 }
 
-.cta-button-image {
-  display: block;
-  margin: 0 auto;
-  max-width: clamp(180px, 20vw, 280px) !important;
-  height: auto;
-  cursor: pointer;
-  opacity: 0.5; /* Más transparente en estado inactivo */
-  transform: scale(0.85); /* Más pequeño en estado inactivo */
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-  border-radius: 8px; /* Suave redondeado */
-}
-
-.cta-button-image:hover {
-  transform: scale(1.15) translateY(-3px); /* Agrandamiento significativo */
-  opacity: 1; /* Opacidad completa en hover */
-  filter: drop-shadow(
-    0 12px 24px rgba(0, 0, 0, 0.5)
-  ); /* Sombra más dramática */
-}
-
-.cta-button-image:active {
-  transform: scale(1.1) translateY(-1px);
-  opacity: 1;
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
-}
-
-/* 🔥 TEXTO WHATSAPP ESTILO CALCULADORA DIGITAL */
+/* 🎯 WRAPPER DEL BOTÓN - CONTENEDOR PRINCIPAL */
 .cta-button-wrapper {
   position: relative;
   display: inline-block;
   cursor: pointer;
-  /* 🎯 UNIDAD COMPLETA DEL BOTÓN */
-  width: auto;
-  height: auto;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform: scale(0.85);
+  opacity: 0.5;
 }
 
-.cta-button-text {
-  /* 🎯 POSICIONAMIENTO: Centrado DENTRO del botón */
+/* 🖼️ IMAGEN DEL BOTÓN - BASE VISUAL */
+.cta-button-image {
+  display: block;
+  max-width: clamp(180px, 20vw, 280px) !important;
+  height: auto;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  border-radius: 8px;
+  transition: inherit;
+}
+
+/* � TEXTO OVERLAY - SIN CONTENEDOR ADICIONAL */
+.cta-button-text-overlay {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.85);
-  z-index: 15;
+  transform: translate(-50%, -50%);
+  /* 🎯 ADAPTADO A LA PANTALLA RECTANGULAR DE LA IMAGEN PNG - TAMAÑO AUMENTADO */
+  width: clamp(130px, 13vw, 180px); /* Aumentado significativamente */
+  height: clamp(35px, 3.5vw, 45px); /* Altura mayor para mejor proporción */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* 🚫 SIN FONDO NI BORDES - Solo el texto */
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
 
-  /* 📱 TIPOGRAFÍA ESTILO CALCULADORA DIGITAL - TAMAÑO AUMENTADO */
-  font-family: "Courier New", "Monaco", "Menlo", "DejaVu Sans Mono", monospace;
-  font-size: clamp(16px, 3.5vw, 24px); /* 🎯 AUMENTADO significativamente */
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  line-height: 1;
+/* 🧡 TEXTO PRINCIPAL - COLOR NARANJA INTELIMARK PREMIUM */
+.cta-button-text-display {
+  font-family: "Orbitron", "Courier New", monospace;
+  font-weight: 100; /* Ultra delgado */
+  font-size: clamp(0.85rem, 1.8vw, 1.2rem); /* Aumentado considerablemente */
+  color: var(--color-orange-primary); /* #da8023 - Color naranja InteliMark */
+  text-align: center;
+  letter-spacing: 0.1em; /* Ligeramente más espaciado */
+  position: relative;
+  z-index: 3;
+
+  /* � EFECTOS AWWWARDS-LEVEL - RESPLANDOR NARANJA PREMIUM */
+  text-shadow: 0 0 3px var(--color-orange-primary),
+    0 0 8px var(--color-orange-primary), 0 0 15px var(--color-orange-primary),
+    0 0 25px rgba(218, 128, 35, 0.8), 0 0 35px rgba(218, 128, 35, 0.6);
+
+  /* ⌨️ ANIMACIÓN DE ESCRITURA LETRA POR LETRA */
+  overflow: hidden;
   white-space: nowrap;
-
-  /* 🌟 TEXTURA LUMINOSA NEÓN NARANJA */
-  color: transparent;
-  background: linear-gradient(
-    90deg,
-    var(--color-orange-primary) 0%,
-    rgba(255, 200, 80, 0.95) 25%,
-    rgba(255, 255, 255, 0.9) 50%,
-    rgba(255, 200, 80, 0.95) 75%,
-    var(--color-orange-primary) 100%
-  );
-  background-size: 300% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  /* ✨ EFECTOS LUMINOSOS NEÓN MEJORADOS */
-  filter: drop-shadow(0 0 8px rgba(218, 128, 35, 0.9))
-    drop-shadow(0 0 16px rgba(255, 180, 0, 0.7))
-    drop-shadow(0 0 24px rgba(218, 128, 35, 0.5));
-
-  /* 🎭 OPACIDAD OPTIMIZADA */
-  opacity: 0.8;
-
-  /* 🎬 TRANSICIONES PERFECTAMENTE SINCRONIZADAS */
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-  /* 🔥 ANIMACIÓN DIGITAL SUTIL */
-  animation: digital-glow-subtle 3s ease-in-out infinite alternate,
-    background-shift-smooth 4s linear infinite;
-
-  /* 🎯 SOMBRA MEJORADA PARA LEGIBILIDAD */
-  text-shadow: 0 0 4px rgba(218, 128, 35, 0.8), 0 0 8px rgba(255, 180, 0, 0.6),
-    0 2px 4px rgba(0, 0, 0, 0.9), 0 0 12px rgba(218, 128, 35, 0.4);
+  width: 0;
+  animation: awwwards-typewriter 2s steps(9, end) forwards,
+    digital-power-glitch 4s ease-in-out infinite;
+  animation-delay: 3.2s, 5.5s; /* Escritura primero, luego parpadeos */
 }
 
-/* 🎬 ANIMACIONES OPTIMIZADAS PARA TEXTO DIGITAL */
-@keyframes digital-glow-subtle {
-  0% {
-    filter: drop-shadow(0 0 8px rgba(218, 128, 35, 0.9))
-      drop-shadow(0 0 16px rgba(255, 180, 0, 0.7))
-      drop-shadow(0 0 24px rgba(218, 128, 35, 0.5));
-  }
-  100% {
-    filter: drop-shadow(0 0 12px rgba(218, 128, 35, 1))
-      drop-shadow(0 0 20px rgba(255, 180, 0, 0.8))
-      drop-shadow(0 0 28px rgba(218, 128, 35, 0.6));
-  }
+/* ⚡ OVERLAY DE INTERFERENCIA ELÉCTRICA */
+.electrical-interference {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  z-index: 2;
+  opacity: 0;
+
+  /* 🔌 EFECTOS DE INTERFERENCIA ELÉCTRICA */
+  animation: electrical-malfunction 6s ease-in-out infinite;
+  animation-delay: 5.5s; /* Sincronizado con el parpadeo del texto */
 }
 
-@keyframes background-shift-smooth {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+/* � OVERLAY DE GLITCH DIGITAL */
+.digital-glitch-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  z-index: 1;
+  opacity: 0;
+
+  /* 📺 EFECTOS DE FALLA DIGITAL */
+  animation: premium-digital-glitch 8s ease-in-out infinite;
+  animation-delay: 5.8s; /* Ligeramente después de la interferencia */
 }
 
-/*  ESPACIO PARA SUBTÍTULO */
+/* 🎯 ESTADOS HOVER - SINCRONIZADO PREMIUM */
+.cta-button-wrapper:hover,
+.cta-button-wrapper.hover-active {
+  transform: scale(1.15) translateY(-3px);
+  opacity: 1;
+}
+
+.cta-button-wrapper:hover .cta-button-image,
+.cta-button-wrapper.hover-active .cta-button-image {
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.5));
+}
+
+.cta-button-wrapper:hover .cta-button-text-display,
+.cta-button-wrapper.hover-active .cta-button-text-display {
+  color: #ff8c1a; /* Naranja más brillante en hover */
+  text-shadow: 0 0 5px #ff8c1a, 0 0 12px #ff8c1a, 0 0 20px #ff8c1a,
+    0 0 30px rgba(255, 140, 26, 0.9), 0 0 45px rgba(255, 140, 26, 0.7);
+
+  /* 🔥 INTENSIFICAR EFECTOS EN HOVER */
+  animation-duration: 3s, 2s; /* Glitch más rápido en hover */
+}
+
+.cta-button-wrapper:hover .electrical-interference,
+.cta-button-wrapper.hover-active .electrical-interference {
+  animation-duration: 4s; /* Interferencia más rápida */
+}
+
+.cta-button-wrapper:hover .digital-glitch-overlay,
+.cta-button-wrapper.hover-active .digital-glitch-overlay {
+  animation-duration: 5s; /* Glitch más intenso */
+}
+
+/* 🎯 ESTADO ACTIVE */
+.cta-button-wrapper:active {
+  transform: scale(1.1) translateY(-1px);
+  opacity: 1;
+}
+
+.cta-button-wrapper:active .cta-button-image {
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
+}
+
+/* 📏 ESPACIO PARA SUBTÍTULO */
 .cta-subtitle-space {
   min-height: clamp(20px, 3vh, 40px); /* Espacio más compacto y responsive */
   display: flex;
@@ -3328,13 +3355,6 @@ section {
     margin-top: clamp(30px, 6vh, 60px) !important;
   }
 
-  /* 🔥 TEXTO WHATSAPP - TABLETS OPTIMIZADO */
-  .cta-button-text {
-    font-size: clamp(14px, 3.2vw, 20px) !important; /* 🎯 TAMAÑO VISIBLE */
-    letter-spacing: 0.11em !important;
-    transform: translate(-50%, -50%) scale(0.8) !important;
-  }
-
   @media (min-width: 481px) and (max-width: 768px) {
     .footer-reveal {
       height: auto; /* 🎯 También auto para tablets */
@@ -3593,13 +3613,6 @@ section {
 
   .cta-subtitle-space {
     min-height: clamp(35px, 7vh, 70px); /* Proporcional para móviles */
-  }
-
-  /* 🔥 TEXTO WHATSAPP - MÓVILES OPTIMIZADO */
-  .cta-button-text {
-    font-size: clamp(12px, 3vw, 16px) !important; /* 🎯 TAMAÑO VISIBLE */
-    letter-spacing: 0.1em !important;
-    transform: translate(-50%, -50%) scale(0.75) !important;
   }
 
   /* 🎯 NEWSLETTER SECTION OPTIMIZADA */
@@ -4589,3 +4602,430 @@ section {
    - Flecha ultra-detallada: líneas de energía + micro luces + highlights internos
    - Renderizado de alta definición con calidad impactante
 */
+
+/* 🎬 ANIMACIONES PARA EL BOTÓN CTA */
+
+/* 🚀 ANIMACIÓN DE ENTRADA ELEGANTE */
+@keyframes cta-button-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(-5px) scale(0.95);
+  }
+  100% {
+    opacity: 0.5; /* Estado inicial del botón */
+    transform: translateY(0) scale(0.85);
+  }
+}
+
+/* ⌨️ ANIMACIÓN DE ESCRITURA ESTILO MÁQUINA DE ESCRIBIR */
+@keyframes typewriter-effect {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* 🏆 ANIMACIÓN AWWWARDS-LEVEL: ESCRITURA LETRA POR LETRA */
+@keyframes awwwards-typewriter {
+  0% {
+    width: 0;
+    text-shadow: 0 0 3px var(--color-orange-primary),
+      0 0 8px var(--color-orange-primary);
+  }
+  90% {
+    width: 100%;
+    text-shadow: 0 0 3px var(--color-orange-primary),
+      0 0 8px var(--color-orange-primary), 0 0 15px var(--color-orange-primary);
+  }
+  100% {
+    width: 100%;
+    text-shadow: 0 0 3px var(--color-orange-primary),
+      0 0 8px var(--color-orange-primary), 0 0 15px var(--color-orange-primary),
+      0 0 25px rgba(218, 128, 35, 0.8);
+  }
+}
+
+/* ⚡ EFECTOS DE FALLA ELÉCTRICA PREMIUM */
+@keyframes digital-power-glitch {
+  0%,
+  85%,
+  90%,
+  95%,
+  100% {
+    opacity: 1;
+    color: var(--color-orange-primary);
+    text-shadow: 0 0 3px var(--color-orange-primary),
+      0 0 8px var(--color-orange-primary), 0 0 15px var(--color-orange-primary),
+      0 0 25px rgba(218, 128, 35, 0.8);
+    transform: translateX(0) scaleX(1);
+  }
+
+  /* 💥 PARPADEO RÁPIDO - SIMULANDO FALLA ELÉCTRICA */
+  86% {
+    opacity: 0.1;
+    color: rgba(218, 128, 35, 0.3);
+    text-shadow: none;
+    transform: translateX(1px) scaleX(0.98);
+  }
+
+  87% {
+    opacity: 0.8;
+    color: #ff6b35;
+    text-shadow: 0 0 5px #ff6b35, 0 0 12px #ff6b35;
+    transform: translateX(-1px) scaleX(1.02);
+  }
+
+  88% {
+    opacity: 0.2;
+    color: rgba(218, 128, 35, 0.4);
+    text-shadow: 0 0 2px rgba(218, 128, 35, 0.4);
+    transform: translateX(0.5px) scaleX(0.99);
+  }
+
+  89% {
+    opacity: 1;
+    color: var(--color-orange-primary);
+    text-shadow: 0 0 8px var(--color-orange-primary),
+      0 0 20px var(--color-orange-primary);
+    transform: translateX(0) scaleX(1);
+  }
+
+  /* 🔌 INTERFERENCIA MENOR */
+  91% {
+    opacity: 0.7;
+    transform: translateX(-0.5px) scaleX(1.01);
+  }
+
+  92% {
+    opacity: 0.4;
+    transform: translateX(0.5px) scaleX(0.99);
+  }
+
+  93% {
+    opacity: 0.9;
+    transform: translateX(0) scaleX(1);
+  }
+
+  /* 💡 SOBRECARGA FINAL */
+  96% {
+    opacity: 0.05;
+    color: rgba(218, 128, 35, 0.1);
+    text-shadow: none;
+    transform: translateX(2px) scaleX(0.95);
+  }
+
+  97% {
+    opacity: 1.2;
+    color: #ffaa44;
+    text-shadow: 0 0 10px #ffaa44, 0 0 25px #ffaa44,
+      0 0 40px rgba(255, 170, 68, 0.8);
+    transform: translateX(0) scaleX(1.05);
+  }
+
+  98% {
+    opacity: 0.3;
+    transform: translateX(-1px) scaleX(0.97);
+  }
+}
+
+/* 🔌 INTERFERENCIA ELÉCTRICA AMBIENTAL */
+@keyframes electrical-malfunction {
+  0%,
+  80%,
+  85%,
+  88%,
+  92%,
+  100% {
+    opacity: 0;
+  }
+
+  81%,
+  83% {
+    opacity: 0.1;
+    background: linear-gradient(
+      45deg,
+      transparent 0%,
+      rgba(218, 128, 35, 0.05) 25%,
+      transparent 50%,
+      rgba(255, 107, 53, 0.03) 75%,
+      transparent 100%
+    );
+    filter: blur(0.5px);
+  }
+
+  84% {
+    opacity: 0.15;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(218, 128, 35, 0.08) 0%,
+      transparent 70%
+    );
+    filter: blur(1px);
+  }
+
+  86% {
+    opacity: 0.08;
+    background: linear-gradient(
+      90deg,
+      transparent 40%,
+      rgba(218, 128, 35, 0.04) 50%,
+      transparent 60%
+    );
+    filter: blur(0.3px);
+  }
+
+  89%,
+  91% {
+    opacity: 0.12;
+    background: conic-gradient(
+      from 0deg at center,
+      transparent 0deg,
+      rgba(255, 140, 26, 0.06) 45deg,
+      transparent 90deg,
+      rgba(218, 128, 35, 0.04) 135deg,
+      transparent 180deg
+    );
+    filter: blur(0.8px);
+  }
+
+  93%,
+  95% {
+    opacity: 0.2;
+    background: linear-gradient(
+      135deg,
+      rgba(218, 128, 35, 0.1) 0%,
+      transparent 30%,
+      rgba(255, 107, 53, 0.08) 70%,
+      transparent 100%
+    );
+    filter: blur(1.2px);
+  }
+}
+
+/* 📺 GLITCH DIGITAL PREMIUM */
+@keyframes premium-digital-glitch {
+  0%,
+  75%,
+  78%,
+  82%,
+  87%,
+  100% {
+    opacity: 0;
+  }
+
+  76% {
+    opacity: 0.05;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      rgba(218, 128, 35, 0.02) 1px,
+      transparent 2px,
+      rgba(255, 140, 26, 0.01) 3px,
+      transparent 4px
+    );
+    filter: contrast(1.5) brightness(1.2);
+  }
+
+  77% {
+    opacity: 0.08;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      rgba(218, 128, 35, 0.03) 1px,
+      transparent 2px
+    );
+    filter: contrast(1.8) brightness(0.8) hue-rotate(10deg);
+  }
+
+  79%,
+  81% {
+    opacity: 0.12;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent 0px,
+        rgba(218, 128, 35, 0.04) 1px,
+        transparent 3px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        rgba(255, 107, 53, 0.02) 2px,
+        transparent 4px
+      );
+    filter: contrast(2) brightness(0.6) saturate(1.5);
+  }
+
+  83%,
+  85% {
+    opacity: 0.15;
+    background: linear-gradient(
+      45deg,
+      rgba(218, 128, 35, 0.06) 0%,
+      transparent 25%,
+      rgba(255, 140, 26, 0.04) 50%,
+      transparent 75%,
+      rgba(218, 128, 35, 0.02) 100%
+    );
+    filter: contrast(1.5) brightness(1.1) blur(0.2px);
+  }
+
+  88%,
+  91% {
+    opacity: 0.1;
+    background: radial-gradient(
+      circle at 30% 70%,
+      rgba(218, 128, 35, 0.08) 0%,
+      transparent 40%
+    );
+    filter: contrast(1.8) brightness(0.9) hue-rotate(-5deg);
+  }
+}
+
+/* 💡 ANIMACIÓN DE PARPADEO LED */
+@keyframes led-blink {
+  0%,
+  100% {
+    text-shadow: 0 0 5px #00ff44, 0 0 10px #00ff44, 0 0 15px #00ff44,
+      0 0 20px #00ff44;
+  }
+  50% {
+    text-shadow: 0 0 2px #00ff44, 0 0 5px #00ff44, 0 0 8px #00ff44,
+      0 0 12px #00ff44;
+  }
+}
+
+/* 📺 ANIMACIÓN DE SCAN DE PANTALLA */
+@keyframes digital-scan {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+/* 📱 RESPONSIVE DESIGN PARA BOTÓN CTA */
+
+/* 🔥 MÓVILES - Optimización máxima */
+@media (max-width: 480px) {
+  .cta-button-wrapper {
+    transform: scale(0.75); /* Más pequeño en móviles */
+  }
+
+  .cta-button-wrapper:hover,
+  .cta-button-wrapper.hover-active {
+    transform: scale(1) translateY(-2px); /* Hover más sutil en móviles */
+  }
+
+  .cta-button-image {
+    max-width: clamp(140px, 25vw, 200px) !important;
+  }
+
+  .cta-button-text-overlay {
+    width: clamp(90px, 18vw, 130px);
+    height: clamp(25px, 5vw, 35px);
+  }
+
+  .cta-button-text-display {
+    font-size: clamp(0.65rem, 3.2vw, 0.9rem);
+    letter-spacing: 0.08em;
+  }
+}
+
+/* 📱 TABLETS - Balance entre móvil y escritorio */
+@media (min-width: 481px) and (max-width: 768px) {
+  .cta-button-wrapper {
+    transform: scale(0.8);
+  }
+
+  .cta-button-wrapper:hover,
+  .cta-button-wrapper.hover-active {
+    transform: scale(1.05) translateY(-2px);
+  }
+
+  .cta-button-image {
+    max-width: clamp(160px, 22vw, 220px) !important;
+  }
+
+  .cta-button-text-overlay {
+    width: clamp(110px, 15vw, 150px);
+    height: clamp(28px, 4vw, 38px);
+  }
+
+  .cta-button-text-display {
+    font-size: clamp(0.75rem, 2.5vw, 1rem);
+    letter-spacing: 0.09em;
+  }
+}
+
+/* 🖥️ ESCRITORIO GRANDE - Máxima calidad visual */
+@media (min-width: 1441px) {
+  .cta-button-wrapper {
+    transform: scale(0.9);
+  }
+
+  .cta-button-wrapper:hover,
+  .cta-button-wrapper.hover-active {
+    transform: scale(1.2) translateY(-4px);
+  }
+
+  .cta-button-image {
+    max-width: clamp(200px, 18vw, 320px) !important;
+  }
+
+  .cta-button-text-overlay {
+    width: clamp(140px, 11vw, 200px);
+    height: clamp(38px, 3vw, 50px);
+  }
+
+  .cta-button-text-display {
+    font-size: clamp(0.95rem, 1.5vw, 1.4rem);
+    letter-spacing: 0.11em;
+  }
+}
+
+/* 🎯 ORIENTACIÓN LANDSCAPE EN MÓVILES */
+@media (orientation: landscape) and (max-height: 600px) {
+  .cta-button-container {
+    animation-delay: 1.5s; /* Entrada más rápida en landscape */
+  }
+
+  .cta-button-text-display {
+    animation-delay: 2.2s, 4s; /* Texto más rápido */
+  }
+
+  .cta-button-wrapper {
+    transform: scale(0.7); /* Más compacto en landscape móvil */
+  }
+
+  .cta-button-wrapper:hover,
+  .cta-button-wrapper.hover-active {
+    transform: scale(0.9) translateY(-1px);
+  }
+}
+
+/* ⚡ ANIMACIONES REDUCIDAS PARA MEJOR PERFORMANCE */
+@media (prefers-reduced-motion: reduce) {
+  .cta-button-container {
+    animation: none !important;
+    opacity: 0.5;
+    transform: scale(0.85);
+  }
+
+  .cta-button-text-display {
+    animation: none !important;
+    width: 100%;
+    opacity: 1;
+  }
+
+  .electrical-interference,
+  .digital-glitch-overlay {
+    display: none;
+  }
+}
