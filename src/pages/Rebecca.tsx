@@ -530,17 +530,287 @@ const Rebecca = memo(() => {
                 >
                   <div className="button-background">
                     <div className="metallic-surface"></div>
-                    <div className="inner-border"></div>
                   </div>
                   <div className="arrow-container">
-                    <svg className="arrow-icon" viewBox="0 0 24 24" fill="none">
-                      <path
-                        d="M8 4L16 12L8 20"
-                        stroke="currentColor"
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
+                    <svg className="arrow-icon" viewBox="0 0 42 30" fill="none">
+                      <defs>
+                        {/* Gradientes premium para renderizado de alta calidad */}
+                        <linearGradient
+                          id="arrowPrimaryGradient"
+                          x1="0%"
+                          y1="0%"
+                          x2="100%"
+                          y2="50%"
+                        >
+                          <stop
+                            offset="0%"
+                            stopColor="#ff2800"
+                            stopOpacity="1"
+                          />
+                          <stop
+                            offset="15%"
+                            stopColor="#ff3300"
+                            stopOpacity="1"
+                          />
+                          <stop
+                            offset="35%"
+                            stopColor="#ff4500"
+                            stopOpacity="1"
+                          />
+                          <stop
+                            offset="55%"
+                            stopColor="#ff6b35"
+                            stopOpacity="0.95"
+                          />
+                          <stop
+                            offset="75%"
+                            stopColor="#ff8c45"
+                            stopOpacity="0.9"
+                          />
+                          <stop
+                            offset="90%"
+                            stopColor="#ffab69"
+                            stopOpacity="0.85"
+                          />
+                          <stop
+                            offset="100%"
+                            stopColor="#ffd700"
+                            stopOpacity="0.8"
+                          />
+                        </linearGradient>
+
+                        <linearGradient
+                          id="arrowSecondaryGradient"
+                          x1="0%"
+                          y1="0%"
+                          x2="100%"
+                          y2="50%"
+                        >
+                          <stop
+                            offset="0%"
+                            stopColor="#ff6b35"
+                            stopOpacity="0.4"
+                          />
+                          <stop
+                            offset="50%"
+                            stopColor="#ff8c45"
+                            stopOpacity="0.25"
+                          />
+                          <stop
+                            offset="100%"
+                            stopColor="#ffab69"
+                            stopOpacity="0.1"
+                          />
+                        </linearGradient>
+
+                        <radialGradient
+                          id="glowRadialGradient"
+                          cx="70%"
+                          cy="50%"
+                          r="60%"
+                        >
+                          <stop
+                            offset="0%"
+                            stopColor="#ffffff"
+                            stopOpacity="0.6"
+                          />
+                          <stop
+                            offset="20%"
+                            stopColor="#ffd700"
+                            stopOpacity="0.4"
+                          />
+                          <stop
+                            offset="40%"
+                            stopColor="#ff8c45"
+                            stopOpacity="0.3"
+                          />
+                          <stop
+                            offset="60%"
+                            stopColor="#ff4500"
+                            stopOpacity="0.2"
+                          />
+                          <stop
+                            offset="80%"
+                            stopColor="#ff3300"
+                            stopOpacity="0.1"
+                          />
+                          <stop
+                            offset="100%"
+                            stopColor="#ff2800"
+                            stopOpacity="0"
+                          />
+                        </radialGradient>
+
+                        <linearGradient
+                          id="speedLineGradient"
+                          x1="0%"
+                          y1="0%"
+                          x2="100%"
+                          y2="0%"
+                        >
+                          <stop
+                            offset="0%"
+                            stopColor="#ff8c45"
+                            stopOpacity="0.1"
+                          />
+                          <stop
+                            offset="70%"
+                            stopColor="#ff6b35"
+                            stopOpacity="0.3"
+                          />
+                          <stop
+                            offset="100%"
+                            stopColor="#ff4500"
+                            stopOpacity="0.5"
+                          />
+                        </linearGradient>
+                      </defs>
+
+                      {/* Líneas de velocidad ultra delgadas */}
+                      <g className="speed-lines-group">
+                        <path
+                          d="M1 8 L13 8"
+                          stroke="url(#speedLineGradient)"
+                          strokeWidth="0.8"
+                          strokeLinecap="round"
+                          className="speed-line speed-line-1"
+                        />
+                        <path
+                          d="M3 11 L15 11"
+                          stroke="url(#speedLineGradient)"
+                          strokeWidth="0.8"
+                          strokeLinecap="round"
+                          className="speed-line speed-line-2"
+                        />
+                        <path
+                          d="M2 14 L14 14"
+                          stroke="url(#speedLineGradient)"
+                          strokeWidth="0.8"
+                          strokeLinecap="round"
+                          className="speed-line speed-line-3"
+                        />
+                        <path
+                          d="M1 17 L13 17"
+                          stroke="url(#speedLineGradient)"
+                          strokeWidth="0.8"
+                          strokeLinecap="round"
+                          className="speed-line speed-line-4"
+                        />
+                        <path
+                          d="M3 20 L15 20"
+                          stroke="url(#speedLineGradient)"
+                          strokeWidth="0.8"
+                          strokeLinecap="round"
+                          className="speed-line speed-line-5"
+                        />
+                      </g>
+
+                      {/* Flecha secundaria - outline sutil */}
+                      <g className="secondary-arrow-group">
+                        <path
+                          d="M16 6 L30 15 L16 24 M22 15 L30 15"
+                          stroke="url(#arrowSecondaryGradient)"
+                          strokeWidth="1.2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="secondary-arrow-outline"
+                          fill="none"
+                        />
+                      </g>
+
+                      {/* Resplandor de fondo principal */}
+                      <g className="main-glow-group">
+                        <ellipse
+                          cx="30"
+                          cy="15"
+                          rx="14"
+                          ry="10"
+                          fill="url(#glowRadialGradient)"
+                          className="main-arrow-glow"
+                          opacity="0"
+                        />
+                      </g>
+
+                      {/* Flecha principal con detalles premium */}
+                      <g className="primary-arrow-group">
+                        {/* Base de la flecha con grosor mínimo */}
+                        <path
+                          d="M18 7 L32 15 L18 23 M25 15 L32 15"
+                          stroke="url(#arrowPrimaryGradient)"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="primary-arrow-base"
+                          fill="none"
+                        />
+
+                        {/* Highlights internos ultra finos */}
+                        <path
+                          d="M20 9 L29 15 L20 21"
+                          stroke="#ffffff"
+                          strokeWidth="0.6"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="inner-highlight-1"
+                          opacity="0"
+                        />
+
+                        <path
+                          d="M22 11 L27 15 L22 19"
+                          stroke="#ffd700"
+                          strokeWidth="0.4"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="inner-highlight-2"
+                          opacity="0"
+                        />
+
+                        <path
+                          d="M24 13 L26 15 L24 17"
+                          stroke="#ffffff"
+                          strokeWidth="0.3"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="inner-highlight-3"
+                          opacity="0"
+                        />
+
+                        {/* Puntos de luz micro */}
+                        <circle
+                          cx="25"
+                          cy="13"
+                          r="0.4"
+                          fill="#ffffff"
+                          className="micro-light-1"
+                          opacity="0"
+                        />
+                        <circle
+                          cx="27"
+                          cy="15"
+                          r="0.5"
+                          fill="#ffd700"
+                          className="micro-light-2"
+                          opacity="0"
+                        />
+                        <circle
+                          cx="25"
+                          cy="17"
+                          r="0.3"
+                          fill="#ffab69"
+                          className="micro-light-3"
+                          opacity="0"
+                        />
+
+                        {/* Línea de energía central */}
+                        <path
+                          d="M26 15 L31 15"
+                          stroke="#ffffff"
+                          strokeWidth="0.2"
+                          strokeLinecap="round"
+                          className="energy-line"
+                          opacity="0"
+                        />
+                      </g>
                     </svg>
                   </div>
                   <div className="neon-glow"></div>
