@@ -9,7 +9,12 @@ interface AudioVisualizerProps {
 const AudioVisualizer: React.FC<AudioVisualizerProps> = ({ onAudioToggle }) => {
   const [isAudioActive, setIsAudioActive] = useState(false);
 
-  const handleToggleAudio = () => {
+  const handleToggleAudio = (e?: React.MouseEvent) => {
+    // Prevenir propagación para evitar cerrar modales padre
+    if (e) {
+      e.stopPropagation();
+    }
+
     const newAudioState = !isAudioActive;
     console.log(
       "AudioVisualizer Toggle - Estado actual:",
