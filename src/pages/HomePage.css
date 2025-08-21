@@ -5,6 +5,16 @@
 /* 🎯 Importar sistema responsive avanzado */
 @import "../styles/responsive.css";
 
+/* 🎯 CURSOR PERSONALIZADO - MANTENER CONSISTENCIA CON REBECCA */
+.homepage-container,
+.homepage-container *,
+.homepage-container button,
+.homepage-container .audio-visualizer-container,
+.homepage-container .audio-activate-button,
+.homepage-container .audio-visualizer-active {
+  cursor: none !important;
+}
+
 /* 📱 VARIABLES CSS: Mobile-First Responsive Heights */
 :root {
   --scroll-height-mobile: 250vh; /* Móvil pequeño */

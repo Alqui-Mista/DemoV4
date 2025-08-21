@@ -21,6 +21,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useNavigate } from "react-router-dom";
 import LogoWithGlitchEffect from "../components/LogoWithGlitchEffect";
 import AnimatedTextPhrase1 from "../components/AnimatedTextPhrase1";
+import AudioVisualizer from "../components/AudioVisualizer";
 // Eliminadas animaciones de favicon y título
 import { useResponsive } from "../hooks/useResponsive";
 import "./HomePage.css";
@@ -1101,6 +1102,14 @@ const HomePage: FC<HomePageProps> = ({
       <div className="scroll-content" ref={scrollRef}>
         {/* Contenido de la página - aquí puedes agregar tus elementos */}
       </div>
+
+      {/* 🎵 Visualizador de Audio - Esquina Inferior Derecha */}
+      <AudioVisualizer
+        onAudioToggle={(isActive) => {
+          // Callback opcional para manejar cambios de estado del audio
+          console.log("Audio 3D:", isActive ? "Activado" : "Desactivado");
+        }}
+      />
     </div>
   );
 };

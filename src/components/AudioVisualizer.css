@@ -1,0 +1,266 @@
+/* src/components/AudioVisualizer.css */
+
+/* 🎯 CONTENEDOR PRINCIPAL - ESQUINA SUPERIOR DERECHA */
+.audio-visualizer-container {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  z-index: 9999;
+  font-family: "Orbitron", "Oxanium", sans-serif;
+}
+
+/* 🌟 BOTÓN DE TEXTO ELEGANTE - ESTADO INACTIVO */
+.audio-activate-button {
+  position: relative;
+  background: transparent;
+  border: none;
+  padding: 8px 16px; /* 🎯 REDUCIDO de 12px 20px para botón más compacto */
+  cursor: none; /* Mantener cursor personalizado */
+  outline: none;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.audio-text {
+  font-size: 0.65rem; /* 🎯 REDUCIDO de 0.75rem para texto más compacto */
+  font-weight: 300;
+  letter-spacing: 2px; /* 🎯 REDUCIDO de 3px para menos espaciado */
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  position: relative;
+  z-index: 2;
+  transition: all 0.4s ease;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.audio-activate-button:hover .audio-text {
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.4),
+    0 0 10px rgba(255, 255, 255, 0.2), 0 0 15px rgba(255, 255, 255, 0.1);
+  letter-spacing: 3px; /* 🎯 REDUCIDO de 4px para hover más sutil */
+}
+
+.text-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  border-radius: 4px;
+}
+
+.audio-activate-button:hover .text-glow {
+  opacity: 1;
+}
+
+/* 🎵 VISUALIZADOR ACTIVO - BASADO EN LA IMAGEN ANALIZADA */
+.audio-visualizer-active {
+  position: relative;
+  background: transparent;
+  border: none;
+  cursor: none; /* Mantener cursor personalizado */
+  outline: none;
+  width: 80px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+/* 📊 CONTENEDOR DE BARRAS PRINCIPALES */
+.visualizer-bars {
+  display: flex;
+  align-items: end;
+  gap: 2px;
+  height: 40px;
+  position: relative;
+  z-index: 2;
+}
+
+/* 🔮 BARRAS INDIVIDUALES - EFECTO METÁLICO COMO LA IMAGEN */
+.bar {
+  width: 8px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(220, 220, 220, 0.8) 25%,
+    rgba(180, 180, 180, 0.7) 50%,
+    rgba(140, 140, 140, 0.6) 75%,
+    rgba(100, 100, 100, 0.5) 100%
+  );
+  border-radius: 1px;
+  position: relative;
+  /* 🎯 MARCO BLANCO ELIMINADO - Sin box-shadow para look más limpio */
+
+  /* Textura de líneas horizontales como en la imagen */
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    rgba(255, 255, 255, 0.1) 0.5px,
+    transparent 1px
+  );
+
+  /* Animación de altura para simular audio */
+  animation: audioVisualize 1.2s ease-in-out infinite;
+}
+
+/* 🎯 VARIACIONES DE ALTURA Y TIMING PARA CADA BARRA */
+.bar-1 {
+  height: 15px;
+  animation-duration: 0.8s;
+}
+
+.bar-2 {
+  height: 25px;
+  animation-duration: 1.1s;
+}
+
+.bar-3 {
+  height: 35px;
+  animation-duration: 0.9s;
+}
+
+.bar-4 {
+  height: 30px;
+  animation-duration: 1.3s;
+}
+
+.bar-5 {
+  height: 20px;
+  animation-duration: 1s;
+}
+
+.bar-6 {
+  height: 12px;
+  animation-duration: 0.7s;
+}
+
+/* 🌟 ANIMACIÓN DE LAS BARRAS - MOVIMIENTO REALISTA */
+@keyframes audioVisualize {
+  0% {
+    transform: scaleY(0.3);
+    opacity: 0.6;
+  }
+  25% {
+    transform: scaleY(0.8);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scaleY(1.2);
+    opacity: 1;
+  }
+  75% {
+    transform: scaleY(0.9);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scaleY(0.3);
+    opacity: 0.6;
+  }
+}
+
+/* 🪞 REFLEJO INFERIOR - COMO EN LA IMAGEN ORIGINAL */
+.visualizer-reflection {
+  position: absolute;
+  bottom: -45px;
+  left: 50%;
+  transform: translateX(-50%) scaleY(-0.6);
+  display: flex;
+  align-items: end;
+  gap: 2px;
+  height: 40px;
+  opacity: 0.3;
+  filter: blur(1px);
+}
+
+.bar-reflection {
+  width: 8px;
+  background: linear-gradient(
+    to bottom,
+    rgba(100, 100, 100, 0.3) 0%,
+    rgba(80, 80, 80, 0.2) 50%,
+    transparent 100%
+  );
+  border-radius: 1px;
+  animation: audioVisualize 1.2s ease-in-out infinite;
+}
+
+/* Copiar las alturas de las barras principales para el reflejo */
+.bar-reflection-1 {
+  height: 15px;
+  animation-duration: 0.8s;
+}
+.bar-reflection-2 {
+  height: 25px;
+  animation-duration: 1.1s;
+}
+.bar-reflection-3 {
+  height: 35px;
+  animation-duration: 0.9s;
+}
+.bar-reflection-4 {
+  height: 30px;
+  animation-duration: 1.3s;
+}
+.bar-reflection-5 {
+  height: 20px;
+  animation-duration: 1s;
+}
+.bar-reflection-6 {
+  height: 12px;
+  animation-duration: 0.7s;
+}
+
+/* 📱 RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .audio-visualizer-container {
+    top: 20px;
+    right: 20px;
+  }
+
+  .audio-text {
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+  }
+
+  .audio-visualizer-active {
+    width: 60px;
+    height: 45px;
+  }
+
+  .visualizer-bars {
+    height: 30px;
+  }
+
+  .bar {
+    width: 6px;
+  }
+
+  .bar-reflection {
+    width: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .audio-visualizer-container {
+    top: 15px;
+    right: 15px;
+  }
+
+  .audio-text {
+    font-size: 0.6rem;
+    letter-spacing: 1.5px;
+  }
+
+  .audio-activate-button {
+    padding: 8px 12px;
+  }
+}
