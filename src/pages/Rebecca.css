@@ -446,6 +446,22 @@ body,
 
 /* 🎯 EXCEPCIÓN: Permitir cursores normales en el visualizador HOME 3D */
 
+/* 🎯 REGLA ESPECÍFICA PARA AUDIOVISUALIZER DENTRO DEL VISUALIZADOR REBECCA */
+.rebecca-container #interactive-container.active .audio-visualizer-container,
+.rebecca-container #interactive-container.active .audio-visualizer-container *,
+.rebecca-container #interactive-container.active .audio-visualizer-active,
+.rebecca-container #interactive-container.active .audio-visualizer-active *,
+.rebecca-container .homepage-wrapper .audio-visualizer-container,
+.rebecca-container .homepage-wrapper .audio-visualizer-container *,
+.rebecca-container .homepage-wrapper .audio-visualizer-active,
+.rebecca-container .homepage-wrapper .audio-visualizer-active *,
+.rebecca-container .homepage-embedded .audio-visualizer-container,
+.rebecca-container .homepage-embedded .audio-visualizer-container *,
+.rebecca-container .homepage-embedded .audio-visualizer-active,
+.rebecca-container .homepage-embedded .audio-visualizer-active * {
+  cursor: none !important;
+}
+
 /* 🎯 CONTENIDO PRINCIPAL - CENTRADO SIMPLE Y ESTABLE */
 .vapi-content {
   position: absolute;

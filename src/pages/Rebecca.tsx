@@ -167,6 +167,11 @@ const Rebecca = memo(() => {
       }
       switch (zone) {
         case "home3d":
+          // 🎯 MANTENER CURSOR PERSONALIZADO EN HOME 3D PARA CALIBRACIÓN CORRECTA
+          container.classList.add("custom-cursor");
+          cursorCross.classList.add("visible");
+          cursorCross.style.display = "block";
+          break;
         case "cta":
           container.classList.remove("custom-cursor");
           cursorCross.classList.remove("visible");
@@ -193,7 +198,11 @@ const Rebecca = memo(() => {
         currentZone = newZone;
         applyCursorForZone(newZone);
       }
-      if (currentZone === "default" || currentZone === "footer") {
+      if (
+        currentZone === "default" ||
+        currentZone === "footer" ||
+        currentZone === "home3d"
+      ) {
         requestAnimationFrame(() => {
           container.style.setProperty("--cursor-x", `${e.clientX}px`);
           container.style.setProperty("--cursor-y", `${e.clientY}px`);
@@ -442,6 +451,25 @@ const Rebecca = memo(() => {
               }}
               onClick={(e) => {
                 e.stopPropagation();
+
+                // 🎯 NO CERRAR SI EL CLIC VIENE DEL AUDIO VISUALIZER
+                const target = e.target as HTMLElement;
+                const isAudioVisualizerClick =
+                  target.closest(".audio-visualizer-container") ||
+                  target.closest(".audio-activate-button") ||
+                  target.closest(".audio-visualizer-active") ||
+                  target.classList.contains("audio-text") ||
+                  target.classList.contains("bar") ||
+                  target.classList.contains("bar-reflection");
+
+                if (isAudioVisualizerClick) {
+                  console.log(
+                    "🎵 Clic en AudioVisualizer detectado - No cerrar modal"
+                  );
+                  return; // No cerrar el modal
+                }
+
+                console.log("🔒 Cerrando visualizador HOME 3D");
                 if (home3dAudioRef.current) {
                   home3dAudioRef.current.currentTime = 0;
                   home3dAudioRef.current.play().catch((error) => {
@@ -480,8 +508,8 @@ const Rebecca = memo(() => {
                 <div
                   style={{
                     position: "fixed",
-                    left: mousePosition.x + 8,
-                    top: mousePosition.y - 5,
+                    left: mousePosition.x + 25, // 🎯 AUMENTADO: de +8 a +25 (más alejado del cursor)
+                    top: mousePosition.y - 20, // 🎯 AUMENTADO: de -5 a -20 (más alejado del cursor)
                     color: "rgba(255, 255, 255, 0.7)",
                     fontSize: "0.55rem",
                     fontWeight: "300",
@@ -491,7 +519,8 @@ const Rebecca = memo(() => {
                     zIndex: 10000,
                     textShadow: "0 0 8px rgba(255, 255, 255, 0.3)",
                     fontFamily: '"Orbitron", "Oxanium", sans-serif',
-                    transition: "opacity 0.3s ease",
+                    transition:
+                      "left 0.4s ease-in-out, top 0.4s ease-in-out, opacity 0.3s ease", // 🎯 MEJORADO: 0.15s → 0.4s (más lento), ease-out → ease-in-out (más elegante)
                     userSelect: "none",
                     whiteSpace: "nowrap",
                   }}
