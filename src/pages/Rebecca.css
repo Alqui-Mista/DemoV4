@@ -4554,12 +4554,13 @@ section {
 
 /* 🎯 PANTALLA TRANSPARENTE DENTRO DEL MARCO */
 .credits-screen {
-  width: 65%; /* Área transparente dentro del marco */
-  height: 65%; /* Área transparente dentro del marco */
+  width: 58%; /* 🎯 REDUCIDO: de 65% a 58% para ajustarse mejor a la pantalla interior */
+  height: 55%; /* 🎯 REDUCIDO: de 65% a 55% para ajustarse mejor a la pantalla interior */
   background: transparent; /* 🎯 TRANSPARENTE para mostrar la imagen del marco */
   border-radius: 8px;
   overflow: hidden;
   position: relative;
+  top: -1.5%; /* 🎯 MOVIDO 20px HACIA ARRIBA: de 2% a -1.5% */
   /* 🎯 SIN BOX-SHADOW para evitar contornos visibles */
 }
 
@@ -4570,45 +4571,51 @@ section {
   left: 0;
   right: 0;
   animation: creditsScroll 45s linear infinite;
-  padding: 20px;
+  padding: 10px 15px; /* 🎯 REDUCIDO: menos padding lateral para evitar desbordamiento */
   text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* 🎯 ELEMENTOS INDIVIDUALES DE CRÉDITO */
 .credit-item {
-  margin-bottom: 60px;
+  margin-bottom: 50px; /* 🎯 REDUCIDO: de 60px a 50px para mejor distribución */
   opacity: 1;
 }
 
 .credit-item h3 {
   font-family: "Times New Roman", "Georgia", serif;
-  font-size: 1.2rem;
+  font-size: 1.1rem; /* 🎯 REDUCIDO: de 1.2rem a 1.1rem para evitar desbordamiento */
   font-weight: 600;
   color: var(--color-orange-primary);
-  margin-bottom: 8px;
-  line-height: 1.3;
+  margin-bottom: 6px; /* 🎯 REDUCIDO: de 8px a 6px */
+  line-height: 1.2; /* 🎯 REDUCIDO: de 1.3 a 1.2 */
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px; /* 🎯 REDUCIDO: de 1px a 0.8px */
   text-shadow: 0 0 10px rgba(218, 128, 35, 0.5);
+  word-wrap: break-word; /* 🎯 AGREGADO: para evitar desbordamiento */
 }
 
 .credit-item p {
   font-family: "Times New Roman", "Georgia", serif;
-  font-size: 1rem;
+  font-size: 0.95rem; /* 🎯 REDUCIDO: de 1rem a 0.95rem */
   color: #ffffff;
   margin: 0;
   font-weight: 300;
-  letter-spacing: 0.5px;
-  line-height: 1.4;
+  letter-spacing: 0.4px; /* 🎯 REDUCIDO: de 0.5px a 0.4px */
+  line-height: 1.3; /* 🎯 REDUCIDO: de 1.4 a 1.3 */
+  word-wrap: break-word; /* 🎯 AGREGADO: para evitar desbordamiento */
 }
 
 /* 🎯 ANIMACIÓN KEYFRAMES TIPO CRÉDITOS DE PELÍCULA */
 @keyframes creditsScroll {
   0% {
-    transform: translateY(100%);
+    transform: translateY(100%); /* 🎯 COMIENZA COMPLETAMENTE ABAJO */
   }
   100% {
-    transform: translateY(-100%);
+    transform: translateY(
+      -150%
+    ); /* 🎯 TERMINA COMPLETAMENTE ARRIBA (más allá para que el último crédito salga) */
   }
 }
 
@@ -4669,16 +4676,27 @@ section {
   }
 
   .credits-screen {
-    width: 68%;
-    height: 68%;
+    width: 60%; /* 🎯 AJUSTADO: de 68% a 60% para tablet */
+    height: 58%; /* 🎯 AJUSTADO: de 68% a 58% para tablet */
+    top: -1.5%; /* 🎯 MOVIDO 20px HACIA ARRIBA: consistente con desktop */
+  }
+
+  .credit-item {
+    margin-bottom: 45px; /* 🎯 AJUSTADO para tablet */
   }
 
   .credit-item h3 {
-    font-size: 1.1rem;
+    font-size: 1rem; /* 🎯 REDUCIDO: de 1.1rem a 1rem */
+    letter-spacing: 0.7px;
   }
 
   .credit-item p {
-    font-size: 0.9rem;
+    font-size: 0.85rem; /* 🎯 REDUCIDO: de 0.9rem a 0.85rem */
+    letter-spacing: 0.3px;
+  }
+
+  .credits-scroll {
+    padding: 8px 12px; /* 🎯 AJUSTADO para tablet */
   }
 }
 
@@ -4719,24 +4737,28 @@ section {
   }
 
   .credits-screen {
-    width: 70%; /* 🎯 PANTALLA MÁS GRANDE EN MÓVIL */
-    height: 70%; /* 🎯 PANTALLA MÁS GRANDE EN MÓVIL */
+    width: 62%; /* 🎯 AJUSTADO: de 70% a 62% para móvil */
+    height: 60%; /* 🎯 AJUSTADO: de 70% a 60% para móvil */
+    top: 0.5%; /* 🎯 MOVIDO 20px HACIA ARRIBA: de 3% a 0.5% para móvil */
   }
 
   .credit-item {
-    margin-bottom: 40px; /* 🎯 MENOS ESPACIO ENTRE CRÉDITOS */
+    margin-bottom: 35px; /* 🎯 REDUCIDO: de 40px a 35px */
   }
 
   .credit-item h3 {
-    font-size: 1rem; /* 🎯 TEXTO MÁS PEQUEÑO EN MÓVIL */
+    font-size: 0.9rem; /* 🎯 REDUCIDO: de 1rem a 0.9rem */
+    letter-spacing: 0.6px;
+    line-height: 1.1;
   }
 
   .credit-item p {
-    font-size: 0.85rem; /* 🎯 TEXTO MÁS PEQUEÑO EN MÓVIL */
+    font-size: 0.8rem; /* 🎯 REDUCIDO: de 0.85rem a 0.8rem */
+    letter-spacing: 0.2px;
   }
 
   .credits-scroll {
-    padding: 15px; /* 🎯 MENOS PADDING EN MÓVIL */
+    padding: 5px 10px; /* 🎯 REDUCIDO: menos padding en móvil */
     animation: creditsScroll 40s linear infinite; /* 🎯 ANIMACIÓN MÁS RÁPIDA */
   }
 }
