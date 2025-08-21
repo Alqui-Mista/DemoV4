@@ -212,12 +212,19 @@ const HomePage: FC<HomePageProps> = ({
   // 🎵 SONIDO AMBIENTE
   const ambientAudioRef = useRef<HTMLAudioElement | null>(null);
   const [hasStartedAmbientSound, setHasStartedAmbientSound] = useState(false);
+  const [areSoundsEnabled, setAreSoundsEnabled] = useState(false); // Control global de sonidos
   const hasStartedAmbientSoundRef = useRef(false); // ✅ Ref para evitar re-renders del ScrollTrigger
+  const areSoundsEnabledRef = useRef(false); // ✅ Ref para ScrollTrigger
 
   // ✅ Sincronizar ref con estado
   useEffect(() => {
     hasStartedAmbientSoundRef.current = hasStartedAmbientSound;
   }, [hasStartedAmbientSound]);
+
+  // ✅ Sincronizar ref del control global de sonidos
+  useEffect(() => {
+    areSoundsEnabledRef.current = areSoundsEnabled;
+  }, [areSoundsEnabled]);
 
   // 🎵 SONIDO DE TRANSICIÓN
   const transitionAudioRef = useRef<HTMLAudioElement | null>(null);
@@ -423,8 +430,8 @@ const HomePage: FC<HomePageProps> = ({
     };
   }, []);
 
-  // 🎵 ACTIVAR SONIDO AMBIENTE CON PRIMER SCROLL (ScrollTrigger)
-  // 🎵 ACTIVAR SONIDO AMBIENTE SOLO CON PRIMERA INTERACCIÓN DEL USUARIO
+  // 🎵 ACTIVAR SONIDO AMBIENTE SOLO CON AudioVisualizer (No automático)
+  /* DESHABILITADO: Activación automática en primera interacción
   useEffect(() => {
     if (hasStartedAmbientSound || !ambientAudioRef.current) return;
 
@@ -456,18 +463,60 @@ const HomePage: FC<HomePageProps> = ({
       window.removeEventListener("touchstart", handleUserInteraction);
     };
   }, [hasStartedAmbientSound]);
+  */
 
-  // 🎵 PAUSAR AUDIO AL CAMBIAR DE PÁGINA
+  // 🎵 PAUSAR TODOS LOS AUDIOS AL CAMBIAR DE PÁGINA
   useEffect(() => {
     return () => {
       // Pausar audio ambiente al desmontar el componente (cambio de página)
       if (ambientAudioRef.current && hasStartedAmbientSound) {
         ambientAudioRef.current.pause();
+        console.log("HomePage - Audio ambiente pausado al cambiar de página");
+      }
+
+      // Pausar audio de transición al desmontar el componente
+      if (transitionAudioRef.current) {
+        transitionAudioRef.current.pause();
+        console.log(
+          "HomePage - Audio de transición pausado al cambiar de página"
+        );
       }
     };
   }, [hasStartedAmbientSound]);
 
-  // �🌟 Estados y referencias para la estela del cursor ULTRA OPTIMIZADA
+  // 🎵 MANEJAR TOGGLE DE AUDIO DESDE AUDIO VISUALIZER
+  const handleAudioVisualizerToggle = useCallback(async (isActive: boolean) => {
+    console.log("HomePage - AudioVisualizer toggle:", isActive);
+
+    try {
+      if (isActive) {
+        // ✅ ACTIVAR TODOS LOS SONIDOS
+        setAreSoundsEnabled(true);
+        if (ambientAudioRef.current) {
+          await ambientAudioRef.current.play();
+          setHasStartedAmbientSound(true);
+          console.log("HomePage - Audio ambiente iniciado");
+        }
+      } else {
+        // ❌ DESACTIVAR TODOS LOS SONIDOS
+        setAreSoundsEnabled(false);
+
+        // Pausar audio ambiente
+        if (ambientAudioRef.current) {
+          ambientAudioRef.current.pause();
+          console.log("HomePage - Audio ambiente pausado");
+        }
+
+        // Pausar audio de transición si está reproduciéndose
+        if (transitionAudioRef.current) {
+          transitionAudioRef.current.pause();
+          console.log("HomePage - Audio de transición pausado");
+        }
+      }
+    } catch (error) {
+      console.warn("HomePage - Error al manejar audio:", error);
+    }
+  }, []); // �🌟 Estados y referencias para la estela del cursor ULTRA OPTIMIZADA
   const trailPointsRef = useRef<{ x: number; y: number; opacity: number }[]>(
     []
   );
@@ -485,26 +534,37 @@ const HomePage: FC<HomePageProps> = ({
 
     if (!canvas || !scene || !camera) return;
 
-    // 🎵 REPRODUCIR SONIDO DE TRANSICIÓN (solo si hay interacción del usuario)
-    if (transitionAudioRef.current && hasStartedAmbientSoundRef.current) {
+    // 🎵 REPRODUCIR SONIDO DE TRANSICIÓN (solo si los sonidos están habilitados)
+    if (
+      transitionAudioRef.current &&
+      hasStartedAmbientSoundRef.current &&
+      areSoundsEnabledRef.current
+    ) {
       transitionAudioRef.current.currentTime = 0; // Reiniciar desde el principio
 
       // Intentar reproducir y configurar auto-stop extendido
       const playTransitionSound = async () => {
         try {
-          await transitionAudioRef.current?.play();
+          // Verificar nuevamente que los sonidos estén habilitados antes de reproducir
+          if (areSoundsEnabledRef.current) {
+            await transitionAudioRef.current?.play();
+            console.log("HomePage - Audio de transición iniciado");
 
-          // Auto-stop del audio después de su duración completa
-          setTimeout(() => {
-            if (transitionAudioRef.current) {
-              transitionAudioRef.current.pause();
-            }
-          }, AUDIO_CONFIG.TRANSITION_DURATION);
+            // Auto-stop del audio después de su duración completa
+            setTimeout(() => {
+              if (transitionAudioRef.current) {
+                transitionAudioRef.current.pause();
+                console.log(
+                  "HomePage - Audio de transición terminado automáticamente"
+                );
+              }
+            }, AUDIO_CONFIG.TRANSITION_DURATION);
+          }
         } catch (error) {
           // ✅ SILENCIOSO: El usuario puede no haber interactuado aún, esto es normal
           if (import.meta.env.DEV) {
             console.log(
-              "ℹ️ Transition audio skipped (no user interaction yet)"
+              "ℹ️ Transition audio skipped (no user interaction yet or sounds disabled)"
             );
           }
         }
@@ -1103,13 +1163,8 @@ const HomePage: FC<HomePageProps> = ({
         {/* Contenido de la página - aquí puedes agregar tus elementos */}
       </div>
 
-      {/* 🎵 Visualizador de Audio - Esquina Inferior Derecha */}
-      <AudioVisualizer
-        onAudioToggle={(isActive) => {
-          // Callback opcional para manejar cambios de estado del audio
-          console.log("Audio 3D:", isActive ? "Activado" : "Desactivado");
-        }}
-      />
+      {/* 🎵 Visualizador de Audio - Control del Audio Ambiente */}
+      <AudioVisualizer onAudioToggle={handleAudioVisualizerToggle} />
     </div>
   );
 };

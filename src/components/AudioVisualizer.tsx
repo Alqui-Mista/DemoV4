@@ -1,5 +1,5 @@
 // src/components/AudioVisualizer.tsx
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import "./AudioVisualizer.css";
 
 interface AudioVisualizerProps {
@@ -8,43 +8,21 @@ interface AudioVisualizerProps {
 
 const AudioVisualizer: React.FC<AudioVisualizerProps> = ({ onAudioToggle }) => {
   const [isAudioActive, setIsAudioActive] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  useEffect(() => {
-    // Crear elemento de audio para sonido ambiente
-    audioRef.current = new Audio("/ambient_sound_HomePage.mp3");
-    audioRef.current.loop = true;
-    audioRef.current.volume = 0.15;
+  const handleToggleAudio = () => {
+    const newAudioState = !isAudioActive;
+    console.log(
+      "AudioVisualizer Toggle - Estado actual:",
+      isAudioActive,
+      "→ Nuevo estado:",
+      newAudioState
+    );
 
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
-    };
-  }, []);
+    setIsAudioActive(newAudioState);
 
-  const handleToggleAudio = async () => {
-    try {
-      const newAudioState = !isAudioActive;
-
-      if (newAudioState) {
-        if (audioRef.current) {
-          await audioRef.current.play();
-        }
-      } else {
-        if (audioRef.current) {
-          audioRef.current.pause();
-        }
-      }
-
-      setIsAudioActive(newAudioState);
-
-      if (onAudioToggle) {
-        onAudioToggle(newAudioState);
-      }
-    } catch (error) {
-      console.warn("Error al reproducir audio:", error);
+    // Comunicar el cambio al HomePage para que maneje su propio audio
+    if (onAudioToggle) {
+      onAudioToggle(newAudioState);
     }
   };
 

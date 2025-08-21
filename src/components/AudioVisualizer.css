@@ -10,14 +10,36 @@
 }
 
 /* 🌟 BOTÓN DE TEXTO ELEGANTE - ESTADO INACTIVO */
-.audio-activate-button {
+.audio-activate-button,
+.audio-activate-button:focus,
+.audio-activate-button:hover,
+.audio-activate-button:active,
+.audio-activate-button:focus-visible {
   position: relative;
-  background: transparent;
-  border: none;
+  background: transparent !important;
+  border: none !important;
   padding: 8px 16px; /* 🎯 REDUCIDO de 12px 20px para botón más compacto */
   cursor: none; /* Mantener cursor personalizado */
-  outline: none;
+  outline: none !important;
   transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* 🎯 ELIMINAR CUALQUIER ESTILO DE BOTÓN POR DEFECTO */
+  box-shadow: none !important;
+  margin: 0 !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
+  -webkit-outline: none !important;
+  -moz-outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
 }
 
 .audio-text {
@@ -63,16 +85,23 @@
 /* 🎵 VISUALIZADOR ACTIVO - BASADO EN LA IMAGEN ANALIZADA */
 .audio-visualizer-active {
   position: relative;
-  background: transparent;
-  border: none;
+  background: transparent !important;
+  border: none !important;
   cursor: none; /* Mantener cursor personalizado */
-  outline: none;
+  outline: none !important;
   width: 80px;
   height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
   perspective: 1000px;
+  /* 🎯 ELIMINAR CUALQUIER ESTILO DE BOTÓN POR DEFECTO */
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
 }
 
 /* 📊 CONTENEDOR DE BARRAS PRINCIPALES */
@@ -263,4 +292,33 @@
   .audio-activate-button {
     padding: 8px 12px;
   }
+}
+
+/* 🎯 ELIMINAR CUALQUIER BORDE BLANCO O ESTILO POR DEFECTO */
+.audio-visualizer-active,
+.audio-visualizer-active:focus,
+.audio-visualizer-active:hover,
+.audio-visualizer-active:active,
+.audio-visualizer-active:focus-visible {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
+  -webkit-outline: none !important;
+  -moz-outline: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
 }
