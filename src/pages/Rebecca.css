@@ -390,7 +390,57 @@ body,
 .rebecca-container *,
 .rebecca-container button,
 .rebecca-container .vapi-chat-button,
-.rebecca-container a {
+.rebecca-container a,
+.rebecca-container .newsletter-button,
+.rebecca-container .newsletter-button *,
+.rebecca-container .ai-matrix-button,
+.rebecca-container .ai-matrix-button *,
+.rebecca-container .button-background,
+.rebecca-container .metallic-surface,
+.rebecca-container .arrow-container,
+.rebecca-container .arrow-icon,
+.rebecca-container .neon-glow,
+.rebecca-container .ai-matrix-container,
+.rebecca-container .ai-core,
+.rebecca-container .neural-network,
+.rebecca-container .neuron,
+.rebecca-container .data-matrix,
+.rebecca-container .hologram-layers,
+.rebecca-container .energy-field,
+.rebecca-container .holo-text,
+.rebecca-container svg,
+.rebecca-container path,
+.rebecca-container circle,
+.rebecca-container g {
+  cursor: none !important;
+}
+
+/* 🎯 REGLA ESPECÍFICA PARA TODO EL FOOTER Y SUS ELEMENTOS */
+.footer-reveal,
+.footer-reveal *,
+.footer-reveal **,
+.footer-reveal button,
+.footer-reveal input,
+.footer-reveal svg,
+.footer-reveal path,
+.footer-reveal circle,
+.footer-reveal g,
+.footer-reveal defs,
+.footer-reveal linearGradient,
+.footer-reveal radialGradient,
+.footer-reveal stop {
+  cursor: none !important;
+}
+
+/* 🎯 FORZAR CURSOR PERSONALIZADO EN BOTONES DEL FOOTER - MÁXIMA ESPECIFICIDAD */
+.footer-reveal .newsletter-button,
+.footer-reveal .newsletter-button *,
+.footer-reveal .ai-matrix-button,
+.footer-reveal .ai-matrix-button *,
+.footer-reveal .modern-arrow-button,
+.footer-reveal .modern-arrow-button *,
+.footer-reveal button,
+.footer-reveal button * {
   cursor: none !important;
 }
 
@@ -2607,7 +2657,7 @@ section {
   font-weight: 500;
   font-family: "Consolas", "Monaco", "Courier New", monospace;
   color: rgba(218, 128, 35, 0.6);
-  cursor: pointer;
+  cursor: none !important; /* 🎯 CURSOR PERSONALIZADO CAD - NO NATIVO */
   overflow: hidden;
   /* POSICIONAMIENTO REMOVIDO - SE MANEJA AL FINAL DEL ARCHIVO */
   width: 190px; /* Tamaño base inicial */
@@ -4130,10 +4180,10 @@ section {
 
 /* 🎬 ANIMACIONES PARA FUENTE CERO */
 
-/* Independencia total de CTA y Footer: no afectan el footer */
+/* 🎯 BOTONES DEL FOOTER: MANTENER CURSOR PERSONALIZADO CAD */
 .footer-reveal button,
 .footer-reveal .newsletter-button {
-  cursor: pointer !important;
+  cursor: none !important; /* 🎯 CURSOR PERSONALIZADO CAD - NO NATIVO */
 }
 
 /* Mantener excepción para homepage-wrapper y homepage-embedded */
@@ -4441,7 +4491,7 @@ section {
     /* Micro bordes metálicos */ inset 0 0.5px 1px rgba(255, 255, 255, 0.03),
     inset 0 -0.5px 1px rgba(0, 0, 0, 0.9) !important;
   overflow: visible !important;
-  cursor: pointer !important;
+  cursor: none !important; /* 🎯 CURSOR PERSONALIZADO CAD - NO NATIVO */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
   padding: 0 !important;
 }
