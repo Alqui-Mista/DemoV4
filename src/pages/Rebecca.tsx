@@ -82,6 +82,10 @@ const Rebecca = memo(() => {
   const home3dAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const [isEffectActive, setIsEffectActive] = useState(false);
+
+  // 🎯 ESTADO PARA MODAL DE CRÉDITOS
+  const [showCreditsModal, setShowCreditsModal] = useState(false);
+
   const ctaSectionRef = useRef<HTMLElement>(null);
 
   // useEffect para controlar la visibilidad del cursor CAD completo
@@ -1130,9 +1134,99 @@ const Rebecca = memo(() => {
 
         {/* 🎯 SECCIÓN DE CRÉDITOS */}
         <div className="footer-credits">
+          <button
+            className="credits-link"
+            onClick={() => setShowCreditsModal(true)}
+          >
+            VER TODOS LOS CREDITOS
+          </button>
           <p>© 2025 InteliMark - Todos los derechos reservados</p>
         </div>
       </footer>
+
+      {/* 🎯 MODAL DE CRÉDITOS */}
+      {showCreditsModal && (
+        <div
+          className="credits-modal-overlay"
+          onClick={() => setShowCreditsModal(false)}
+        >
+          <div
+            className="credits-modal-container"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="credits-close-button"
+              onClick={() => setShowCreditsModal(false)}
+            >
+              ✕
+            </button>
+            <div className="credits-frame-container">
+              <div className="credits-screen">
+                <div className="credits-scroll">
+                  <div className="credit-item">
+                    <h3>Director Creativo</h3>
+                    <p>Pablo Carrasco – Sandra Gangas</p>
+                  </div>
+
+                  <div className="credit-item">
+                    <h3>
+                      Diseñador de Experiencia de Usuario (UX) /<br />
+                      Diseñador de Interfaz de Usuario
+                    </h3>
+                    <p>Pablo Carrasco</p>
+                  </div>
+
+                  <div className="credit-item">
+                    <h3>Desarrollador Front-end</h3>
+                    <p>Pablo Carrasco</p>
+                  </div>
+
+                  <div className="credit-item">
+                    <h3>
+                      Desarrollador Back-end /<br />
+                      Ingeniero de Software
+                    </h3>
+                    <p>Pablo Carrasco</p>
+                  </div>
+
+                  <div className="credit-item">
+                    <h3>Artista 3D / Animador 3D</h3>
+                    <p>Pablo Carrasco</p>
+                  </div>
+
+                  <div className="credit-item">
+                    <h3>Diseñador de Sonido</h3>
+                    <p>Pablo Carrasco</p>
+                  </div>
+
+                  <div className="credit-item">
+                    <h3>Fotógrafo / Director de Arte</h3>
+                    <p>Pablo Carrasco – Sandra Gangas</p>
+                  </div>
+
+                  <div className="credit-item">
+                    <h3>Especialista en SEO</h3>
+                    <p>Pablo Carrasco</p>
+                  </div>
+
+                  <div className="credit-item">
+                    <h3>
+                      Estratega de IA /<br />
+                      Ingeniero de Prompts
+                    </h3>
+                    <p>Pablo Carrasco</p>
+                  </div>
+
+                  <div className="credit-item">
+                    <h3>Diseñador Gráfico</h3>
+                    <p>Sandra Gangas</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 });
