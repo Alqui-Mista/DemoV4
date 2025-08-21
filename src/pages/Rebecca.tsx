@@ -478,22 +478,22 @@ const Rebecca = memo(() => {
               {/* 🎯 INSTRUCCIÓN "CLIC PARA CERRAR" - Aparece al 20% del scroll */}
               {showCloseInstruction && (
                 <div
-                  className="close-instruction"
                   style={{
                     position: "fixed",
                     left: mousePosition.x + 8,
                     top: mousePosition.y - 5,
-                    color: "rgba(255, 255, 255, 0.8)",
-                    fontSize: "0.75rem",
+                    color: "rgba(255, 255, 255, 0.7)",
+                    fontSize: "0.55rem",
                     fontWeight: "300",
-                    letterSpacing: "2px",
+                    letterSpacing: "1px",
                     textTransform: "uppercase",
                     pointerEvents: "none",
                     zIndex: 10000,
-                    textShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
+                    textShadow: "0 0 8px rgba(255, 255, 255, 0.3)",
                     fontFamily: '"Orbitron", "Oxanium", sans-serif',
                     transition: "opacity 0.3s ease",
-                    animation: "fadeInGlow 0.5s ease-out",
+                    userSelect: "none",
+                    whiteSpace: "nowrap",
                   }}
                 >
                   Clic para cerrar
