@@ -551,11 +551,11 @@ const Rebecca = memo(() => {
           </div>
         </div>
         <h1 className="portal-title">¡Bienvenido al futuro!</h1>
-        <div className="vapi-content">
+        <div className="vapi-content center-absolute">
           <VapiChatButton config={vapiConfig} variant="center" size="large" />
         </div>
         <div
-          className="portal-effects"
+          className="portal-effects center-absolute"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
@@ -686,7 +686,7 @@ const Rebecca = memo(() => {
 
               {/* Texto del botón adaptado a la pantalla rectangular existente */}
               <div
-                className={`cta-button-text-overlay ${
+                className={`cta-button-text-overlay center-absolute ${
                   isCtaTextVisible ? "text-visible" : "text-hidden"
                 }`}
               >
@@ -733,7 +733,7 @@ const Rebecca = memo(() => {
                   <div className="button-background">
                     <div className="metallic-surface"></div>
                   </div>
-                  <div className="arrow-container">
+                  <div className="arrow-container center-absolute">
                     <svg className="arrow-icon" viewBox="0 0 42 30" fill="none">
                       <defs>
                         {/* Gradientes premium para renderizado de alta calidad */}
@@ -1015,7 +1015,7 @@ const Rebecca = memo(() => {
                       </g>
                     </svg>
                   </div>
-                  <div className="neon-glow"></div>
+                  <div className="neon-glow center-absolute"></div>
                 </button>
               </form>
               <p id="boletinMensaje"></p>
