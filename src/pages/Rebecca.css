@@ -5483,3 +5483,35 @@ section {
     filter: blur(0px);
   }
 }
+
+/* 🎯 INSTRUCCIÓN "CLIC PARA CERRAR" EN VISUALIZADOR HOME 3D */
+.close-instruction {
+  user-select: none;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* ✨ ANIMACIÓN DE APARICIÓN SUTIL */
+@keyframes fadeInGlow {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+  }
+
+  50% {
+    opacity: 0.7;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+}

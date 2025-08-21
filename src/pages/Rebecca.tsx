@@ -75,6 +75,10 @@ const Rebecca = memo(() => {
   }, [showHomePage]);
   const [isHoveringButton, setIsHoveringButton] = useState(false);
 
+  // 🎯 ESTADOS PARA INSTRUCCIÓN "CLIC PARA CERRAR"
+  const [showCloseInstruction, setShowCloseInstruction] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
   const home3dAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const [isEffectActive, setIsEffectActive] = useState(false);
@@ -328,6 +332,56 @@ const Rebecca = memo(() => {
     }
   }, [showHomePage, isActive]);
 
+  // 🎯 CONTROL DE INSTRUCCIÓN "CLIC PARA CERRAR" EN VISUALIZADOR
+  useEffect(() => {
+    if (showHomePage && isActive) {
+      const scrollContainer = document.getElementById(
+        "homepage-scroll-container"
+      );
+
+      if (scrollContainer) {
+        const handleScroll = () => {
+          const scrollTop = scrollContainer.scrollTop;
+          const scrollHeight =
+            scrollContainer.scrollHeight - scrollContainer.clientHeight;
+          const scrollPercent = (scrollTop / scrollHeight) * 100;
+
+          console.log(
+            "📊 Scroll del visualizador:",
+            scrollPercent.toFixed(1) + "%"
+          );
+
+          // Mostrar instrucción al 20% del scroll
+          setShowCloseInstruction(scrollPercent >= 20);
+        };
+
+        const handleMouseMove = (e: MouseEvent) => {
+          if (showCloseInstruction) {
+            // Usar coordenadas absolutas de la ventana en lugar de relativas al contenedor
+            setMousePosition({
+              x: e.clientX,
+              y: e.clientY,
+            });
+          }
+        };
+
+        scrollContainer.addEventListener("scroll", handleScroll);
+        scrollContainer.addEventListener("mousemove", handleMouseMove);
+
+        // Verificar scroll inicial
+        handleScroll();
+
+        return () => {
+          scrollContainer.removeEventListener("scroll", handleScroll);
+          scrollContainer.removeEventListener("mousemove", handleMouseMove);
+        };
+      }
+    } else {
+      // Resetear estados cuando se cierra el visualizador
+      setShowCloseInstruction(false);
+    }
+  }, [showHomePage, isActive, showCloseInstruction]);
+
   const handleInteractiveClick = () => {
     if (!isActive) {
       if (home3dAudioRef.current) {
@@ -420,6 +474,31 @@ const Rebecca = memo(() => {
                   maxScrollPercentage={60} // Aumentado de 45 a 60 para llegar a la frase específica
                 />
               </div>
+
+              {/* 🎯 INSTRUCCIÓN "CLIC PARA CERRAR" - Aparece al 20% del scroll */}
+              {showCloseInstruction && (
+                <div
+                  className="close-instruction"
+                  style={{
+                    position: "fixed",
+                    left: mousePosition.x + 8,
+                    top: mousePosition.y - 5,
+                    color: "rgba(255, 255, 255, 0.8)",
+                    fontSize: "0.75rem",
+                    fontWeight: "300",
+                    letterSpacing: "2px",
+                    textTransform: "uppercase",
+                    pointerEvents: "none",
+                    zIndex: 10000,
+                    textShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
+                    fontFamily: '"Orbitron", "Oxanium", sans-serif',
+                    transition: "opacity 0.3s ease",
+                    animation: "fadeInGlow 0.5s ease-out",
+                  }}
+                >
+                  Clic para cerrar
+                </div>
+              )}
             </div>
           )}
         </div>
