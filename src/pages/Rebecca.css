@@ -113,14 +113,19 @@
     var(--color-orange-primary) 80%
   );
 
-  /* 🎯 GRADIENTE ESPECÍFICO PARA TOOLTIP HOME 3D - SOLO INTELIMARK */
+  /* 🎯 GRADIENTE ESPECÍFICO PARA TOOLTIP HOME 3D - SOLO INTELIMARK - PARADAS PRECISAS */
   --gradient-tooltip-border: linear-gradient(
     90deg,
-    var(--color-orange-primary) 0%,
-    var(--color-white) 25%,
-    var(--color-orange-alpha-80) 50%,
-    var(--color-white) 75%,
-    var(--color-orange-primary) 100%
+    #da8023 0%,
+    #da8023 5%,
+    #ffffff 20%,
+    #ffffff 30%,
+    #da8023 45%,
+    #da8023 55%,
+    #ffffff 70%,
+    #ffffff 80%,
+    #da8023 95%,
+    #da8023 100%
   );
 }
 
@@ -275,7 +280,7 @@ body,
 
 /* 🎯 CONTAINER DE TEXTO PURO */
 
-/* 🤖 TEXTO PRINCIPAL - EFECTO HOLOGRÁFICO MINIMALISTA */
+/* 🤖 TEXTO SIMPLE - SIN EFECTOS HOLOGRÁFICOS */
 .ai-holo-text {
   font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace;
   font-size: 11px;
@@ -283,33 +288,25 @@ body,
   letter-spacing: 0.8px;
   text-transform: uppercase;
   position: relative;
-  color: transparent;
+  color: #da8023 !important;
 
-  /* 🌟 EFECTO DE TEXTO HOLOGRÁFICO TRIPLE */
-  background: var(--gradient-holographic);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  background-clip: text;
-
-  /* ✨ SOMBRA HOLOGRÁFICA SUTIL */
-  filter: drop-shadow(0 0 8px var(--color-orange-alpha-30));
-
-  /* 🎬 ANIMACIÓN HOLOGRÁFICA SUAVE */
-  animation: holoTextFlow 3s ease-in-out infinite;
-
-  /* 🎯 EFECTO DE APARICIÓN GRADUAL */
-  opacity: 0;
-  transform: translateY(5px);
-  animation: holoTextAppear 0.8s ease-out forwards,
-    holoTextFlow 3s ease-in-out infinite 0.8s;
+  /* Sin efectos holográficos */
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  filter: none !important;
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
 }
 
-/* 🔮 EFECTO DE DISPERSIÓN CUÁNTICA */
+/* PSEUDO-ELEMENTOS DESHABILITADOS */
 .ai-holo-text::before {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 1px;
+  display: none !important;
+}
+
+.ai-holo-text::after {
+  display: none !important;
 }
 
 /* 🌐 LÍNEAS DE CONEXIÓN NEURONAL */
@@ -1783,11 +1780,80 @@ body,
   color: var(--color-white) !important;
 }
 
-/* 🎯 SOBRESCRIBIR COMPLETAMENTE EL BORDE ANIMADO DEL TOOLTIP 3D */
+/* 🎯 SOBRESCRIBIR COMPLETAMENTE EL BORDE ANIMADO DEL TOOLTIP 3D - PRUEBA NARANJA SÓLIDO */
 .button-tooltip.button-tooltip-3d::before {
-  background: var(--gradient-tooltip-border) !important;
+  background: #da8023 !important;
+  background-size: auto !important;
+  animation: none !important;
+}
+
+/* � PRUEBA DIAGNÓSTICA - FORZAR TEXTO NARANJA SÓLIDO EN TOOLTIP 3D */
+.button-tooltip.button-tooltip-3d .ai-holo-text {
+  background: #da8023 !important;
+  background-size: auto !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  color: #da8023 !important;
+  animation: none !important;
+  filter: none !important;
+}
+
+.button-tooltip.button-tooltip-3d .ai-holo-text::before {
+  display: none !important;
+}
+
+.button-tooltip.button-tooltip-3d .ai-holo-text::after {
+  display: none !important;
+}
+
+/* �🔥 REGLA ESPECÍFICA DE EMERGENCIA - MÁXIMA PRIORIDAD PARA HOME 3D - PRUEBA NARANJA SÓLIDO */
+body .button-tooltip.button-tooltip-3d::before {
+  background: #da8023 !important;
+  background-size: auto !important;
+  animation: none !important;
+}
+
+/* 🎯 RESTAURAR TEXTO Y ATACAR SOLO EL BORDE */
+.button-tooltip.button-tooltip-3d .ai-holo-text {
+  background: var(--gradient-holographic) !important;
   background-size: 200% 200% !important;
-  animation: borderFlow 2s linear infinite !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  animation: holoTextFlow 3s ease-in-out infinite !important;
+  filter: drop-shadow(0 0 8px var(--color-orange-alpha-30)) !important;
+}
+
+/* 🚨 NUEVA ESTRATEGIA: ATACAR EL BORDE DIRECTAMENTE - CAMBIO OBVIO */
+.button-tooltip.button-tooltip-3d {
+  border: 10px solid red !important;
+  box-shadow: 0 0 50px red !important;
+  background: yellow !important;
+  width: 300px !important;
+  height: 200px !important;
+}
+
+/* 🔥 ELIMINAR COMPLETAMENTE EL PSEUDO-ELEMENTO DEL BORDE */
+.button-tooltip.button-tooltip-3d::before {
+  display: none !important;
+  content: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  background: none !important;
+}
+
+/* 🚨 REGLA DE EMERGENCIA EXTREMA - FUERZA BRUTA PARA TOOLTIP 3D */
+html body .button-tooltip.button-tooltip-3d::before,
+html body div .button-tooltip.button-tooltip-3d::before,
+body div .button-tooltip.button-tooltip-3d::before {
+  background: #da8023 !important;
+  background-image: none !important;
+  background-attachment: initial !important;
+  background-origin: initial !important;
+  background-clip: initial !important;
+  background-color: #da8023 !important;
+  animation: none !important;
+  background-size: auto !important;
 }
 
 @keyframes glitchText {
@@ -1950,69 +2016,108 @@ body,
   }
 }
 
-/* 🤖 TOOLTIP MATRIX - ESTILO DIGITAL SIMÉTRICO PARA "HOME 3D" */
+/* 🚨 FUERZA BRUTA EXTREMA - ELIMINAR CUALQUIER EFECTO HOLOGRÁFICO */
+html body div .button-tooltip.button-tooltip-3d,
+html body .button-tooltip.button-tooltip-3d,
+body .button-tooltip.button-tooltip-3d,
 .button-tooltip.button-tooltip-3d {
   position: fixed !important;
   z-index: 99999 !important;
   pointer-events: none !important;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.4s ease !important;
 
-  /* Terminal Matrix compacto con fondo negro y bordes naranjo */
-  background: var(--gradient-black-dark) !important;
-  border: 1px solid var(--color-orange-primary) !important;
-  border-radius: 3px !important;
-  padding: 6px 8px !important; /* Padding reducido para cuadro más pequeño */
+  /* FONDO Y BORDE FORZADO */
+  background: rgb(0, 0, 0) !important;
+  background-color: rgb(0, 0, 0) !important;
+  background-image: none !important;
+  background-attachment: initial !important;
+  background-origin: initial !important;
+  background-clip: initial !important;
+  background-size: auto !important;
+  background-position: initial !important;
+  background-repeat: initial !important;
 
-  /* Efectos Matrix digitales */
-  box-shadow: 0 0 12px var(--color-orange-alpha-40),
-    inset 0 1px 0 var(--color-orange-alpha-20),
-    0 3px 16px var(--color-black-alpha-80) !important;
+  border: 2px solid rgb(218, 128, 35) !important;
+  border-image: none !important;
+  border-radius: 4px !important;
+  padding: 12px 16px !important;
 
-  backdrop-filter: blur(5px) !important;
+  /* SOMBRA SIMPLE */
+  box-shadow: 0 0 10px rgba(218, 128, 35, 0.3) !important;
+  transform: none !important;
 
-  /* Efecto de terminal con líneas de escaneo */
-  position: relative;
-  overflow: hidden;
-
-  /* Dimensiones optimizadas para centrado perfecto */
-  width: 85px !important; /* Ancho reducido para cuadro más pequeño */
+  /* DIMENSIONES */
+  width: auto !important;
+  min-width: 100px !important;
   height: auto !important;
+  white-space: nowrap !important;
 
-  /* Escala general reducida */
-  transform: scale(0.9) !important;
+  /* ELIMINAR FILTROS Y EFECTOS */
+  filter: none !important;
+  backdrop-filter: none !important;
+  animation: none !important;
+  animation-name: none !important;
+  animation-duration: 0s !important;
+  animation-iteration-count: 0 !important;
 }
 
-/* Línea de escaneo Matrix naranjo - DE DERECHA A IZQUIERDA (efecto "volver") */
+/* PSEUDO-ELEMENTOS COMPLETAMENTE ANULADOS CON MÁXIMA ESPECIFICIDAD */
+html body div .button-tooltip.button-tooltip-3d::before,
+html body .button-tooltip.button-tooltip-3d::before,
+body .button-tooltip.button-tooltip-3d::before,
 .button-tooltip.button-tooltip-3d::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: -100%; /* Comienza desde la derecha */
-  width: 100%;
-  height: 3px; /* Aumentado a 3px para mayor visibilidad */
-  background: var(--gradient-orange-bright);
-  animation: matrixScanReverse 2s linear infinite; /* Más rápido para mejor visibilidad */
-  z-index: 10; /* Z-index más alto */
-  opacity: 1; /* Asegurar visibilidad */
-  box-shadow: 0 0 8px var(--color-orange-alpha-80); /* Glow para mayor visibilidad */
+  display: none !important;
+  content: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: none !important;
+  background-image: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  animation: none !important;
+  animation-name: none !important;
+  animation-duration: 0s !important;
+  transform: none !important;
+  filter: none !important;
+  box-shadow: none !important;
 }
 
-/* Efecto de interferencia digital */
+html body div .button-tooltip.button-tooltip-3d::after,
+html body .button-tooltip.button-tooltip-3d::after,
+body .button-tooltip.button-tooltip-3d::after,
 .button-tooltip.button-tooltip-3d::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: repeating-linear-gradient(
-    90deg,
-    transparent,
-    transparent 1px,
-    var(--color-orange-alpha-05) 1px,
-    var(--color-orange-alpha-05) 2px
-  );
-  pointer-events: none;
+  display: none !important;
+  content: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: none !important;
+  background-image: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  animation: none !important;
+  animation-name: none !important;
+  animation-duration: 0s !important;
+  transform: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+/* LÍNEA DE ESCANEO COMPLETAMENTE ELIMINADA */
+.button-tooltip.button-tooltip-3d::before {
+  display: none !important;
+  content: none !important;
+  visibility: hidden !important;
+}
+
+/* Efecto de interferencia digital - COMPLETAMENTE ELIMINADO */
+.button-tooltip.button-tooltip-3d::after {
+  display: none !important;
+  content: none !important;
+  visibility: hidden !important;
 }
 
 /* 🎯 CONTAINER MATRIX COMPACTO - TEXTO PERFECTAMENTE CENTRADO */
@@ -2028,56 +2133,37 @@ body,
   text-align: center; /* Centrado del texto */
 }
 
-/* 🤖 TEXTO PRINCIPAL MATRIX - TAMAÑO AUMENTADO 5% Y CENTRADO */
+/* 🤖 TEXTO SIMPLE - TAMAÑO AJUSTADO */
 .ai-holo-text {
   font-family: "SF Mono", "Monaco", "Cascadia Code", monospace;
-  font-size: 13px; /* Aumentado 5%: de 12px a 13px */
+  font-size: 12px !important;
   font-weight: 600;
-  letter-spacing: 1.6px; /* Aumentado proporcionalmente */
+  letter-spacing: 1px !important;
   text-transform: uppercase;
   position: relative;
-  text-align: center; /* Centrado del texto */
-  width: 100%; /* Ancho completo para centrado perfecto */
+  text-align: center;
+  width: 100%;
 
-  /* Gradiente Matrix con paleta naranjo/gris/negro/blanco */
-  background: var(--gradient-orange-text);
-  background-size: 200% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
+  /* Solo color naranja simple */
+  background: none !important;
+  background-clip: initial !important;
+  -webkit-background-clip: initial !important;
+  color: #da8023 !important;
 
-  /* Animación de flujo de código */
-  animation: matrixCodeFlow 2.8s ease-in-out infinite;
-
-  /* Glow digital naranjo aumentado */
-  filter: drop-shadow(0 0 10px var(--color-orange-alpha-60));
-
-  /* Aparición gradual */
-  opacity: 0;
-  transform: translateY(3px);
-  animation: digitalTextAppear 0.9s ease-out 0.2s forwards,
-    matrixCodeFlow 2.8s ease-in-out infinite 1.1s;
+  /* Sin animaciones ni efectos */
+  animation: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+  transform: none !important;
 }
 
-/* Efectos de glitch Matrix con colores de paleta */
+/* PSEUDO-ELEMENTOS ELIMINADOS */
 .ai-holo-text::before {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0.5px;
-  color: var(--color-orange-alpha-20);
-  z-index: -1;
-  animation: matrixGlitch 2.2s linear infinite;
+  display: none !important;
 }
 
 .ai-holo-text::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: -0.5px;
-  color: rgba(128, 128, 128, 0.15);
-  z-index: -2;
-  animation: matrixGlitch 2.2s linear infinite reverse;
+  display: none !important;
 }
 
 /* 🌈 ANIMACIONES MATRIX - PALETA NARANJO/GRIS/NEGRO/BLANCO */

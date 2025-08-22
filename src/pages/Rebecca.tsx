@@ -875,37 +875,37 @@ const Rebecca = memo(() => {
                         >
                           <stop
                             offset="0%"
-                            stopColor="#ff2800"
+                            stopColor="#da8023"
                             stopOpacity="1"
                           />
                           <stop
                             offset="15%"
-                            stopColor="#ff3300"
+                            stopColor="#da8023"
                             stopOpacity="1"
                           />
                           <stop
                             offset="35%"
-                            stopColor="#ff4500"
+                            stopColor="#da8023"
                             stopOpacity="1"
                           />
                           <stop
                             offset="55%"
-                            stopColor="#ff6b35"
+                            stopColor="#ffffff"
                             stopOpacity="0.95"
                           />
                           <stop
                             offset="75%"
-                            stopColor="#ff8c45"
+                            stopColor="#da8023"
                             stopOpacity="0.9"
                           />
                           <stop
                             offset="90%"
-                            stopColor="#ffab69"
+                            stopColor="#ffffff"
                             stopOpacity="0.85"
                           />
                           <stop
                             offset="100%"
-                            stopColor="#ffd700"
+                            stopColor="#da8023"
                             stopOpacity="0.8"
                           />
                         </linearGradient>
@@ -919,17 +919,17 @@ const Rebecca = memo(() => {
                         >
                           <stop
                             offset="0%"
-                            stopColor="#ff6b35"
+                            stopColor="#da8023"
                             stopOpacity="0.4"
                           />
                           <stop
                             offset="50%"
-                            stopColor="#ff8c45"
+                            stopColor="#ffffff"
                             stopOpacity="0.25"
                           />
                           <stop
                             offset="100%"
-                            stopColor="#ffab69"
+                            stopColor="#da8023"
                             stopOpacity="0.1"
                           />
                         </linearGradient>
@@ -947,27 +947,27 @@ const Rebecca = memo(() => {
                           />
                           <stop
                             offset="20%"
-                            stopColor="#ffd700"
+                            stopColor="#da8023"
                             stopOpacity="0.4"
                           />
                           <stop
                             offset="40%"
-                            stopColor="#ff8c45"
+                            stopColor="#ffffff"
                             stopOpacity="0.3"
                           />
                           <stop
                             offset="60%"
-                            stopColor="#ff4500"
+                            stopColor="#da8023"
                             stopOpacity="0.2"
                           />
                           <stop
                             offset="80%"
-                            stopColor="#ff3300"
+                            stopColor="#b3b4b0"
                             stopOpacity="0.1"
                           />
                           <stop
                             offset="100%"
-                            stopColor="#ff2800"
+                            stopColor="#da8023"
                             stopOpacity="0"
                           />
                         </radialGradient>
@@ -981,17 +981,17 @@ const Rebecca = memo(() => {
                         >
                           <stop
                             offset="0%"
-                            stopColor="#ff8c45"
+                            stopColor="#da8023"
                             stopOpacity="0.1"
                           />
                           <stop
                             offset="70%"
-                            stopColor="#ff6b35"
+                            stopColor="#ffffff"
                             stopOpacity="0.3"
                           />
                           <stop
                             offset="100%"
-                            stopColor="#ff4500"
+                            stopColor="#da8023"
                             stopOpacity="0.5"
                           />
                         </linearGradient>
