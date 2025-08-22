@@ -80,14 +80,14 @@
   /* 🎭 GRADIENTES DE FONDO */
   --gradient-dark-blue: linear-gradient(
     135deg,
-    rgba(0, 20, 40, 0.98) 0%,
-    rgba(10, 10, 30, 0.98) 50%,
+    var(--color-black-alpha-98) 0%,
+    rgba(40, 40, 40, 0.98) 50%,
     var(--color-black-alpha-99) 100%
   );
   --gradient-dark-blue-light: linear-gradient(
     135deg,
-    rgba(0, 20, 40, 0.95) 0%,
-    rgba(10, 10, 30, 0.95) 50%,
+    var(--color-black-alpha-98) 0%,
+    rgba(30, 30, 30, 0.95) 50%,
     var(--color-black-alpha-98) 100%
   );
   --gradient-black-dark: linear-gradient(
@@ -111,6 +111,16 @@
     var(--color-orange-primary) 20%,
     var(--color-white) 50%,
     var(--color-orange-primary) 80%
+  );
+
+  /* 🎯 GRADIENTE ESPECÍFICO PARA TOOLTIP HOME 3D - SOLO INTELIMARK */
+  --gradient-tooltip-border: linear-gradient(
+    90deg,
+    var(--color-orange-primary) 0%,
+    var(--color-white) 25%,
+    var(--color-orange-alpha-80) 50%,
+    var(--color-white) 75%,
+    var(--color-orange-primary) 100%
   );
 }
 
@@ -495,7 +505,6 @@ body,
 /* 🎯 REGLA ESPECÍFICA PARA TODO EL FOOTER Y SUS ELEMENTOS */
 .footer-reveal,
 .footer-reveal *,
-.footer-reveal **,
 .footer-reveal button,
 .footer-reveal input,
 .footer-reveal svg,
@@ -1487,7 +1496,9 @@ body,
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: var(--gradient-neon-spectrum);
+  background: var(
+    --gradient-tooltip-border
+  ) !important; /* Gradiente específico */
   background-size: 200% 200%;
   border-radius: 8px;
   z-index: -1;
@@ -1706,11 +1717,11 @@ body,
 @keyframes blink {
   0%,
   50% {
-    border-color: var(--color-orange-primary);
+    border-color: var(--color-orange-primary) !important;
   }
   51%,
   100% {
-    border-color: transparent;
+    border-color: transparent !important;
   }
 }
 
@@ -1719,9 +1730,9 @@ body,
   display: inline-block;
   overflow: hidden;
   white-space: nowrap;
-  border-right: 2px solid var(--color-orange-primary);
+  border-right: 2px solid var(--color-orange-primary) !important;
   width: 0;
-  color: var(--color-orange-primary);
+  color: var(--color-orange-primary) !important;
   text-shadow: 0 0 5px var(--color-orange-primary),
     0 0 10px var(--color-orange-primary), 0 0 15px var(--color-orange-primary);
 
@@ -1756,6 +1767,27 @@ body,
   animation: glitchText 0.2s infinite linear alternate;
   opacity: 0.8;
   mix-blend-mode: screen;
+}
+
+/* 🎯 FORZAR COLORES INTELIMARK EN TOOLTIP HOME 3D - MÁXIMA PRIORIDAD */
+.button-tooltip.button-tooltip-3d .button-tooltip-text {
+  border-right-color: var(--color-orange-primary) !important;
+  color: var(--color-orange-primary) !important;
+}
+
+.button-tooltip.button-tooltip-3d .button-tooltip-text::before {
+  color: var(--color-gray-medium) !important;
+}
+
+.button-tooltip.button-tooltip-3d .button-tooltip-text::after {
+  color: var(--color-white) !important;
+}
+
+/* 🎯 SOBRESCRIBIR COMPLETAMENTE EL BORDE ANIMADO DEL TOOLTIP 3D */
+.button-tooltip.button-tooltip-3d::before {
+  background: var(--gradient-tooltip-border) !important;
+  background-size: 200% 200% !important;
+  animation: borderFlow 2s linear infinite !important;
 }
 
 @keyframes glitchText {
@@ -6854,12 +6886,14 @@ section {
 @keyframes led-blink {
   0%,
   100% {
-    text-shadow: 0 0 5px #00ff44, 0 0 10px #00ff44, 0 0 15px #00ff44,
-      0 0 20px #00ff44;
+    text-shadow: 0 0 5px var(--color-orange-primary),
+      0 0 10px var(--color-orange-primary), 0 0 15px var(--color-orange-primary),
+      0 0 20px var(--color-orange-primary);
   }
   50% {
-    text-shadow: 0 0 2px #00ff44, 0 0 5px #00ff44, 0 0 8px #00ff44,
-      0 0 12px #00ff44;
+    text-shadow: 0 0 2px var(--color-orange-primary),
+      0 0 5px var(--color-orange-primary), 0 0 8px var(--color-orange-primary),
+      0 0 12px var(--color-orange-primary);
   }
 }
 
