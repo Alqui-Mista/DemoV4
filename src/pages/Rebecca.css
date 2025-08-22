@@ -64,11 +64,11 @@
   /* 🌈 GRADIENTES HOLOGRÁFICOS */
   --gradient-holographic: linear-gradient(
     45deg,
-    var(--color-cyan) 0%,
+    var(--color-orange-primary) 0%,
     var(--color-white) 25%,
-    var(--color-green-neon) 50%,
+    var(--color-orange-alpha-80) 50%,
     var(--color-white) 75%,
-    var(--color-magenta) 100%
+    var(--color-orange-primary) 100%
   );
   --gradient-orange-metallic: linear-gradient(
     135deg,
@@ -298,7 +298,7 @@ body,
   background-clip: text;
 
   /* ✨ SOMBRA HOLOGRÁFICA SUTIL */
-  filter: drop-shadow(0 0 8px var(--color-cyan-alpha-30));
+  filter: drop-shadow(0 0 8px var(--color-orange-alpha-30));
 
   /* 🎬 ANIMACIÓN HOLOGRÁFICA SUAVE */
   animation: holoTextFlow 3s ease-in-out infinite;
@@ -321,7 +321,50 @@ body,
 /* 🌐 LÍNEAS DE CONEXIÓN NEURONAL */
 /* Eliminado conjunto de reglas vacío para evitar errores */
 
-/* 🎯 CURSOR CAD - CRUZ HORIZONTAL Y VERTICAL */
+/* � ANIMACIONES PARA TEXTO HOLOGRÁFICO HOME 3D */
+@keyframes holoTextAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(5px) scale(0.9);
+    filter: drop-shadow(0 0 2px var(--color-orange-alpha-20));
+  }
+
+  50% {
+    opacity: 0.8;
+    filter: drop-shadow(0 0 6px var(--color-orange-alpha-40));
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 8px var(--color-orange-alpha-30));
+  }
+}
+
+@keyframes holoTextFlow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+    filter: drop-shadow(0 0 8px var(--color-orange-alpha-30));
+  }
+
+  25% {
+    background-position: 100% 0%;
+    filter: drop-shadow(0 0 12px var(--color-orange-alpha-50));
+  }
+
+  50% {
+    background-position: 100% 100%;
+    filter: drop-shadow(0 0 10px var(--color-white-alpha-40));
+  }
+
+  75% {
+    background-position: 0% 100%;
+    filter: drop-shadow(0 0 14px var(--color-orange-alpha-60));
+  }
+}
+
+/* �🎯 CURSOR CAD - CRUZ HORIZONTAL Y VERTICAL */
 .rebecca-container .cursor-cross {
   position: fixed;
   width: 25px;
@@ -456,7 +499,7 @@ body,
 .rebecca-container .neuron,
 .rebecca-container .data-matrix,
 .rebecca-container .hologram-layers,
-.rebecca-container .energy-field,
+.rebecca-container .arrow-geometric,
 .rebecca-container .holo-text,
 .rebecca-container svg,
 .rebecca-container path,
@@ -2536,7 +2579,7 @@ section {
 .cta-subtitle .subtitle-line-2 {
   display: block;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif; /* 🎯 MEJORADO: Fuentes con soporte UTF-8 completo */
+    "Helvetica Neue", Arial, sans-serif;
   font-weight: 400;
   font-size: clamp(0.95rem, 1.9vw, 1.35rem);
   color: #ffffff;
@@ -2551,15 +2594,158 @@ section {
   text-align: center;
   margin: 0 auto;
   max-width: 95vw;
-  /* 🎯 AGREGADO: Soporte explícito para caracteres especiales */
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: "liga" 1, "kern" 1;
-  unicode-bidi: embed; /* 🎯 AGREGADO: Soporte Unicode mejorado */
+  unicode-bidi: embed;
+
+  /* � EFECTO MAGNETIC TEXT GLOW - Base */
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+  will-change: transform, color, text-shadow, filter;
+
+  /* 🎯 Variables CSS para el efecto reactivo */
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --distance: 1;
+  --intensity: 0;
 }
 
-/* 🎯 EFECTO TYPEWRITER SINCRONIZADO - LÍNEA 1 */
+/* 🌟 EFECTO MAGNETIC TEXT GLOW - Estados Reactivos */
+
+/* 🎯 Estado cuando el texto está completamente escrito */
+.cta-subtitle .subtitle-line-1.typewriter-complete,
+.cta-subtitle .subtitle-line-2.typewriter-complete {
+  border-right: none; /* Remover cursor */
+
+  /* 🌈 Efecto magnético base */
+  transform: perspective(1000px) translateZ(calc(var(--intensity) * 20px))
+    rotateX(calc(var(--intensity) * 2deg))
+    rotateY(calc(var(--intensity) * 1deg))
+    scale(calc(1 + var(--intensity) * 0.05));
+
+  /* 🎨 Color shifting basado en proximidad */
+  color: rgb(
+    calc(255 - var(--intensity) * 50),
+    calc(255 - var(--intensity) * 50),
+    calc(255 + var(--intensity) * 100)
+  );
+
+  /* ✨ Glow intensivo */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7),
+    0 0 calc(var(--intensity) * 30px)
+      rgba(255, 107, 53, calc(var(--intensity) * 0.8)),
+    0 0 calc(var(--intensity) * 60px)
+      rgba(255, 140, 51, calc(var(--intensity) * 0.6)),
+    0 0 calc(var(--intensity) * 100px)
+      rgba(218, 128, 35, calc(var(--intensity) * 0.4));
+
+  /* 🌊 Filtro de ondulación */
+  filter: blur(calc(var(--intensity) * 0.5px))
+    brightness(calc(1 + var(--intensity) * 0.3))
+    contrast(calc(1 + var(--intensity) * 0.2))
+    hue-rotate(calc(var(--intensity) * 30deg));
+}
+
+/* 🎆 Estado de máxima intensidad (mouse muy cerca) */
+.cta-subtitle .subtitle-line-1.magnetic-active,
+.cta-subtitle .subtitle-line-2.magnetic-active {
+  animation: magneticPulse 1.5s ease-in-out infinite;
+}
+
+/* 🎯 Partículas que emergen del texto */
+.cta-subtitle .subtitle-line-1.typewriter-complete::before,
+.cta-subtitle .subtitle-line-2.typewriter-complete::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: var(--mouse-x);
+  width: calc(var(--intensity) * 100px);
+  height: calc(var(--intensity) * 100px);
+  background: radial-gradient(
+    circle,
+    rgba(255, 107, 53, calc(var(--intensity) * 0.3)) 0%,
+    rgba(255, 140, 51, calc(var(--intensity) * 0.2)) 30%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: var(--intensity);
+  animation: particleFloat 2s ease-in-out infinite;
+}
+
+/* 🌟 Efecto de estela luminosa */
+.cta-subtitle .subtitle-line-1.typewriter-complete::after,
+.cta-subtitle .subtitle-line-2.typewriter-complete::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 107, 53, calc(var(--intensity) * 0.1)) calc(var(--mouse-x) - 20%),
+    rgba(255, 140, 51, calc(var(--intensity) * 0.2)) var(--mouse-x),
+    rgba(255, 107, 53, calc(var(--intensity) * 0.1)) calc(var(--mouse-x) + 20%),
+    transparent 100%
+  );
+  pointer-events: none;
+  opacity: var(--intensity);
+  mix-blend-mode: overlay;
+}
+
+/* � ANIMACIONES PARA EL EFECTO MAGNÉTICO */
+
+/* Animación de pulso magnético */
+@keyframes magneticPulse {
+  0%,
+  100% {
+    transform: perspective(1000px) scale(1) rotateX(0deg);
+  }
+  50% {
+    transform: perspective(1000px) scale(1.02) rotateX(1deg);
+  }
+}
+
+/* Animación de partículas flotantes */
+@keyframes particleFloat {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate(-50%, -60%) scale(1.1) rotate(120deg);
+  }
+  66% {
+    transform: translate(-50%, -40%) scale(0.9) rotate(240deg);
+  }
+}
+
+/* Animación de ondulación magnética */
+@keyframes magneticWave {
+  0% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  25% {
+    filter: hue-rotate(10deg) brightness(1.1);
+  }
+  50% {
+    filter: hue-rotate(0deg) brightness(1.2);
+  }
+  75% {
+    filter: hue-rotate(-10deg) brightness(1.1);
+  }
+  100% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+}
+
+/* �🎯 EFECTO TYPEWRITER SINCRONIZADO - LÍNEA 1 */
 .cta-subtitle .subtitle-line-1.typewriter-line {
   animation: typewriterReveal 3.5s steps(53) 3s forwards,
     /* 🎯 Escribir texto */ fadeInTypewriter 0.5s ease-out 3s forwards,
@@ -2656,25 +2842,36 @@ section {
 /* 📱 RESPONSIVE - SUBTÍTULO CTA EN MÓVILES */
 @media (max-width: 768px) {
   .cta-subtitle {
-    max-width: 100%; /* 🎯 CAMBIADO: de 98% a 100% para mejor centrado */
+    max-width: 100%;
     padding: clamp(15px, 2vh, 20px) 0;
-    margin: 0 auto; /* 🎯 AGREGADO: centrado */
+    margin: 0 auto;
   }
 
   .cta-subtitle .subtitle-line-1,
   .cta-subtitle .subtitle-line-2 {
-    font-size: clamp(
-      0.74rem,
-      3.4vw,
-      1.08rem
-    ); /* 🎯 AUMENTADO 35%: De 0.55-2.5-0.8rem a 0.74-3.4-1.08rem */
-    letter-spacing: clamp(
-      -0.01em,
-      0em,
-      0.005em
-    ); /* 🎯 RESPONSIVE: espaciado mínimo */
-    max-width: 95vw; /* 🎯 AGREGADO: límite para móviles */
-    margin: 0 auto; /* 🎯 AGREGADO: centrado */
+    font-size: clamp(0.74rem, 3.4vw, 1.08rem);
+    letter-spacing: clamp(-0.01em, 0em, 0.005em);
+    max-width: 95vw;
+    margin: 0 auto;
+  }
+
+  /* 🎯 EFECTO MAGNÉTICO REDUCIDO EN MÓVILES */
+  .cta-subtitle .subtitle-line-1.typewriter-complete,
+  .cta-subtitle .subtitle-line-2.typewriter-complete {
+    /* Efecto más sutil en móvil para mejor performance */
+    transform: perspective(500px) translateZ(calc(var(--intensity) * 10px))
+      scale(calc(1 + var(--intensity) * 0.02));
+
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7),
+      0 0 calc(var(--intensity) * 15px)
+        rgba(255, 107, 53, calc(var(--intensity) * 0.6));
+  }
+
+  /* 🎯 PARTÍCULAS MÁS PEQUEÑAS EN MÓVIL */
+  .cta-subtitle .subtitle-line-1.typewriter-complete::before,
+  .cta-subtitle .subtitle-line-2.typewriter-complete::before {
+    width: calc(var(--intensity) * 50px);
+    height: calc(var(--intensity) * 50px);
   }
 
   /* 🎯 TYPEWRITER RESPONSIVO - LÍNEA 1 */
@@ -3111,7 +3308,7 @@ section {
 .ai-matrix-button *,
 .ai-matrix-button .data-matrix,
 .ai-matrix-button .hologram-layers,
-.ai-matrix-button .energy-field,
+.ai-matrix-button .arrow-geometric,
 .ai-matrix-button .depth-scanner {
   pointer-events: none !important;
   position: relative;
@@ -3147,7 +3344,9 @@ section {
 .ai-matrix-button .text-glitch,
 .ai-matrix-button .text-glitch::before,
 .ai-matrix-button .text-glitch::after,
-.ai-matrix-button .energy-particle,
+.ai-matrix-button .arrow-tip,
+.ai-matrix-button .arrow-line,
+.ai-matrix-button .arrow-accent,
 .ai-matrix-button .neuron,
 .ai-matrix-button .neural-connection,
 .ai-matrix-button .data-stream,
@@ -3352,40 +3551,358 @@ section {
   animation-delay: 4s;
 }
 
-/* ⚡ CAMPO DE ENERGÍA */
-.energy-field {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.7s ease;
+/* 🚫 OCULTAR COMPLETAMENTE ELEMENTOS ANTIGUOS DE ENERGÍA Y NEURALES */
+.energy-field,
+.energy-particle,
+.neuron,
+.neural-network,
+.neural-connection,
+.ai-core,
+.ai-brain-icon,
+.ai-matrix-button .energy-field,
+.ai-matrix-button .energy-particle,
+.ai-matrix-button .neuron,
+.ai-matrix-button .neural-network,
+.ai-matrix-button .neural-connection,
+.ai-matrix-button .ai-core,
+.ai-matrix-button .ai-brain-icon {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
 
-.energy-particle {
+/* 🏹 FLECHA USANDO ELEMENTOS EXISTENTES BIEN POSICIONADOS */
+.data-matrix.arrow-shape .data-stream {
+  color: var(--color-orange-primary);
+  font-size: 16px;
+  font-weight: bold;
+  text-shadow: 0 0 8px var(--color-orange-alpha-70);
+  animation: arrowGlow 2s ease-in-out infinite;
+}
+
+.data-stream.arrow-tip-element {
+  position: absolute !important;
+  top: 50% !important;
+  left: 15px !important; /* 🎯 POSICIÓN EN EL ESPACIO VACÍO IZQUIERDO */
+  transform: translateY(-50%) !important;
+  font-size: 18px;
+}
+
+.data-stream.arrow-line-top {
+  position: absolute !important;
+  top: 40% !important;
+  left: 25px !important; /* 🎯 LÍNEA SUPERIOR */
+  transform: translateY(-50%) !important;
+  font-size: 14px;
+}
+
+.data-stream.arrow-line-bottom {
+  position: absolute !important;
+  top: 60% !important;
+  left: 25px !important; /* 🎯 LÍNEA INFERIOR */
+  transform: translateY(-50%) !important;
+  font-size: 14px;
+}
+
+@keyframes arrowGlow {
+  0%,
+  100% {
+    opacity: 0.8;
+    text-shadow: 0 0 8px var(--color-orange-alpha-70);
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 15px var(--color-orange-primary),
+      0 0 25px var(--color-orange-alpha-80);
+  }
+}
+
+/* 🔺 PUNTA PRINCIPAL - TRIÁNGULO ELEGANTE */
+.arrow-tip {
   position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px 8px 5px 0; /* 🎯 TAMAÑO MÁS PEQUEÑO */
+  border-color: transparent var(--color-orange-primary) transparent transparent;
+  filter: drop-shadow(0 0 4px var(--color-orange-alpha-70));
+  animation: complexArrowTip 2.5s ease-in-out infinite;
+}
+
+/* Punta secundaria interna - MÁS PEQUEÑA */
+.arrow-tip::before {
+  content: "";
+  position: absolute;
+  left: 5px; /* 🎯 AJUSTADO PROPORCIONALMENTE */
+  top: -2.5px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 4px 8px 4px 0;
+  border-color: transparent var(--color-white) transparent transparent;
+  filter: drop-shadow(0 0 3px var(--color-orange-alpha-50));
+  animation: innerTipGlow 2s ease-in-out infinite;
+}
+
+/* � LÍNEAS GEOMÉTRICAS COMPLEJAS */
+.arrow-line {
+  position: absolute;
+  right: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--color-orange-primary) 0%,
+    var(--color-orange-alpha-80) 50%,
+    var(--color-white) 100%
+  );
+  filter: drop-shadow(0 0 3px var(--color-orange-alpha-60));
+  border-radius: 0.5px;
+}
+
+.arrow-line.top {
+  top: 2px;
+  width: 8px; /* 🎯 TAMAÑO MÁS PEQUEÑO */
+  height: 1.5px;
+  --rotation: -15deg;
+  transform: rotate(-15deg) scaleX(0);
+  transform-origin: right center;
+  animation: lineExpand 1.8s ease-out infinite;
+  animation-delay: 0.3s;
+}
+
+.arrow-line.bottom {
+  bottom: 2px;
+  width: 8px; /* 🎯 TAMAÑO MÁS PEQUEÑO */
+  height: 1.5px;
+  --rotation: 15deg;
+  transform: rotate(15deg) scaleX(0);
+  transform-origin: right center;
+  animation: lineExpand 1.8s ease-out infinite;
+  animation-delay: 0.6s;
+}
+
+/* Líneas secundarias más delgadas */
+.arrow-line.top::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  right: -2px;
+  width: 8px;
+  height: 1px;
+  background: var(--color-orange-alpha-60);
+  transform: rotate(-8deg);
+  animation: secondaryLineFlash 2.2s ease-in-out infinite;
+  animation-delay: 0.9s;
+}
+
+.arrow-line.bottom::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  right: -2px;
+  width: 8px;
+  height: 1px;
+  background: var(--color-orange-alpha-60);
+  transform: rotate(8deg);
+  animation: secondaryLineFlash 2.2s ease-in-out infinite;
+  animation-delay: 1.2s;
+}
+
+/* ✨ ACENTO GEOMÉTRICO MÚLTIPLE */
+.arrow-accent {
+  position: absolute;
+  right: -2px; /* 🎯 MÁS CERCA */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px; /* 🎯 MÁS PEQUEÑO */
+  height: 4px; /* 🎯 MÁS PEQUEÑO */
+  background: conic-gradient(
+    from 0deg,
+    var(--color-orange-primary) 0deg,
+    var(--color-white) 90deg,
+    var(--color-orange-alpha-80) 180deg,
+    var(--color-white) 270deg,
+    var(--color-orange-primary) 360deg
+  );
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--color-orange-alpha-70),
+    /* 🎯 SOMBRA MÁS PEQUEÑA */ inset 0 0 3px var(--color-orange-alpha-40),
+    0 0 12px var(--color-orange-alpha-50);
+  animation: complexAccentSpin 3s linear infinite;
+}
+
+/* Punto central del acento */
+.arrow-accent::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 2px;
   height: 2px;
-  background: #ff8c33;
+  background: var(--color-white);
   border-radius: 50%;
-  box-shadow: 0 0 8px rgba(255, 140, 51, 0.8);
-  pointer-events: none; /* 🎯 NO BLOQUEAR EVENTOS DEL BOTÓN PADRE */
-  animation: energyOrbit 5s linear infinite;
+  box-shadow: 0 0 4px var(--color-white);
+  animation: centerPulse 1.5s ease-in-out infinite;
 }
 
-.energy-particle.p1 {
-  animation-delay: 0s;
+/* Anillo exterior del acento */
+.arrow-accent::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--color-orange-alpha-40);
+  border-radius: 50%;
+  animation: outerRingExpand 2.8s ease-in-out infinite;
 }
-.energy-particle.p2 {
-  animation-delay: 1.25s;
+
+/* 🎬 ANIMACIONES COMPLEJAS PARA LA FLECHA GEOMÉTRICA */
+@keyframes complexArrowTip {
+  0%,
+  100% {
+    border-color: transparent var(--color-orange-primary) transparent
+      transparent;
+    filter: drop-shadow(0 0 8px var(--color-orange-alpha-70));
+    transform: translateY(-50%) scale(1) rotateZ(0deg);
+  }
+
+  25% {
+    border-color: transparent var(--color-orange-alpha-90) transparent
+      transparent;
+    filter: drop-shadow(0 0 12px var(--color-orange-alpha-80));
+    transform: translateY(-50%) scale(1.05) rotateZ(2deg);
+  }
+
+  50% {
+    border-color: transparent var(--color-white) transparent transparent;
+    filter: drop-shadow(0 0 16px var(--color-white-alpha-60));
+    transform: translateY(-50%) scale(1.1) rotateZ(0deg);
+  }
+
+  75% {
+    border-color: transparent var(--color-orange-alpha-90) transparent
+      transparent;
+    filter: drop-shadow(0 0 12px var(--color-orange-alpha-80));
+    transform: translateY(-50%) scale(1.05) rotateZ(-2deg);
+  }
 }
-.energy-particle.p3 {
-  animation-delay: 2.5s;
+
+@keyframes innerTipGlow {
+  0%,
+  100% {
+    border-color: transparent var(--color-white) transparent transparent;
+    filter: drop-shadow(0 0 4px var(--color-orange-alpha-50));
+  }
+
+  50% {
+    border-color: transparent var(--color-orange-alpha-80) transparent
+      transparent;
+    filter: drop-shadow(0 0 8px var(--color-orange-alpha-70));
+  }
 }
-.energy-particle.p4 {
-  animation-delay: 3.75s;
+
+@keyframes lineExpand {
+  0% {
+    transform: rotate(var(--rotation, 0deg)) scaleX(0);
+    opacity: 0;
+  }
+
+  30% {
+    transform: rotate(var(--rotation, 0deg)) scaleX(1);
+    opacity: 1;
+  }
+
+  70% {
+    transform: rotate(var(--rotation, 0deg)) scaleX(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: rotate(var(--rotation, 0deg)) scaleX(0);
+    opacity: 0;
+  }
+}
+
+@keyframes secondaryLineFlash {
+  0%,
+  90%,
+  100% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  10%,
+  80% {
+    opacity: 0.8;
+    transform: scaleX(1);
+  }
+
+  45% {
+    opacity: 1;
+    transform: scaleX(1.2);
+  }
+}
+
+@keyframes complexAccentSpin {
+  0% {
+    transform: translateY(-50%) rotate(0deg) scale(1);
+    box-shadow: 0 0 8px var(--color-orange-alpha-70),
+      inset 0 0 4px var(--color-orange-alpha-40),
+      0 0 16px var(--color-orange-alpha-50);
+  }
+
+  33% {
+    transform: translateY(-50%) rotate(120deg) scale(1.1);
+    box-shadow: 0 0 12px var(--color-orange-alpha-80),
+      inset 0 0 6px var(--color-orange-alpha-60),
+      0 0 20px var(--color-orange-alpha-60);
+  }
+
+  66% {
+    transform: translateY(-50%) rotate(240deg) scale(0.9);
+    box-shadow: 0 0 6px var(--color-orange-alpha-60),
+      inset 0 0 3px var(--color-orange-alpha-30),
+      0 0 12px var(--color-orange-alpha-40);
+  }
+
+  100% {
+    transform: translateY(-50%) rotate(360deg) scale(1);
+    box-shadow: 0 0 8px var(--color-orange-alpha-70),
+      inset 0 0 4px var(--color-orange-alpha-40),
+      0 0 16px var(--color-orange-alpha-50);
+  }
+}
+
+@keyframes centerPulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 4px var(--color-white);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+    box-shadow: 0 0 8px var(--color-white);
+  }
+}
+
+@keyframes outerRingExpand {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0.2;
+  }
 }
 
 /* 📡 TEXTO HOLOGRÁFICO */
@@ -3494,8 +4011,19 @@ section {
   opacity: 1;
 }
 
-.ai-matrix-button:hover .energy-field {
-  opacity: 1;
+/* 🏹 HOVER EFFECT PARA LA NUEVA FLECHA */
+.ai-matrix-button:hover .data-matrix.arrow-shape .data-stream {
+  text-shadow: 0 0 20px var(--color-orange-primary),
+    0 0 30px var(--color-orange-alpha-80);
+}
+
+.ai-matrix-button:hover .data-stream.arrow-tip-element {
+  transform: translateY(-50%) translateX(-3px) scale(1.1) !important; /* 🎯 MOVER MÁS A LA IZQUIERDA EN HOVER */
+}
+
+.ai-matrix-button:hover .data-stream.arrow-line-top,
+.ai-matrix-button:hover .data-stream.arrow-line-bottom {
+  transform: translateY(-50%) translateX(-2px) scale(1.05) !important; /* 🎯 LIGERO MOVIMIENTO */
 }
 
 .ai-matrix-button:hover .holo-text {
@@ -3578,23 +4106,6 @@ section {
   66% {
     transform: translateZ(-3px) rotateX(-1deg);
     opacity: 0.4;
-  }
-}
-
-@keyframes energyOrbit {
-  0% {
-    transform: rotate(0deg) translateX(30px) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: rotate(360deg) translateX(30px) rotate(-360deg);
-    opacity: 0;
   }
 }
 
@@ -6231,5 +6742,110 @@ section {
     opacity: 1;
     transform: scale(1) translateY(0);
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* 🌟 EFECTO MAGNÉTICO PARA TÍTULOS DEL CTA */
+.magnetic-text {
+  /* Variables CSS para el efecto magnético */
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --distance: 1;
+  --intensity: 0;
+
+  position: relative;
+  cursor: default;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* 🎆 Estado magnético activo para títulos */
+.magnetic-text.magnetic-active {
+  /* 🌈 Transformación 3D con rotación y escalado */
+  transform: perspective(1000px) rotateX(calc(var(--intensity) * 2deg))
+    rotateY(calc(var(--intensity) * 3deg))
+    scale(calc(1 + var(--intensity) * 0.1))
+    translateZ(calc(var(--intensity) * 20px)) !important;
+
+  /* 🎨 Resplandor magnético intenso */
+  text-shadow: 0 0 calc(var(--intensity) * 30px)
+      rgba(255, 140, 0, calc(var(--intensity) * 0.9)),
+    0 0 calc(var(--intensity) * 60px)
+      rgba(255, 200, 100, calc(var(--intensity) * 0.6)),
+    0 0 calc(var(--intensity) * 100px)
+      rgba(255, 255, 255, calc(var(--intensity) * 0.4)),
+    2px 2px 8px rgba(0, 0, 0, 0.7);
+
+  /* ⚡ Brillo de fondo dinámico */
+  background: radial-gradient(
+    circle at var(--mouse-x) var(--mouse-y),
+    rgba(255, 140, 0, calc(var(--intensity) * 0.15)) 0%,
+    rgba(255, 200, 100, calc(var(--intensity) * 0.08)) 30%,
+    transparent 70%
+  );
+
+  /* 🎭 Degradado de texto dinámico */
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+
+  /* Fallback para el color del texto */
+  -webkit-text-fill-color: #ffffff;
+
+  /* ✨ Partículas de energía simuladas */
+  filter: brightness(calc(1 + var(--intensity) * 0.4))
+    contrast(calc(1 + var(--intensity) * 0.3))
+    saturate(calc(1 + var(--intensity) * 0.5));
+}
+
+/* 🎯 Pseudo-elemento para efectos de partículas en títulos */
+.magnetic-text.magnetic-active::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(100% + var(--intensity) * 40px);
+  height: calc(100% + var(--intensity) * 40px);
+  transform: translate(-50%, -50%) rotate(calc(var(--intensity) * 45deg));
+  background: radial-gradient(
+    circle at var(--mouse-x) var(--mouse-y),
+    rgba(255, 140, 0, calc(var(--intensity) * 0.1)) 0%,
+    rgba(255, 255, 255, calc(var(--intensity) * 0.05)) 50%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  opacity: calc(var(--intensity) * 0.8);
+  z-index: -1;
+  pointer-events: none;
+  animation: magneticPulse calc(2s - var(--intensity) * 0.5s) infinite;
+}
+
+/* 🌊 Animación de pulso magnético para títulos */
+@keyframes magneticPulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    opacity: var(--intensity, 0);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) rotate(180deg) scale(1.1);
+    opacity: calc(var(--intensity) * 0.5);
+  }
+}
+
+/* 📱 Responsive para efectos magnéticos en títulos */
+@media (max-width: 768px) {
+  .magnetic-text.magnetic-active {
+    /* 🎯 Efectos reducidos en móviles para mejor rendimiento */
+    transform: perspective(800px) rotateX(calc(var(--intensity) * 1deg))
+      rotateY(calc(var(--intensity) * 1.5deg))
+      scale(calc(1 + var(--intensity) * 0.05))
+      translateZ(calc(var(--intensity) * 10px)) !important;
+
+    text-shadow: 0 0 calc(var(--intensity) * 20px)
+        rgba(255, 140, 0, calc(var(--intensity) * 0.7)),
+      0 0 calc(var(--intensity) * 40px)
+        rgba(255, 200, 100, calc(var(--intensity) * 0.4)),
+      2px 2px 8px rgba(0, 0, 0, 0.7);
   }
 }
