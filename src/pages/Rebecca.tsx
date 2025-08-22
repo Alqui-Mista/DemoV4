@@ -1026,9 +1026,9 @@ const Rebecca = memo(() => {
                 className="homepage-access-button ai-matrix-button debug-button-position"
                 style={{
                   marginLeft: "5px", // 🎯 MOVIDO 5px HACIA LA IZQUIERDA (10px - 5px = 5px)
-                  transform: "translateY(-65px)",
+                  transform: "translateY(-65px)", // 🎯 RESTAURADO - POSICIÓN CORRECTA
                   position: "relative",
-                  zIndex: 999,
+                  zIndex: 2000000, // 🎯 Z-INDEX MÁS ALTO QUE CURSORES Y CUALQUIER ELEMENTO
                 }}
                 onClick={() => {
                   window.location.href = "/";
@@ -1170,8 +1170,8 @@ const Rebecca = memo(() => {
 
                   <div className="credit-item">
                     <h3>
-                      Diseñador de Experiencia de Usuario (UX) /<br />
-                      Diseñador de Interfaz de Usuario
+                      Diseñador de Interfaz de Usuario y<br />
+                      Experiencia de Usuario (UX)
                     </h3>
                     <p>Pablo Carrasco</p>
                   </div>

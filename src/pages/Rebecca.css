@@ -2595,6 +2595,8 @@ section {
   display: flex;
   gap: 14px;
   margin: 0;
+  position: relative;
+  z-index: 1; /* 🎯 Z-INDEX BAJO PARA NO INTERFERIR CON EL BOTÓN AI */
 }
 
 /* 📝 SECCIONES ORGANIZADAS DEL FOOTER */
@@ -2602,6 +2604,17 @@ section {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  position: relative;
+  z-index: 1; /* 🎯 Z-INDEX BAJO PARA NO INTERFERIR CON EL BOTÓN AI */
+}
+
+/* 🎯 ASEGURAR QUE TODOS LOS ELEMENTOS DEL NEWSLETTER TENGAN Z-INDEX BAJO */
+.newsletter-section *,
+.newsletter-form,
+.newsletter-form *,
+.newsletter-button,
+.newsletter-input {
+  z-index: 1 !important;
 }
 
 .navigation-section {
@@ -2610,6 +2623,7 @@ section {
   align-items: flex-start;
   position: relative; /* 🎯 PERMITIR POSICIONAMIENTO ABSOLUTO DEL BOTÓN */
   overflow: visible; /* 🎯 PERMITIR EXPANSIÓN DEL BOTÓN */
+  z-index: 2000000; /* 🎯 Z-INDEX MÁXIMO PARA LA SECCIÓN */
 }
 
 .newsletter-input {
@@ -2749,6 +2763,8 @@ section {
   font-family: "Consolas", "Monaco", "Courier New", monospace;
   color: rgba(218, 128, 35, 0.6);
   cursor: none !important; /* 🎯 CURSOR PERSONALIZADO CAD - NO NATIVO */
+  pointer-events: auto !important; /* 🎯 FORZAR INTERACCIÓN COMPLETA DEL BOTÓN */
+  z-index: 2000000 !important; /* 🎯 Z-INDEX MÁS ALTO QUE CURSORES Y CUALQUIER ELEMENTO */
   overflow: hidden;
   /* POSICIONAMIENTO REMOVIDO - SE MANEJA AL FINAL DEL ARCHIVO */
   width: 190px; /* Tamaño base inicial */
@@ -2758,11 +2774,62 @@ section {
 
   /* 🌟 EFECTOS BASE */
   backdrop-filter: blur(10px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
 
-  /* 🎬 TRANSICIONES CINEMATOGRÁFICAS */
-  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+/* 🎯 ASEGURAR QUE TODOS LOS ELEMENTOS INTERNOS NO BLOQUEEN EVENTOS */
+.ai-matrix-button *,
+.ai-matrix-button .data-matrix,
+.ai-matrix-button .hologram-layers,
+.ai-matrix-button .energy-field,
+.ai-matrix-button .depth-scanner {
+  pointer-events: none !important;
+  position: relative;
+  z-index: 1999999; /* 🎯 POR DEBAJO DEL BOTÓN PADRE */
+}
+
+/* 🎯 FORZAR INTERACCIÓN COMPLETA DEL BOTÓN */
+.ai-matrix-button {
+  cursor: none !important;
+  pointer-events: auto !important;
+}
+
+/* 🎯 ÁREA DE INTERACCIÓN ESPECÍFICA PARA EL BOTÓN */
+.ai-matrix-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2000001;
+  pointer-events: auto;
+  cursor: none !important;
+}
+
+/* 🎯 ASEGURAR QUE EL BOTÓN AI TENGA PRIORIDAD SOBRE CREDITS */
+.navigation-section .ai-matrix-button {
+  position: relative;
+  z-index: 2000000 !important;
+}
+
+/* 🎯 REGLA ESPECÍFICA PARA ELEMENTOS PROBLEMÁTICOS */
+.ai-matrix-button .text-glitch,
+.ai-matrix-button .text-glitch::before,
+.ai-matrix-button .text-glitch::after,
+.ai-matrix-button .energy-particle,
+.ai-matrix-button .neuron,
+.ai-matrix-button .neural-connection,
+.ai-matrix-button .data-stream,
+.ai-matrix-button .holo-layer {
+  pointer-events: none !important;
+}
+
+/* 🎯 REGLA UNIVERSAL PARA FORZAR TODOS LOS ELEMENTOS INTERNOS */
+.ai-matrix-button > *,
+.ai-matrix-button > * > *,
+.ai-matrix-button > * > * > *,
+.ai-matrix-button > * > * > * > * {
+  pointer-events: none !important;
 }
 
 /* 🧠 CONTENEDOR MATRIZ DE IA */
@@ -2773,6 +2840,7 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
+  pointer-events: none; /* 🎯 PERMITIR CLICK ATRAVESAR A BUTTON PADRE */
 }
 
 /* 🧠 NÚCLEO DE INTELIGENCIA ARTIFICIAL */
@@ -2784,6 +2852,7 @@ section {
   width: 20px; /* Reducido de 24px */
   height: 20px; /* Reducido de 24px */
   opacity: 0.3;
+  pointer-events: none; /* 🎯 NO BLOQUEAR CLICKS DEL BOTÓN PADRE */
   transition: all 0.6s ease;
 }
 
@@ -2805,6 +2874,7 @@ section {
   position: relative;
   width: 100%;
   height: 100%;
+  pointer-events: none; /* 🎯 NO BLOQUEAR EVENTOS DEL BOTÓN PADRE */
 }
 
 .neuron {
@@ -2814,6 +2884,7 @@ section {
   background: #da8023;
   border-radius: 50%;
   box-shadow: 0 0 6px rgba(218, 128, 35, 0.6);
+  pointer-events: none; /* 🎯 NO BLOQUEAR EVENTOS DEL BOTÓN PADRE */
   animation: neuronPulse 2s ease-in-out infinite;
 }
 
@@ -2969,6 +3040,7 @@ section {
   background: #ff8c33;
   border-radius: 50%;
   box-shadow: 0 0 8px rgba(255, 140, 51, 0.8);
+  pointer-events: none; /* 🎯 NO BLOQUEAR EVENTOS DEL BOTÓN PADRE */
   animation: energyOrbit 5s linear infinite;
 }
 
@@ -2999,13 +3071,17 @@ section {
   align-items: center;
   justify-content: center;
   height: 100%;
+  pointer-events: none; /* 🎯 NO BLOQUEAR CLICKS DEL BOTÓN PADRE */
   transition: all 0.6s ease;
+  white-space: nowrap; /* 🎯 MANTENER TEXTO EN UNA LÍNEA */
+  flex-shrink: 0; /* 🎯 NO PERMITIR ENCOGIMIENTO */
 }
 
 .text-glitch {
   position: relative;
   color: rgba(218, 128, 35, 0.8);
   text-shadow: 0 0 5px rgba(218, 128, 35, 0.3), 0 1px 2px rgba(0, 0, 0, 0.8);
+  pointer-events: none; /* 🎯 NO BLOQUEAR EVENTOS DEL BOTÓN PADRE */
 }
 
 .text-glitch::before,
@@ -3015,6 +3091,7 @@ section {
   top: 0;
   left: 0;
   opacity: 0;
+  pointer-events: none; /* 🎯 NO BLOQUEAR EVENTOS DEL BOTÓN PADRE */
   transition: opacity 0.3s ease;
 }
 
@@ -3046,6 +3123,7 @@ section {
     transparent 100%
   );
   opacity: 0;
+  pointer-events: none; /* 🎯 NO BLOQUEAR EVENTOS DEL BOTÓN PADRE */
   transition: opacity 0.3s ease;
   animation: depthScan 3s ease-in-out infinite;
 }
@@ -4241,6 +4319,7 @@ section {
   min-height: 24px;
   transition: all 0.3s ease;
   opacity: 0;
+  pointer-events: none; /* 🎯 NO INTERFERIR CON EL BOTÓN */
 }
 
 #boletinMensaje:not(:empty) {
@@ -4448,9 +4527,10 @@ section {
   bottom: 15px;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
+  width: fit-content; /* 🎯 ANCHO ESPECÍFICO EN VEZ DE 100% */
   text-align: center;
   z-index: 10;
+  pointer-events: none; /* 🎯 CONTENEDOR SIN EVENTOS */
 }
 
 .footer-credits p {
@@ -4459,11 +4539,23 @@ section {
   margin: 0;
   font-weight: 300;
   letter-spacing: 0.5px;
-  transition: color 0.3s ease;
+  pointer-events: none; /* 🎯 COPYRIGHT SIN HOVER */
+  /* 🎯 REMOVIDA transition: color 0.3s ease; */
+}
+
+.footer-credits button {
+  pointer-events: auto; /* 🎯 BOTÓN DE CRÉDITOS FUNCIONAL */
+}
+
+/* 🎯 DELIMITAR ÁREA DEL BOTÓN DE CRÉDITOS */
+.footer-credits .credits-link {
+  max-width: 200px; /* 🎯 LIMITAR ANCHO MÁXIMO */
+  margin: 0 auto 10px auto; /* 🎯 CENTRADO ESPECÍFICO */
+  white-space: nowrap; /* 🎯 TEXTO EN UNA LÍNEA */
 }
 
 .footer-credits p:hover {
-  color: rgba(218, 128, 35, 0.6);
+  color: rgba(255, 255, 255, 0.4); /* 🎯 SIN CAMBIO DE COLOR EN HOVER */
 }
 
 /* 🎯 ENLACE DE CRÉDITOS */
@@ -4475,22 +4567,23 @@ section {
   padding: 8px 16px;
   margin-bottom: 10px;
   border-radius: 4px;
-  cursor: pointer;
+  cursor: none !important; /* 🎯 CURSOR PERSONALIZADO - NO NATIVO */
   transition: all 0.3s ease;
   font-weight: 500;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: fit-content;
+  display: inline-block; /* 🎯 CAMBIO DE BLOCK A INLINE-BLOCK */
+  width: auto; /* 🎯 ANCHO AUTOMÁTICO */
+  pointer-events: auto; /* 🎯 ASEGURAR FUNCIONALIDAD */
+  position: relative; /* 🎯 CONTEXTO DE POSICIONAMIENTO */
+  z-index: 11; /* 🎯 POR ENCIMA DEL CONTENEDOR PERO DEBAJO DEL BOTÓN AI */
 }
 
 .credits-link:hover {
   background: var(--color-orange-alpha-10);
   border-color: var(--color-orange-primary);
   box-shadow: 0 0 10px var(--color-orange-alpha-30);
-  transform: translateY(-2px);
+  /* 🎯 REMOVIDO transform: translateY(-2px); PARA EVITAR INTERFERENCIA */
 }
 
 /* 🎯 MODAL DE CRÉDITOS */
@@ -4561,12 +4654,12 @@ section {
 /* 🎯 PANTALLA TRANSPARENTE DENTRO DEL MARCO */
 .credits-screen {
   width: 58%; /* 🎯 REDUCIDO: de 65% a 58% para ajustarse mejor a la pantalla interior */
-  height: 55%; /* 🎯 REDUCIDO: de 65% a 55% para ajustarse mejor a la pantalla interior */
+  height: 70%; /* 🎯 AUMENTADO: de 55% a 70% para expandir área superior de créditos */
   background: transparent; /* 🎯 TRANSPARENTE para mostrar la imagen del marco */
   border-radius: 8px;
   overflow: hidden;
   position: relative;
-  top: -1.5%; /* 🎯 MOVIDO 20px HACIA ARRIBA: de 2% a -1.5% */
+  top: -6.5%; /* 🎯 MOVIDO MÁS ARRIBA: de -1.5% a -6.5% para mantener límite inferior */
 }
 
 /* 🎯 ANIMACIÓN DE SCROLL DE CRÉDITOS */
