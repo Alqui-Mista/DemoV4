@@ -1164,14 +1164,10 @@ const Rebecca = memo(() => {
                 }}
               >
                 <div className="ai-matrix-container">
-                  {/* 🏹 ELEMENTOS MODIFICADOS PARA FORMAR FLECHA */}
+                  {/* 🏹 TRIÁNGULO GEOMÉTRICO SIMPLE APUNTANDO A LA IZQUIERDA */}
                   <div className="data-matrix arrow-shape">
-                    {/* Punta de la flecha (triángulo) */}
-                    <div className="data-stream ds1 arrow-tip-element">◀</div>
-                    {/* Línea superior de la flecha */}
-                    <div className="data-stream ds2 arrow-line-top">▬</div>
-                    {/* Línea inferior de la flecha */}
-                    <div className="data-stream ds3 arrow-line-bottom">▬</div>
+                    {/* Contenedor principal del triángulo */}
+                    <div className="data-stream ds1 triangle-container"></div>
                   </div>
 
                   <div className="hologram-layers">

@@ -19,15 +19,7 @@
   --color-gray-medium: #b3b4b0;
   --color-gray-light: #808080;
 
-  /* 🌟 COLORES HOLOGRÁFICOS */
-  --color-cyan: #00ffff;
-  --color-green-neon: #00ff88;
-  --color-blue-neon: #00ccff;
-  --color-magenta: #ff0080;
-  --color-yellow: #ffff00;
-  --color-orange-neon: #ff8c00;
-
-  /* 🎭 TRANSPARENCIAS COMUNES */
+  /*  TRANSPARENCIAS COMUNES */
   --color-orange-alpha-90: rgba(218, 128, 35, 0.9);
   --color-orange-alpha-80: rgba(218, 128, 35, 0.8);
   --color-orange-alpha-60: rgba(218, 128, 35, 0.6);
@@ -41,14 +33,6 @@
   --color-white-alpha-80: rgba(255, 255, 255, 0.8);
   --color-white-alpha-50: rgba(255, 255, 255, 0.5);
   --color-white-alpha-40: rgba(255, 255, 255, 0.4);
-
-  --color-green-alpha-80: rgba(0, 255, 136, 0.8);
-  --color-green-alpha-40: rgba(0, 255, 136, 0.4);
-  --color-green-alpha-20: rgba(0, 255, 136, 0.2);
-  --color-green-alpha-10: rgba(0, 255, 136, 0.1);
-  --color-green-alpha-03: rgba(0, 255, 136, 0.03);
-
-  --color-cyan-alpha-30: rgba(0, 255, 255, 0.3);
 
   --color-black-alpha-98: rgba(0, 0, 0, 0.98);
   --color-black-alpha-99: rgba(0, 0, 0, 0.99);
@@ -86,11 +70,11 @@
   );
   --gradient-neon-spectrum: linear-gradient(
     90deg,
-    var(--color-green-neon),
-    var(--color-blue-neon),
-    var(--color-magenta),
-    var(--color-yellow),
-    var(--color-green-neon)
+    var(--color-orange-primary),
+    var(--color-white),
+    var(--color-gray-medium),
+    var(--color-orange-alpha-80),
+    var(--color-orange-primary)
   );
 
   /* 🎭 GRADIENTES DE FONDO */
@@ -1245,8 +1229,8 @@ body,
   box-shadow: none;
 }
 .button-tooltip.button-tooltip-3d[style*="opacity: 1"] {
-  box-shadow: 0 0 30px var(--color-green-alpha-80),
-    0 0 60px var(--color-green-alpha-40);
+  box-shadow: 0 0 30px var(--color-orange-alpha-80),
+    0 0 60px var(--color-orange-alpha-40);
 }
 
 .portal-title {
@@ -1455,20 +1439,21 @@ body,
   position: fixed !important;
   z-index: 99999 !important;
   background: var(--gradient-dark-blue) !important;
-  color: var(--color-green-neon) !important;
-  border: 3px solid var(--color-green-neon) !important;
+  color: var(--color-orange-primary) !important;
+  border: 3px solid var(--color-orange-primary) !important;
   padding: 12px 18px !important;
   font-size: 0.95rem !important;
   font-weight: 700 !important;
   pointer-events: none !important;
-  box-shadow: 0 0 30px rgba(0, 255, 136, 0.8), 0 0 60px rgba(0, 255, 136, 0.4);
+  box-shadow: 0 0 30px var(--color-orange-alpha-80),
+    0 0 60px var(--color-orange-alpha-40);
 }
 
 /* �💬 TOOLTIP DEL BOTÓN INTERACTIVO - EFECTO DIGITAL TECNOLÓGICO */
 .button-tooltip {
   position: fixed;
   background: var(--gradient-dark-blue-light);
-  color: var(--color-green-neon);
+  color: var(--color-orange-primary);
   padding: 10px 15px;
   border-radius: 8px;
   font-size: 0.875rem;
@@ -1486,9 +1471,9 @@ body,
   overflow: hidden;
 
   /* 🎯 BORDE NEÓN ANIMADO */
-  box-shadow: 0 0 20px var(--color-green-alpha-40),
-    0 0 40px var(--color-green-alpha-20),
-    inset 0 0 20px var(--color-green-alpha-10);
+  box-shadow: 0 0 20px var(--color-orange-alpha-40),
+    0 0 40px var(--color-orange-alpha-20),
+    inset 0 0 20px var(--color-orange-alpha-10);
 
   /* 🎯 ANIMACIÓN DE GLITCH */
   animation: digitalGlitch 0.1s linear infinite alternate;
@@ -1521,8 +1506,8 @@ body,
     90deg,
     transparent,
     transparent 2px,
-    var(--color-green-alpha-03) 2px,
-    var(--color-green-alpha-03) 4px
+    var(--color-orange-alpha-05) 2px,
+    var(--color-orange-alpha-05) 4px
   );
   pointer-events: none;
   z-index: -1;
@@ -1656,13 +1641,13 @@ body,
     background-image: linear-gradient(
         90deg,
         transparent 0%,
-        rgba(0, 255, 0, 0.1) 2%,
+        rgba(218, 128, 35, 0.1) 2%,
         transparent 4%
       ),
       linear-gradient(
         180deg,
         transparent 0%,
-        rgba(0, 255, 255, 0.1) 3%,
+        rgba(255, 255, 255, 0.1) 3%,
         transparent 6%
       ),
       linear-gradient(
@@ -1721,7 +1706,7 @@ body,
 @keyframes blink {
   0%,
   50% {
-    border-color: #00ff88;
+    border-color: var(--color-orange-primary);
   }
   51%,
   100% {
@@ -1734,11 +1719,11 @@ body,
   display: inline-block;
   overflow: hidden;
   white-space: nowrap;
-  border-right: 2px solid var(--color-green-neon);
+  border-right: 2px solid var(--color-orange-primary);
   width: 0;
-  color: var(--color-green-neon);
-  text-shadow: 0 0 5px var(--color-green-neon), 0 0 10px var(--color-green-neon),
-    0 0 15px var(--color-green-neon);
+  color: var(--color-orange-primary);
+  text-shadow: 0 0 5px var(--color-orange-primary),
+    0 0 10px var(--color-orange-primary), 0 0 15px var(--color-orange-primary);
 
   /* 🔥 EFECTO GLITCH EN EL TEXTO */
   position: relative;
@@ -1754,7 +1739,7 @@ body,
   position: absolute;
   top: 0;
   left: 2px;
-  color: var(--color-magenta);
+  color: var(--color-gray-medium);
   overflow: hidden;
   animation: glitchText 0.3s infinite linear alternate-reverse;
   opacity: 0.8;
@@ -1766,7 +1751,7 @@ body,
   position: absolute;
   top: 0;
   left: -2px;
-  color: var(--color-blue-neon);
+  color: var(--color-white);
   overflow: hidden;
   animation: glitchText 0.2s infinite linear alternate;
   opacity: 0.8;
@@ -2513,9 +2498,10 @@ section {
 .cta-button-wrapper:hover .cta-button-text-display,
 .cta-button-wrapper.hover-active .cta-button-text-display {
   /* 🌟 INTENSIFICACIÓN CUÁNTICA DEL TEXTO */
-  color: #ff8c1a;
-  text-shadow: 0 0 8px #ff8c1a, 0 0 16px #ff8c1a, 0 0 24px #ff8c1a,
-    0 0 35px rgba(255, 140, 26, 0.9), 0 0 50px rgba(255, 140, 26, 0.6);
+  color: var(--color-orange-primary);
+  text-shadow: 0 0 8px var(--color-orange-primary),
+    0 0 16px var(--color-orange-primary), 0 0 24px var(--color-orange-primary),
+    0 0 35px var(--color-orange-alpha-90), 0 0 50px var(--color-orange-alpha-60);
 
   /* ⚡ EFECTOS ACELERADOS EN MATERIALIZACIÓN */
   animation-duration: 2.5s, 1.8s;
@@ -3571,37 +3557,207 @@ section {
   visibility: hidden !important;
 }
 
-/* 🏹 FLECHA USANDO ELEMENTOS EXISTENTES BIEN POSICIONADOS */
+/* 🏹 TRIÁNGULO GEOMÉTRICO COMPLEJO CON LÍNEAS MÚLTIPLES Y TEXTURAS HD */
 .data-matrix.arrow-shape .data-stream {
-  color: var(--color-orange-primary);
-  font-size: 16px;
-  font-weight: bold;
-  text-shadow: 0 0 8px var(--color-orange-alpha-70);
-  animation: arrowGlow 2s ease-in-out infinite;
+  position: absolute !important;
+  color: transparent; /* Sin contenido de texto */
+  animation: none; /* Removemos animaciones de texto */
 }
 
-.data-stream.arrow-tip-element {
-  position: absolute !important;
+/* 🔺 CONTENEDOR PRINCIPAL DEL TRIÁNGULO */
+.triangle-container {
   top: 50% !important;
-  left: 15px !important; /* 🎯 POSICIÓN EN EL ESPACIO VACÍO IZQUIERDO */
+  left: 15px !important;
   transform: translateY(-50%) !important;
-  font-size: 18px;
+  width: 20px !important;
+  height: 16px !important;
+  background: none;
+  position: relative;
+  z-index: 5;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.data-stream.arrow-line-top {
-  position: absolute !important;
-  top: 40% !important;
-  left: 25px !important; /* 🎯 LÍNEA SUPERIOR */
-  transform: translateY(-50%) !important;
-  font-size: 14px;
+/* Triángulo base principal - APUNTANDO HACIA LA IZQUIERDA */
+.triangle-container::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 14px 8px 0; /* 🎯 INVERTIDO PARA APUNTAR A LA IZQUIERDA */
+  border-color: transparent var(--color-orange-primary) transparent transparent;
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.8)) /* 🎯 RESPLANDOR NEGRO */
+    drop-shadow(0 0 6px var(--color-orange-alpha-60));
+  transition: all 0.4s ease;
 }
 
-.data-stream.arrow-line-bottom {
-  position: absolute !important;
-  top: 60% !important;
-  left: 25px !important; /* 🎯 LÍNEA INFERIOR */
+/* Triángulo interno más pequeño - TONALIDADES NARANJAS */
+.triangle-container::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6px 10px 6px 0; /* 🎯 INVERTIDO PARA APUNTAR A LA IZQUIERDA */
+  border-color: transparent var(--color-orange-alpha-70) transparent transparent; /* 🎯 SOLO TONALIDADES NARANJAS */
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.6)); /* 🎯 RESPLANDOR NEGRO */
+  transition: all 0.4s ease;
+}
+
+/* 🔺 TRIÁNGULO PRINCIPAL - PUNTA DE LA FLECHA */
+.arrow-triangle-main {
+  top: 50% !important;
+  left: 15px !important;
   transform: translateY(-50%) !important;
-  font-size: 14px;
+  width: 0 !important;
+  height: 0 !important;
+  border-style: solid;
+  border-width: 8px 0 8px 12px;
+  border-color: transparent transparent transparent var(--color-orange-primary);
+  filter: drop-shadow(0 0 8px var(--color-orange-alpha-80))
+    drop-shadow(2px 0 4px rgba(0, 0, 0, 0.4));
+
+  /* Textura HD con gradiente complejo */
+  background: none;
+  position: relative;
+  z-index: 5;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Líneas internas del triángulo usando pseudo-elementos */
+.arrow-triangle-main::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -8px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6px 0 6px 8px;
+  border-color: transparent transparent transparent rgba(255, 255, 255, 0.3);
+  filter: blur(0.5px);
+}
+
+.arrow-triangle-main::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -6px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 4px 0 4px 6px;
+  border-color: transparent transparent transparent var(--color-orange-alpha-60);
+}
+
+/* 📐 LÍNEAS INTERNAS GEOMÉTRICAS DEL TRIÁNGULO */
+.arrow-triangle-lines {
+  top: 50% !important;
+  left: 20px !important;
+  transform: translateY(-50%) !important;
+  width: 8px !important;
+  height: 12px !important;
+  background: none;
+  position: relative;
+  z-index: 4;
+}
+
+/* Líneas verticales internas */
+.arrow-triangle-lines::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 1px;
+  height: 8px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--color-orange-alpha-70) 20%,
+    var(--color-white) 50%,
+    var(--color-orange-alpha-70) 80%,
+    transparent 100%
+  );
+  box-shadow: 0 0 3px var(--color-orange-alpha-50);
+  animation: innerLineGlow 2.5s ease-in-out infinite;
+}
+
+.arrow-triangle-lines::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 5px;
+  width: 0.5px;
+  height: 6px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.8) 30%,
+    var(--color-orange-primary) 50%,
+    rgba(255, 255, 255, 0.8) 70%,
+    transparent 100%
+  );
+  box-shadow: 0 0 2px rgba(255, 255, 255, 0.6);
+  animation: innerLineGlow 2.5s ease-in-out infinite 0.5s;
+}
+
+/* 📏 LÍNEAS DEL CUERPO DE LA FLECHA */
+.arrow-body-lines {
+  top: 50% !important;
+  left: 28px !important;
+  transform: translateY(-50%) !important;
+  width: 15px !important;
+  height: 8px !important;
+  background: none;
+  position: relative;
+  z-index: 3;
+}
+
+/* Línea principal horizontal */
+.arrow-body-lines::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 1.5px;
+  background: linear-gradient(
+    to right,
+    var(--color-orange-primary) 0%,
+    rgba(255, 255, 255, 0.9) 30%,
+    var(--color-orange-alpha-80) 60%,
+    rgba(255, 255, 255, 0.7) 90%,
+    var(--color-orange-alpha-40) 100%
+  );
+  box-shadow: 0 0 4px var(--color-orange-alpha-70), 0 1px 2px rgba(0, 0, 0, 0.3);
+  animation: bodyLineFlow 3s ease-in-out infinite;
+}
+
+/* Líneas secundarias para textura */
+.arrow-body-lines::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 1px;
+  width: 10px;
+  height: 0.8px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.5) 25%,
+    var(--color-orange-alpha-60) 50%,
+    rgba(255, 255, 255, 0.3) 75%,
+    transparent 100%
+  );
+  transform: skew(-15deg);
+  animation: bodyLineFlow 3s ease-in-out infinite 0.8s;
 }
 
 @keyframes arrowGlow {
@@ -3614,6 +3770,69 @@ section {
     opacity: 1;
     text-shadow: 0 0 15px var(--color-orange-primary),
       0 0 25px var(--color-orange-alpha-80);
+  }
+}
+
+/* 🎭 ANIMACIONES PARA LÍNEAS GEOMÉTRICAS */
+@keyframes innerLineGlow {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scaleY(1);
+    box-shadow: 0 0 3px var(--color-orange-alpha-50);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1.2);
+    box-shadow: 0 0 8px var(--color-orange-alpha-80),
+      0 0 15px var(--color-orange-alpha-40);
+  }
+}
+
+@keyframes bodyLineFlow {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: translateY(-50%) scaleX(1);
+  }
+  33% {
+    opacity: 1;
+    transform: translateY(-50%) scaleX(1.1);
+  }
+  66% {
+    opacity: 0.8;
+    transform: translateY(-50%) scaleX(0.95);
+  }
+}
+
+/* 🎭 NUEVAS ANIMACIONES PARA LÍNEAS GEOMÉTRICAS */
+@keyframes lineGlow1 {
+  0%,
+  100% {
+    opacity: 0.7;
+    box-shadow: 0 0 3px var(--color-orange-alpha-50);
+    transform: rotate(-20deg) scaleX(1);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 8px var(--color-orange-alpha-80),
+      0 0 15px var(--color-orange-alpha-40);
+    transform: rotate(-20deg) scaleX(1.1);
+  }
+}
+
+@keyframes lineGlow2 {
+  0%,
+  100% {
+    opacity: 0.6;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.7);
+    transform: translateY(-50%) scaleX(1);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 6px var(--color-orange-primary),
+      0 0 12px var(--color-orange-alpha-60);
+    transform: translateY(-50%) scaleX(1.2);
   }
 }
 
@@ -4011,19 +4230,155 @@ section {
   opacity: 1;
 }
 
-/* 🏹 HOVER EFFECT PARA LA NUEVA FLECHA */
-.ai-matrix-button:hover .data-matrix.arrow-shape .data-stream {
-  text-shadow: 0 0 20px var(--color-orange-primary),
-    0 0 30px var(--color-orange-alpha-80);
+/* 🚀 EFECTOS 3D EN HOVER - TRIÁNGULO SOBRESALE CON EXTRUSIÓN */
+.ai-matrix-button:hover .triangle-container {
+  transform: translateY(-50%) translateZ(12px) scale(1.2);
+  filter: drop-shadow(0 0 20px var(--color-orange-primary))
+    drop-shadow(6px 3px 12px rgba(0, 0, 0, 0.7))
+    drop-shadow(0 0 35px var(--color-orange-alpha-80));
 }
 
-.ai-matrix-button:hover .data-stream.arrow-tip-element {
-  transform: translateY(-50%) translateX(-3px) scale(1.1) !important; /* 🎯 MOVER MÁS A LA IZQUIERDA EN HOVER */
+.ai-matrix-button:hover .triangle-container::before {
+  border-color: transparent var(--color-orange-primary) transparent transparent; /* 🎯 DIRECCIÓN IZQUIERDA + SOLO NARANJAS */
+  border-width: 10px 16px 10px 0; /* 🎯 INVERTIDO PARA DIRECCIÓN IZQUIERDA */
+  filter: drop-shadow(0 0 15px var(--color-orange-primary))
+    drop-shadow(0 0 20px rgba(0, 0, 0, 0.9)) /* 🎯 RESPLANDOR NEGRO INTENSO */
+    drop-shadow(8px 0 8px rgba(0, 0, 0, 0.6));
+
+  /* Efecto de extrusión 3D - DIRECCIÓN IZQUIERDA */
+  box-shadow: 3px 0 0 var(--color-orange-alpha-90),
+    /* 🎯 INVERTIDO: + EN LUGAR DE - */ 6px 0 0 var(--color-orange-alpha-70),
+    9px 0 0 var(--color-orange-alpha-50), 12px 3px 20px rgba(0, 0, 0, 0.6);
 }
 
-.ai-matrix-button:hover .data-stream.arrow-line-top,
-.ai-matrix-button:hover .data-stream.arrow-line-bottom {
-  transform: translateY(-50%) translateX(-2px) scale(1.05) !important; /* 🎯 LIGERO MOVIMIENTO */
+.ai-matrix-button:hover .triangle-container::after {
+  border-color: transparent var(--color-orange-alpha-80) transparent transparent; /* 🎯 SOLO TONALIDADES NARANJAS */
+  border-width: 8px 12px 8px 0; /* 🎯 INVERTIDO PARA DIRECCIÓN IZQUIERDA */
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 0 8px var(--color-orange-alpha-60),
+    /* 🎯 RESPLANDOR NARANJA EN LUGAR DE BLANCO */ 0 0 12px rgba(0, 0, 0, 0.7); /* 🎯 RESPLANDOR NEGRO */
+}
+
+.ai-matrix-button:hover .holo-text {
+  width: 10px;
+  height: 1.2px;
+  box-shadow: 0 0 10px var(--color-orange-primary),
+    0 0 20px var(--color-orange-alpha-70);
+  background: linear-gradient(
+    to right,
+    #fff 0%,
+    var(--color-orange-primary) 30%,
+    #fff 60%,
+    var(--color-orange-alpha-80) 100%
+  );
+  transform: rotate(-20deg) scale(1.3);
+}
+
+.ai-matrix-button:hover .triangle-lines-set1::after {
+  width: 10px;
+  height: 1.2px;
+  box-shadow: 0 0 10px var(--color-orange-primary),
+    0 0 20px var(--color-orange-alpha-70);
+  background: linear-gradient(
+    to right,
+    #fff 0%,
+    var(--color-orange-primary) 30%,
+    #fff 60%,
+    var(--color-orange-alpha-80) 100%
+  );
+  transform: rotate(20deg) scale(1.3);
+}
+
+.ai-matrix-button:hover .triangle-lines-set2::before {
+  width: 8px;
+  height: 0.8px;
+  box-shadow: 0 0 8px var(--color-orange-primary),
+    0 0 16px rgba(255, 255, 255, 0.8);
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    #fff 15%,
+    var(--color-orange-primary) 50%,
+    #fff 85%,
+    transparent 100%
+  );
+  transform: translateY(-50%) scale(1.4);
+}
+
+.ai-matrix-button:hover .triangle-lines-set2::after {
+  width: 7px;
+  height: 0.5px;
+  box-shadow: 0 0 6px var(--color-orange-alpha-80);
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    #fff 20%,
+    var(--color-orange-primary) 50%,
+    #fff 80%,
+    transparent 100%
+  );
+  transform: rotate(-15deg) scale(1.2);
+}
+
+.ai-matrix-button:hover .arrow-triangle-main::before {
+  border-color: transparent transparent transparent rgba(218, 128, 35, 0.8);
+  filter: blur(0.3px);
+  transform: scale(1.2);
+}
+
+.ai-matrix-button:hover .arrow-triangle-main::after {
+  border-color: transparent transparent transparent #fff;
+  transform: scale(1.1);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+.ai-matrix-button:hover .arrow-triangle-lines::before {
+  height: 10px;
+  box-shadow: 0 0 8px var(--color-orange-primary),
+    0 0 15px var(--color-orange-alpha-60);
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #fff 20%,
+    var(--color-orange-primary) 50%,
+    #fff 80%,
+    transparent 100%
+  );
+}
+
+.ai-matrix-button:hover .arrow-triangle-lines::after {
+  height: 8px;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+}
+
+.ai-matrix-button:hover .arrow-body-lines::before {
+  width: 14px;
+  height: 2px;
+  transform: translateY(-50%) translateZ(4px);
+  box-shadow: 0 0 8px var(--color-orange-primary), 0 2px 4px rgba(0, 0, 0, 0.4),
+    0 0 20px var(--color-orange-alpha-50);
+  background: linear-gradient(
+    to right,
+    #fff 0%,
+    var(--color-orange-primary) 25%,
+    #fff 50%,
+    var(--color-orange-primary) 75%,
+    rgba(255, 255, 255, 0.8) 100%
+  );
+}
+
+.ai-matrix-button:hover .arrow-body-lines::after {
+  width: 12px;
+  height: 1.2px;
+  box-shadow: 0 0 6px var(--color-orange-alpha-80);
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    #fff 25%,
+    var(--color-orange-primary) 50%,
+    #fff 75%,
+    transparent 100%
+  );
 }
 
 .ai-matrix-button:hover .holo-text {
