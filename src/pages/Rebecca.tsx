@@ -588,10 +588,16 @@ const Rebecca = memo(() => {
               position: "relative",
               display: "flex",
               flexDirection: "column",
-              alignItems: "flex-end", // alineación derecha
-              justifyContent: "center", // centrado vertical
+              alignItems: "center",
+              justifyContent: "center",
               gap: "clamp(8px, 2vw, 12px)",
               width: "100%",
+              maxWidth: "none", // 🎯 REMOVIDO: límite de ancho para permitir animación completa
+              margin: "0 auto",
+              overflow: "visible", // 🎯 CAMBIADO: de hidden a visible para permitir animación desde bordes
+              minHeight: "clamp(120px, 15vh, 180px)", // 🎯 AGREGADO: altura mínima para evitar corte
+              paddingTop: "clamp(10px, 2vh, 20px)", // 🎯 AGREGADO: padding superior
+              paddingBottom: "clamp(10px, 2vh, 20px)", // 🎯 AGREGADO: padding inferior
             }}
           >
             <span
@@ -602,19 +608,22 @@ const Rebecca = memo(() => {
                   (Math.min(ctaScrollPercent, 0.9) / 0.9) *
                     window.innerWidth *
                     0.7
-                }px)`,
+                }px)`, // 🎯 RESTAURADO: Animación original desde bordes completos
                 opacity: ctaScrollPercent >= 0.3 ? 1 : 0,
                 transition: "transform 0.1s linear, opacity 0.2s",
                 fontFamily: "SohoPro, Montserrat, Arial, sans-serif",
                 fontWeight: 900,
                 fontStyle: "italic",
                 fontVariationSettings: '"wght" 900',
-                letterSpacing: "0.04em",
+                letterSpacing: "clamp(0.02em, 0.5vw, 0.04em)",
                 zIndex: 10,
-                lineHeight: 0.95,
-                fontSize: "clamp(3rem, 8vw, 5.5rem)" /* Responsive font-size */,
+                lineHeight: 1.1, // 🎯 AUMENTADO: de 0.95 a 1.1 para evitar corte
+                fontSize: "clamp(2.5rem, 7vw, 5.5rem)",
                 color: "#ffffff",
                 textShadow: "2px 2px 8px rgba(0, 0, 0, 0.7)",
+                textAlign: "center",
+                width: "auto",
+                whiteSpace: "nowrap",
               }}
             >
               TRABAJEMOS
@@ -627,29 +636,45 @@ const Rebecca = memo(() => {
                   (Math.min(ctaScrollPercent, 0.9) / 0.9) *
                     window.innerWidth *
                     0.7
-                }px)`,
+                }px)`, // 🎯 RESTAURADO: Animación original desde bordes completos
                 opacity: ctaScrollPercent >= 0.3 ? 1 : 0,
                 transition: "transform 0.1s linear, opacity 0.2s",
                 fontFamily: "SohoPro, Montserrat, Arial, sans-serif",
                 fontWeight: 900,
                 fontStyle: "italic",
                 fontVariationSettings: '"wght" 900',
-                letterSpacing: "0.04em",
+                letterSpacing: "clamp(0.02em, 0.5vw, 0.04em)",
                 zIndex: 10,
-                lineHeight: 0.95,
+                lineHeight: 1.1, // 🎯 AUMENTADO: de 0.95 a 1.1 para evitar corte
                 textTransform: "uppercase",
-                fontSize: "clamp(3rem, 8vw, 5.5rem)" /* Responsive font-size */,
+                fontSize: "clamp(2.5rem, 7vw, 5.5rem)",
                 color: "#ffffff",
                 textShadow: "2px 2px 8px rgba(0, 0, 0, 0.7)",
+                textAlign: "center",
+                width: "auto",
+                whiteSpace: "nowrap",
               }}
             >
               JUNTOS
             </span>
           </h2>
 
-          {/* Espacio reservado para el subtítulo que se agregará después */}
+          {/* Subtítulo CTA */}
           <div className="cta-subtitle-space">
-            {/* Aquí irá el subtítulo */}
+            <p className="cta-subtitle">
+              <span
+                className="subtitle-line-1 typewriter-line"
+                data-text="COMENZÓ UN NUEVO CAMBIO MUNDIAL, LA ERA TECNOLÓGICA."
+              >
+                COMENZÓ UN NUEVO CAMBIO MUNDIAL, LA ERA TECNOLÓGICA.
+              </span>
+              <span
+                className="subtitle-line-2 typewriter-line"
+                data-text="AVANZA MUY RÁPIDO Y NO ESPERARÁ A NADIE. NO TE QUEDES ATRÁS."
+              >
+                AVANZA MUY RÁPIDO Y NO ESPERARÁ A NADIE. NO TE QUEDES ATRÁS.
+              </span>
+            </p>
           </div>
 
           {/* Botón CTA */}
