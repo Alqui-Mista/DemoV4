@@ -8,8 +8,6 @@
 :root {
   /* UTILIDADES COMUNES */
   --transform-center: translate(-50%, -50%);
-  --position-absolute-center: absolute;
-  --top-left-center: 50%;
   --transition-smooth: all 0.3s ease;
 
   /* COLORES PRINCIPALES */
@@ -56,13 +54,6 @@
   );
   --gradient-orange-metallic: linear-gradient(
     135deg,
-    var(--color-orange-primary),
-    var(--color-white),
-    var(--color-gray-medium),
-    var(--color-orange-primary)
-  );
-  --gradient-orange-metallic-45: linear-gradient(
-    45deg,
     var(--color-orange-primary),
     var(--color-white),
     var(--color-gray-medium),
@@ -143,9 +134,9 @@ body {
 
 /* 🔧 CLASES DE UTILIDAD PARA OPTIMIZACIÓN */
 .center-absolute {
-  position: var(--position-absolute-center);
-  top: var(--top-left-center);
-  left: var(--top-left-center);
+  position: absolute;
+  top: 50%;
+  left: 50%;
   transform: var(--transform-center);
 }
 
@@ -2423,116 +2414,7 @@ body .button-tooltip.button-tooltip-3d::after,
   }
 }
 
-/* 🌈 ANIMACIONES MATRIX - PALETA NARANJO/GRIS/NEGRO/BLANCO */
-
-/* Flujo de código Matrix */
-@keyframes matrixCodeFlow {
-  0%,
-  100% {
-    background-position: 0% 50%;
-    filter: drop-shadow(0 0 10px var(--color-orange-alpha-60));
-  }
-  25% {
-    background-position: 100% 0%;
-    filter: drop-shadow(0 0 15px var(--color-white-alpha-40));
-  }
-  50% {
-    background-position: 100% 100%;
-    filter: drop-shadow(0 0 12px rgba(128, 128, 128, 0.5));
-  }
-  75% {
-    background-position: 0% 100%;
-    filter: drop-shadow(0 0 18px var(--color-orange-alpha-70));
-  }
-}
-
-/* Glitch digital Matrix */
-@keyframes matrixGlitch {
-  0%,
-  100% {
-    transform: translateX(0) translateY(0);
-    opacity: 0.2;
-  }
-  20% {
-    transform: translateX(0.3px) translateY(-0.2px);
-    opacity: 0.3;
-  }
-  40% {
-    transform: translateX(-0.2px) translateY(0.3px);
-    opacity: 0.15;
-  }
-  60% {
-    transform: translateX(0.4px) translateY(0.1px);
-    opacity: 0.25;
-  }
-  80% {
-    transform: translateX(-0.1px) translateY(-0.3px);
-    opacity: 0.1;
-  }
-}
-
-/* Escaneo de línea Matrix */
-@keyframes matrixScan {
-  0% {
-    left: -100%;
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    left: 100%;
-    opacity: 0;
-  }
-}
-
-/* Escaneo de línea Matrix REVERSO - De derecha a izquierda (efecto "volver") MEJORADO */
-@keyframes matrixScanReverse {
-  0% {
-    right: -100%;
-    opacity: 0;
-    transform: translateX(0);
-  }
-  5% {
-    opacity: 0.8;
-  }
-  15% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  95% {
-    opacity: 0.8;
-  }
-  100% {
-    right: 100%;
-    opacity: 0;
-    transform: translateX(0);
-  }
-}
-
-/* Aparición del texto Matrix */
-@keyframes digitalTextAppear {
-  0% {
-    opacity: 0;
-    transform: translateY(5px) scale(0.9);
-    filter: blur(3px);
-  }
-  30% {
-    opacity: 0.5;
-    transform: translateY(2px) scale(0.95);
-    filter: blur(1px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
-}
+/* ANIMACIONES MATRIX - PALETA NARANJO/GRIS/NEGRO/BLANCO */
 
 /* --- OPTIMIZACIÓN DE ANIMACIONES PRINCIPALES --- */
 .glow-ring {
