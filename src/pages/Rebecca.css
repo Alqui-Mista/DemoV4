@@ -1,25 +1,25 @@
-@charset "UTF-8"; /* 🎯 AGREGADO: Soporte explícito para caracteres especiales */
+@charset "UTF-8";
 
 @import url("https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import "../styles/responsive.css";
 
-/* � VARIABLES CSS - COLORES Y GRADIENTES CONSOLIDADOS */
+/* VARIABLES CSS - COLORES Y GRADIENTES CONSOLIDADOS */
 :root {
-  /* 🔧 UTILIDADES COMUNES */
+  /* UTILIDADES COMUNES */
   --transform-center: translate(-50%, -50%);
   --position-absolute-center: absolute;
   --top-left-center: 50%;
   --transition-smooth: all 0.3s ease;
 
-  /* 🎯 COLORES PRINCIPALES */
+  /* COLORES PRINCIPALES */
   --color-white: #ffffff;
   --color-black: #000000;
   --color-orange-primary: #da8023;
   --color-gray-medium: #b3b4b0;
   --color-gray-light: #808080;
 
-  /*  TRANSPARENCIAS COMUNES */
+  /* TRANSPARENCIAS COMUNES */
   --color-orange-alpha-90: rgba(218, 128, 35, 0.9);
   --color-orange-alpha-80: rgba(218, 128, 35, 0.8);
   --color-orange-alpha-60: rgba(218, 128, 35, 0.6);
@@ -279,38 +279,6 @@ body,
 /* 🤖 TOOLTIP MINIMALISTA DE IA - SOLO TEXTO HOLOGRÁFICO */
 
 /* 🎯 CONTAINER DE TEXTO PURO */
-
-/* 🤖 TEXTO SIMPLE - SIN EFECTOS HOLOGRÁFICOS */
-.ai-holo-text {
-  font-family: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace;
-  font-size: 11px;
-  font-weight: 300;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  position: relative;
-  color: #da8023 !important;
-
-  /* Sin efectos holográficos */
-  background: none !important;
-  -webkit-background-clip: initial !important;
-  background-clip: initial !important;
-  filter: none !important;
-  animation: none !important;
-  opacity: 1 !important;
-  transform: none !important;
-}
-
-/* PSEUDO-ELEMENTOS DESHABILITADOS */
-.ai-holo-text::before {
-  display: none !important;
-}
-
-.ai-holo-text::after {
-  display: none !important;
-}
-
-/* 🌐 LÍNEAS DE CONEXIÓN NEURONAL */
-/* Eliminado conjunto de reglas vacío para evitar errores */
 
 /* � ANIMACIONES PARA TEXTO HOLOGRÁFICO HOME 3D */
 @keyframes holoTextAppear {
@@ -701,7 +669,7 @@ body,
 
 /* 🎯 OPTIMIZACIÓN ADAPTATIVA SIMPLIFICADA */
 
-/*  RESPONSIVE ADJUSTMENTS FOR TITLES - ESPACIADO MEJORADO PARA EVITAR SUPERPOSICIONES */
+/* RESPONSIVE ADJUSTMENTS FOR TITLES - ESPACIADO MEJORADO PARA EVITAR SUPERPOSICIONES */
 @media (max-width: 480px) {
   .portal-title {
     font-size: calc(var(--font-size-3xl) * 1.25);
@@ -750,7 +718,7 @@ body,
 /* 🎯 SISTEMA DE ANILLOS OPTIMIZADO PARA BOTÓN VAPI */
 /* ✨ =========================== */
 
-/*  EFECTOS VISUALES DE PORTAL - CENTRADO SIMPLE Y ESTABLE */
+/* EFECTOS VISUALES DE PORTAL - CENTRADO SIMPLE Y ESTABLE */
 .portal-effects {
   pointer-events: auto;
   z-index: 5;
@@ -1231,9 +1199,6 @@ body,
   backdrop-filter: blur(12px);
 }
 
-.button-tooltip.button-tooltip-3d {
-  box-shadow: none;
-}
 .button-tooltip.button-tooltip-3d[style*="opacity: 1"] {
   box-shadow: 0 0 30px var(--color-orange-alpha-80),
     0 0 60px var(--color-orange-alpha-40);
@@ -1440,21 +1405,6 @@ body,
   opacity: 1;
 }
 
-/* � TOOLTIP DEL BOTÓN 3D - MÁXIMA PRIORIDAD */
-.button-tooltip.button-tooltip-3d {
-  position: fixed !important;
-  z-index: 99999 !important;
-  background: var(--gradient-dark-blue) !important;
-  color: var(--color-orange-primary) !important;
-  border: 3px solid var(--color-orange-primary) !important;
-  padding: 12px 18px !important;
-  font-size: 0.95rem !important;
-  font-weight: 700 !important;
-  pointer-events: none !important;
-  box-shadow: 0 0 30px var(--color-orange-alpha-80),
-    0 0 60px var(--color-orange-alpha-40);
-}
-
 /* �💬 TOOLTIP DEL BOTÓN INTERACTIVO - EFECTO DIGITAL TECNOLÓGICO */
 .button-tooltip {
   position: fixed;
@@ -1549,19 +1499,7 @@ body,
   }
 }
 
-@keyframes borderFlow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* 🎬 ANIMACIONES CINEMATOGRÁFICAS FUTURISTAS PARA ANILLO METÁLICO */
+/* ANIMACIONES CINEMATOGRÁFICAS FUTURISTAS PARA ANILLO METÁLICO */
 
 /* Rotación metálica principal con efectos de brillo */
 @keyframes metallic-rotate {
@@ -1780,82 +1718,6 @@ body,
   color: var(--color-white) !important;
 }
 
-/* 🎯 SOBRESCRIBIR COMPLETAMENTE EL BORDE ANIMADO DEL TOOLTIP 3D - PRUEBA NARANJA SÓLIDO */
-.button-tooltip.button-tooltip-3d::before {
-  background: #da8023 !important;
-  background-size: auto !important;
-  animation: none !important;
-}
-
-/* � PRUEBA DIAGNÓSTICA - FORZAR TEXTO NARANJA SÓLIDO EN TOOLTIP 3D */
-.button-tooltip.button-tooltip-3d .ai-holo-text {
-  background: #da8023 !important;
-  background-size: auto !important;
-  -webkit-background-clip: initial !important;
-  background-clip: initial !important;
-  color: #da8023 !important;
-  animation: none !important;
-  filter: none !important;
-}
-
-.button-tooltip.button-tooltip-3d .ai-holo-text::before {
-  display: none !important;
-}
-
-.button-tooltip.button-tooltip-3d .ai-holo-text::after {
-  display: none !important;
-}
-
-/* �🔥 REGLA ESPECÍFICA DE EMERGENCIA - MÁXIMA PRIORIDAD PARA HOME 3D - PRUEBA NARANJA SÓLIDO */
-body .button-tooltip.button-tooltip-3d::before {
-  background: #da8023 !important;
-  background-size: auto !important;
-  animation: none !important;
-}
-
-/* 🎯 RESTAURAR TEXTO Y ATACAR SOLO EL BORDE */
-.button-tooltip.button-tooltip-3d .ai-holo-text {
-  background: var(--gradient-holographic) !important;
-  background-size: 200% 200% !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  color: transparent !important;
-  animation: holoTextFlow 3s ease-in-out infinite !important;
-  filter: drop-shadow(0 0 8px var(--color-orange-alpha-30)) !important;
-}
-
-/* 🚨 NUEVA ESTRATEGIA: ATACAR EL BORDE DIRECTAMENTE - CAMBIO OBVIO */
-.button-tooltip.button-tooltip-3d {
-  border: 10px solid red !important;
-  box-shadow: 0 0 50px red !important;
-  background: yellow !important;
-  width: 300px !important;
-  height: 200px !important;
-}
-
-/* 🔥 ELIMINAR COMPLETAMENTE EL PSEUDO-ELEMENTO DEL BORDE */
-.button-tooltip.button-tooltip-3d::before {
-  display: none !important;
-  content: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  background: none !important;
-}
-
-/* 🚨 REGLA DE EMERGENCIA EXTREMA - FUERZA BRUTA PARA TOOLTIP 3D */
-html body .button-tooltip.button-tooltip-3d::before,
-html body div .button-tooltip.button-tooltip-3d::before,
-body div .button-tooltip.button-tooltip-3d::before {
-  background: #da8023 !important;
-  background-image: none !important;
-  background-attachment: initial !important;
-  background-origin: initial !important;
-  background-clip: initial !important;
-  background-color: #da8023 !important;
-  animation: none !important;
-  background-size: auto !important;
-}
-
 @keyframes glitchText {
   0% {
     clip: rect(42px, 9999px, 44px, 0);
@@ -2016,11 +1878,7 @@ body div .button-tooltip.button-tooltip-3d::before {
   }
 }
 
-/* 🚨 FUERZA BRUTA EXTREMA - ELIMINAR CUALQUIER EFECTO HOLOGRÁFICO */
 /* 🏆 TOOLTIP AWWWARDS - EFECTOS ULTRA PREMIUM CON PALETA INTELIMARK */
-html body div .button-tooltip.button-tooltip-3d,
-html body .button-tooltip.button-tooltip-3d,
-body .button-tooltip.button-tooltip-3d,
 .button-tooltip.button-tooltip-3d {
   position: fixed !important;
   z-index: 99999 !important;
@@ -2563,15 +2421,6 @@ body .button-tooltip.button-tooltip-3d::after,
     background-position: 20px 12px, -12px 16px, 16px -8px, -8px 12px;
     opacity: 0.4;
   }
-}
-
-/* PSEUDO-ELEMENTOS ELIMINADOS */
-.ai-holo-text::before {
-  display: none !important;
-}
-
-.ai-holo-text::after {
-  display: none !important;
 }
 
 /* 🌈 ANIMACIONES MATRIX - PALETA NARANJO/GRIS/NEGRO/BLANCO */
