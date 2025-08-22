@@ -2025,14 +2025,13 @@ body .button-tooltip.button-tooltip-3d,
   position: fixed !important;
   z-index: 99999 !important;
   pointer-events: none !important;
-  
+
   /* 🎬 ANIMACIÓN DE APARICIÓN ÉPICA */
   transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-  
+
   /* 🌟 FONDO MULTICAPA CON TEXTURA TECNOLÓGICA */
   background: 
-    /* Capa 1: Patrón de circuitos */
-    repeating-linear-gradient(
+    /* Capa 1: Patrón de circuitos */ repeating-linear-gradient(
       45deg,
       transparent 0px,
       transparent 1px,
@@ -2040,58 +2039,54 @@ body .button-tooltip.button-tooltip-3d,
       rgba(218, 128, 35, 0.02) 2px
     ),
     /* Capa 2: Grid tecnológico */
-    repeating-linear-gradient(
-      90deg,
-      transparent 0px,
-      transparent 8px,
-      rgba(218, 128, 35, 0.05) 8px,
-      rgba(218, 128, 35, 0.05) 9px
-    ),
+      repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        transparent 8px,
+        rgba(218, 128, 35, 0.05) 8px,
+        rgba(218, 128, 35, 0.05) 9px
+      ),
     /* Capa 3: Fondo base con gradiente sutil */
-    linear-gradient(
-      145deg,
-      rgba(0, 0, 0, 0.98) 0%,
-      rgba(10, 5, 2, 0.98) 50%,
-      rgba(0, 0, 0, 0.98) 100%
-    ) !important;
+      linear-gradient(
+        145deg,
+        rgba(0, 0, 0, 0.98) 0%,
+        rgba(10, 5, 2, 0.98) 50%,
+        rgba(0, 0, 0, 0.98) 100%
+      ) !important;
 
   /* 🔥 BORDE AVANZADO CON MÚLTIPLES CAPAS */
   border: none !important;
   border-radius: 8px !important;
   padding: 16px 20px !important;
-  
+
   /* 📐 FORMA GEOMÉTRICA CON BORDES PERSONALIZADOS */
   position: relative;
   overflow: hidden;
-  
+
   /* 💎 MÚLTIPLES SOMBRAS PARA PROFUNDIDAD 3D */
   box-shadow: 
-    /* Sombra interna */
-    inset 0 1px 0 rgba(218, 128, 35, 0.2),
+    /* Sombra interna */ inset 0 1px 0 rgba(218, 128, 35, 0.2),
     inset 0 -1px 0 rgba(218, 128, 35, 0.1),
-    /* Sombra externa principal */
-    0 0 30px rgba(218, 128, 35, 0.4),
-    /* Sombra de profundidad */
-    0 10px 40px rgba(0, 0, 0, 0.6),
-    /* Glow exterior */
-    0 0 60px rgba(218, 128, 35, 0.2),
-    /* Sombra direccional */
-    -5px 5px 20px rgba(0, 0, 0, 0.3) !important;
+    /* Sombra externa principal */ 0 0 30px rgba(218, 128, 35, 0.4),
+    /* Sombra de profundidad */ 0 10px 40px rgba(0, 0, 0, 0.6),
+    /* Glow exterior */ 0 0 60px rgba(218, 128, 35, 0.2),
+    /* Sombra direccional */ -5px 5px 20px rgba(0, 0, 0, 0.3) !important;
 
   /* 🎯 FILTROS AVANZADOS */
   backdrop-filter: blur(20px) saturate(180%) contrast(120%) !important;
-  
+
   /* 📏 DIMENSIONES OPTIMIZADAS */
   width: auto !important;
   min-width: 120px !important;
   height: auto !important;
   white-space: nowrap !important;
-  
+
   /* 🎬 TRANSFORMACIONES 3D */
   transform: perspective(1000px) rotateX(2deg) rotateY(-1deg) translateZ(10px) !important;
-  
+
   /* ⚡ ANIMACIÓN DE ENTRADA */
-  animation: tooltipAwwwardsEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+  animation: tooltipAwwwardsEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)
+    forwards !important;
 }
 
 /* 🌟 BORDE ANIMADO ÉPICO - PSEUDO-ELEMENTO PRINCIPAL */
@@ -2104,7 +2099,7 @@ body .button-tooltip.button-tooltip-3d,
   bottom: -3px !important;
   border-radius: 10px !important;
   z-index: -1 !important;
-  
+
   /* 🔥 GRADIENTE ÉPICO CON MÚLTIPLES PARADAS */
   background: linear-gradient(
     45deg,
@@ -2118,15 +2113,14 @@ body .button-tooltip.button-tooltip-3d,
     rgba(255, 255, 255, 0.6) 88%,
     rgba(218, 128, 35, 0.8) 100%
   ) !important;
-  
+
   /* 📐 TAMAÑO DINÁMICO PARA ANIMACIÓN */
   background-size: 400% 400% !important;
-  
+
   /* ⚡ ANIMACIÓN FLUIDA CONTINUA */
-  animation: 
-    awwwardsBorderFlow 3s ease-in-out infinite,
+  animation: awwwardsBorderFlow 3s ease-in-out infinite,
     awwwardsPulse 6s ease-in-out infinite alternate !important;
-    
+
   /* 💫 FILTROS AVANZADOS */
   filter: blur(0.5px) brightness(120%) saturate(140%) !important;
 }
@@ -2142,29 +2136,39 @@ body .button-tooltip.button-tooltip-3d,
   border-radius: 8px !important;
   z-index: 1 !important;
   pointer-events: none !important;
-  
+
   /* 🌌 PATRÓN DE PARTÍCULAS HEXAGONALES */
   background-image: 
-    /* Partículas principales */
-    radial-gradient(circle at 20% 30%, rgba(218, 128, 35, 0.15) 1px, transparent 1px),
-    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-    radial-gradient(circle at 60% 20%, rgba(218, 128, 35, 0.1) 1px, transparent 1px),
-    radial-gradient(circle at 30% 80%, rgba(179, 180, 176, 0.08) 1px, transparent 1px),
+    /* Partículas principales */ radial-gradient(
+      circle at 20% 30%,
+      rgba(218, 128, 35, 0.15) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(255, 255, 255, 0.1) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 60% 20%,
+      rgba(218, 128, 35, 0.1) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 30% 80%,
+      rgba(179, 180, 176, 0.08) 1px,
+      transparent 1px
+    ),
     /* Grid tecnológico sutil */
-    linear-gradient(90deg, rgba(218, 128, 35, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(218, 128, 35, 0.03) 1px, transparent 1px),
     linear-gradient(180deg, rgba(218, 128, 35, 0.03) 1px, transparent 1px) !important;
-    
-  background-size: 
-    40px 40px,
-    35px 35px, 
-    45px 45px,
-    30px 30px,
-    20px 20px,
+
+  background-size: 40px 40px, 35px 35px, 45px 45px, 30px 30px, 20px 20px,
     20px 20px !important;
-    
+
   /* ✨ ANIMACIÓN DE PARTÍCULAS */
   animation: awwwardsParticles 8s linear infinite !important;
-  
+
   /* 🎭 EFECTOS VISUALES */
   opacity: 0.6 !important;
   mix-blend-mode: screen !important;
@@ -2176,22 +2180,26 @@ body .button-tooltip.button-tooltip-3d,
 @keyframes tooltipAwwwardsEntrance {
   0% {
     opacity: 0;
-    transform: perspective(1000px) rotateX(45deg) rotateY(20deg) translateZ(-100px) scale(0.3);
+    transform: perspective(1000px) rotateX(45deg) rotateY(20deg)
+      translateZ(-100px) scale(0.3);
     filter: blur(10px) brightness(200%);
   }
   30% {
     opacity: 0.7;
-    transform: perspective(1000px) rotateX(10deg) rotateY(-5deg) translateZ(20px) scale(0.8);
+    transform: perspective(1000px) rotateX(10deg) rotateY(-5deg)
+      translateZ(20px) scale(0.8);
     filter: blur(3px) brightness(150%);
   }
   60% {
     opacity: 0.9;
-    transform: perspective(1000px) rotateX(-2deg) rotateY(2deg) translateZ(15px) scale(1.05);
+    transform: perspective(1000px) rotateX(-2deg) rotateY(2deg) translateZ(15px)
+      scale(1.05);
     filter: blur(1px) brightness(120%);
   }
   100% {
     opacity: 1;
-    transform: perspective(1000px) rotateX(2deg) rotateY(-1deg) translateZ(10px) scale(1);
+    transform: perspective(1000px) rotateX(2deg) rotateY(-1deg) translateZ(10px)
+      scale(1);
     filter: blur(0px) brightness(100%);
   }
 }
@@ -2243,19 +2251,23 @@ body .button-tooltip.button-tooltip-3d,
     opacity: 0.6;
   }
   25% {
-    background-position: 10px 5px, -5px 8px, 8px -3px, -3px 6px, 5px 2px, 2px 5px;
+    background-position: 10px 5px, -5px 8px, 8px -3px, -3px 6px, 5px 2px,
+      2px 5px;
     opacity: 0.8;
   }
   50% {
-    background-position: 20px 10px, -10px 15px, 15px -8px, -8px 12px, 10px 5px, 5px 10px;
+    background-position: 20px 10px, -10px 15px, 15px -8px, -8px 12px, 10px 5px,
+      5px 10px;
     opacity: 0.7;
   }
   75% {
-    background-position: 30px 15px, -15px 22px, 22px -12px, -12px 18px, 15px 8px, 8px 15px;
+    background-position: 30px 15px, -15px 22px, 22px -12px, -12px 18px, 15px 8px,
+      8px 15px;
     opacity: 0.9;
   }
   100% {
-    background-position: 40px 20px, -20px 30px, 30px -15px, -15px 25px, 20px 10px, 10px 20px;
+    background-position: 40px 20px, -20px 30px, 30px -15px, -15px 25px,
+      20px 10px, 10px 20px;
     opacity: 0.6;
   }
 }
@@ -2356,33 +2368,29 @@ body .button-tooltip.button-tooltip-3d::after,
     rgba(179, 180, 176, 0.6) 90%,
     rgba(218, 128, 35, 1) 100%
   ) !important;
-  
+
   background-size: 300% 300% !important;
   background-clip: text !important;
   -webkit-background-clip: text !important;
   color: transparent !important;
-  
+
   /* ✨ MÚLTIPLES EFECTOS VISUALES */
-  filter: 
-    drop-shadow(0 0 10px rgba(218, 128, 35, 0.6))
+  filter: drop-shadow(0 0 10px rgba(218, 128, 35, 0.6))
     drop-shadow(0 0 20px rgba(218, 128, 35, 0.3))
-    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4))
-    contrast(110%)
-    brightness(120%) !important;
-  
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4)) contrast(110%) brightness(120%) !important;
+
   /* 🎬 ANIMACIONES ÉPICAS */
-  animation: 
-    awwwardsTextFlow 4s ease-in-out infinite,
+  animation: awwwardsTextFlow 4s ease-in-out infinite,
     awwwardsTextGlow 2s ease-in-out infinite alternate,
     awwwardsTextFloat 6s ease-in-out infinite !important;
-  
+
   /* 🎯 TRANSFORMACIONES 3D */
   transform: perspective(500px) rotateX(5deg) translateZ(5px) !important;
-  
+
   /* 📐 ESPACIADO OPTIMIZADO */
   padding: 2px 0 !important;
   margin: 0 !important;
-  
+
   /* 🌠 TRANSICIONES SUAVES */
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
 }
@@ -2396,7 +2404,7 @@ body .button-tooltip.button-tooltip-3d::after,
   width: 100% !important;
   height: 100% !important;
   z-index: -1 !important;
-  
+
   /* 🎨 EFECTO CROMÁTICO */
   background: linear-gradient(
     45deg,
@@ -2407,13 +2415,13 @@ body .button-tooltip.button-tooltip-3d::after,
   background-clip: text !important;
   -webkit-background-clip: text !important;
   color: transparent !important;
-  
+
   /* 🌈 ANIMACIÓN CROMÁTICA */
   animation: awwwardsChromaticShift 3s ease-in-out infinite !important;
-  
+
   /* 📍 DESPLAZAMIENTO SUTIL */
   transform: translate(1px, 1px) !important;
-  
+
   /* 💫 FILTROS AVANZADOS */
   filter: blur(0.5px) opacity(0.6) !important;
 }
@@ -2427,23 +2435,34 @@ body .button-tooltip.button-tooltip-3d::after,
   right: -2px !important;
   bottom: -2px !important;
   z-index: -2 !important;
-  
+
   /* 🌌 CAMPO DE PARTÍCULAS MICRO */
-  background-image: 
-    radial-gradient(circle at 15% 25%, rgba(218, 128, 35, 0.2) 0.5px, transparent 0.5px),
-    radial-gradient(circle at 85% 75%, rgba(255, 255, 255, 0.15) 0.5px, transparent 0.5px),
-    radial-gradient(circle at 45% 15%, rgba(218, 128, 35, 0.1) 0.5px, transparent 0.5px),
-    radial-gradient(circle at 75% 85%, rgba(179, 180, 176, 0.1) 0.5px, transparent 0.5px) !important;
-    
-  background-size: 
-    25px 25px,
-    20px 20px,
-    30px 30px,
-    18px 18px !important;
-    
+  background-image: radial-gradient(
+      circle at 15% 25%,
+      rgba(218, 128, 35, 0.2) 0.5px,
+      transparent 0.5px
+    ),
+    radial-gradient(
+      circle at 85% 75%,
+      rgba(255, 255, 255, 0.15) 0.5px,
+      transparent 0.5px
+    ),
+    radial-gradient(
+      circle at 45% 15%,
+      rgba(218, 128, 35, 0.1) 0.5px,
+      transparent 0.5px
+    ),
+    radial-gradient(
+      circle at 75% 85%,
+      rgba(179, 180, 176, 0.1) 0.5px,
+      transparent 0.5px
+    ) !important;
+
+  background-size: 25px 25px, 20px 20px, 30px 30px, 18px 18px !important;
+
   /* 🎭 ANIMACIÓN DE MICRO-PARTÍCULAS */
   animation: awwwardsMicroParticles 12s linear infinite !important;
-  
+
   /* 🎯 EFECTOS VISUALES */
   opacity: 0.4 !important;
   mix-blend-mode: screen !important;
@@ -2455,53 +2474,46 @@ body .button-tooltip.button-tooltip-3d::after,
 @keyframes awwwardsTextFlow {
   0% {
     background-position: 0% 50%;
-    filter: 
-      drop-shadow(0 0 10px rgba(218, 128, 35, 0.6))
-      drop-shadow(0 0 20px rgba(218, 128, 35, 0.3))
-      contrast(110%) brightness(120%);
+    filter: drop-shadow(0 0 10px rgba(218, 128, 35, 0.6))
+      drop-shadow(0 0 20px rgba(218, 128, 35, 0.3)) contrast(110%)
+      brightness(120%);
   }
   33% {
     background-position: 100% 0%;
-    filter: 
-      drop-shadow(0 0 15px rgba(218, 128, 35, 0.8))
-      drop-shadow(0 0 25px rgba(255, 255, 255, 0.2))
-      contrast(120%) brightness(140%);
+    filter: drop-shadow(0 0 15px rgba(218, 128, 35, 0.8))
+      drop-shadow(0 0 25px rgba(255, 255, 255, 0.2)) contrast(120%)
+      brightness(140%);
   }
   66% {
     background-position: 100% 100%;
-    filter: 
-      drop-shadow(0 0 12px rgba(218, 128, 35, 0.7))
-      drop-shadow(0 0 30px rgba(218, 128, 35, 0.2))
-      contrast(115%) brightness(130%);
+    filter: drop-shadow(0 0 12px rgba(218, 128, 35, 0.7))
+      drop-shadow(0 0 30px rgba(218, 128, 35, 0.2)) contrast(115%)
+      brightness(130%);
   }
   100% {
     background-position: 0% 50%;
-    filter: 
-      drop-shadow(0 0 10px rgba(218, 128, 35, 0.6))
-      drop-shadow(0 0 20px rgba(218, 128, 35, 0.3))
-      contrast(110%) brightness(120%);
+    filter: drop-shadow(0 0 10px rgba(218, 128, 35, 0.6))
+      drop-shadow(0 0 20px rgba(218, 128, 35, 0.3)) contrast(110%)
+      brightness(120%);
   }
 }
 
 /* ✨ RESPLANDOR PULSANTE */
 @keyframes awwwardsTextGlow {
   0% {
-    text-shadow: 
-      0 0 5px rgba(218, 128, 35, 0.5),
-      0 0 10px rgba(218, 128, 35, 0.3),
-      0 0 15px rgba(218, 128, 35, 0.2);
+    text-shadow: 0 0 5px rgba(218, 128, 35, 0.5),
+      0 0 10px rgba(218, 128, 35, 0.3), 0 0 15px rgba(218, 128, 35, 0.2);
   }
   100% {
-    text-shadow: 
-      0 0 10px rgba(218, 128, 35, 0.8),
-      0 0 20px rgba(218, 128, 35, 0.5),
-      0 0 30px rgba(218, 128, 35, 0.3);
+    text-shadow: 0 0 10px rgba(218, 128, 35, 0.8),
+      0 0 20px rgba(218, 128, 35, 0.5), 0 0 30px rgba(218, 128, 35, 0.3);
   }
 }
 
 /* 🌊 FLOTACIÓN SUTIL 3D */
 @keyframes awwwardsTextFloat {
-  0%, 100% {
+  0%,
+  100% {
     transform: perspective(500px) rotateX(5deg) translateZ(5px) translateY(0px);
   }
   50% {
