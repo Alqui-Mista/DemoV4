@@ -658,18 +658,7 @@ body,
     subtle-glow 3s ease-in-out infinite alternate;
 }
 
-/* 🎯 OPTIMIZACIÓN ADAPTATIVA SIMPLIFICADA */
-
-/* RESPONSIVE ADJUSTMENTS FOR TITLES - ESPACIADO MEJORADO PARA EVITAR SUPERPOSICIONES */
-@media (max-width: 480px) {
-  .portal-title {
-    font-size: calc(var(--font-size-3xl) * 1.25);
-    white-space: normal;
-    line-height: 1.2;
-    top: 85px !important; /* 🎯 MOVIDO MÁS HACIA ABAJO (65px → 85px) */
-    letter-spacing: 0.03em;
-  }
-}
+/* OPTIMIZACIÓN ADAPTATIVA SIMPLIFICADA */
 
 @media (min-width: 481px) and (max-width: 768px) {
   .portal-title {
@@ -864,26 +853,6 @@ body,
 
   /* 🎬 Animación de pulso suave */
   animation: pulse-optimized 2.5s ease-in-out infinite;
-}
-
-/* 📱 RESPONSIVE PORTAL EFFECTS */
-@media (max-width: 480px) {
-  .portal-effects {
-    width: clamp(
-      280px,
-      80vw,
-      400px
-    ); /* 🎯 MÓVIL: Tamaños optimizados para pantallas pequeñas */
-    height: clamp(280px, 80vw, 400px);
-  }
-
-  .glow-ring {
-    border: clamp(2px, 0.5vw, 3px) solid transparent;
-  }
-
-  .pulse-ring {
-    border: clamp(1px, 0.3vw, 2px) solid var(--color-orange-primary);
-  }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
@@ -1203,13 +1172,6 @@ body,
 }
 
 /* --- FIN OPTIMIZACIÓN --- */
-
-/* 📱 RESPONSIVE DESIGN ESPECÍFICO PARA REBECCA */
-@media (max-width: 480px) {
-  .rebecca-container {
-    padding: var(--space-md);
-  }
-}
 
 /* 🎯 ORIENTACIÓN LANDSCAPE EN MÓVILES - AJUSTE MEJORADO */
 @media (orientation: landscape) and (max-height: 600px) {
@@ -7461,5 +7423,100 @@ section {
       0 0 calc(var(--intensity) * 40px)
         rgba(255, 200, 100, calc(var(--intensity) * 0.4)),
       2px 2px 8px rgba(0, 0, 0, 0.7);
+  }
+}
+
+/* ========================================== */
+/* 📱 MEDIA QUERY CONSOLIDADA PARA MÓVILES */
+/* ========================================== */
+@media (max-width: 480px) {
+  /* Portal titles */
+  .portal-title {
+    font-size: calc(var(--font-size-3xl) * 1.25);
+    white-space: normal;
+    line-height: 1.2;
+    top: 85px !important;
+    letter-spacing: 0.03em;
+  }
+
+  /* Portal effects */
+  .portal-effects {
+    width: clamp(280px, 80vw, 400px);
+    height: clamp(280px, 80vw, 400px);
+  }
+
+  .glow-ring {
+    border: clamp(2px, 0.5vw, 3px) solid transparent;
+  }
+
+  .pulse-ring {
+    border: clamp(1px, 0.3vw, 2px) solid var(--color-orange-primary);
+  }
+
+  /* Rebecca container */
+  .rebecca-container {
+    padding: var(--space-md);
+  }
+
+  /* Interactive container updates */
+  #interactive-container.active {
+    width: 90vw;
+    height: 85vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #interactive-container {
+    width: clamp(70px, 18vw, 90px);
+    height: clamp(70px, 18vw, 90px);
+    top: 15px;
+    left: 15px;
+  }
+
+  #interactive-container::before {
+    width: clamp(80px, 20vw, 100px);
+    height: clamp(80px, 20vw, 100px);
+  }
+
+  #interactive-container::after {
+    width: clamp(45px, 12vw, 60px);
+    height: clamp(45px, 12vw, 60px);
+  }
+
+  /* Message box */
+  #message-box {
+    padding: 12px 16px;
+    font-size: 0.8rem;
+    border-radius: 6px;
+  }
+
+  /* Tooltips */
+  .button-tooltip {
+    font-size: 0.75rem;
+    padding: 8px 12px;
+    border-radius: 4px;
+  }
+
+  .button-tooltip-text {
+    font-size: 0.75rem;
+  }
+
+  /* CTA sections */
+  .cta-content {
+    padding: 2rem 1rem;
+  }
+
+  .cta-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Magnetic effects reduced for mobile */
+  .magnetic-text.magnetic-active {
+    transform: perspective(800px) rotateX(calc(var(--intensity) * 1deg))
+      rotateY(calc(var(--intensity) * 1.5deg))
+      scale(calc(1 + var(--intensity) * 0.05))
+      translateZ(calc(var(--intensity) * 10px)) !important;
   }
 }
