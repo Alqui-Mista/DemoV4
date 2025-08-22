@@ -415,7 +415,7 @@ const Rebecca = memo(() => {
       <div className="main-content-wrapper">
         <div
           id="interactive-container"
-          className={isActive ? "active" : ""}
+          className={`flex-center ${isActive ? "active" : ""}`}
           onClick={handleInteractiveClick}
           onMouseEnter={(e) => {
             setIsHoveringButton(true);
@@ -686,7 +686,7 @@ const Rebecca = memo(() => {
 
               {/* Texto del botón adaptado a la pantalla rectangular existente */}
               <div
-                className={`cta-button-text-overlay center-absolute ${
+                className={`cta-button-text-overlay center-absolute flex-center ${
                   isCtaTextVisible ? "text-visible" : "text-hidden"
                 }`}
               >
