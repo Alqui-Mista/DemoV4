@@ -1484,83 +1484,165 @@ body,
   }
 }
 
-/* 🏆 TOOLTIP AWWWARDS - (OPTIMIZED FOR PERFORMANCE & NEW DESIGN) */
+/* 🏆 TOOLTIP AWWWARDS - HOLOGRAPHIC PROJECTION INTERFACE V2 */
+@keyframes tooltip-scan-effect {
+  0% { transform: scaleY(0); transform-origin: bottom; }
+  50% { transform: scaleY(1); transform-origin: bottom; }
+  50.1% { transform: scaleY(1); transform-origin: top; }
+  100% { transform: scaleY(0); transform-origin: top; }
+}
+
+@keyframes holographic-flicker {
+  0%, 100% { opacity: 1; transform: none; }
+  25% { opacity: 0.7; transform: skewX(-3deg) translateX(-2px); }
+  50% { opacity: 0.9; transform: skewX(3deg) translateX(2px); }
+  75% { opacity: 0.6; transform: skewY(-2deg) translateY(-1px); }
+}
+
+@keyframes holographic-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(0.9) skew(10deg);
+    filter: blur(5px) contrast(2);
+  }
+  20% {
+    opacity: 0.7;
+    transform: translateY(0) scale(1.05) skew(-5deg);
+    filter: blur(2px) contrast(1.5);
+  }
+  80% {
+    opacity: 0.9;
+    transform: translateY(0) scale(1) skew(1deg);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) skew(0deg);
+    filter: blur(0) contrast(1);
+  }
+}
+
 .button-tooltip.button-tooltip-3d {
   position: fixed !important;
   z-index: 99999 !important;
   pointer-events: none !important;
-  background: rgba(10, 10, 10, 0.8) !important; /* Darker, more solid background */
-  backdrop-filter: blur(12px) !important;
-  border: 1px solid var(--color-orange-alpha-40) !important;
+  background: radial-gradient(circle at 50% 50%, rgba(15, 5, 0, 0.9), rgba(0, 0, 0, 0.95)) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid var(--color-orange-alpha-80) !important;
   border-radius: 10px !important;
-  padding: 14px 22px !important;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6),
-    0 0 25px var(--color-orange-alpha-30) !important;
+  padding: 8px 15px !important; /* Reduced Size */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 35px var(--color-orange-alpha-60), inset 0 0 20px rgba(0,0,0,0.6) !important;
   width: auto !important;
   height: auto !important;
   white-space: nowrap !important;
-  /* Smooth transform and opacity for appearance */
-  transform: translateY(10px) scale(0.95) !important;
-  transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1), transform 0.4s cubic-bezier(0.23, 1, 0.32, 1) !important;
+  transition: opacity 0.4s ease !important; /* Only transition opacity for hiding */
+  overflow: hidden;
 }
 
-/* Animate in on hover (when opacity becomes 1) */
 .button-tooltip.button-tooltip-3d[style*="opacity: 1"] {
-  transform: translateY(0) scale(1) !important;
+  animation: holographic-entrance 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards !important;
 }
 
-/* Remove all performance-heavy pseudo-elements and their animations */
-.button-tooltip.button-tooltip-3d::before,
-.button-tooltip.button-tooltip-3d::after,
-.ai-holo-text::before,
-.ai-holo-text::after {
-  content: none !important;
+/* Scanning grid overlay - More prominent orange */
+.button-tooltip.button-tooltip-3d::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image:
+    linear-gradient(var(--color-orange-alpha-20) 1px, transparent 1px),
+    linear-gradient(to right, var(--color-orange-alpha-20) 1px, transparent 1px) !important;
+  background-size: 25px 25px !important;
+  opacity: 0.7 !important;
   animation: none !important;
+  z-index: 0;
 }
 
-/* 🎯 CONTAINER FOR TEXT - SIMPLIFIED */
+/* Vertical scan line effect - More prominent orange */
+.button-tooltip.button-tooltip-3d::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(to right, transparent 0%, var(--color-orange-alpha-50) 50%, transparent 100%) !important;
+  animation: tooltip-scan-effect 2.5s linear infinite !important;
+  animation-delay: 0.5s !important;
+  z-index: 1;
+}
+
 .ai-minimal-container {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2;
 }
 
-/* 🏆 HOLOGRAPHIC TEXT - (OPTIMIZED FOR PERFORMANCE & NEW DESIGN) */
 .ai-holo-text {
   font-family: "Orbitron", "Oxanium", sans-serif;
-  font-size: 15px !important;
-  font-weight: 700 !important;
+  font-size: 12px !important; /* Reduced Size */
+  font-weight: 600 !important;
   letter-spacing: 2px !important;
   text-transform: uppercase;
   position: relative;
-  z-index: 10;
-  /* Clean, bright text style */
-  color: var(--color-white) !important;
-  text-shadow: 0 0 10px var(--color-orange-alpha-80),
-    0 0 20px var(--color-orange-alpha-50);
-  /* Remove all expensive background/clip/filter properties */
+  color: #fff !important;
+  /* More prominent orange glow */
+  text-shadow:
+    0 0 4px #fff,
+    0 0 8px var(--color-orange-primary),
+    0 0 12px var(--color-orange-primary),
+    0 0 18px var(--color-orange-primary),
+    0 0 25px var(--color-orange-alpha-90),
+    0 0 35px var(--color-orange-alpha-80),
+    0 0 50px var(--color-orange-alpha-60) !important;
+  animation: text-glow-subtle 1.8s ease-in-out infinite alternate !important;
   background: none !important;
-  background-clip: unset !important;
-  -webkit-background-clip: unset !important;
-  -webkit-text-fill-color: unset !important;
-  filter: none !important;
-  animation: text-glow-subtle 2.5s ease-in-out infinite alternate !important;
-  transform: none !important;
+  -webkit-text-fill-color: initial !important;
   padding: 0 !important;
   margin: 0 !important;
-  transition: none !important;
 }
 
-/* Subtle glow animation for the new text */
+.ai-holo-text::before,
+.ai-holo-text::after {
+  content: attr(data-text) !important;
+  position: absolute !important;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: -1;
+  background: none !important;
+}
+
+/* Holographic layer 1 - More prominent orange */
+.ai-holo-text::before {
+  color: var(--color-orange-alpha-60) !important;
+  text-shadow: none !important;
+  filter: blur(1.5px);
+  animation: holographic-flicker 4s linear infinite alternate !important;
+  animation-delay: 0.3s !important;
+}
+
+/* Holographic layer 2 (subtle gray/cyan glitch) */
+.ai-holo-text::after {
+  color: rgba(200, 230, 255, 0.3) !important;
+  text-shadow: none !important;
+  filter: blur(2px);
+  animation: holographic-flicker 5s linear infinite alternate-reverse !important;
+  animation-delay: 0.6s !important;
+}
+
 @keyframes text-glow-subtle {
   from {
-    text-shadow: 0 0 8px var(--color-orange-alpha-70),
-      0 0 18px var(--color-orange-alpha-40);
+    text-shadow:
+      0 0 3px #fff,
+      0 0 6px var(--color-orange-primary),
+      0 0 10px var(--color-orange-primary),
+      0 0 15px var(--color-orange-alpha-90),
+      0 0 20px var(--color-orange-alpha-80);
   }
   to {
-    text-shadow: 0 0 12px var(--color-orange-alpha-90),
-      0 0 25px var(--color-orange-alpha-60);
+    text-shadow:
+      0 0 5px #fff,
+      0 0 10px var(--color-orange-primary),
+      0 0 15px var(--color-orange-primary),
+      0 0 22px var(--color-orange-alpha-90),
+      0 0 30px var(--color-orange-alpha-80);
   }
 }
 
