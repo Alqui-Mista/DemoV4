@@ -444,6 +444,12 @@ const Rebecca = memo(() => {
   }, [showHomePage, isActive]);
 
   // 🎯 CONTROL DE INSTRUCCIÓN "CLIC PARA CERRAR" EN VISUALIZADOR
+  // Ref para el estado actual de showCloseInstruction para evitar re-renderizados innecesarios del mousemove
+  const showCloseInstructionRef = useRef(showCloseInstruction);
+  useEffect(() => {
+    showCloseInstructionRef.current = showCloseInstruction;
+  }, [showCloseInstruction]);
+
   useEffect(() => {
     if (showHomePage && isActive) {
       const scrollContainer = document.getElementById(
@@ -457,18 +463,44 @@ const Rebecca = memo(() => {
             scrollContainer.scrollHeight - scrollContainer.clientHeight;
           const scrollPercent = (scrollTop / scrollHeight) * 100;
 
-          console.log(
-            "📊 Scroll del visualizador:",
-            scrollPercent.toFixed(1) + "%"
-          );
+          // console.log(
+          //   "📊 Scroll del visualizador:",
+          //   scrollPercent.toFixed(1) + "%"
+          // );
 
           // Mostrar instrucción al 20% del scroll
-          setShowCloseInstruction(scrollPercent >= 20);
+          const shouldShow = scrollPercent >= 20;
+          // Only update state if the value actually changes
+          if (shouldShow !== showCloseInstruction) {
+            setShowCloseInstruction(shouldShow);
+          }
         };
 
+        scrollContainer.addEventListener("scroll", handleScroll);
+
+        // Verificar scroll inicial
+        handleScroll();
+
+        return () => {
+          scrollContainer.removeEventListener("scroll", handleScroll);
+        };
+      }
+    } else {
+      // Resetear estados cuando se cierra el visualizador
+      setShowCloseInstruction(false);
+    }
+  }, [showHomePage, isActive]); // showCloseInstruction eliminado de las dependencias
+
+  // 🎯 SEPARACIÓN DEL CONTROL DE MOUSEMOVE PARA OPTIMIZACIÓN
+  useEffect(() => {
+    if (showHomePage && isActive) {
+      const scrollContainer = document.getElementById(
+        "homepage-scroll-container"
+      );
+
+      if (scrollContainer) {
         const handleMouseMove = (e: MouseEvent) => {
-          if (showCloseInstruction) {
-            // Usar coordenadas absolutas de la ventana en lugar de relativas al contenedor
+          if (showCloseInstructionRef.current) {
             setMousePosition({
               x: e.clientX,
               y: e.clientY,
@@ -476,22 +508,14 @@ const Rebecca = memo(() => {
           }
         };
 
-        scrollContainer.addEventListener("scroll", handleScroll);
         scrollContainer.addEventListener("mousemove", handleMouseMove);
 
-        // Verificar scroll inicial
-        handleScroll();
-
         return () => {
-          scrollContainer.removeEventListener("scroll", handleScroll);
           scrollContainer.removeEventListener("mousemove", handleMouseMove);
         };
       }
-    } else {
-      // Resetear estados cuando se cierra el visualizador
-      setShowCloseInstruction(false);
     }
-  }, [showHomePage, isActive, showCloseInstruction]);
+  }, [showHomePage, isActive]);
 
   const handleInteractiveClick = () => {
     if (!isActive) {
