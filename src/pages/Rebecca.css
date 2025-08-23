@@ -123,14 +123,15 @@
 /* �🌀 PÁGINA REBECCA - EFECTOS POST-PORTAL */
 html,
 body {
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow-x: hidden !important;
-  line-height: 1 !important;
-  height: 100% !important;
-  /* ✅ ASEGURAR SCROLL AL INICIO: Forzar posición inicial */
-  scroll-behavior: auto !important; /* Desactivar smooth scroll para navegación */
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  line-height: 1;
+  height: 100%;
+  scroll-behavior: auto; /* Desactivar smooth scroll para navegación */
 }
+/* 🔧 CLASES DE UTILIDAD PARA OPTIMIZACIÓN */
+/* ... (rest of the CSS code) ... */
 
 /* 🔧 CLASES DE UTILIDAD PARA OPTIMIZACIÓN */
 .center-absolute {
@@ -140,18 +141,10 @@ body {
   transform: var(--transform-center);
 }
 
-.center-transform {
-  transform: var(--transform-center);
-}
-
 .flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.circle {
-  border-radius: 50%;
 }
 
 /* ✅ FORZAR SCROLL AL INICIO AL CARGAR REBECCA */
@@ -272,47 +265,6 @@ body,
 /* 🎯 CONTAINER DE TEXTO PURO */
 
 /* � ANIMACIONES PARA TEXTO HOLOGRÁFICO HOME 3D */
-@keyframes holoTextAppear {
-  0% {
-    opacity: 0;
-    transform: translateY(5px) scale(0.9);
-    filter: drop-shadow(0 0 2px var(--color-orange-alpha-20));
-  }
-
-  50% {
-    opacity: 0.8;
-    filter: drop-shadow(0 0 6px var(--color-orange-alpha-40));
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: drop-shadow(0 0 8px var(--color-orange-alpha-30));
-  }
-}
-
-@keyframes holoTextFlow {
-  0%,
-  100% {
-    background-position: 0% 50%;
-    filter: drop-shadow(0 0 8px var(--color-orange-alpha-30));
-  }
-
-  25% {
-    background-position: 100% 0%;
-    filter: drop-shadow(0 0 12px var(--color-orange-alpha-50));
-  }
-
-  50% {
-    background-position: 100% 100%;
-    filter: drop-shadow(0 0 10px var(--color-white-alpha-40));
-  }
-
-  75% {
-    background-position: 0% 100%;
-    filter: drop-shadow(0 0 14px var(--color-orange-alpha-60));
-  }
-}
 
 /* �🎯 CURSOR CAD - CRUZ HORIZONTAL Y VERTICAL */
 .rebecca-container .cursor-cross {
@@ -349,10 +301,6 @@ body,
 }
 
 /* 🎯 CURSOR CAD - OCULTO POR EFECTOS ESPECIALES */
-.rebecca-container .cursor-cross.hidden-by-effect {
-  opacity: 0 !important;
-  pointer-events: none;
-}
 
 /* � MATRIZ DE DATOS AWWWARDS-LEVEL CON PALETA INTELIMARK */
 .rebecca-container::before {
@@ -616,47 +564,6 @@ body,
 /* 🚀 SISTEMA REVOLUCIONARIO: EFECTOS DIRECTOS EN LETRAS - CONCEPTO NUEVO AWWWARDS */
 /* � OPTIMIZACIÓN ADAPTATIVA: CALIDAD PREMIUM + PERFORMANCE INTELIGENTE */
 /* 🌟 TÍTULO OPTIMIZADO - EFECTOS DEL MARCO SIN CONTENEDOR */
-.portal-title {
-  font-size: calc(var(--font-size-5xl) * 1.25);
-  font-weight: 700;
-
-  /* 🎯 POSICIONAMIENTO OPTIMIZADO */
-  position: absolute !important;
-  top: 80px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  z-index: 20;
-
-  /* 📐 DISEÑO LIMPIO */
-  text-align: center;
-  white-space: nowrap;
-  margin: 0;
-  letter-spacing: 0.05em;
-
-  /* 🎨 EFECTOS SIMILARES AL MARCO - OPTIMIZADOS */
-  background: linear-gradient(
-    135deg,
-    var(--color-orange-primary) 0%,
-    var(--color-white) 25%,
-    #808080 50%,
-    var(--color-orange-primary) 75%,
-    var(--color-white) 100%
-  );
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  /* ✨ EFECTOS VISUALES SUAVES */
-  text-shadow: 0 0 15px rgba(218, 128, 35, 0.4),
-    0 0 30px rgba(128, 128, 128, 0.2);
-
-  filter: drop-shadow(0 0 8px rgba(218, 128, 35, 0.3)) brightness(1.1);
-
-  /* 🎬 ANIMACIÓN SIMPLE Y FLUIDA */
-  animation: gradient-shift-simple 4s ease-in-out infinite,
-    subtle-glow 3s ease-in-out infinite alternate;
-}
 
 /* OPTIMIZACIÓN ADAPTATIVA SIMPLIFICADA */
 
@@ -886,36 +793,6 @@ body,
 }
 
 /* 🌈 ANIMACIONES */
-@keyframes gradientShift {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.4;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.8;
-  }
-}
 
 /* 🚀 ANIMACIONES FUTURISTAS PARA TÍTULO DE ALTA TECNOLOGÍA */
 
@@ -1024,45 +901,8 @@ body,
 }
 
 /* � ANIMACIÓN PREMIUM DE ESCANEO LÁSER INTELIMARK */
-@keyframes holographic-scan-premium {
-  0% {
-    background-position: -300% 0%;
-    opacity: 0.2;
-    filter: brightness(1) blur(2px);
-  }
-  25% {
-    background-position: -150% 0%;
-    opacity: 0.6;
-    filter: brightness(1.3) blur(1px);
-  }
-  50% {
-    background-position: 0% 0%;
-    opacity: 0.9;
-    filter: brightness(1.5) blur(0px);
-  }
-  75% {
-    background-position: 150% 0%;
-    opacity: 0.6;
-    filter: brightness(1.3) blur(1px);
-  }
-  100% {
-    background-position: 300% 0%;
-    opacity: 0.2;
-    filter: brightness(1) blur(2px);
-  }
-}
 
 /* ⚡ ANIMACIÓN DE INTENSIDAD LÁSER */
-@keyframes laser-intensity-pulse {
-  0% {
-    box-shadow: inset 0 0 15px rgba(218, 128, 35, 0.2),
-      0 0 25px rgba(128, 128, 128, 0.1);
-  }
-  100% {
-    box-shadow: inset 0 0 30px rgba(218, 128, 35, 0.4),
-      0 0 50px rgba(128, 128, 128, 0.2), 0 0 75px rgba(218, 128, 35, 0.1);
-  }
-}
 
 /* 🎭 ANIMACIÓN PREMIUM DE GLITCH DIGITAL SUTIL */
 @keyframes digital-glitch-subtle {
@@ -1354,10 +1194,6 @@ body,
   font-family: "Oxanium", "Arial", sans-serif;
 }
 
-#message-box.show {
-  opacity: 1;
-}
-
 /* �💬 TOOLTIP DEL BOTÓN INTERACTIVO - EFECTO DIGITAL TECNOLÓGICO */
 .button-tooltip {
   position: fixed;
@@ -1535,41 +1371,6 @@ body,
 }
 
 /* 🔮 ANIMACIÓN DE PROCESAMIENTO DIGITAL TIPO MATRIX */
-@keyframes digital-matrix-flow {
-  0% {
-    background-image: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(218, 128, 35, 0.1) 2%,
-        transparent 4%
-      ),
-      linear-gradient(
-        180deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.1) 3%,
-        transparent 6%
-      ),
-      linear-gradient(
-        45deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.2) 1%,
-        transparent 2%
-      );
-    background-position: -100% 0%, 0% -100%, -100% -100%;
-  }
-  25% {
-    background-position: 0% 0%, 0% 0%, 0% 0%;
-  }
-  50% {
-    background-position: 100% 0%, 0% 100%, 100% 100%;
-  }
-  75% {
-    background-position: 200% 0%, 0% 200%, 200% 200%;
-  }
-  100% {
-    background-position: 300% 0%, 0% 300%, 300% 300%;
-  }
-}
 
 /* 🎯 ANIMACIÓN DE PULSO OPTIMIZADA RESPONSIVE */
 @keyframes pulse-optimized {
@@ -1614,128 +1415,6 @@ body,
 }
 
 /* 🎯 TEXTO CON EFECTO DE TIPEO */
-.button-tooltip-text {
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-  border-right: 2px solid var(--color-orange-primary) !important;
-  width: 0;
-  color: var(--color-orange-primary) !important;
-  text-shadow: 0 0 5px var(--color-orange-primary),
-    0 0 10px var(--color-orange-primary), 0 0 15px var(--color-orange-primary);
-
-  /* 🔥 EFECTO GLITCH EN EL TEXTO */
-  position: relative;
-}
-
-/* 🎯 ACTIVAR ANIMACIÓN CUANDO EL TOOLTIP ES VISIBLE */
-.button-tooltip[style*="opacity: 1"] .button-tooltip-text {
-  animation: typewriter 1.5s steps(16) 0.3s forwards, blink 1s infinite 2s;
-}
-
-.button-tooltip-text::before {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 2px;
-  color: var(--color-gray-medium);
-  overflow: hidden;
-  animation: glitchText 0.3s infinite linear alternate-reverse;
-  opacity: 0.8;
-  mix-blend-mode: screen;
-}
-
-.button-tooltip-text::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: -2px;
-  color: var(--color-white);
-  overflow: hidden;
-  animation: glitchText 0.2s infinite linear alternate;
-  opacity: 0.8;
-  mix-blend-mode: screen;
-}
-
-/* 🎯 FORZAR COLORES INTELIMARK EN TOOLTIP HOME 3D - MÁXIMA PRIORIDAD */
-.button-tooltip.button-tooltip-3d .button-tooltip-text {
-  border-right-color: var(--color-orange-primary) !important;
-  color: var(--color-orange-primary) !important;
-}
-
-.button-tooltip.button-tooltip-3d .button-tooltip-text::before {
-  color: var(--color-gray-medium) !important;
-}
-
-.button-tooltip.button-tooltip-3d .button-tooltip-text::after {
-  color: var(--color-white) !important;
-}
-
-@keyframes glitchText {
-  0% {
-    clip: rect(42px, 9999px, 44px, 0);
-  }
-  5% {
-    clip: rect(12px, 9999px, 59px, 0);
-  }
-  10% {
-    clip: rect(48px, 9999px, 29px, 0);
-  }
-  15% {
-    clip: rect(42px, 9999px, 73px, 0);
-  }
-  20% {
-    clip: rect(63px, 9999px, 27px, 0);
-  }
-  25% {
-    clip: rect(34px, 9999px, 55px, 0);
-  }
-  30% {
-    clip: rect(86px, 9999px, 73px, 0);
-  }
-  35% {
-    clip: rect(20px, 9999px, 20px, 0);
-  }
-  40% {
-    clip: rect(26px, 9999px, 60px, 0);
-  }
-  45% {
-    clip: rect(25px, 9999px, 26px, 0);
-  }
-  50% {
-    clip: rect(57px, 9999px, 57px, 0);
-  }
-  55% {
-    clip: rect(87px, 9999px, 26px, 0);
-  }
-  60% {
-    clip: rect(84px, 9999px, 56px, 0);
-  }
-  65% {
-    clip: rect(72px, 9999px, 85px, 0);
-  }
-  70% {
-    clip: rect(41px, 9999px, 63px, 0);
-  }
-  75% {
-    clip: rect(36px, 9999px, 15px, 0);
-  }
-  80% {
-    clip: rect(68px, 9999px, 40px, 0);
-  }
-  85% {
-    clip: rect(14px, 9999px, 75px, 0);
-  }
-  90% {
-    clip: rect(71px, 9999px, 39px, 0);
-  }
-  95% {
-    clip: rect(34px, 9999px, 54px, 0);
-  }
-  100% {
-    clip: rect(25px, 9999px, 65px, 0);
-  }
-}
 
 /* 🎯 Efectos hover para el botón cuando no está activo */
 #interactive-container:not(.active):hover {
@@ -1768,25 +1447,12 @@ body,
   }
 
   /* 🎯 CÍRCULO DE RESPLANDOR EN TABLET */
-  #interactive-container::before {
-    width: 40px; /* 🎯 CÍRCULO PEQUEÑO PARA TABLET */
-    height: 40px; /* 🎯 CÍRCULO PEQUEÑO PARA TABLET */
-  }
-
-  /* 🎯 ROMBO EN TABLET */
-  #interactive-container::after {
-    width: 60px; /* 🎯 ROMBO MÁS GRANDE QUE EL CÍRCULO */
-    height: 60px; /* 🎯 ROMBO MÁS GRANDE QUE EL CÍRCULO */
-  }
+  /* variantes responsive de pseudo-elementos movidas a Rebecca.legacy.css */
 
   /* 🎯 TOOLTIP DIGITAL RESPONSIVE PARA TABLET */
   .button-tooltip {
     font-size: 0.85rem;
     padding: 9px 13px;
-  }
-
-  .button-tooltip-text {
-    animation: typewriter 1.3s steps(14) 0.8s forwards, blink 1s infinite;
   }
 }
 
@@ -1804,16 +1470,7 @@ body,
   }
 
   /* 🎯 CÍRCULO DE RESPLANDOR EN MÓVIL */
-  #interactive-container::before {
-    width: 35px; /* 🎯 CÍRCULO PEQUEÑO PARA MÓVIL */
-    height: 35px; /* 🎯 CÍRCULO PEQUEÑO PARA MÓVIL */
-  }
-
-  /* 🎯 ROMBO EN MÓVIL */
-  #interactive-container::after {
-    width: 50px; /* 🎯 ROMBO MÁS GRANDE QUE EL CÍRCULO */
-    height: 50px; /* 🎯 ROMBO MÁS GRANDE QUE EL CÍRCULO */
-  }
+  /* variantes responsive de pseudo-elementos movidas a Rebecca.legacy.css */
 
   #message-box {
     font-size: 0.9rem;
@@ -1824,10 +1481,6 @@ body,
   .button-tooltip {
     font-size: 0.8rem;
     padding: 8px 12px;
-  }
-
-  .button-tooltip-text {
-    animation: typewriter 1.2s steps(12) 0.6s forwards, blink 1.2s infinite;
   }
 }
 
@@ -2081,65 +1734,6 @@ body,
       20px 10px, 10px 20px;
     opacity: 0.6;
   }
-}
-
-/* PSEUDO-ELEMENTOS COMPLETAMENTE ANULADOS CON MÁXIMA ESPECIFICIDAD */
-html body div .button-tooltip.button-tooltip-3d::before,
-html body .button-tooltip.button-tooltip-3d::before,
-body .button-tooltip.button-tooltip-3d::before,
-.button-tooltip.button-tooltip-3d::before {
-  display: none !important;
-  content: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  width: 0 !important;
-  height: 0 !important;
-  background: none !important;
-  background-image: none !important;
-  background-color: transparent !important;
-  border: none !important;
-  animation: none !important;
-  animation-name: none !important;
-  animation-duration: 0s !important;
-  transform: none !important;
-  filter: none !important;
-  box-shadow: none !important;
-}
-
-html body div .button-tooltip.button-tooltip-3d::after,
-html body .button-tooltip.button-tooltip-3d::after,
-body .button-tooltip.button-tooltip-3d::after,
-.button-tooltip.button-tooltip-3d::after {
-  display: none !important;
-  content: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  width: 0 !important;
-  height: 0 !important;
-  background: none !important;
-  background-image: none !important;
-  background-color: transparent !important;
-  border: none !important;
-  animation: none !important;
-  animation-name: none !important;
-  animation-duration: 0s !important;
-  transform: none !important;
-  filter: none !important;
-  box-shadow: none !important;
-}
-
-/* LÍNEA DE ESCANEO COMPLETAMENTE ELIMINADA */
-.button-tooltip.button-tooltip-3d::before {
-  display: none !important;
-  content: none !important;
-  visibility: hidden !important;
-}
-
-/* Efecto de interferencia digital - COMPLETAMENTE ELIMINADO */
-.button-tooltip.button-tooltip-3d::after {
-  display: none !important;
-  content: none !important;
-  visibility: hidden !important;
 }
 
 /* 🎯 CONTAINER MATRIX COMPACTO - TEXTO PERFECTAMENTE CENTRADO */
@@ -2732,11 +2326,7 @@ section {
 .cta-button-wrapper.hover-active .electrical-interference {
   animation-duration: 4s; /* Interferencia más rápida */
 }
-
-.cta-button-wrapper:hover .digital-glitch-overlay,
-.cta-button-wrapper.hover-active .digital-glitch-overlay {
-  animation-duration: 5s; /* Glitch más intenso */
-}
+/* ... (rest of the CSS code) ... */
 
 /* 🎯 ESTADO ACTIVE */
 .cta-button-wrapper:active {
@@ -3452,31 +3042,7 @@ section {
   transform: scale(1.05);
 }
 
-.contact-info {
-  text-align: right;
-  max-width: 500px; /* Añadido max-width para mejor control */
-  align-self: center; /* Centrado verticalmente */
-  padding-left: 20px; /* Pequeño padding para separación */
-  transform: translateY(50px); /* 🎯 MOVER 50px HACIA ABAJO */
-}
-
-.contact-info h4 {
-  font-size: 0.9rem;
-  color: rgba(0, 0, 0, 0.6);
-  margin-bottom: 20px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.contact-info p {
-  font-size: 1.1rem;
-  color: rgba(0, 0, 0, 0.7);
-  margin: 8px 0;
-  padding: 0;
-  border: none;
-  font-weight: 500;
-}
+/* .contact-info variant moved to Rebecca.legacy.css */
 
 /* 🤖 BOTÓN MATRIX AI - INTERFAZ HOLOGRÁFICA FUTURISTA */
 .ai-matrix-button {
@@ -3757,24 +3323,6 @@ section {
 }
 
 /* 🚫 OCULTAR COMPLETAMENTE ELEMENTOS ANTIGUOS DE ENERGÍA Y NEURALES */
-.energy-field,
-.energy-particle,
-.neuron,
-.neural-network,
-.neural-connection,
-.ai-core,
-.ai-brain-icon,
-.ai-matrix-button .energy-field,
-.ai-matrix-button .energy-particle,
-.ai-matrix-button .neuron,
-.ai-matrix-button .neural-network,
-.ai-matrix-button .neural-connection,
-.ai-matrix-button .ai-core,
-.ai-matrix-button .ai-brain-icon {
-  display: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-}
 
 /* 🏹 TRIÁNGULO GEOMÉTRICO COMPLEJO CON LÍNEAS MÚLTIPLES Y TEXTURAS HD */
 .data-matrix.arrow-shape .data-stream {
@@ -5115,14 +4663,7 @@ section {
       transform: translateY(50px); /* 🎯 MANTENER MOVIMIENTO 50px HACIA ABAJO */
     }
 
-    .contact-info {
-      order: 3;
-      text-align: center;
-      max-width: 100%;
-      padding: 0 0 40px 0; /* 🎯 PADDING BOTTOM PARA SEPARAR DE CRÉDITOS */
-      margin: 15px 0;
-      transform: translateY(50px); /* 🎯 MANTENER MOVIMIENTO 50px HACIA ABAJO */
-    }
+    /* .contact-info variant moved to Rebecca.legacy.css */
 
     /* 🎯 BOTÓN "VOLVER AL INICIO" AL FINAL EN TABLETS */
     .ai-matrix-button {
@@ -5185,19 +4726,7 @@ section {
     margin-top: clamp(20px, 5vh, 40px) !important;
   }
 
-  /* 🎯 CONTACT-INFO COMPLETAMENTE REDISEÑADO PARA MÓVILES */
-  .contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 20px 0;
-  }
-
-  .contact-info h4 {
-    font-size: 1rem;
-    margin-bottom: 20px;
-    color: rgba(0, 0, 0, 0.7);
-  }
+  /* .contact-info mobile variant moved to Rebecca.legacy.css */
 
   .contact-item {
     padding: 12px 16px;
@@ -5501,15 +5030,7 @@ section {
     transform: translateY(50px); /* 🎯 MANTENER MOVIMIENTO 50px HACIA ABAJO */
   }
 
-  .contact-info {
-    order: 3; /* Contacto tercero */
-    text-align: center;
-    max-width: 100%;
-    padding: 0 0 40px 0; /* 🎯 PADDING BOTTOM PARA SEPARAR DE CRÉDITOS */
-    width: 100%;
-    margin: 20px 0; /* Espacio arriba y abajo */
-    transform: translateY(50px); /* 🎯 MANTENER MOVIMIENTO 50px HACIA ABAJO */
-  }
+  /* .contact-info footer variant moved to Rebecca.legacy.css */
 
   /* 🎯 BOTÓN "VOLVER AL INICIO" COMO ELEMENTO INDEPENDIENTE AL FINAL */
   .ai-matrix-button {
@@ -5622,18 +5143,7 @@ section {
   }
 
   /* 🎯 CONTACT-INFO COMPLETAMENTE REDISEÑADO PARA MÓVILES */
-  .contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 20px 0;
-  }
-
-  .contact-info h4 {
-    font-size: 1rem;
-    margin-bottom: 20px;
-    color: rgba(0, 0, 0, 0.7);
-  }
+  /* .contact-info mobile variant moved to Rebecca.legacy.css */
 
   .contact-item {
     padding: 12px 16px;
@@ -7474,15 +6984,7 @@ section {
     left: 15px;
   }
 
-  #interactive-container::before {
-    width: clamp(80px, 20vw, 100px);
-    height: clamp(80px, 20vw, 100px);
-  }
-
-  #interactive-container::after {
-    width: clamp(45px, 12vw, 60px);
-    height: clamp(45px, 12vw, 60px);
-  }
+  /* responsive size variants for #interactive-container pseudo-elements moved to Rebecca.legacy.css */
 
   /* Message box */
   #message-box {
