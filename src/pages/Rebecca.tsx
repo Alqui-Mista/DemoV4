@@ -683,6 +683,11 @@ const Rebecca = memo(() => {
         >
           <div className="glow-ring"></div>
           <div className="pulse-ring"></div>
+          <div className="rotating-ring-outer"></div>
+          <div className="rotating-ring-inner"></div>
+          <div className="particle-ring"></div>
+          <div className="energy-pulse"></div>
+          <div className="wave-effect"></div>
         </div>
         <div
           ref={tooltipRef}
