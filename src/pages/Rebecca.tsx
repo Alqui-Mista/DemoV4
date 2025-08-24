@@ -19,6 +19,7 @@ const Rebecca = memo(() => {
   const [ctaScrollPercent, setCtaScrollPercent] = useState(0); // 0 a 1
   const [isCtaButtonVisible, setIsCtaButtonVisible] = useState(false); // Control de fade-in tecnológico
   const [isCtaTextVisible, setIsCtaTextVisible] = useState(false); // Control de texto
+  const [isTypewriterActive, setIsTypewriterActive] = useState(false); // 🎯 NUEVO: Control del typewriter
 
   // 🌟 MAGNETIC TEXT GLOW EFFECT - Referencias para el efecto magnético
   const magneticRefs = useRef<(HTMLSpanElement | null)[]>([]);
@@ -125,6 +126,30 @@ const Rebecca = memo(() => {
         entries.forEach((entry) => {
           setCtaScrollPercent(entry.intersectionRatio);
 
+          // 🎯 CONTROL DEL TYPEWRITER (90% visible para debug)
+          if (entry.intersectionRatio >= 0.9 && !isTypewriterActive) {
+            console.log(
+              "🎯 Activando typewriter - CTA 90% visible (debug)",
+              entry.intersectionRatio
+            );
+            setIsTypewriterActive(true);
+            // Activar clases CSS para el typewriter
+            const line1 = document.querySelector(
+              ".subtitle-line-1.typewriter-line"
+            );
+            const line2 = document.querySelector(
+              ".subtitle-line-2.typewriter-line"
+            );
+            if (line1) {
+              line1.classList.add("typewriter-active");
+              console.log("✅ Clase typewriter-active agregada a línea 1");
+            }
+            if (line2) {
+              line2.classList.add("typewriter-active");
+              console.log("✅ Clase typewriter-active agregada a línea 2");
+            }
+          }
+
           // 🎯 CONTROL ELEGANTE DE FADE-IN DEL BOTÓN CTA (95% visible)
           if (entry.intersectionRatio >= 0.95) {
             setIsCtaButtonVisible(true);
@@ -136,6 +161,18 @@ const Rebecca = memo(() => {
             // Desvanecimiento elegante al salir
             setIsCtaButtonVisible(false);
             setIsCtaTextVisible(false);
+            // 🎯 RESETEAR TYPEWRITER cuando se sale de la vista
+            if (entry.intersectionRatio < 0.1 && isTypewriterActive) {
+              setIsTypewriterActive(false);
+              const line1 = document.querySelector(
+                ".subtitle-line-1.typewriter-line"
+              );
+              const line2 = document.querySelector(
+                ".subtitle-line-2.typewriter-line"
+              );
+              if (line1) line1.classList.remove("typewriter-active");
+              if (line2) line2.classList.remove("typewriter-active");
+            }
           }
 
           // Activar/desactivar lluvia de códigos según visibilidad
@@ -157,6 +194,35 @@ const Rebecca = memo(() => {
       if (ctaSectionRef.current) {
         observer.unobserve(ctaSectionRef.current);
       }
+    };
+  }, [isTypewriterActive]); // 🎯 AGREGADO: Dependencia del estado typewriter
+
+  // 🎯 NUEVO: Listener para redimensionamiento de ventana para mejorar responsividad
+  useEffect(() => {
+    const handleResize = () => {
+      // Forzar recálculo de estilos del subtítulo para mejor adaptabilidad
+      const lines = document.querySelectorAll(
+        ".subtitle-line-1, .subtitle-line-2"
+      );
+      lines.forEach((line) => {
+        const element = line as HTMLElement;
+        // Forzar reflow para recalcular dimensiones responsive
+        element.style.display = "none";
+        element.offsetHeight; // Trigger reflow
+        element.style.display = "block";
+      });
+    };
+
+    let resizeTimeout: number;
+    const debouncedResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(handleResize, 250); // Debounce para performance
+    };
+
+    window.addEventListener("resize", debouncedResize);
+    return () => {
+      window.removeEventListener("resize", debouncedResize);
+      clearTimeout(resizeTimeout);
     };
   }, []);
   const containerRef = useRef<HTMLDivElement>(null!);
@@ -400,7 +466,7 @@ const Rebecca = memo(() => {
     };
   }, [isHovering, isHoveringButton]);
 
-  // 🎯 CONTROL DE SCROLL LIMITADO EN VISUALIZADOR HOME 3D
+  // 🎯 CONTROL UNIFICADO DE SCROLL EN VISUALIZADOR HOME 3D
   useEffect(() => {
     if (showHomePage && isActive) {
       const scrollContainer = document.getElementById(
@@ -412,20 +478,50 @@ const Rebecca = memo(() => {
         scrollContainer.scrollTop = 0;
         scrollContainer.scrollLeft = 0;
 
-        // 🎯 LIMITADOR DE SCROLL: Permitir llegar hasta la frase específica
-        const handleScroll = (e: Event) => {
-          const container = e.target as HTMLElement;
-          const maxScroll = container.scrollHeight * 0.55; // Aumentado de 0.4 a 0.55 para alcanzar la frase
+        let ticking = false; // 🎯 THROTTLING: Prevenir múltiples llamadas por frame
 
-          if (container.scrollTop > maxScroll) {
-            container.scrollTop = maxScroll;
+        // 🎯 HANDLER UNIFICADO: Maneja tanto el límite de scroll como las instrucciones
+        const handleUnifiedScroll = (e: Event) => {
+          if (!ticking) {
+            requestAnimationFrame(() => {
+              const container = e.target as HTMLElement;
+
+              // 🎯 PARTE 1: LIMITADOR DE SCROLL (55% del contenido total)
+              const maxScroll = container.scrollHeight * 0.55;
+              if (container.scrollTop > maxScroll) {
+                container.scrollTop = maxScroll;
+              }
+
+              // 🎯 PARTE 2: CONTROL DE INSTRUCCIONES "CLIC PARA CERRAR"
+              const scrollTop = container.scrollTop;
+              const scrollHeight =
+                container.scrollHeight - container.clientHeight;
+              const scrollPercent = (scrollTop / scrollHeight) * 100;
+
+              // Mostrar instrucción al 20% del scroll
+              const shouldShow = scrollPercent >= 20;
+              if (shouldShow !== showCloseInstruction) {
+                setShowCloseInstruction(shouldShow);
+              }
+
+              ticking = false; // 🎯 RESET: Permitir próxima actualización
+            });
+            ticking = true; // 🎯 LOCK: Prevenir múltiples RAF hasta completar
           }
         };
 
-        // 🎯 PREVENIR SCROLL EXCESIVO
-        scrollContainer.addEventListener("scroll", handleScroll, {
+        // 🎯 UN SOLO EVENT LISTENER con passive: false para poder modificar scrollTop
+        scrollContainer.addEventListener("scroll", handleUnifiedScroll, {
           passive: false,
         });
+
+        // 🎯 VERIFICAR ESTADO INICIAL
+        const initialEvent = new Event("scroll");
+        Object.defineProperty(initialEvent, "target", {
+          value: scrollContainer,
+          enumerable: true,
+        });
+        handleUnifiedScroll(initialEvent);
 
         // 🎯 FORZAR RECÁLCULO DESPUÉS DEL MONTAJE
         const timeoutId = setTimeout(() => {
@@ -437,59 +533,20 @@ const Rebecca = memo(() => {
 
         return () => {
           clearTimeout(timeoutId);
-          scrollContainer.removeEventListener("scroll", handleScroll);
-        };
-      }
-    }
-  }, [showHomePage, isActive]);
-
-  // 🎯 CONTROL DE INSTRUCCIÓN "CLIC PARA CERRAR" EN VISUALIZADOR
-  // Ref para el estado actual de showCloseInstruction para evitar re-renderizados innecesarios del mousemove
-  const showCloseInstructionRef = useRef(showCloseInstruction);
-  useEffect(() => {
-    showCloseInstructionRef.current = showCloseInstruction;
-  }, [showCloseInstruction]);
-
-  useEffect(() => {
-    if (showHomePage && isActive) {
-      const scrollContainer = document.getElementById(
-        "homepage-scroll-container"
-      );
-
-      if (scrollContainer) {
-        const handleScroll = () => {
-          const scrollTop = scrollContainer.scrollTop;
-          const scrollHeight =
-            scrollContainer.scrollHeight - scrollContainer.clientHeight;
-          const scrollPercent = (scrollTop / scrollHeight) * 100;
-
-          // console.log(
-          //   "📊 Scroll del visualizador:",
-          //   scrollPercent.toFixed(1) + "%"
-          // );
-
-          // Mostrar instrucción al 20% del scroll
-          const shouldShow = scrollPercent >= 20;
-          // Only update state if the value actually changes
-          if (shouldShow !== showCloseInstruction) {
-            setShowCloseInstruction(shouldShow);
-          }
-        };
-
-        scrollContainer.addEventListener("scroll", handleScroll);
-
-        // Verificar scroll inicial
-        handleScroll();
-
-        return () => {
-          scrollContainer.removeEventListener("scroll", handleScroll);
+          scrollContainer.removeEventListener("scroll", handleUnifiedScroll);
         };
       }
     } else {
       // Resetear estados cuando se cierra el visualizador
       setShowCloseInstruction(false);
     }
-  }, [showHomePage, isActive]); // showCloseInstruction eliminado de las dependencias
+  }, [showHomePage, isActive, showCloseInstruction]);
+
+  // 🎯 REF PARA EL ESTADO ACTUAL DE showCloseInstruction (para mousemove)
+  const showCloseInstructionRef = useRef(showCloseInstruction);
+  useEffect(() => {
+    showCloseInstructionRef.current = showCloseInstruction;
+  }, [showCloseInstruction]);
 
   // 🎯 SEPARACIÓN DEL CONTROL DE MOUSEMOVE PARA OPTIMIZACIÓN
   useEffect(() => {
@@ -499,16 +556,26 @@ const Rebecca = memo(() => {
       );
 
       if (scrollContainer) {
+        let lastUpdateTime = 0;
+        const throttleDelay = 16; // 🎯 THROTTLING: Máximo 60fps
+
         const handleMouseMove = (e: MouseEvent) => {
-          if (showCloseInstructionRef.current) {
+          const now = Date.now();
+          if (
+            now - lastUpdateTime >= throttleDelay &&
+            showCloseInstructionRef.current
+          ) {
             setMousePosition({
               x: e.clientX,
               y: e.clientY,
             });
+            lastUpdateTime = now;
           }
         };
 
-        scrollContainer.addEventListener("mousemove", handleMouseMove);
+        scrollContainer.addEventListener("mousemove", handleMouseMove, {
+          passive: true,
+        });
 
         return () => {
           scrollContainer.removeEventListener("mousemove", handleMouseMove);
@@ -625,7 +692,7 @@ const Rebecca = memo(() => {
                 <HomePage
                   scrollContainer="homepage-scroll-container"
                   isEmbedded={true}
-                  maxScrollPercentage={60} // Aumentado de 45 a 60 para llegar a la frase específica
+                  maxScrollPercentage={55} // 🎯 ALINEADO: Coincide con el límite de scroll del contenedor (55%)
                 />
               </div>
 

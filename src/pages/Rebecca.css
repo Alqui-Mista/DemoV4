@@ -2351,19 +2351,23 @@ section {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
   font-weight: 400;
-  font-size: clamp(0.95rem, 1.9vw, 1.35rem);
+  font-size: clamp(
+    0.9rem,
+    1.8vw,
+    1.3rem
+  ); /* 🎯 MEJORADO: Mejor escalado responsive */
   color: #ffffff;
   letter-spacing: clamp(-0.02em, -0.01em, 0em);
   line-height: clamp(0.9, 1vw, 0.95);
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
-  opacity: 0;
+  opacity: 1; /* 🔥 CORREGIDO: Visible por defecto, el efecto typewriter controla width */
   white-space: nowrap;
   overflow: hidden;
   border-right: 2px solid #ffffff;
   width: 0;
   text-align: center;
   margin: 0 auto;
-  max-width: 95vw;
+  max-width: 90vw; /* 🎯 MEJORADO: Límite más estricto para evitar desbordamiento */
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -2515,18 +2519,32 @@ section {
   }
 }
 
-/* �🎯 EFECTO TYPEWRITER SINCRONIZADO - LÍNEA 1 */
+/* 🎯 EFECTO TYPEWRITER SINCRONIZADO - LÍNEA 1 */
 .cta-subtitle .subtitle-line-1.typewriter-line {
-  animation: typewriterReveal 3.5s steps(53) 3s forwards,
-    /* 🎯 Escribir texto */ fadeInTypewriter 0.5s ease-out 3s forwards,
-    /* 🎯 Aparecer */ blinkCursorLine1 7.5s ease-in-out 3s forwards; /* 🎯 CORREGIDO: Cursor que se detiene */
+  /* 🎯 SIN ANIMACIÓN AUTOMÁTICA - Se activa por JavaScript */
+  width: 0; /* Oculto inicialmente por width */
+  opacity: 1; /* Visible para el cursor */
+}
+
+/* 🎯 EFECTO TYPEWRITER ACTIVADO - LÍNEA 1 */
+.cta-subtitle .subtitle-line-1.typewriter-line.typewriter-active {
+  animation: typewriterReveal 3.5s steps(53) 0s forwards,
+    /* 🎯 Escribir texto inmediatamente */ blinkCursorLine1 7.5s ease-in-out 0s
+      forwards; /* 🎯 Cursor que se detiene */
 }
 
 /* 🎯 EFECTO TYPEWRITER SINCRONIZADO - LÍNEA 2 */
 .cta-subtitle .subtitle-line-2.typewriter-line {
-  animation: typewriterReveal 4s steps(61) 7s forwards,
-    /* 🎯 Escribir texto */ fadeInTypewriter 0.5s ease-out 7s forwards,
-    /* 🎯 Aparecer */ blinkCursorLine2 8s ease-in-out 7s forwards; /* 🎯 CORREGIDO: Cursor que se detiene */
+  /* 🎯 SIN ANIMACIÓN AUTOMÁTICA - Se activa por JavaScript */
+  width: 0; /* Oculto inicialmente por width */
+  opacity: 1; /* Visible para el cursor */
+}
+
+/* 🎯 EFECTO TYPEWRITER ACTIVADO - LÍNEA 2 */
+.cta-subtitle .subtitle-line-2.typewriter-line.typewriter-active {
+  animation: typewriterReveal 4s steps(61) 4s forwards,
+    /* 🎯 Escribir texto después de línea 1 */ blinkCursorLine2 8s ease-in-out
+      4s forwards; /* 🎯 Cursor que se detiene */
 }
 
 /* 🎯 ANIMACIÓN TYPEWRITER - REVELAR TEXTO */
@@ -2646,16 +2664,26 @@ section {
 
   /* 🎯 TYPEWRITER RESPONSIVO - LÍNEA 1 */
   .cta-subtitle .subtitle-line-1.typewriter-line {
-    animation: typewriterReveal 3s steps(53) 2.5s forwards,
-      /* 🎯 Más rápido en móvil */ fadeInTypewriter 0.3s ease-out 2.5s forwards,
-      blinkCursorMobileLine1 6s ease-in-out 2.5s forwards; /* 🎯 CORREGIDO: Cursor que se detiene en móvil */
+    width: 0; /* Estado inicial */
+    opacity: 1; /* Visible para cursor */
+  }
+
+  .cta-subtitle .subtitle-line-1.typewriter-line.typewriter-active {
+    animation: typewriterReveal 3s steps(53) 0s forwards,
+      /* 🎯 Más rápido en móvil */ blinkCursorMobileLine1 6s ease-in-out 0s
+        forwards; /* 🎯 Cursor que se detiene en móvil */
   }
 
   /* 🎯 TYPEWRITER RESPONSIVO - LÍNEA 2 */
   .cta-subtitle .subtitle-line-2.typewriter-line {
-    animation: typewriterReveal 3.5s steps(61) 6s forwards,
-      /* 🎯 Más rápido en móvil */ fadeInTypewriter 0.3s ease-out 6s forwards,
-      blinkCursorMobileLine2 7s ease-in-out 6s forwards; /* 🎯 CORREGIDO: Cursor que se detiene en móvil */
+    width: 0; /* Estado inicial */
+    opacity: 1; /* Visible para cursor */
+  }
+
+  .cta-subtitle .subtitle-line-2.typewriter-line.typewriter-active {
+    animation: typewriterReveal 3.5s steps(61) 3.5s forwards,
+      /* 🎯 Más rápido en móvil */ blinkCursorMobileLine2 7s ease-in-out 3.5s
+        forwards; /* 🎯 Cursor que se detiene en móvil */
   }
 }
 
@@ -2726,15 +2754,49 @@ section {
 
   /* 🎯 TYPEWRITER MUY RÁPIDO PARA PANTALLAS PEQUEÑAS */
   .cta-subtitle .subtitle-line-1.typewriter-line {
-    animation: typewriterReveal 2.5s steps(53) 2s forwards,
-      fadeInTypewriter 0.2s ease-out 2s forwards,
-      blinkCursorSmallLine1 5s ease-in-out 2s forwards; /* 🎯 CORREGIDO: Cursor que se detiene */
+    width: 0; /* Estado inicial */
+    opacity: 1; /* Visible para cursor */
+  }
+
+  .cta-subtitle .subtitle-line-1.typewriter-line.typewriter-active {
+    animation: typewriterReveal 2.5s steps(53) 0s forwards,
+      blinkCursorSmallLine1 5s ease-in-out 0s forwards; /* 🎯 Cursor que se detiene */
   }
 
   .cta-subtitle .subtitle-line-2.typewriter-line {
-    animation: typewriterReveal 3s steps(61) 5s forwards,
-      fadeInTypewriter 0.2s ease-out 5s forwards,
-      blinkCursorSmallLine2 6s ease-in-out 5s forwards; /* 🎯 CORREGIDO: Cursor que se detiene */
+    width: 0; /* Estado inicial */
+    opacity: 1; /* Visible para cursor */
+  }
+
+  .cta-subtitle .subtitle-line-2.typewriter-line.typewriter-active {
+    animation: typewriterReveal 3s steps(61) 3s forwards,
+      blinkCursorSmallLine2 6s ease-in-out 3s forwards; /* 🎯 Cursor que se detiene */
+  }
+}
+
+/* 🖥️ RESPONSIVE EXTRA - PANTALLAS MEDIANAS Y GRANDES */
+@media (min-width: 769px) and (max-width: 1440px) {
+  .cta-subtitle .subtitle-line-1,
+  .cta-subtitle .subtitle-line-2 {
+    font-size: clamp(
+      1rem,
+      1.5vw,
+      1.2rem
+    ); /* 🎯 NUEVO: Mejor escalado para pantallas medianas */
+    max-width: 85vw; /* 🎯 NUEVO: Límite optimizado */
+  }
+}
+
+/* 🖥️ RESPONSIVE EXTRA - PANTALLAS MUY GRANDES */
+@media (min-width: 1441px) {
+  .cta-subtitle .subtitle-line-1,
+  .cta-subtitle .subtitle-line-2 {
+    font-size: clamp(
+      1.1rem,
+      1.2vw,
+      1.3rem
+    ); /* 🎯 NUEVO: Tamaño fijo para pantallas grandes */
+    max-width: 80vw; /* 🎯 NUEVO: Límite conservador */
   }
 }
 

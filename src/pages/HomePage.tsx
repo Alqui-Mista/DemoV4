@@ -913,7 +913,6 @@ const HomePage: FC<HomePageProps> = ({
           invalidateOnRefresh: true,
           refreshPriority: -1,
           scroller: scrollContainer ? `#${scrollContainer}` : window,
-          passive: true,
           onUpdate: (self) => {
             const progress = Math.round(self.progress * 100);
 
@@ -941,7 +940,6 @@ const HomePage: FC<HomePageProps> = ({
           start: "top top",
           end: "bottom bottom",
           scroller: scrollContainer ? `#${scrollContainer}` : window,
-          passive: true,
           onUpdate: (self) => {
             const progress = self.progress * 100;
 
@@ -979,7 +977,6 @@ const HomePage: FC<HomePageProps> = ({
           start: "top top",
           end: "bottom bottom",
           scroller: scrollContainer ? `#${scrollContainer}` : window,
-          passive: true,
           onUpdate: (self) => {
             const progress = self.progress * 100;
 

@@ -264,8 +264,7 @@ function RobotModel({
         baseRotationY += mouseRotationY;
 
         // Rotación vertical basada en posición Y del mouse (máximo ±20 grados)
-        // CORREGIDO: Cambiado el signo para que sea natural (mouse abajo = cabeza abajo)
-        const mouseRotationX = mousePosition.y * 0.35; // Removido el signo negativo
+        const mouseRotationX = mousePosition.y * 0.35;
         meshRef.current.rotation.x = rotation[0] + mouseRotationX;
       } else {
         // Volver a la posición neutral cuando el mouse sale
@@ -461,17 +460,8 @@ const Robot3D: React.FC<Robot3DProps> = ({
       // Normalizar el scroll entre -1 y 1
       const normalizedScroll = (scrollY / Math.max(maxScroll, 1)) * 2 - 1;
 
-      // Convertir a rotación (90 grados = ~1.57 radianes) - MUCHO MÁS VISIBLE
+      // Convertir a rotación (90 grados = ~1.57 radianes)
       const rotationAngle = normalizedScroll * 1.57;
-
-      console.log(
-        "Scroll Y:",
-        scrollY,
-        "Normalized:",
-        normalizedScroll,
-        "Rotation:",
-        rotationAngle
-      );
 
       setScrollRotation(rotationAngle);
     };
@@ -494,7 +484,11 @@ const Robot3D: React.FC<Robot3DProps> = ({
             borderRadius: "10px",
           }}
           shadows // Activa sombras
-          gl={{ antialias: true }} // Activa antialiasing
+          gl={{
+            antialias: true, // 🎯 RESTAURADO: Antialiasing para mejor calidad visual
+            alpha: true,
+            powerPreference: "high-performance", // 🎯 RESTAURADO: GPU dedicada para mejor rendimiento
+          }}
           onError={(error: unknown) => {
             console.error("🤖 Canvas Error:", error);
           }}
@@ -525,13 +519,13 @@ const Robot3D: React.FC<Robot3DProps> = ({
               rotation={[0, 0, 0]}
               scrollRotation={scrollRotation}
             />
-            {/* Controles de órbita para interacción con mouse - SIN ZOOM */}
+            {/* Controles de órbita - SIN ZOOM */}
             <OrbitControls
               enableZoom={false}
               enablePan={false}
               enableRotate={true}
               autoRotate={false}
-              dampingFactor={0.1}
+              dampingFactor={0.1} // 🎯 RESTAURADO: Valor original para mejor respuesta
               enableDamping={true}
               minPolarAngle={0}
               maxPolarAngle={Math.PI}
