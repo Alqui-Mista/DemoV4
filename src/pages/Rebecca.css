@@ -1207,118 +1207,125 @@ body,
 }
 
 /* 🚀 ESTILOS DEL BOTÓN INTERACTIVO 3D */
+/* ===============================================
+   🚀 VISUALIZADOR HOME 3D - SECCIÓN COMPLETA
+   =============================================== */
+
+/* 🎯 CONTENEDOR PRINCIPAL DEL VISUALIZADOR */
 #interactive-container {
-  position: absolute; /* Cambiado de fixed a absolute */
-  top: 30px; /* Posición relativa a la sección principal */
-  left: 30px; /* Posición relativa a la sección principal */
-  width: 70px; /* 🎯 TAMAÑO PARA ACOMODAR EL ROMBO COMPLETO */
-  height: 70px; /* 🎯 TAMAÑO PARA ACOMODAR EL ROMBO COMPLETO */
-  background: transparent; /* 🎯 FONDO TRANSPARENTE */
-  transition: width 2.5s ease-in-out, height 2.5s ease-in-out,
-    background 2.5s ease-in-out, top 2.5s ease-in-out, left 2.5s ease-in-out,
-    transform 0.3s ease, filter 0.3s ease;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  width: 70px;
+  height: 70px;
+  background: transparent;
+  /* 🔹 FORMA INICIAL: Rombo usando clip-path */
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  /* 🔹 TRANSICIONES COORDINADAS */
+  transition: width 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    height 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    top 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    left 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    clip-path 1.8s ease-in-out 0.7s, background 1.5s ease-in-out 1s;
   z-index: 1000;
-  /* 🎯 SIN BORDER-RADIUS PARA NO RECORTAR LA IMAGEN */
+  overflow: hidden;
 }
 
-/* 🎯 CÍRCULO DE RESPLANDOR COMO PSEUDO-ELEMENTO */
+/* 🔹 ESTADO EXPANDIDO DEL VISUALIZADOR */
+#interactive-container.active {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  height: 90vh;
+  /* 🔹 FORMA FINAL: Rectángulo redondeado */
+  clip-path: inset(0 round 10px);
+  background: var(--color-black);
+  box-shadow: 0 0 50px rgba(255, 140, 0, 0.8), 0 0 100px rgba(255, 140, 0, 0.4);
+  z-index: 1001;
+}
+
+/* 🔹 ICONO DEL ROMBO - RESPLANDOR */
 #interactive-container::before {
   content: "";
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 45px; /* 🎯 CÍRCULO PEQUEÑO */
-  height: 45px; /* 🎯 CÍRCULO PEQUEÑO */
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   background: transparent;
-  box-shadow: 0 0 8px rgba(255, 140, 0, 0.5); /* 🎯 RESPLANDOR NARANJA */
-  z-index: -1; /* 🎯 DETRÁS DEL ROMBO */
+  box-shadow: 0 0 8px rgba(255, 140, 0, 0.5);
+  z-index: -1;
   pointer-events: none;
+  transition: opacity 0.8s ease-out 0.2s, visibility 0.8s ease-out 0.2s;
 }
 
-/* 🎯 IMAGEN DEL ROMBO COMO PSEUDO-ELEMENTO */
+/* 🔹 ICONO DEL ROMBO - IMAGEN */
 #interactive-container::after {
   content: "";
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 70px; /* 🎯 ROMBO GRANDE */
-  height: 70px; /* 🎯 ROMBO GRANDE */
+  width: 70px;
+  height: 70px;
   background-image: url("/src/assets/back_buttom.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   filter: drop-shadow(2px 2px 8px var(--color-black-alpha-70));
-  z-index: 1; /* 🎯 ENCIMA DEL CÍRCULO */
+  z-index: 1;
   pointer-events: none;
+  transition: opacity 0.8s ease-out 0.2s, visibility 0.8s ease-out 0.2s;
 }
 
-#interactive-container.active {
-  position: fixed; /* Mantener fixed cuando está activo para centrarse en viewport */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90vw;
-  height: 90vh;
-  border-radius: 10px;
-  background: var(--color-black) !important;
-  box-shadow: 0 0 50px rgba(255, 140, 0, 0.8), 0 0 100px rgba(255, 140, 0, 0.4);
-  /* 🎯 OPTIMIZACIÓN SCROLL: Permitir scroll interno */
-  overflow: hidden;
-  z-index: 1001; /* Por encima de otros elementos */
-  /* 🎯 OCULTAR IMAGEN DE FONDO CUANDO ESTÁ EXPANDIDO */
-  background-image: none;
-  filter: none;
-  /* 🎯 TRANSICIÓN ESPECÍFICA PARA EL ESTADO ACTIVO */
-  transition: width 2.5s ease-in-out, height 2.5s ease-in-out,
-    background 2.5s ease-in-out, top 2.5s ease-in-out, left 2.5s ease-in-out,
-    transform 2.5s ease-in-out, filter 0.3s ease;
-}
-
-/* 🎯 OCULTAR PSEUDO-ELEMENTOS CUANDO EL CONTENEDOR ESTÁ ACTIVO */
+/* 🔹 OCULTAR ICONOS CUANDO ESTÁ EXPANDIDO */
 #interactive-container.active::before,
 #interactive-container.active::after {
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
+/* 🔹 CONTENEDOR DEL CONTENIDO HOMEPAGE */
 .homepage-wrapper {
   width: 100%;
   height: 100%;
   opacity: 0;
-  transition: opacity 1.2s ease-in-out;
-  /* 🎯 VISUALIZADOR CONTROLADO: Solo escena inicial */
   overflow: auto;
   overflow-x: hidden;
   border-radius: 10px;
   position: relative;
   scroll-behavior: smooth;
-  /* 🎯 LIMITACIÓN DE SCROLL: Evitar transiciones */
-  max-height: 100%; /* Limitar altura del contenedor */
+  max-height: 100%;
+  /* 🔹 APARECER CON DELAY COORDINADO */
+  transition: opacity 1.2s ease-in-out 2.8s;
 }
 
+/* 🔹 MOSTRAR CONTENIDO CUANDO ESTÁ ACTIVO */
+#interactive-container.active .homepage-wrapper {
+  opacity: 1;
+}
+
+/* 🔹 CONTENIDO EMBEBIDO DE HOMEPAGE */
 .homepage-embedded {
   width: 100%;
-  /* 🎯 ALTURA CONTROLADA: Solo mostrar escena inicial */
   min-height: 300vh;
-  height: 300vh; /* Altura fija limitada */
-  max-height: 300vh; /* Máximo para evitar scroll excesivo */
+  height: 300vh;
+  max-height: 300vh;
   position: relative;
-  /* 🎯 CORTAR CONTENIDO EXCESIVO */
   overflow: hidden;
   isolation: isolate;
   box-sizing: border-box;
 }
 
-/* 🎯 OVERRIDE ESPECÍFICO PARA HOMEPAGE EMBEBIDA */
 .homepage-embedded * {
   box-sizing: border-box;
 }
 
-/* 🎯 SCROLL PERSONALIZADO MEJORADO */
+/* 🔹 SCROLL PERSONALIZADO */
 .homepage-wrapper::-webkit-scrollbar {
   width: 8px;
 }
@@ -1337,9 +1344,19 @@ body,
   background: var(--color-orange-alpha-80);
 }
 
-#interactive-container.active .homepage-wrapper {
-  opacity: 1;
+/* ===============================================
+   🎵 CONTROL DEL BOTÓN "ACTIVAR SONIDO 3D"
+   =============================================== */
+
+/* 🔹 AudioVisualizer aparece con el mismo timing que el resto del contenido */
+.rebecca-container .homepage-wrapper .audio-visualizer-container {
+  opacity: inherit;
+  transition: inherit;
 }
+
+/* ===============================================
+   FIN SECCIÓN VISUALIZADOR HOME 3D
+   =============================================== */
 
 #message-box {
   position: fixed;
