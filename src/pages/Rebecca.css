@@ -4,6 +4,34 @@
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import "../styles/responsive.css";
 
+/* 🎯 REGLAS GLOBALES ANTI-DESBORDAMIENTO MÓVIL */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  overflow-x: hidden !important;
+  max-width: 100vw;
+}
+
+/* Prevenir elementos que sobresalen del viewport en móviles */
+@media (max-width: 767px) {
+  .rebecca-container,
+  .rebecca-container * {
+    max-width: 100% !important;
+  }
+
+  /* Elementos posicionados: mantener dentro del viewport */
+  [style*="position: absolute"],
+  [style*="position: fixed"],
+  .portal-title,
+  #interactive-container {
+    left: clamp(0px, var(--left, 0px), calc(100vw - 100px)) !important;
+    right: auto !important;
+  }
+}
+
 /* VARIABLES CSS - COLORES Y GRADIENTES CONSOLIDADOS */
 :root {
   /* UTILIDADES COMUNES */
@@ -207,11 +235,20 @@ body,
   position: relative; /* 🎯 AGREGADO: posicionamiento relativo */
 }
 .footer-content {
-  padding: clamp(24px, 4vw, 40px) !important;
-  margin: 0 auto !important;
-  max-width: clamp(320px, 85vw, 1200px);
-  min-height: auto !important; /* Cambiar a auto para altura natural */
-  height: auto; /* Altura automática basada en contenido */
+  /* 🎯 INTEGRACIÓN CON SISTEMA RESPONSIVE NUEVO */
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: clamp(20px, 4vw, 40px);
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: clamp(320px, 90vw, 1400px);
+  padding: clamp(20px, 4vw, 40px);
+  margin: 0 auto;
+  min-height: auto;
+  height: auto;
+  box-sizing: border-box;
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .cta-title {
@@ -225,9 +262,11 @@ body,
   ); /* 🎯 AGREGADO: altura mínima para evitar corte */
   padding: clamp(10px, 2vh, 20px) 0; /* 🎯 AGREGADO: padding vertical */
   position: relative; /* 🎯 AGREGADO: posicionamiento relativo */
-  width: 100vw; /* 🎯 AGREGADO: ancho completo de viewport para animación desde bordes */
-  left: 50%; /* 🎯 AGREGADO: centrado horizontal */
-  transform: translateX(-50%); /* 🎯 AGREGADO: centrado horizontal perfecto */
+  width: 100%; /* 🎯 CORREGIDO: 100% en lugar de 100vw para evitar desbordamiento */
+  max-width: 100vw; /* 🎯 AGREGADO: límite máximo */
+  left: 0; /* 🎯 CORREGIDO: sin desplazamiento lateral */
+  transform: none; /* 🎯 CORREGIDO: sin transform que pueda causar desbordamiento */
+  text-align: center; /* 🎯 AGREGADO: centrado del texto */
 }
 
 /* �🔒 REGLAS DE POSICIONAMIENTO ESTABLES - NO MODIFICAR:
@@ -239,17 +278,21 @@ body,
 */
 
 .rebecca-container {
-  /* 🎯 ESTRUCTURA NORMAL COMO POPPR */
-  display: block;
-  width: 100vw;
-  height: auto; /* Altura natural, no artificial */
+  /* 🎯 ESTRUCTURA CENTRADA VERTICALMENTE - ANTI-DESBORDAMIENTO MÓVIL */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* 🎯 CAMBIADO: 100% en lugar de 100vw para evitar scroll horizontal */
+  max-width: 100vw; /* 🎯 AGREGADO: límite máximo para prevenir desbordamiento */
+  min-height: 100vh;
   font-family: "Oxanium", "Arial", sans-serif;
   color: var(--color-white);
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   position: relative;
-  overflow-x: hidden;
+  overflow-x: hidden; /* 🎯 CRÍTICO: ocultar scroll horizontal */
   overflow-y: auto;
   /* 🎯 SIN FONDO - CADA SECCIÓN TENDRÁ SU PROPIO FONDO */
   background: transparent;
@@ -567,31 +610,31 @@ body,
 
 /* OPTIMIZACIÓN ADAPTATIVA SIMPLIFICADA */
 
+/* 🎯 MEDIA QUERIES LEGACY - COMENTADOS PARA EVITAR CONFLICTOS CON NUEVO SISTEMA
 @media (min-width: 481px) and (max-width: 768px) {
   .portal-title {
     font-size: calc(var(--font-size-4xl) * 1.25);
-    top: 95px !important; /* 🎯 MOVIDO MÁS HACIA ABAJO (75px → 95px) */
+    top: 95px !important;
     letter-spacing: 0.04em;
   }
 }
 
-/* 🎯 MEDIA QUERY ADICIONAL PARA PANTALLAS MUY PEQUEÑAS */
 @media (max-width: 360px) {
   .portal-title {
     font-size: calc(var(--font-size-2xl) * 1.3);
-    top: 65px !important; /* 🎯 MOVIDO MÁS HACIA ABAJO (45px → 65px) */
+    top: 65px !important;
     line-height: 1.1;
-    padding: 0 10px; /* Padding lateral para evitar cortes */
+    padding: 0 10px;
   }
 }
 
-/* 🎯 AJUSTE PARA ORIENTACIÓN LANDSCAPE EN MÓVILES */
 @media (orientation: landscape) and (max-height: 600px) {
   .portal-title {
     font-size: var(--font-size-2xl);
-    top: 40px !important; /* 🎯 MOVIDO MÁS HACIA ABAJO (25px → 40px) */
+    top: 40px !important;
   }
 }
+*/
 
 @media (min-width: 1441px) {
   .portal-title {
@@ -764,10 +807,11 @@ body,
   animation: pulse-intensified 2s ease-in-out infinite;
 }
 
-/* 🌟 ANILLO GIRATORIO EXTERIOR - NUEVO */
+/* 🌟 ANILLO GIRATORIO EXTERIOR - CORREGIDO PARA CÍRCULO PERFECTO */
 .rotating-ring-outer {
   width: 120%;
   height: 120%;
+  aspect-ratio: 1 / 1; /* 🎯 FORZAR: proporción cuadrada perfecta */
   border: clamp(1px, 0.15vw, 2px) solid transparent;
   border-top: clamp(2px, 0.3vw, 3px) solid var(--color-orange-alpha-60);
   border-right: clamp(1px, 0.15vw, 2px) solid var(--color-orange-alpha-30);
@@ -782,14 +826,16 @@ body,
   /* Efectos de resplandor */
   box-shadow: 0 0 clamp(10px, 2vw, 20px) var(--color-orange-alpha-20);
 
-  /* Rotación continua lenta */
+  /* Rotación continua lenta con transform-origin centrado */
   animation: spin-clockwise 8s linear infinite;
+  transform-origin: center center; /* 🎯 ASEGURAR: rotación desde el centro */
 }
 
-/* 🔥 ANILLO GIRATORIO INTERIOR - NUEVO */
+/* 🔥 ANILLO GIRATORIO INTERIOR - CORREGIDO PARA CÍRCULO PERFECTO */
 .rotating-ring-inner {
   width: 90%;
   height: 90%;
+  aspect-ratio: 1 / 1; /* 🎯 FORZAR: proporción cuadrada perfecta */
   border: clamp(1px, 0.1vw, 1px) solid transparent;
   border-left: clamp(2px, 0.25vw, 3px) solid var(--color-white-alpha-50);
   border-bottom: clamp(1px, 0.1vw, 1px) solid var(--color-white-alpha-40);
@@ -804,8 +850,9 @@ body,
   /* Efectos de resplandor sutil */
   box-shadow: 0 0 clamp(5px, 1vw, 10px) rgba(255, 255, 255, 0.2);
 
-  /* Rotación continua rápida en sentido contrario */
+  /* Rotación continua rápida en sentido contrario con transform-origin centrado */
   animation: spin-counterclockwise 4s linear infinite;
+  transform-origin: center center; /* 🎯 ASEGURAR: rotación desde el centro */
 }
 
 /* ✨ ANILLO DE PARTÍCULAS - NUEVO */
@@ -1231,19 +1278,62 @@ body,
   overflow: hidden;
 }
 
-/* 🔹 ESTADO EXPANDIDO DEL VISUALIZADOR */
+/* 🔹 ESTADO EXPANDIDO DEL VISUALIZADOR - CORREGIDO PARA 100% PANTALLA */
 #interactive-container.active {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90vw;
-  height: 90vh;
-  /* 🔹 FORMA FINAL: Rectángulo redondeado */
-  clip-path: inset(0 round 10px);
+  top: 0; /* 🎯 CORREGIDO: ocupar desde el borde superior */
+  left: 0; /* 🎯 CORREGIDO: ocupar desde el borde izquierdo */
+  transform: none; /* 🎯 CORREGIDO: sin transforms que puedan descentrar */
+  width: 100vw; /* 🎯 CORREGIDO: ancho completo de pantalla */
+  height: 100vh; /* 🎯 CORREGIDO: altura completa de pantalla */
+  /* 🔹 FORMA FINAL: Rectángulo sin bordes redondeados para ocupar 100% */
+  clip-path: none; /* 🎯 CORREGIDO: sin clip-path que reduzca el área */
   background: var(--color-black);
   box-shadow: 0 0 50px rgba(255, 140, 0, 0.8), 0 0 100px rgba(255, 140, 0, 0.4);
   z-index: 1001;
+}
+
+/* 🎯 CORRECCIÓN PARA MANTENER RINGS CENTRADOS Y CIRCULARES EN ESTADO ACTIVO */
+#interactive-container.active .glow-ring,
+#interactive-container.active .pulse-ring,
+#interactive-container.active .rotating-ring-outer,
+#interactive-container.active .rotating-ring-inner,
+#interactive-container.active .particle-ring {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 50% !important;
+  /* Mantener sus dimensiones específicas pero forzar circularidad */
+  box-sizing: border-box !important;
+}
+
+/* 🎯 CORRECCIÓN ESPECÍFICA PARA ROTATING RINGS - FORZAR CIRCULARIDAD */
+.rotating-ring-outer,
+.rotating-ring-inner {
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 50% !important;
+  transform-origin: center center !important;
+  box-sizing: border-box !important;
+}
+
+/* 🎯 CORRECCIÓN ESPECÍFICA EN MÓVILES PARA ROTATING RINGS */
+@media (max-width: 767px) {
+  .rotating-ring-outer,
+  .rotating-ring-inner {
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 50% !important;
+    transform-origin: center center !important;
+    /* Forzar dimensiones cuadradas para mantener circularidad */
+    width: 120px !important; /* Tamaño fijo para outer */
+    height: 120px !important;
+  }
+
+  .rotating-ring-inner {
+    width: 90px !important; /* Tamaño fijo para inner */
+    height: 90px !important;
+  }
 }
 
 /* 🔹 ICONO DEL ROMBO - RESPLANDOR */
@@ -1598,7 +1688,7 @@ body,
 
 /* 🌟 NUEVAS ANIMACIONES PARA EFECTOS GIRATORIOS */
 
-/* Rotación en sentido horario */
+/* Rotación en sentido horario - MEJORADA PARA MANTENER CIRCULARIDAD */
 @keyframes spin-clockwise {
   0% {
     transform: rotate(0deg);
@@ -1608,6 +1698,17 @@ body,
   }
 }
 
+/* OVERRIDE para rotating rings activos - mantener rotación centrada */
+#interactive-container.active .rotating-ring-outer {
+  animation: spin-clockwise 8s linear infinite;
+  transform-origin: center center !important;
+}
+
+#interactive-container.active .rotating-ring-inner {
+  animation: spin-counterclockwise 4s linear infinite;
+  transform-origin: center center !important;
+}
+
 /* Rotación en sentido antihorario */
 @keyframes spin-counterclockwise {
   0% {
@@ -1615,6 +1716,25 @@ body,
   }
   100% {
     transform: rotate(-360deg);
+  }
+}
+
+/* 📱 ANIMACIONES ESPECÍFICAS PARA MÓVILES - CENTRADO + ROTACIÓN */
+@keyframes spin-clockwise-mobile {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes spin-counterclockwise-mobile {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(-360deg);
   }
 }
 
@@ -4743,12 +4863,13 @@ section {
       letter-spacing: 0.5px;
       transition: color 0.3s ease;
     }
-  }
 
-  .ai-matrix-button:hover {
-    width: 280px; /* 🎯 REDUCIDO 10px ADICIONALES DEL ANCHO */
-    height: 54px; /* 🎯 MISMA ALTURA QUE EL INPUT */
-    transform: translateY(-20px); /* 🎯 CENTRADO PERFECTO */
+    /* 🎯 HOVER ESPECÍFICO PARA TABLETS */
+    .ai-matrix-button:hover {
+      width: 280px; /* 🎯 REDUCIDO 10px ADICIONALES DEL ANCHO */
+      height: 54px; /* 🎯 MISMA ALTURA QUE EL INPUT */
+      transform: translateY(-20px); /* 🎯 CENTRADO PERFECTO */
+    }
   }
 
   /* 🎯 CTA TITLE RESPONSIVE PARA MÓVILES */
@@ -7009,18 +7130,39 @@ section {
     border: clamp(1px, 0.3vw, 2px) solid var(--color-orange-primary);
   }
 
+  /* 🎯 CORRECCIÓN CRÍTICA: Mantener aspect ratio circular de los rings en móviles */
+  .glow-ring,
+  .pulse-ring,
+  .rotating-ring-outer,
+  .rotating-ring-inner,
+  .particle-ring {
+    aspect-ratio: 1 / 1 !important; /* 🎯 FORZAR: mantener proporción 1:1 (circular) */
+    border-radius: 50% !important; /* 🎯 FORZAR: mantener forma circular */
+  }
+
+  /* Asegurar que el contenedor activo mantenga los círculos centrados */
+  #interactive-container.active .glow-ring,
+  #interactive-container.active .pulse-ring,
+  #interactive-container.active .rotating-ring-outer,
+  #interactive-container.active .rotating-ring-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
   /* Rebecca container */
   .rebecca-container {
     padding: var(--space-md);
   }
 
-  /* Interactive container updates */
+  /* Interactive container updates - CORREGIDO PARA MANTENER CÍRCULOS Y 100% PANTALLA */
   #interactive-container.active {
-    width: 90vw;
-    height: 85vh;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 100vw; /* 🎯 CORREGIDO: 100% ancho de pantalla */
+    height: 100vh; /* 🎯 CORREGIDO: 100% altura de pantalla */
+    top: 0; /* 🎯 CORREGIDO: posición desde arriba */
+    left: 0; /* 🎯 CORREGIDO: posición desde izquierda */
+    transform: none; /* 🎯 CORREGIDO: sin transforms que descentren */
   }
 
   #interactive-container {
@@ -7066,5 +7208,503 @@ section {
       rotateY(calc(var(--intensity) * 1.5deg))
       scale(calc(1 + var(--intensity) * 0.05))
       translateZ(calc(var(--intensity) * 10px)) !important;
+  }
+}
+
+/* ============================================================================
+   🎯 SISTEMA RESPONSIVE REORGANIZADO Y CENTRADO VERTICAL
+   ============================================================================ */
+
+/* 🎯 BASE: CONFIGURACIÓN GLOBAL PARA CENTRADO VERTICAL */
+.rebecca-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Asegurar centrado vertical para elementos principales */
+.popup-overlay,
+.content-wrapper,
+.footer-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* ============================================================================
+   📱 RESPONSIVE BREAKPOINTS ORGANIZADOS
+   ============================================================================ */
+
+/* 🎯 MOBILE FIRST - BASE (320px - 479px) */
+@media (max-width: 479px) {
+  .rebecca-container {
+    width: 100%; /* 🎯 CRÍTICO: 100% del contenedor padre */
+    max-width: 100vw; /* 🎯 LÍMITE: nunca exceder el viewport */
+    padding: clamp(8px, 2.5vw, 12px); /* 🎯 REDUCIDO: padding más conservador */
+    font-size: clamp(12px, 3.5vw, 14px);
+    overflow-x: hidden !important; /* 🎯 FORZAR: sin scroll horizontal */
+  }
+
+  /* Todos los elementos hijos respetan el ancho */
+  .rebecca-container * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Corrección específica para CTA Title en móviles */
+  .cta-title {
+    width: 100% !important;
+    max-width: 100% !important;
+    left: 0 !important;
+    transform: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: clamp(8px, 2vw, 12px) !important;
+    padding-right: clamp(8px, 2vw, 12px) !important;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: clamp(12px, 3vw, 16px); /* 🎯 REDUCIDO: gaps más compactos */
+    padding: clamp(12px, 3vw, 16px);
+    text-align: center;
+    width: 100%;
+    max-width: none; /* 🎯 QUITAR: restricciones de ancho */
+  }
+
+  .ai-matrix-button {
+    width: clamp(180px, 75vw, 220px); /* 🎯 REDUCIDO: ancho más conservador */
+    height: clamp(42px, 10vw, 48px);
+    font-size: clamp(10px, 2.8vw, 12px);
+    margin: 0 auto; /* 🎯 CENTRADO: asegurar centrado */
+  }
+
+  /* 🎯 CORRECCIÓN PARA VISUALIZADOR HOME 3D EN MÓVILES */
+  #interactive-container.active {
+    width: 100vw !important;
+    height: 100vh !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+  }
+
+  /* 🎯 MANTENER CIRCLES PERFECTOS EN MÓVILES */
+  .glow-ring,
+  .pulse-ring,
+  .rotating-ring-outer,
+  .rotating-ring-inner,
+  .particle-ring {
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 50% !important;
+  }
+
+  /* 🎯 CORRECCIÓN ESPECÍFICA PARA ROTATING RINGS NARANJAS EN MÓVILES */
+  .rotating-ring-outer {
+    width: 100px !important;
+    height: 100px !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    transform-origin: center center !important;
+  }
+
+  .rotating-ring-inner {
+    width: 80px !important;
+    height: 80px !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    transform-origin: center center !important;
+  }
+
+  /* 🎯 ANIMACIONES ESPECÍFICAS PARA MÓVILES - ESTADO ACTIVO */
+  #interactive-container.active .rotating-ring-outer {
+    animation: spin-clockwise-mobile 8s linear infinite !important;
+  }
+
+  #interactive-container.active .rotating-ring-inner {
+    animation: spin-counterclockwise-mobile 4s linear infinite !important;
+  }
+
+  .contact-info,
+  .footer-info {
+    max-width: 100%;
+    width: 100%;
+    transform: translateY(0); /* 🎯 ELIMINAR: transformaciones problemáticas */
+    padding: 0 clamp(8px, 2vw, 12px); /* 🎯 PADDING: espaciado interno controlado */
+  }
+
+  /* Asegurar que elementos positioned no salgan del viewport */
+  [style*="position: absolute"],
+  [style*="position: fixed"] {
+    max-width: 100vw !important;
+    left: 0 !important;
+    right: auto !important;
+  }
+
+  /* Corrección global para elementos con centrado problemático */
+  [style*="left: 50%"],
+  .portal-title,
+  #interactive-container {
+    left: clamp(10px, 5vw, 20px) !important;
+    transform: none !important;
+  }
+}
+
+/* 🎯 MOBILE LARGE (480px - 767px) */
+@media (min-width: 480px) and (max-width: 767px) {
+  .rebecca-container {
+    width: 100%;
+    max-width: 100vw;
+    padding: clamp(12px, 2.5vw, 18px);
+    font-size: clamp(13px, 3vw, 15px);
+    overflow-x: hidden !important;
+  }
+
+  .rebecca-container * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Corrección específica para CTA Title en mobile large */
+  .cta-title {
+    width: 100% !important;
+    max-width: 100% !important;
+    left: 0 !important;
+    transform: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: clamp(10px, 2.5vw, 15px) !important;
+    padding-right: clamp(10px, 2.5vw, 15px) !important;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr auto;
+    gap: clamp(16px, 3.5vw, 24px);
+    padding: clamp(16px, 3.5vw, 24px);
+    width: 100%;
+  }
+
+  .ai-matrix-button {
+    width: clamp(200px, 65vw, 240px);
+    height: clamp(46px, 9vw, 50px);
+    font-size: clamp(11px, 2.5vw, 13px);
+    margin: 0 auto;
+  }
+
+  /* 🎯 CORRECCIÓN PARA VISUALIZADOR HOME 3D EN MOBILE LARGE */
+  #interactive-container.active {
+    width: 100vw !important;
+    height: 100vh !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+  }
+
+  /* 🎯 MANTENER CIRCLES PERFECTOS EN MOBILE LARGE */
+  .glow-ring,
+  .pulse-ring,
+  .rotating-ring-outer,
+  .rotating-ring-inner,
+  .particle-ring {
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 50% !important;
+  }
+
+  /* 🎯 CORRECCIÓN ESPECÍFICA PARA ROTATING RINGS NARANJAS EN MOBILE LARGE */
+  .rotating-ring-outer {
+    width: 110px !important;
+    height: 110px !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    transform-origin: center center !important;
+  }
+
+  .rotating-ring-inner {
+    width: 90px !important;
+    height: 90px !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    transform-origin: center center !important;
+  }
+
+  /* 🎯 ANIMACIONES ESPECÍFICAS PARA MOBILE LARGE - ESTADO ACTIVO */
+  #interactive-container.active .rotating-ring-outer {
+    animation: spin-clockwise-mobile 8s linear infinite !important;
+  }
+
+  #interactive-container.active .rotating-ring-inner {
+    animation: spin-counterclockwise-mobile 4s linear infinite !important;
+  }
+
+  .contact-info,
+  .footer-info {
+    max-width: 100%;
+    width: 100%;
+    padding: 0 clamp(8px, 2vw, 12px);
+  }
+
+  /* Corrección global para elementos con centrado problemático en mobile large */
+  [style*="left: 50%"],
+  .portal-title,
+  #interactive-container {
+    left: clamp(15px, 5vw, 25px) !important;
+    transform: none !important;
+  }
+}
+
+/* 🎯 TABLET (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .rebecca-container {
+    padding: clamp(20px, 3vw, 25px);
+    font-size: clamp(14px, 2.5vw, 16px);
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr auto 1fr;
+    gap: clamp(25px, 3vw, 35px);
+    padding: clamp(25px, 3vw, 30px);
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .ai-matrix-button {
+    width: clamp(240px, 60vw, 280px);
+    height: clamp(50px, 8vw, 54px);
+    font-size: clamp(13px, 2.5vw, 15px);
+  }
+
+  .contact-info,
+  .footer-info {
+    transform: translateY(25px);
+    max-width: 100%;
+  }
+
+  /* Corrección para CTA Title en tablets */
+  .cta-title {
+    width: 100% !important;
+    max-width: 100% !important;
+    left: 0 !important;
+    transform: none !important;
+  }
+
+  /* 🎯 CORRECCIÓN PARA VISUALIZADOR HOME 3D EN TABLETS */
+  #interactive-container.active {
+    width: 100vw !important;
+    height: 100vh !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+  }
+
+  /* 🎯 ASEGURAR CIRCLES PERFECTOS EN TABLETS */
+  .glow-ring,
+  .pulse-ring,
+  .rotating-ring-outer,
+  .rotating-ring-inner,
+  .particle-ring {
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 50% !important;
+  }
+}
+
+/* 🎯 DESKTOP SMALL (1024px - 1439px) */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .rebecca-container {
+    padding: clamp(25px, 2.5vw, 30px);
+    font-size: clamp(15px, 2vw, 17px);
+  }
+
+  .footer-content {
+    max-width: clamp(1000px, 85vw, 1200px);
+    gap: clamp(30px, 3vw, 40px);
+    padding: clamp(30px, 3vw, 35px);
+  }
+
+  .ai-matrix-button {
+    width: clamp(260px, 20vw, 300px);
+    height: clamp(52px, 4vw, 56px);
+    font-size: clamp(14px, 1.2vw, 16px);
+  }
+
+  .contact-info,
+  .footer-info {
+    transform: translateY(40px);
+  }
+}
+
+/* 🎯 DESKTOP LARGE (1440px - 1919px) */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .rebecca-container {
+    padding: clamp(30px, 2vw, 35px);
+    font-size: clamp(16px, 1.8vw, 18px);
+  }
+
+  .footer-content {
+    max-width: clamp(1200px, 80vw, 1400px);
+    gap: clamp(35px, 3vw, 45px);
+    padding: clamp(35px, 2.5vw, 40px);
+  }
+
+  .ai-matrix-button {
+    width: clamp(280px, 18vw, 320px);
+    height: clamp(54px, 3.5vw, 58px);
+    font-size: clamp(15px, 1.1vw, 17px);
+  }
+
+  .contact-info,
+  .footer-info {
+    transform: translateY(50px);
+  }
+}
+
+/* 🎯 DESKTOP ULTRA WIDE (1920px+) */
+@media (min-width: 1920px) {
+  .rebecca-container {
+    padding: clamp(35px, 1.8vw, 40px);
+    font-size: clamp(17px, 1.6vw, 20px);
+  }
+
+  .footer-content {
+    max-width: 1400px;
+    gap: 45px;
+    padding: 40px;
+  }
+
+  .ai-matrix-button {
+    width: 320px;
+    height: 58px;
+    font-size: 17px;
+  }
+
+  .contact-info,
+  .footer-info {
+    transform: translateY(50px);
+  }
+}
+
+/* ============================================================================
+   🎯 ORIENTACIÓN Y CASOS ESPECIALES
+   ============================================================================ */
+
+/* 🎯 LANDSCAPE MÓVIL (altura reducida) */
+@media (orientation: landscape) and (max-height: 600px) {
+  .rebecca-container {
+    min-height: auto;
+    padding: clamp(10px, 2vh, 15px);
+  }
+
+  .popup-overlay,
+  .content-wrapper,
+  .footer-wrapper {
+    min-height: 100vh;
+    justify-content: flex-start;
+    padding-top: clamp(20px, 5vh, 30px);
+  }
+
+  .footer-content {
+    gap: clamp(15px, 3vw, 25px);
+    padding: clamp(15px, 3vw, 20px);
+  }
+
+  .contact-info,
+  .footer-info {
+    transform: translateY(0);
+  }
+}
+
+/* 🎯 ACCESIBILIDAD */
+@media (prefers-reduced-motion: reduce) {
+  .rebecca-container *,
+  .footer-content *,
+  .ai-matrix-button *,
+  .contact-item *,
+  .magnetic-text * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .ai-matrix-button {
+    border: 3px solid var(--color-orange-primary);
+    background: var(--color-black);
+    color: var(--color-white);
+  }
+
+  .contact-item {
+    border: 2px solid var(--color-orange-primary);
+    background: var(--color-black-alpha-98);
+  }
+}
+
+/* ============================================================================
+   🎯 CONTENEDORES ESPECÍFICOS - CENTRADO VERTICAL GARANTIZADO
+   ============================================================================ */
+
+/* Asegurar que todos los elementos principales estén centrados */
+.hero-section,
+.main-content,
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Elementos interactivos mantienen proporción */
+.interactive-container,
+.home-3d-visualizer,
+.robot-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  min-height: clamp(200px, 40vh, 400px);
+}
+
+/* ============================================================================
+   🎯 OVERRIDE DE MEDIA QUERIES CONFLICTIVOS
+   ============================================================================ */
+
+/* Sobrescribir cualquier media query previo que pueda estar causando conflictos */
+@media screen {
+  /* Reset base para todos los elementos principales */
+  .rebecca-container,
+  .popup-overlay,
+  .content-wrapper,
+  .footer-wrapper,
+  .footer-content,
+  .ai-matrix-button,
+  .contact-info,
+  .footer-info {
+    box-sizing: border-box !important;
+  }
+}
+
+/* 🖥️ MEDIA QUERY ESPECÍFICA PARA DESKTOP - RESTAURAR COMPORTAMIENTO ORIGINAL DEL BOTÓN */
+@media (min-width: 769px) {
+  .ai-matrix-button {
+    width: 190px !important; /* 🎯 RESTAURAR TAMAÑO BASE ORIGINAL */
+    height: 54px !important;
+    display: block !important;
+  }
+
+  .ai-matrix-button:hover {
+    width: 260px !important; /* 🎯 RESTAURAR TAMAÑO HOVER ORIGINAL */
+    height: 54px !important;
   }
 }
