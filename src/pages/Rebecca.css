@@ -198,7 +198,7 @@ body,
   line-height: 1 !important;
 }
 
-/* 🎯 SECCIONES SIN ESPACIOS - MÉTODO POPPR */
+/* 🎯 SECCIONES PRINCIPALES - LAYOUT SIN ESPACIOS */
 .main-content-wrapper,
 .call-to-action-section,
 .footer-reveal {
@@ -219,21 +219,6 @@ body,
   display: flex !important;
 }
 
-/* OVERRIDE PARA ELEMENTOS QUE NECESITAN PADDING INTERNO */
-.cta-content {
-  padding: clamp(24px, 4vw, 40px) !important;
-  margin: 0 auto !important;
-  max-width: clamp(320px, 90vw, 1000px);
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow-x: visible; /* 🎯 CAMBIADO: permitir desbordamiento horizontal para animación del título */
-  overflow-y: visible; /* 🎯 CAMBIADO: permitir desbordamiento vertical para evitar corte */
-  position: relative; /* 🎯 AGREGADO: posicionamiento relativo */
-}
 .footer-content {
   /* 🎯 INTEGRACIÓN CON SISTEMA RESPONSIVE NUEVO */
   display: grid;
@@ -250,32 +235,6 @@ body,
   box-sizing: border-box;
   transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-
-.cta-title {
-  margin: 0 !important;
-  margin-bottom: 20px !important;
-  overflow: visible !important; /* 🎯 AGREGADO: permitir desbordamiento para animación */
-  min-height: clamp(
-    120px,
-    15vh,
-    180px
-  ); /* 🎯 AGREGADO: altura mínima para evitar corte */
-  padding: clamp(10px, 2vh, 20px) 0; /* 🎯 AGREGADO: padding vertical */
-  position: relative; /* 🎯 AGREGADO: posicionamiento relativo */
-  width: 100%; /* 🎯 CORREGIDO: 100% en lugar de 100vw para evitar desbordamiento */
-  max-width: 100vw; /* 🎯 AGREGADO: límite máximo */
-  left: 0; /* 🎯 CORREGIDO: sin desplazamiento lateral */
-  transform: none; /* 🎯 CORREGIDO: sin transform que pueda causar desbordamiento */
-  text-align: center; /* 🎯 AGREGADO: centrado del texto */
-}
-
-/* �🔒 REGLAS DE POSICIONAMIENTO ESTABLES - NO MODIFICAR:
-==================================================
-1. ELEMENTOS CENTRALES (botón + círculos): position: fixed + viewport centering
-2. ELEMENTOS DE NAVEGACIÓN: position: absolute + container relative
-3. ELEMENTOS DE CONTENIDO: position: absolute + container relative
-4. NUNCA usar position: absolute para elementos que deben estar centrados en viewport
-*/
 
 .rebecca-container {
   /* 🎯 ESTRUCTURA CENTRADA VERTICALMENTE - ANTI-DESBORDAMIENTO MÓVIL */
@@ -2158,13 +2117,21 @@ section {
   z-index: 1;
 }
 
-/* 🎭 SECCIÓN CALL TO ACTION - FOOTER REVEAL (CON EFECTOS DE TEXTO) */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* � SECCIÓN CTA - REORGANIZACIÓN CRONOLÓGICA COMPLETA                  */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* ============================================================================
+   1️⃣ FASE 1: SECCIÓN CTA BASE
+   ============================================================================ */
+
+/* 🎭 SECCIÓN CALL TO ACTION - CONTENEDOR PRINCIPAL */
 .call-to-action-section {
-  /* 🎯 SEGUNDA SECCIÓN - POSICIONAMIENTO NORMAL */
+  /* 🎯 POSICIONAMIENTO Y DIMENSIONES BASE */
   position: relative;
   top: 0;
   width: 100vw;
-  height: 100vh; /* Altura normal de pantalla */
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2174,39 +2141,65 @@ section {
   box-sizing: border-box;
   z-index: 2;
   overflow: hidden;
+
+  /* 🔑 CLAVE: Permite que el componente FuenteCero se posicione correctamente */
+  min-height: 100vh;
 }
 
+/* 🎯 CONTENIDO INTERNO DEL CTA */
 .cta-content {
   max-width: 1000px;
   margin: 0 auto !important;
-  padding: clamp(10px, 2vh, 20px) clamp(15px, 3vw, 24px) !important; /* Padding vertical reducido */
+  padding: clamp(10px, 2vh, 20px) clamp(15px, 3vw, 24px) !important;
   position: relative;
-  z-index: 5;
+  z-index: 5; /* Por encima del fondo FuenteCero */
   box-sizing: border-box;
-  min-height: 100vh; /* Asegurar que ocupe toda la altura */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly; /* Distribuir espacio uniformemente */
+  justify-content: space-evenly;
   align-items: center;
 }
 
-/* Estilos originales que ya tenías para los textos y el botón */
+/* ============================================================================
+   2️⃣ FASE 2: COMPONENTE FUENTECERO (LLUVIA DE CÓDIGOS)
+   ============================================================================ */
+
+/* 🌧️ El componente FuenteCero se renderiza como fondo de la sección CTA */
+/* Los estilos específicos están en el componente React FuenteCero.tsx */
+
+/* ============================================================================
+   3️⃣ FASE 3: EFECTOS QUE INTERACTÚAN CON LA LLUVIA + AURA LUMINOSA
+   ============================================================================ */
+
+/* 🌟 CURSOR PERSONALIZADO DENTRO DEL CTA */
+.call-to-action-section.active-effect {
+  cursor: none;
+}
+
+/* 🎯 AURA LUMINOSA QUE PERSIGUE AL MOUSE */
+.call-to-action-section .cta-content {
+  position: relative;
+  z-index: 5;
+}
+
+/* ============================================================================
+   4️⃣ FASE 4: TÍTULO CTA - "TRABAJEMOS" Y "JUNTOS"
+   ============================================================================ */
+
+/* 🏆 TÍTULO PRINCIPAL DEL CTA */
 .cta-title {
-  font-size: clamp(3rem, 8vw, 5.5rem); /* Ajustado para mejor responsive */
+  font-size: clamp(3rem, 8vw, 5.5rem);
   font-weight: 900;
   color: var(--color-white);
-  margin-bottom: clamp(
-    15px,
-    3vh,
-    30px
-  ) !important; /* Espacio más compacto para subtítulo */
+  margin-bottom: clamp(15px, 3vh, 30px) !important;
   text-shadow: 2px 2px 8px var(--color-black-alpha-70);
   font-family: "SohoPro", "SF Pro Display", "Helvetica Neue", sans-serif;
-  line-height: 0.95 !important; /* Mantener líneas compactas */
-  letter-spacing: 0.04em; /* Consistente con JSX */
-  white-space: nowrap !important; /* Evitar división extra en líneas */
-  word-break: keep-all; /* Mantener palabras enteras */
-  overflow-wrap: normal; /* No romper palabras */
+  line-height: 0.95 !important;
+  letter-spacing: 0.04em;
+  white-space: nowrap !important;
+  word-break: keep-all;
+  overflow-wrap: normal;
   max-width: 100%;
   box-sizing: border-box;
   text-align: center;
@@ -2214,25 +2207,344 @@ section {
   width: 100%;
 }
 
-/* 🔥 BOTÓN CTA - NUEVA ESTRUCTURA PREMIUM AWWWARDS-LEVEL */
-.cta-button-container {
-  position: relative;
-  z-index: 10;
-  padding: clamp(5px, 1vh, 15px);
-  margin-top: clamp(5px, 1vh, 15px) !important;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* ============================================================================
+   5️⃣ FASE 5: EFECTOS DE ENTRADA CONTROLADOS POR SCROLL PARA EL TÍTULO
+   ============================================================================ */
 
-  /* � ESTADO INICIAL - OCULTO */
-  opacity: 0;
-  transform: translateY(50px) scale(0.6) rotateX(45deg);
-  transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  pointer-events: none;
+/* 🌟 EFECTO MAGNÉTICO BASE PARA TÍTULOS */
+.magnetic-text {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --distance: 1;
+  --intensity: 0;
+  position: relative;
+  cursor: default;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* 🎯 BOTÓN CTA - FADE-IN TECNOLÓGICO ELEGANTE */
+/* 🎆 ESTADO MAGNÉTICO ACTIVO PARA TÍTULOS */
+.magnetic-text.magnetic-active {
+  transform: perspective(1000px) rotateX(calc(var(--intensity) * 2deg))
+    rotateY(calc(var(--intensity) * 3deg))
+    scale(calc(1 + var(--intensity) * 0.1))
+    translateZ(calc(var(--intensity) * 20px)) !important;
+
+  text-shadow: 0 0 calc(var(--intensity) * 30px)
+      rgba(255, 140, 0, calc(var(--intensity) * 0.9)),
+    0 0 calc(var(--intensity) * 60px)
+      rgba(255, 200, 100, calc(var(--intensity) * 0.6)),
+    0 0 calc(var(--intensity) * 100px)
+      rgba(255, 255, 255, calc(var(--intensity) * 0.4)),
+    2px 2px 8px rgba(0, 0, 0, 0.7);
+
+  background: radial-gradient(
+    circle at var(--mouse-x) var(--mouse-y),
+    rgba(255, 140, 0, calc(var(--intensity) * 0.15)) 0%,
+    rgba(255, 200, 100, calc(var(--intensity) * 0.08)) 30%,
+    transparent 70%
+  );
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: #ffffff;
+
+  filter: brightness(calc(1 + var(--intensity) * 0.4))
+    contrast(calc(1 + var(--intensity) * 0.3))
+    saturate(calc(1 + var(--intensity) * 0.5));
+}
+
+/* ============================================================================
+   6️⃣ FASE 6: SUBTÍTULO - LAS DOS FRASES + EFECTO TYPEWRITER
+   ============================================================================ */
+
+/* 🎯 CONTENEDOR DEL SUBTÍTULO */
+.cta-subtitle {
+  margin: 0;
+  padding: clamp(20px, 3vh, 30px) 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1.5vh, 12px);
+  max-width: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  font-synthesis: weight style;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 🎯 ESTILOS BASE PARA LAS DOS FRASES DEL SUBTÍTULO */
+.cta-subtitle .subtitle-line-1,
+.cta-subtitle .subtitle-line-2 {
+  display: block;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  color: #ffffff;
+  letter-spacing: clamp(-0.02em, -0.01em, 0em);
+  line-height: clamp(0.9, 1vw, 0.95);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+  opacity: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid #ffffff;
+  width: 0;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 90vw;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "liga" 1, "kern" 1;
+  unicode-bidi: embed;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+  will-change: transform, color, text-shadow, filter;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --distance: 1;
+  --intensity: 0;
+}
+
+/* 📝 ANIMACIONES KEYFRAMES PARA TYPEWRITER */
+@keyframes typewriter {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    border-color: var(--color-orange-primary) !important;
+  }
+  51%,
+  100% {
+    border-color: transparent !important;
+  }
+}
+
+/* ============================================================================
+   7️⃣ FASE 7: EFECTOS DE REACCIONES DEL TÍTULO Y SUBTÍTULO AL HOVER
+   ============================================================================ */
+
+/* 🎯 ESTADO CUANDO EL TEXTO ESTÁ COMPLETAMENTE ESCRITO */
+.cta-subtitle .subtitle-line-1.typewriter-complete,
+.cta-subtitle .subtitle-line-2.typewriter-complete {
+  border-right: none; /* Remover cursor */
+
+  /* 🌈 Efecto magnético base */
+  transform: perspective(1000px) translateZ(calc(var(--intensity) * 20px))
+    rotateX(calc(var(--intensity) * 2deg))
+    rotateY(calc(var(--intensity) * 1deg))
+    scale(calc(1 + var(--intensity) * 0.05));
+
+  /* 🎨 Color shifting basado en proximidad */
+  color: rgb(
+    calc(255 - var(--intensity) * 50),
+    calc(255 - var(--intensity) * 50),
+    calc(255 + var(--intensity) * 100)
+  );
+
+  /* ✨ Glow intensivo */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7),
+    0 0 calc(var(--intensity) * 30px)
+      rgba(255, 107, 53, calc(var(--intensity) * 0.8)),
+    0 0 calc(var(--intensity) * 60px)
+      rgba(255, 140, 51, calc(var(--intensity) * 0.6)),
+    0 0 calc(var(--intensity) * 100px)
+      rgba(218, 128, 35, calc(var(--intensity) * 0.4));
+
+  /* 🌊 Filtro de ondulación */
+  filter: blur(calc(var(--intensity) * 0.5px))
+    brightness(calc(1 + var(--intensity) * 0.3))
+    contrast(calc(1 + var(--intensity) * 0.2))
+    hue-rotate(calc(var(--intensity) * 30deg));
+}
+
+/* 🎆 ESTADO DE MÁXIMA INTENSIDAD (MOUSE MUY CERCA) */
+.cta-subtitle .subtitle-line-1.magnetic-active,
+.cta-subtitle .subtitle-line-2.magnetic-active {
+  animation: magneticPulse 1.5s ease-in-out infinite;
+}
+
+/* 🎯 PARTÍCULAS QUE EMERGEN DEL TEXTO */
+.cta-subtitle .subtitle-line-1.typewriter-complete::before,
+.cta-subtitle .subtitle-line-2.typewriter-complete::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: var(--mouse-x);
+  width: calc(var(--intensity) * 100px);
+  height: calc(var(--intensity) * 100px);
+  background: radial-gradient(
+    circle,
+    rgba(255, 107, 53, calc(var(--intensity) * 0.3)) 0%,
+    rgba(255, 140, 51, calc(var(--intensity) * 0.2)) 30%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: var(--intensity);
+  animation: particleFloat 2s ease-in-out infinite;
+}
+
+/* 🌟 EFECTO DE ESTELA LUMINOSA */
+.cta-subtitle .subtitle-line-1.typewriter-complete::after,
+.cta-subtitle .subtitle-line-2.typewriter-complete::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 107, 53, calc(var(--intensity) * 0.1)) calc(var(--mouse-x) - 20%),
+    rgba(255, 140, 51, calc(var(--intensity) * 0.2)) var(--mouse-x),
+    rgba(255, 107, 53, calc(var(--intensity) * 0.1)) calc(var(--mouse-x) + 20%),
+    transparent 100%
+  );
+  pointer-events: none;
+  opacity: var(--intensity);
+  mix-blend-mode: overlay;
+}
+
+/* 🎭 ANIMACIONES PARA EL EFECTO MAGNÉTICO */
+@keyframes magneticPulse {
+  0%,
+  100% {
+    transform: perspective(1000px) scale(1) rotateX(0deg);
+  }
+  50% {
+    transform: perspective(1000px) scale(1.02) rotateX(1deg);
+  }
+}
+
+@keyframes particleFloat {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate(-50%, -60%) scale(1.1) rotate(120deg);
+  }
+  66% {
+    transform: translate(-50%, -40%) scale(0.9) rotate(240deg);
+  }
+}
+
+@keyframes magneticWave {
+  0% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  25% {
+    filter: hue-rotate(10deg) brightness(1.1);
+  }
+  50% {
+    filter: hue-rotate(0deg) brightness(1.2);
+  }
+}
+
+/* 🎯 ANIMACIONES TYPEWRITER ESPECÍFICAS PARA LAS LÍNEAS */
+
+/* Efecto typewriter sincronizado - Línea 1 */
+.cta-subtitle .subtitle-line-1.typewriter-line {
+  width: 0;
+  opacity: 1;
+}
+
+.cta-subtitle .subtitle-line-1.typewriter-line.typewriter-active {
+  animation: typewriterReveal 3.5s steps(53) 0s forwards,
+    blinkCursorLine1 7.5s ease-in-out 0s forwards;
+}
+
+/* Efecto typewriter sincronizado - Línea 2 */
+.cta-subtitle .subtitle-line-2.typewriter-line {
+  width: 0;
+  opacity: 1;
+}
+
+.cta-subtitle .subtitle-line-2.typewriter-line.typewriter-active {
+  animation: typewriterReveal 3s steps(38) 4s forwards,
+    blinkCursorLine2 7s ease-in-out 4s forwards;
+}
+
+/* Animación revelar texto typewriter */
+@keyframes typewriterReveal {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* Fade in para typewriter */
+@keyframes fadeInTypewriter {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Cursor parpadeante - Línea 1 */
+@keyframes blinkCursorLine1 {
+  0%,
+  46.6% {
+    border-right-color: #ffffff;
+  }
+  47%,
+  48% {
+    border-right-color: transparent;
+  }
+  48.5%,
+  50% {
+    border-right-color: #ffffff;
+  }
+  50.1%,
+  100% {
+    border-right-color: transparent;
+  }
+}
+
+/* Cursor parpadeante - Línea 2 */
+@keyframes blinkCursorLine2 {
+  0%,
+  57.1% {
+    border-right-color: #ffffff;
+  }
+  58%,
+  60% {
+    border-right-color: transparent;
+  }
+  60.5%,
+  62% {
+    border-right-color: #ffffff;
+  }
+  62.1%,
+  100% {
+    border-right-color: transparent;
+  }
+}
+
+/* ============================================================================
+   8️⃣ FASE 8: IMAGEN PNG DEL ICONO DEL BOTÓN CTA
+   ============================================================================ */
+
+/* 🔥 CONTENEDOR DEL BOTÓN CTA */
 .cta-button-container {
   position: relative;
   z-index: 10;
@@ -2259,8 +2571,6 @@ section {
   transform: translateY(0) scale(1);
   filter: blur(0px) brightness(1);
   pointer-events: auto;
-
-  /* 🔥 EFECTO DE MATERIALIZACIÓN DESDE EL FONDO */
   animation: tech-emerge 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 
@@ -2274,7 +2584,7 @@ section {
   transition: all 0.8s cubic-bezier(0.55, 0.085, 0.68, 0.53);
 }
 
-/* 🎯 WRAPPER DEL BOTÓN - TRANSPARENCIA INNOVADORA AWWWARDS-LEVEL */
+/* 🎯 WRAPPER DEL BOTÓN - TRANSPARENCIA INICIAL */
 .cta-button-wrapper {
   position: relative;
   display: inline-block;
@@ -2296,7 +2606,7 @@ section {
   transform: perspective(1000px) rotateX(0.8deg) rotateY(0.3deg) scale(1);
 }
 
-/* 🖼️ IMAGEN DEL BOTÓN - TRANSPARENCIA CUÁNTICA INICIAL */
+/* 🖼️ IMAGEN DEL BOTÓN CTA */
 .cta-button-image {
   display: block;
   max-width: clamp(180px, 20vw, 280px) !important;
@@ -2313,30 +2623,32 @@ section {
   opacity: 0.8;
 }
 
-/* � TEXTO OVERLAY - SIN CONTENEDOR ADICIONAL */
+/* ============================================================================
+   9️⃣ FASE 9: TEXTO "WHATSAPP" DENTRO DEL BOTÓN
+   ============================================================================ */
+
+/* 📝 OVERLAY DEL TEXTO DEL BOTÓN */
 .cta-button-text-overlay {
-  /* 🎯 ADAPTADO A LA PANTALLA RECTANGULAR DE LA IMAGEN PNG - TAMAÑO AUMENTADO */
-  width: clamp(130px, 13vw, 180px); /* Aumentado significativamente */
-  height: clamp(35px, 3.5vw, 45px); /* Altura mayor para mejor proporción */
+  width: clamp(130px, 13vw, 180px);
+  height: clamp(35px, 3.5vw, 45px);
   overflow: hidden;
-  /* 🚫 SIN FONDO NI BORDES - Solo el texto */
   background: transparent;
   border: none;
   box-shadow: none;
 }
 
-/* 🧡 TEXTO PRINCIPAL - COLOR NARANJA INTELIMARK PREMIUM */
+/* 🧡 TEXTO PRINCIPAL - COLOR NARANJA INTELIMARK */
 .cta-button-text-display {
   font-family: "Orbitron", "Courier New", monospace;
-  font-weight: 100; /* Ultra delgado */
-  font-size: clamp(0.85rem, 1.8vw, 1.2rem); /* Aumentado considerablemente */
-  color: var(--color-orange-primary); /* #da8023 - Color naranja InteliMark */
+  font-weight: 100;
+  font-size: clamp(1rem, 2.2vw, 1.4rem);
+  color: var(--color-orange-primary);
   text-align: center;
-  letter-spacing: 0.1em; /* Ligeramente más espaciado */
+  letter-spacing: 0.1em;
   position: relative;
   z-index: 3;
 
-  /* � EFECTOS AWWWARDS-LEVEL - RESPLANDOR NARANJA PREMIUM */
+  /* 🌟 EFECTOS AWWWARDS-LEVEL - RESPLANDOR NARANJA PREMIUM */
   text-shadow: 0 0 3px var(--color-orange-primary),
     0 0 8px var(--color-orange-primary), 0 0 15px var(--color-orange-primary),
     0 0 25px rgba(218, 128, 35, 0.8), 0 0 35px rgba(218, 128, 35, 0.6);
@@ -2348,6 +2660,10 @@ section {
   opacity: 0;
   animation: none;
 }
+
+/* ============================================================================
+   🔟 FASE 10: EFECTOS LUMINOSOS Y TYPEWRITER DEL BOTÓN
+   ============================================================================ */
 
 /* 📝 ESTADO VISIBLE DEL TEXTO - EFECTO ELEGANTE COORDINADO */
 .cta-button-text-overlay.text-visible .cta-button-text-display {
@@ -2373,13 +2689,11 @@ section {
   background: transparent;
   z-index: 2;
   opacity: 0;
-
-  /* 🔌 EFECTOS DE INTERFERENCIA ELÉCTRICA */
   animation: electrical-malfunction 6s ease-in-out infinite;
   animation-delay: 2.5s;
 }
 
-/* � OVERLAY DE GLITCH DIGITAL */
+/* 📺 OVERLAY DE GLITCH DIGITAL */
 .digital-glitch-overlay {
   position: absolute;
   top: 0;
@@ -2389,11 +2703,55 @@ section {
   background: transparent;
   z-index: 1;
   opacity: 0;
-
-  /* 📺 EFECTOS DE FALLA DIGITAL */
   animation: premium-digital-glitch 8s ease-in-out infinite;
-  animation-delay: 2.8s; /* Ligeramente después de la interferencia */
+  animation-delay: 2.8s;
 }
+
+/* 🌟 ANIMACIONES PARA EFECTOS LUMINOSOS Y TYPEWRITER */
+@keyframes elegant-text-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+@keyframes tech-emerge {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+    filter: blur(3px) brightness(0.2) contrast(0.5);
+  }
+  25% {
+    opacity: 0.3;
+    transform: translateY(15px) scale(0.95);
+    filter: blur(2px) brightness(0.5) contrast(0.8);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(5px) scale(0.98);
+    filter: blur(1px) brightness(0.8) contrast(1);
+  }
+  75% {
+    opacity: 0.9;
+    transform: translateY(-2px) scale(1.01);
+    filter: blur(0.5px) brightness(1.1) contrast(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px) brightness(1) contrast(1);
+  }
+}
+
+/* ============================================================================
+   1️⃣1️⃣ FASE 11: EFECTOS DE HOVER DEL BOTÓN Y SU TEXTO
+   ============================================================================ */
 
 /* 🚀 ESTADO HOVER - MATERIALIZACIÓN TOTAL AWWWARDS-LEVEL */
 .cta-button-wrapper:hover,
@@ -2438,7 +2796,6 @@ section {
 .cta-button-wrapper.hover-active .electrical-interference {
   animation-duration: 4s; /* Interferencia más rápida */
 }
-/* ... (rest of the CSS code) ... */
 
 /* 🎯 ESTADO ACTIVE */
 .cta-button-wrapper:active {
@@ -2450,321 +2807,37 @@ section {
   filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
 }
 
-/* 📏 ESPACIO PARA SUBTÍTULO */
-.cta-subtitle-space {
-  min-height: clamp(20px, 3vh, 40px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  width: 100%;
-  /* 🎯 AGREGADO: Asegurar codificación correcta */
-  font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
-  -webkit-locale: "es-ES";
-}
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🎯 FIN DE LA REORGANIZACIÓN CRONOLÓGICA DEL CTA                       */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-/* 💬 SUBTÍTULO CTA - TIPOGRAFÍA ELEGANTE */
-.cta-subtitle {
-  margin: 0;
-  padding: clamp(20px, 3vh, 30px) 0;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(8px, 1.5vh, 12px);
-  max-width: 100%;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  /* 🎯 AGREGADO: Forzar renderizado correcto de caracteres especiales */
-  font-synthesis: weight style;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+/* ============================================================================
+   📱 RESPONSIVE CTA - SECCIÓN CONSOLIDADA
+   ============================================================================ */
 
-.cta-subtitle .subtitle-line-1,
-.cta-subtitle .subtitle-line-2 {
-  display: block;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
-  font-weight: 400;
-  font-size: clamp(
-    0.9rem,
-    1.8vw,
-    1.3rem
-  ); /* 🎯 MEJORADO: Mejor escalado responsive */
-  color: #ffffff;
-  letter-spacing: clamp(-0.02em, -0.01em, 0em);
-  line-height: clamp(0.9, 1vw, 0.95);
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
-  opacity: 1; /* 🔥 CORREGIDO: Visible por defecto, el efecto typewriter controla width */
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 2px solid #ffffff;
-  width: 0;
-  text-align: center;
-  margin: 0 auto;
-  max-width: 90vw; /* 🎯 MEJORADO: Límite más estricto para evitar desbordamiento */
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: "liga" 1, "kern" 1;
-  unicode-bidi: embed;
-
-  /* � EFECTO MAGNETIC TEXT GLOW - Base */
-  position: relative;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: default;
-  will-change: transform, color, text-shadow, filter;
-
-  /* 🎯 Variables CSS para el efecto reactivo */
-  --mouse-x: 50%;
-  --mouse-y: 50%;
-  --distance: 1;
-  --intensity: 0;
-}
-
-/* 🌟 EFECTO MAGNETIC TEXT GLOW - Estados Reactivos */
-
-/* 🎯 Estado cuando el texto está completamente escrito */
-.cta-subtitle .subtitle-line-1.typewriter-complete,
-.cta-subtitle .subtitle-line-2.typewriter-complete {
-  border-right: none; /* Remover cursor */
-
-  /* 🌈 Efecto magnético base */
-  transform: perspective(1000px) translateZ(calc(var(--intensity) * 20px))
-    rotateX(calc(var(--intensity) * 2deg))
-    rotateY(calc(var(--intensity) * 1deg))
-    scale(calc(1 + var(--intensity) * 0.05));
-
-  /* 🎨 Color shifting basado en proximidad */
-  color: rgb(
-    calc(255 - var(--intensity) * 50),
-    calc(255 - var(--intensity) * 50),
-    calc(255 + var(--intensity) * 100)
-  );
-
-  /* ✨ Glow intensivo */
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7),
-    0 0 calc(var(--intensity) * 30px)
-      rgba(255, 107, 53, calc(var(--intensity) * 0.8)),
-    0 0 calc(var(--intensity) * 60px)
-      rgba(255, 140, 51, calc(var(--intensity) * 0.6)),
-    0 0 calc(var(--intensity) * 100px)
-      rgba(218, 128, 35, calc(var(--intensity) * 0.4));
-
-  /* 🌊 Filtro de ondulación */
-  filter: blur(calc(var(--intensity) * 0.5px))
-    brightness(calc(1 + var(--intensity) * 0.3))
-    contrast(calc(1 + var(--intensity) * 0.2))
-    hue-rotate(calc(var(--intensity) * 30deg));
-}
-
-/* 🎆 Estado de máxima intensidad (mouse muy cerca) */
-.cta-subtitle .subtitle-line-1.magnetic-active,
-.cta-subtitle .subtitle-line-2.magnetic-active {
-  animation: magneticPulse 1.5s ease-in-out infinite;
-}
-
-/* 🎯 Partículas que emergen del texto */
-.cta-subtitle .subtitle-line-1.typewriter-complete::before,
-.cta-subtitle .subtitle-line-2.typewriter-complete::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: var(--mouse-x);
-  width: calc(var(--intensity) * 100px);
-  height: calc(var(--intensity) * 100px);
-  background: radial-gradient(
-    circle,
-    rgba(255, 107, 53, calc(var(--intensity) * 0.3)) 0%,
-    rgba(255, 140, 51, calc(var(--intensity) * 0.2)) 30%,
-    transparent 70%
-  );
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  opacity: var(--intensity);
-  animation: particleFloat 2s ease-in-out infinite;
-}
-
-/* 🌟 Efecto de estela luminosa */
-.cta-subtitle .subtitle-line-1.typewriter-complete::after,
-.cta-subtitle .subtitle-line-2.typewriter-complete::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 107, 53, calc(var(--intensity) * 0.1)) calc(var(--mouse-x) - 20%),
-    rgba(255, 140, 51, calc(var(--intensity) * 0.2)) var(--mouse-x),
-    rgba(255, 107, 53, calc(var(--intensity) * 0.1)) calc(var(--mouse-x) + 20%),
-    transparent 100%
-  );
-  pointer-events: none;
-  opacity: var(--intensity);
-  mix-blend-mode: overlay;
-}
-
-/* � ANIMACIONES PARA EL EFECTO MAGNÉTICO */
-
-/* Animación de pulso magnético */
-@keyframes magneticPulse {
-  0%,
-  100% {
-    transform: perspective(1000px) scale(1) rotateX(0deg);
+/* 📱 TABLETS (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .cta-content {
+    min-height: 100vh;
+    padding: 20px 15px !important;
   }
-  50% {
-    transform: perspective(1000px) scale(1.02) rotateX(1deg);
+
+  .cta-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    line-height: 0.9;
+    margin-bottom: clamp(25px, 5vh, 50px) !important;
+  }
+
+  .cta-button-container {
+    margin-top: clamp(30px, 6vh, 60px) !important;
+  }
+
+  .cta-button-image {
+    max-width: clamp(160px, 18vw, 240px) !important;
   }
 }
 
-/* Animación de partículas flotantes */
-@keyframes particleFloat {
-  0%,
-  100% {
-    transform: translate(-50%, -50%) scale(1) rotate(0deg);
-  }
-  33% {
-    transform: translate(-50%, -60%) scale(1.1) rotate(120deg);
-  }
-  66% {
-    transform: translate(-50%, -40%) scale(0.9) rotate(240deg);
-  }
-}
-
-/* Animación de ondulación magnética */
-@keyframes magneticWave {
-  0% {
-    filter: hue-rotate(0deg) brightness(1);
-  }
-  25% {
-    filter: hue-rotate(10deg) brightness(1.1);
-  }
-  50% {
-    filter: hue-rotate(0deg) brightness(1.2);
-  }
-  75% {
-    filter: hue-rotate(-10deg) brightness(1.1);
-  }
-  100% {
-    filter: hue-rotate(0deg) brightness(1);
-  }
-}
-
-/* 🎯 EFECTO TYPEWRITER SINCRONIZADO - LÍNEA 1 */
-.cta-subtitle .subtitle-line-1.typewriter-line {
-  /* 🎯 SIN ANIMACIÓN AUTOMÁTICA - Se activa por JavaScript */
-  width: 0; /* Oculto inicialmente por width */
-  opacity: 1; /* Visible para el cursor */
-}
-
-/* 🎯 EFECTO TYPEWRITER ACTIVADO - LÍNEA 1 */
-.cta-subtitle .subtitle-line-1.typewriter-line.typewriter-active {
-  animation: typewriterReveal 3.5s steps(53) 0s forwards,
-    /* 🎯 Escribir texto inmediatamente */ blinkCursorLine1 7.5s ease-in-out 0s
-      forwards; /* 🎯 Cursor que se detiene */
-}
-
-/* 🎯 EFECTO TYPEWRITER SINCRONIZADO - LÍNEA 2 */
-.cta-subtitle .subtitle-line-2.typewriter-line {
-  /* 🎯 SIN ANIMACIÓN AUTOMÁTICA - Se activa por JavaScript */
-  width: 0; /* Oculto inicialmente por width */
-  opacity: 1; /* Visible para el cursor */
-}
-
-/* 🎯 EFECTO TYPEWRITER ACTIVADO - LÍNEA 2 */
-.cta-subtitle .subtitle-line-2.typewriter-line.typewriter-active {
-  animation: typewriterReveal 4s steps(61) 4s forwards,
-    /* 🎯 Escribir texto después de línea 1 */ blinkCursorLine2 8s ease-in-out
-      4s forwards; /* 🎯 Cursor que se detiene */
-}
-
-/* 🎯 ANIMACIÓN TYPEWRITER - REVELAR TEXTO */
-@keyframes typewriterReveal {
-  0% {
-    width: 0;
-  }
-  100% {
-    width: 100%;
-  }
-}
-
-/* 🎯 ANIMACIÓN FADE IN PARA TYPEWRITER */
-@keyframes fadeInTypewriter {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-/* 🎯 CURSOR PARPADEANTE - LÍNEA 1 (se detiene cuando termina) */
-@keyframes blinkCursorLine1 {
-  0%,
-  46.6% {
-    /* 🎯 3.5s de 7.5s = 46.6% - mientras se escribe */
-    border-right-color: #ffffff;
-  }
-  47%,
-  48% {
-    /* 🎯 Transición suave */
-    border-right-color: transparent;
-  }
-  48.5%,
-  50% {
-    /* 🎯 Último parpadeo */
-    border-right-color: #ffffff;
-  }
-  50.5%,
-  100% {
-    /* 🎯 Cursor desaparece definitivamente */
-    border-right-color: transparent;
-  }
-}
-
-/* 🎯 CURSOR PARPADEANTE - LÍNEA 2 (se detiene cuando termina) */
-@keyframes blinkCursorLine2 {
-  0%,
-  50% {
-    /* 🎯 4s de 8s = 50% - mientras se escribe */
-    border-right-color: #ffffff;
-  }
-  50.5%,
-  52% {
-    /* 🎯 Transición suave */
-    border-right-color: transparent;
-  }
-  52.5%,
-  55% {
-    /* 🎯 Último parpadeo */
-    border-right-color: #ffffff;
-  }
-  55.5%,
-  100% {
-    /* 🎯 Cursor desaparece definitivamente */
-    border-right-color: transparent;
-  }
-}
-
-/* 🎯 CURSOR PARPADEANTE GENÉRICO (deprecated) */
-@keyframes blinkCursor {
-  0%,
-  50% {
-    border-right-color: #ffffff;
-  }
-  51%,
-  100% {
-    border-right-color: transparent;
-  }
-}
-
-/* 📱 RESPONSIVE - SUBTÍTULO CTA EN MÓVILES */
+/* 📱 MÓVILES (max-width: 768px) */
 @media (max-width: 768px) {
   .cta-subtitle {
     max-width: 100%;
@@ -2774,218 +2847,157 @@ section {
 
   .cta-subtitle .subtitle-line-1,
   .cta-subtitle .subtitle-line-2 {
-    font-size: clamp(0.74rem, 3.4vw, 1.08rem);
+    font-size: clamp(1rem, 4.5vw, 1.4rem) !important;
     letter-spacing: clamp(-0.01em, 0em, 0.005em);
-    max-width: 95vw;
+    max-width: 90vw !important;
     margin: 0 auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
-  /* 🎯 EFECTO MAGNÉTICO REDUCIDO EN MÓVILES */
   .cta-subtitle .subtitle-line-1.typewriter-complete,
   .cta-subtitle .subtitle-line-2.typewriter-complete {
-    /* Efecto más sutil en móvil para mejor performance */
     transform: perspective(500px) translateZ(calc(var(--intensity) * 10px))
       scale(calc(1 + var(--intensity) * 0.02));
-
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7),
-      0 0 calc(var(--intensity) * 15px)
-        rgba(255, 107, 53, calc(var(--intensity) * 0.6));
-  }
-
-  /* 🎯 PARTÍCULAS MÁS PEQUEÑAS EN MÓVIL */
-  .cta-subtitle .subtitle-line-1.typewriter-complete::before,
-  .cta-subtitle .subtitle-line-2.typewriter-complete::before {
-    width: calc(var(--intensity) * 50px);
-    height: calc(var(--intensity) * 50px);
-  }
-
-  /* 🎯 TYPEWRITER RESPONSIVO - LÍNEA 1 */
-  .cta-subtitle .subtitle-line-1.typewriter-line {
-    width: 0; /* Estado inicial */
-    opacity: 1; /* Visible para cursor */
   }
 
   .cta-subtitle .subtitle-line-1.typewriter-line.typewriter-active {
     animation: typewriterReveal 3s steps(53) 0s forwards,
-      /* 🎯 Más rápido en móvil */ blinkCursorMobileLine1 6s ease-in-out 0s
-        forwards; /* 🎯 Cursor que se detiene en móvil */
-  }
-
-  /* 🎯 TYPEWRITER RESPONSIVO - LÍNEA 2 */
-  .cta-subtitle .subtitle-line-2.typewriter-line {
-    width: 0; /* Estado inicial */
-    opacity: 1; /* Visible para cursor */
+      blinkCursorMobileLine1 6.5s ease-in-out 0s forwards;
   }
 
   .cta-subtitle .subtitle-line-2.typewriter-line.typewriter-active {
-    animation: typewriterReveal 3.5s steps(61) 3.5s forwards,
-      /* 🎯 Más rápido en móvil */ blinkCursorMobileLine2 7s ease-in-out 3.5s
-        forwards; /* 🎯 Cursor que se detiene en móvil */
+    animation: typewriterReveal 3s steps(38) 3.5s forwards,
+      blinkCursorMobileLine2 6.5s ease-in-out 3.5s forwards;
   }
 }
 
-/* 🎯 CURSOR MOBILE - LÍNEA 1 (se detiene cuando termina) */
-@keyframes blinkCursorMobileLine1 {
-  0%,
-  50% {
-    /* 🎯 3s de 6s = 50% - mientras se escribe */
-    border-right-color: #ffffff;
-  }
-  50.5%,
-  52% {
-    /* 🎯 Transición suave */
-    border-right-color: transparent;
-  }
-  52.5%,
-  55% {
-    /* 🎯 Último parpadeo */
-    border-right-color: #ffffff;
-  }
-  55.5%,
-  100% {
-    /* 🎯 Cursor desaparece definitivamente */
-    border-right-color: transparent;
-  }
-}
-
-/* 🎯 CURSOR MOBILE - LÍNEA 2 (se detiene cuando termina) */
-@keyframes blinkCursorMobileLine2 {
-  0%,
-  50% {
-    /* 🎯 3.5s de 7s = 50% - mientras se escribe */
-    border-right-color: #ffffff;
-  }
-  50.5%,
-  52% {
-    /* 🎯 Transición suave */
-    border-right-color: transparent;
-  }
-  52.5%,
-  55% {
-    /* 🎯 Último parpadeo */
-    border-right-color: #ffffff;
-  }
-  55.5%,
-  100% {
-    /* 🎯 Cursor desaparece definitivamente */
-    border-right-color: transparent;
-  }
-}
-
-/* 📱 RESPONSIVE EXTRA - PANTALLAS MUY PEQUEÑAS */
+/* 📱 MÓVILES PEQUEÑOS (max-width: 480px) */
 @media (max-width: 480px) {
   .cta-content {
-    max-width: 95vw; /* 🎯 AGREGADO: más espacio en pantallas muy pequeñas */
+    max-width: 95vw;
     padding: clamp(16px, 3vw, 24px) !important;
   }
 
   .cta-subtitle .subtitle-line-1,
   .cta-subtitle .subtitle-line-2 {
-    font-size: clamp(
-      0.6rem,
-      4vw,
-      0.9rem
-    ); /* 🎯 AGREGADO: tamaño aún más pequeño */
-    max-width: 90vw; /* 🎯 AGREGADO: límite más estricto */
-  }
-
-  /* 🎯 TYPEWRITER MUY RÁPIDO PARA PANTALLAS PEQUEÑAS */
-  .cta-subtitle .subtitle-line-1.typewriter-line {
-    width: 0; /* Estado inicial */
-    opacity: 1; /* Visible para cursor */
+    font-size: clamp(0.8rem, 4.2vw, 1.1rem) !important;
+    max-width: 90vw;
   }
 
   .cta-subtitle .subtitle-line-1.typewriter-line.typewriter-active {
     animation: typewriterReveal 2.5s steps(53) 0s forwards,
-      blinkCursorSmallLine1 5s ease-in-out 0s forwards; /* 🎯 Cursor que se detiene */
-  }
-
-  .cta-subtitle .subtitle-line-2.typewriter-line {
-    width: 0; /* Estado inicial */
-    opacity: 1; /* Visible para cursor */
+      blinkCursorSmallLine1 5s ease-in-out 0s forwards;
   }
 
   .cta-subtitle .subtitle-line-2.typewriter-line.typewriter-active {
-    animation: typewriterReveal 3s steps(61) 3s forwards,
-      blinkCursorSmallLine2 6s ease-in-out 3s forwards; /* 🎯 Cursor que se detiene */
+    animation: typewriterReveal 2.5s steps(38) 3s forwards,
+      blinkCursorSmallLine2 5.5s ease-in-out 3s forwards;
+  }
+
+  .cta-button-container {
+    margin-top: clamp(10px, 2vh, 20px) !important;
   }
 }
 
-/* 🖥️ RESPONSIVE EXTRA - PANTALLAS MEDIANAS Y GRANDES */
+/* 🖥️ ESCRITORIO MEDIANO (769px - 1440px) */
 @media (min-width: 769px) and (max-width: 1440px) {
   .cta-subtitle .subtitle-line-1,
   .cta-subtitle .subtitle-line-2 {
-    font-size: clamp(
-      1rem,
-      1.5vw,
-      1.2rem
-    ); /* 🎯 NUEVO: Mejor escalado para pantallas medianas */
-    max-width: 85vw; /* 🎯 NUEVO: Límite optimizado */
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    max-width: 85vw;
   }
 }
 
-/* 🖥️ RESPONSIVE EXTRA - PANTALLAS MUY GRANDES */
+/* 🖥️ ESCRITORIO GRANDE (min-width: 1441px) */
 @media (min-width: 1441px) {
   .cta-subtitle .subtitle-line-1,
   .cta-subtitle .subtitle-line-2 {
-    font-size: clamp(
-      1.1rem,
-      1.2vw,
-      1.3rem
-    ); /* 🎯 NUEVO: Tamaño fijo para pantallas grandes */
-    max-width: 80vw; /* 🎯 NUEVO: Límite conservador */
+    font-size: clamp(1.1rem, 1.2vw, 1.3rem);
+    max-width: 80vw;
   }
 }
 
-/* 🎯 CURSOR SMALL SCREEN - LÍNEA 1 (se detiene cuando termina) */
+/* 🎯 ANIMACIONES ADICIONALES PARA CURSORS MOBILE */
+@keyframes blinkCursorMobileLine1 {
+  0%,
+  50% {
+    border-right-color: #ffffff;
+  }
+  50.5%,
+  52% {
+    border-right-color: transparent;
+  }
+  52.5%,
+  55% {
+    border-right-color: #ffffff;
+  }
+  55.5%,
+  100% {
+    border-right-color: transparent;
+  }
+}
+
+@keyframes blinkCursorMobileLine2 {
+  0%,
+  46.1% {
+    border-right-color: #ffffff;
+  }
+  46.5%,
+  48% {
+    border-right-color: transparent;
+  }
+  48.5%,
+  50% {
+    border-right-color: #ffffff;
+  }
+  50.5%,
+  100% {
+    border-right-color: transparent;
+  }
+}
+
 @keyframes blinkCursorSmallLine1 {
   0%,
   50% {
-    /* 🎯 2.5s de 5s = 50% - mientras se escribe */
     border-right-color: #ffffff;
   }
   50.5%,
   52% {
-    /* 🎯 Transición suave */
     border-right-color: transparent;
   }
   52.5%,
   55% {
-    /* 🎯 Último parpadeo */
     border-right-color: #ffffff;
   }
   55.5%,
   100% {
-    /* 🎯 Cursor desaparece definitivamente */
     border-right-color: transparent;
   }
 }
 
-/* 🎯 CURSOR SMALL SCREEN - LÍNEA 2 (se detiene cuando termina) */
 @keyframes blinkCursorSmallLine2 {
   0%,
-  50% {
-    /* 🎯 3s de 6s = 50% - mientras se escribe */
+  45.4% {
     border-right-color: #ffffff;
   }
-  50.5%,
-  52% {
-    /* 🎯 Transición suave */
+  46%,
+  47% {
     border-right-color: transparent;
   }
-  52.5%,
-  55% {
-    /* 🎯 Último parpadeo */
+  47.5%,
+  49% {
     border-right-color: #ffffff;
   }
-  55.5%,
+  49.5%,
   100% {
-    /* 🎯 Cursor desaparece definitivamente */
     border-right-color: transparent;
   }
 }
 
-/* ¡NUEVO! Keyframes para las animaciones de texto */
+/* ============================================================================
+   📱 RESTO DE ESTILOS - NO RELACIONADOS CON EL CTA
+   ============================================================================ */
 
 /* 🤖 FOOTER - SECCIÓN PRINCIPAL */
 .footer-reveal {
@@ -4773,26 +4785,6 @@ section {
     height: 100vh; /* Asegurar altura completa en tablets */
   }
 
-  .cta-content {
-    min-height: 100vh; /* Mantener altura completa */
-    padding: 20px 15px 20px 15px !important;
-  }
-
-  .cta-title {
-    font-size: clamp(2.5rem, 6vw, 4rem); /* Responsive para tablets */
-    line-height: 0.9; /* Ajustado para mantener 2 líneas */
-    margin-bottom: clamp(25px, 5vh, 50px) !important;
-  }
-
-  /* 🔥 BOTÓN CTA - TABLETS */
-  .cta-button-image {
-    max-width: clamp(160px, 18vw, 240px) !important;
-  }
-
-  .cta-button-container {
-    margin-top: clamp(30px, 6vh, 60px) !important;
-  }
-
   @media (min-width: 481px) and (max-width: 768px) {
     .footer-reveal {
       height: auto; /* 🎯 También auto para tablets */
@@ -5258,12 +5250,26 @@ section {
     max-width: clamp(140px, 16vw, 200px) !important;
   }
 
-  .cta-button-container {
-    margin-top: clamp(10px, 2vh, 20px) !important; /* Ajustado para móviles */
+  /* 🎯 CONTENEDOR CTA - OPTIMIZACIÓN MÓVIL */
+  .cta-content {
+    padding: clamp(20px, 3vw, 30px) clamp(10px, 2vw, 20px) !important; /* 🎯 Padding más conservador en móviles */
+    max-width: 95vw !important; /* 🎯 Ancho máximo para evitar desbordamiento */
+    overflow-x: hidden !important; /* 🎯 Asegurar no desbordamiento horizontal */
   }
 
-  .cta-subtitle-space {
-    min-height: clamp(35px, 7vh, 70px); /* Proporcional para móviles */
+  /* 🎯 TEXTO DEL BOTÓN CTA - ESCALADO MÓVIL MEJORADO */
+  .cta-button-text-display {
+    font-size: clamp(
+      1.1rem,
+      3.2vw,
+      1.6rem
+    ) !important; /* 🔥 MEJORADO: Escalado más agresivo para móviles */
+    letter-spacing: 0.06em !important; /* Ajustado para mejor proporción */
+    font-weight: 200 !important; /* Ligeramente más grueso para mejor legibilidad */
+  }
+
+  .cta-button-container {
+    margin-top: clamp(10px, 2vh, 20px) !important; /* Ajustado para móviles */
   }
 
   /* 🎯 NEWSLETTER SECTION OPTIMIZADA */
@@ -6794,7 +6800,7 @@ section {
   }
 
   .cta-button-text-display {
-    font-size: clamp(0.65rem, 3.2vw, 0.9rem);
+    font-size: clamp(0.8rem, 3.5vw, 1.1rem);
     letter-spacing: 0.08em;
   }
 }
@@ -6820,7 +6826,7 @@ section {
   }
 
   .cta-button-text-display {
-    font-size: clamp(0.75rem, 2.5vw, 1rem);
+    font-size: clamp(0.85rem, 2.8vw, 1.15rem);
     letter-spacing: 0.09em;
   }
 }
