@@ -259,32 +259,8 @@ body,
   box-sizing: border-box !important;
 }
 
-/* 🎯 MANTENER CURSOR CAD EN TODOS LOS ELEMENTOS INTERACTIVOS - EXCEPTO HOMEPAGE EMBEBIDA */
-.rebecca-container *,
-.rebecca-container button,
-.rebecca-container .vapi-chat-button,
-.rebecca-container a,
-.rebecca-container .newsletter-button,
-.rebecca-container .newsletter-button *,
-.rebecca-container .ai-matrix-button,
-.rebecca-container .ai-matrix-button *,
-.rebecca-container .button-background,
-.rebecca-container .metallic-surface,
-.rebecca-container .arrow-container,
-.rebecca-container .arrow-icon,
-.rebecca-container .neon-glow,
-.rebecca-container .ai-matrix-container,
-.rebecca-container .ai-core,
-.rebecca-container .neural-network,
-.rebecca-container .neuron,
-.rebecca-container .data-matrix,
-.rebecca-container .hologram-layers,
-.rebecca-container .arrow-geometric,
-.rebecca-container .holo-text,
-.rebecca-container svg,
-.rebecca-container path,
-.rebecca-container circle,
-.rebecca-container g {
+/* 🎯 CURSOR CAD PERSONALIZADO - APLICADO A TODOS LOS ELEMENTOS DE REBECCA */
+.rebecca-container * {
   cursor: none !important;
 }
 
@@ -530,7 +506,7 @@ body,
   border-radius: 10px;
 }
 
-/* �🎯 CURSOR CAD - CRUZ HORIZONTAL Y VERTICAL */
+/* 🎯 CURSOR CAD - CRUZ HORIZONTAL Y VERTICAL */
 .rebecca-container .cursor-cross {
   position: fixed;
   width: 25px;
@@ -618,7 +594,7 @@ body,
   animation: data-matrix-flow 20s linear infinite;
 }
 
-/* �🎯 CURSOR CAD - CUADRADO CENTRAL */
+/* 🎯 CURSOR CAD - CUADRADO CENTRAL */
 .rebecca-container::after {
   content: "";
   position: fixed;
@@ -636,85 +612,12 @@ body,
   will-change: transform, opacity;
 }
 
-/* 🎯 MOSTRAR CURSOR CAD AL MOVER EL MOUSE (LÓGICA SIMPLIFICADA) */
+/* 🎯 MOSTRAR CURSOR CAD AL ACTIVARSE */
 .rebecca-container.custom-cursor::after {
   opacity: 1;
 }
 
-/* 🎯 MANTENER CURSOR CAD EN TODOS LOS ELEMENTOS INTERACTIVOS - EXCEPTO HOMEPAGE EMBEBIDA */
-.rebecca-container *,
-.rebecca-container button,
-.rebecca-container .vapi-chat-button,
-.rebecca-container a,
-.rebecca-container .newsletter-button,
-.rebecca-container .newsletter-button *,
-.rebecca-container .ai-matrix-button,
-.rebecca-container .ai-matrix-button *,
-.rebecca-container .button-background,
-.rebecca-container .metallic-surface,
-.rebecca-container .arrow-container,
-.rebecca-container .arrow-icon,
-.rebecca-container .neon-glow,
-.rebecca-container .ai-matrix-container,
-.rebecca-container .ai-core,
-.rebecca-container .neural-network,
-.rebecca-container .neuron,
-.rebecca-container .data-matrix,
-.rebecca-container .hologram-layers,
-.rebecca-container .arrow-geometric,
-.rebecca-container .holo-text,
-.rebecca-container svg,
-.rebecca-container path,
-.rebecca-container circle,
-.rebecca-container g {
-  cursor: none !important;
-}
-
-/* 🎯 REGLA ESPECÍFICA PARA TODO EL FOOTER Y SUS ELEMENTOS */
-.footer-reveal,
-.footer-reveal *,
-.footer-reveal button,
-.footer-reveal input,
-.footer-reveal svg,
-.footer-reveal path,
-.footer-reveal circle,
-.footer-reveal g,
-.footer-reveal defs,
-.footer-reveal linearGradient,
-.footer-reveal radialGradient,
-.footer-reveal stop {
-  cursor: none !important;
-}
-
-/* 🎯 FORZAR CURSOR PERSONALIZADO EN BOTONES DEL FOOTER - MÁXIMA ESPECIFICIDAD */
-.footer-reveal .newsletter-button,
-.footer-reveal .newsletter-button *,
-.footer-reveal .ai-matrix-button,
-.footer-reveal .ai-matrix-button *,
-.footer-reveal .modern-arrow-button,
-.footer-reveal .modern-arrow-button *,
-.footer-reveal button,
-.footer-reveal button * {
-  cursor: none !important;
-}
-
 /* 🎯 EXCEPCIÓN: Permitir cursores normales en el visualizador HOME 3D */
-
-/* 🎯 REGLA ESPECÍFICA PARA AUDIOVISUALIZER DENTRO DEL VISUALIZADOR REBECCA */
-.rebecca-container #interactive-container.active .audio-visualizer-container,
-.rebecca-container #interactive-container.active .audio-visualizer-container *,
-.rebecca-container #interactive-container.active .audio-visualizer-active,
-.rebecca-container #interactive-container.active .audio-visualizer-active *,
-.rebecca-container .homepage-wrapper .audio-visualizer-container,
-.rebecca-container .homepage-wrapper .audio-visualizer-container *,
-.rebecca-container .homepage-wrapper .audio-visualizer-active,
-.rebecca-container .homepage-wrapper .audio-visualizer-active *,
-.rebecca-container .homepage-embedded .audio-visualizer-container,
-.rebecca-container .homepage-embedded .audio-visualizer-container *,
-.rebecca-container .homepage-embedded .audio-visualizer-active,
-.rebecca-container .homepage-embedded .audio-visualizer-active * {
-  cursor: none !important;
-}
 
 /* 🎯 CONTENIDO PRINCIPAL - CENTRADO SIMPLE Y ESTABLE */
 
@@ -2891,7 +2794,6 @@ body,
   font-weight: 500;
   font-family: "Consolas", "Monaco", "Courier New", monospace;
   color: rgba(218, 128, 35, 0.6);
-  cursor: none !important; /* 🎯 CURSOR PERSONALIZADO CAD - NO NATIVO */
   pointer-events: auto !important; /* 🎯 FORZAR INTERACCIÓN COMPLETA DEL BOTÓN */
   z-index: 200 !important; /* 🎯 REDUCIDO: de 2000000 a 200 */
   overflow: hidden;
@@ -3187,7 +3089,6 @@ body,
   font-weight: 500;
   font-family: "Consolas", "Monaco", "Courier New", monospace;
   color: rgba(218, 128, 35, 0.6);
-  cursor: none !important; /* 🎯 CURSOR PERSONALIZADO CAD - NO NATIVO */
   pointer-events: auto !important; /* 🎯 FORZAR INTERACCIÓN COMPLETA DEL BOTÓN */
   z-index: 200 !important; /* 🎯 REDUCIDO: de 2000000 a 200 */
   overflow: hidden;
@@ -3230,7 +3131,6 @@ body,
   bottom: 0;
   z-index: 1000; /* 🎯 REDUCIDO: de 2000001 a 1000 */
   pointer-events: auto;
-  cursor: none !important;
 }
 
 /* 🎯 ASEGURAR QUE EL BOTÓN AI TENGA PRIORIDAD SOBRE CREDITS */
@@ -5206,12 +5106,6 @@ body,
 
 /* 🎯 FOOTER - FINAL LAYOUT ADJUSTMENTS */
 
-/* 🎯 BOTONES DEL FOOTER: MANTENER CURSOR PERSONALIZADO CAD */
-.footer-reveal button,
-.footer-reveal .newsletter-button {
-  cursor: none !important; /* 🎯 CURSOR PERSONALIZADO CAD - NO NATIVO */
-}
-
 /* Mantener excepción para homepage-wrapper y homepage-embedded */
 .rebecca-container .homepage-wrapper *,
 .rebecca-container .homepage-embedded *,
@@ -5256,7 +5150,6 @@ body,
   padding: 6px 12px;
   margin-bottom: 8px;
   border-radius: 4px;
-  cursor: none !important; /* 🎯 CURSOR PERSONALIZADO CAD */
   transition: all 0.3s ease;
   font-weight: 500;
   letter-spacing: 0.8px;
@@ -5282,7 +5175,6 @@ body,
   padding: 8px 16px;
   margin-bottom: 10px;
   border-radius: 4px;
-  cursor: none !important; /* 🎯 CURSOR PERSONALIZADO - NO NATIVO */
   transition: all 0.3s ease;
   font-weight: 500;
   letter-spacing: 0.5px;
@@ -5488,7 +5380,6 @@ body,
     /* Micro bordes metálicos */ inset 0 0.5px 1px rgba(255, 255, 255, 0.03),
     inset 0 -0.5px 1px rgba(0, 0, 0, 0.9) !important;
   overflow: visible !important;
-  cursor: none !important; /* 🎯 CURSOR PERSONALIZADO CAD - NO NATIVO */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
   padding: 0 !important;
 }
