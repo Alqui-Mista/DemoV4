@@ -747,6 +747,15 @@ body,
       /* 🎯 Reducido de 0.9 a 0.5 */ rgba(255, 255, 255, 0.4) 55%,
       /* 🎯 Reducido de 0.8 a 0.4 */ transparent 70%
     ),
+    /* Capa de reflejo principal (efecto espejo) */
+      linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.4) 45%,
+        /* 🎯 Reducido de 0.8 a 0.4 */ rgba(255, 255, 255, 0.5) 50%,
+        /* 🎯 Reducido de 0.9 a 0.5 */ rgba(255, 255, 255, 0.4) 55%,
+        /* 🎯 Reducido de 0.8 a 0.4 */ transparent 70%
+      ),
     /* Textura metálica base */
       linear-gradient(
         135deg,
@@ -1847,12 +1856,6 @@ body,
   margin-top: 0 !important;
   position: relative;
   top: 0;
-}
-
-/* ✅ FORZAR PEGADO DE SECCIONES */
-section {
-  display: block;
-  margin: 0 !important;
 }
 
 /* � ESPACIADORES PARA PARALLAX - Crean altura de scroll necesaria */
