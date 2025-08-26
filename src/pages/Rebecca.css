@@ -173,7 +173,7 @@ body,
 .footer-reveal {
   padding: 0 !important;
   display: flex !important;
-  min-height: 100vh !important; /* Cada sección ocupa pantalla completa */
+  min-height: 100vh !important; /* 🎯 ESTRUCTURAL: Cada sección ocupa pantalla completa */
 }
 
 /* 🔧 RESET ESPECÍFICO PARA REBECCA - CONFIGURACIÓN GLOBAL */
@@ -189,6 +189,11 @@ body,
 /* 🏠 SECCIÓN PRINCIPAL - PRIMERA PANTALLA Y ELEMENTOS CENTRALES        */
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
+/* 🎯 DISEÑO DESKTOP PURO - SIN RESPONSIVE ADAPTATIVO
+   ✅ SOLO RESPONSIVE ESTRUCTURAL (100vw/100vh para 3 secciones de pantalla completa)
+   ❌ SIN CLAMP(), VIEWPORT UNITS ADAPTATIVOS, NI MEDIA QUERIES
+*/
+
 /* ============================================================================
    1️⃣ LAYOUT BASE Y CONTENEDORES PRINCIPALES
    ============================================================================ */
@@ -197,13 +202,13 @@ body,
 .rebecca-container {
   position: relative;
   width: 100%;
-  min-height: 300vh; /* Permite espacio para las 3 secciones de 100vh cada una */
+  min-height: 300vh; /* 🎯 ESTRUCTURAL: Espacio para las 3 secciones de 100vh cada una */
   overflow-x: hidden; /* Solo ocultar scroll horizontal */
   overflow-y: auto; /* Permitir scroll vertical */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
   color: var(--color-white);
-  font-size: clamp(14px, 2vw, 18px);
+  font-size: 18px;
   line-height: 1.6;
 
   /* 🎯 FONDO NEGRO SÓLIDO PREMIUM */
@@ -378,12 +383,8 @@ body,
 .portal-effects {
   pointer-events: auto;
   z-index: 5;
-  width: clamp(
-    180px,
-    30vw,
-    280px
-  ); /* 🎯 MÁS REDUCIDO: Tamaños compactos para evitar superposición con título */
-  height: clamp(180px, 30vw, 280px);
+  width: 280px; /* 🎯 MÁS REDUCIDO: Tamaños compactos para evitar superposición con título */
+  height: 280px;
   border-radius: 50%;
 }
 
@@ -417,8 +418,8 @@ body,
   top: 0; /* 🎯 CORREGIDO: ocupar desde el borde superior */
   left: 0; /* 🎯 CORREGIDO: ocupar desde el borde izquierdo */
   transform: none; /* 🎯 CORREGIDO: sin transforms que puedan descentrar */
-  width: 100vw; /* 🎯 CORREGIDO: ancho completo de pantalla */
-  height: 100vh; /* 🎯 CORREGIDO: altura completa de pantalla */
+  width: 100vw; /* 🎯 ESTRUCTURAL: ancho completo de pantalla */
+  height: 100vh; /* 🎯 ESTRUCTURAL: altura completa de pantalla */
   /* 🔹 FORMA FINAL: Rectángulo sin bordes redondeados para ocupar 100% */
   clip-path: none; /* 🎯 CORREGIDO: sin clip-path que reduzca el área */
   background: var(--color-black);
@@ -783,14 +784,12 @@ body,
 
   /* 🌟 EFECTOS DE SOMBRA Y RESPLANDOR MULTICAPA - RESPONSIVE */
   box-shadow: 
-    /* Resplandor exterior principal */ 0 0 clamp(10px, 2vw, 20px)
+    /* Resplandor exterior principal */ 0 0 20px
       rgba(138, 138, 138, 0.3),
-    /* Resplandor interior sutil */ inset 0 0 clamp(5px, 1vw, 10px)
-      rgba(255, 255, 255, 0.05),
-    /* Sombra de profundidad */ 0 0 clamp(20px, 4vw, 40px) rgba(42, 42, 42, 0.2),
-    /* Reflejo metálico */ inset 1px 1px clamp(3px, 0.5vw, 5px)
-      rgba(255, 255, 255, 0.1),
-    inset -1px -1px clamp(3px, 0.5vw, 5px) rgba(0, 0, 0, 0.15);
+    /* Resplandor interior sutil */ inset 0 0 10px rgba(255, 255, 255, 0.05),
+    /* Sombra de profundidad */ 0 0 40px rgba(42, 42, 42, 0.2),
+    /* Reflejo metálico */ inset 1px 1px 5px rgba(255, 255, 255, 0.1),
+    inset -1px -1px 5px rgba(0, 0, 0, 0.15);
 
   /* 🎬 ANIMACIÓN CINEMATOGRÁFICA COMPLEJA - INTENSIFICADA */
   animation: metallic-rotate 8s linear infinite,
@@ -826,9 +825,8 @@ body,
   );
 
   /* Efectos de brillo y textura - RESPONSIVE - INTENSIFICADO */
-  box-shadow: 0 0 clamp(20px, 4vw, 35px) rgba(138, 138, 138, 0.25),
-    inset 0 0 clamp(8px, 1.5vw, 15px) rgba(0, 0, 0, 0.35),
-    0 0 clamp(10px, 2vw, 20px) rgba(187, 187, 187, 0.15);
+  box-shadow: 0 0 35px rgba(138, 138, 138, 0.25),
+    inset 0 0 15px rgba(0, 0, 0, 0.35), 0 0 20px rgba(187, 187, 187, 0.15);
 
   animation: metallic-rotate 8s linear infinite reverse;
 }
@@ -860,7 +858,7 @@ body,
 .pulse-ring {
   width: 65%; /* 🎯 MÁS REDUCIDO: de 75% a 65% */
   height: 65%; /* 🎯 MÁS REDUCIDO: de 75% a 65% */
-  border: clamp(1px, 0.2vw, 2px) solid var(--color-orange-primary); /* 🎨 Borde responsive */
+  border: 2px solid var(--color-orange-primary); /* 🎨 Borde responsive */
   border-radius: 50%;
   background: transparent; /* 🔍 Interior completamente transparente */
   position: absolute;
@@ -871,8 +869,8 @@ body,
   opacity: 0.8; /* 🎨 Opacidad optimizada */
 
   /* 🌟 Efectos de resplandor responsive */
-  box-shadow: 0 0 clamp(8px, 1.5vw, 15px) var(--color-orange-alpha-30),
-    inset 0 0 clamp(5px, 1vw, 10px) var(--color-orange-alpha-20);
+  box-shadow: 0 0 15px var(--color-orange-alpha-30),
+    inset 0 0 10px var(--color-orange-alpha-20);
 
   /* 🎬 Animación de pulso intensificado */
   animation: pulse-intensified 2s ease-in-out infinite;
@@ -883,9 +881,9 @@ body,
   width: 105%; /* 🎯 MÁS REDUCIDO: de 110% a 105% */
   height: 105%; /* 🎯 MÁS REDUCIDO: de 110% a 105% */
   aspect-ratio: 1 / 1; /* 🎯 FORZAR: proporción cuadrada perfecta */
-  border: clamp(1px, 0.15vw, 2px) solid transparent;
-  border-top: clamp(2px, 0.3vw, 3px) solid var(--color-orange-alpha-60);
-  border-right: clamp(1px, 0.15vw, 2px) solid var(--color-orange-alpha-30);
+  border: 2px solid transparent;
+  border-top: 3px solid var(--color-orange-alpha-60);
+  border-right: 2px solid var(--color-orange-alpha-30);
   border-radius: 50%;
   position: absolute;
   top: -2.5%; /* 🎯 MÁS AJUSTADO: de -5% a -2.5% */
@@ -895,7 +893,7 @@ body,
   opacity: 0.7;
 
   /* Efectos de resplandor */
-  box-shadow: 0 0 clamp(10px, 2vw, 20px) var(--color-orange-alpha-20);
+  box-shadow: 0 0 20px var(--color-orange-alpha-20);
 
   /* Rotación continua lenta con transform-origin centrado */
   animation: spin-clockwise 8s linear infinite;
@@ -907,9 +905,9 @@ body,
   width: 90%;
   height: 90%;
   aspect-ratio: 1 / 1; /* 🎯 FORZAR: proporción cuadrada perfecta */
-  border: clamp(1px, 0.1vw, 1px) solid transparent;
-  border-left: clamp(2px, 0.25vw, 3px) solid var(--color-white-alpha-50);
-  border-bottom: clamp(1px, 0.1vw, 1px) solid var(--color-white-alpha-40);
+  border: 1px solid transparent;
+  border-left: 3px solid var(--color-white-alpha-50);
+  border-bottom: 1px solid var(--color-white-alpha-40);
   border-radius: 50%;
   position: absolute;
   top: 5%;
@@ -919,7 +917,7 @@ body,
   opacity: 0.6;
 
   /* Efectos de resplandor sutil */
-  box-shadow: 0 0 clamp(5px, 1vw, 10px) rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 
   /* Rotación continua rápida en sentido contrario con transform-origin centrado */
   animation: spin-counterclockwise 4s linear infinite;
@@ -1022,7 +1020,7 @@ body,
   z-index: 1;
   opacity: 0;
   border-radius: 50%;
-  border: clamp(1px, 0.1vw, 2px) solid var(--color-orange-alpha-40);
+  border: 2px solid var(--color-orange-alpha-40);
 
   /* Onda expansiva periódica */
   animation: wave-expansion 8s ease-out infinite;
@@ -1405,33 +1403,24 @@ body,
 /* Pulsación de resplandor metálico responsive */
 @keyframes reflective-pulse {
   0% {
-    box-shadow: 0 0 clamp(15px, 3vw, 30px) rgba(138, 138, 138, 0.6),
-      inset 0 0 clamp(10px, 2vw, 20px) rgba(255, 255, 255, 0.1),
-      0 0 clamp(30px, 6vw, 60px) rgba(42, 42, 42, 0.4),
-      inset clamp(1px, 0.2vw, 2px) clamp(1px, 0.2vw, 2px) clamp(5px, 1vw, 10px)
-        rgba(255, 255, 255, 0.2),
-      inset clamp(-1px, -0.2vw, -2px) clamp(-1px, -0.2vw, -2px)
-        clamp(5px, 1vw, 10px) rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 30px rgba(138, 138, 138, 0.6),
+      inset 0 0 20px rgba(255, 255, 255, 0.1), 0 0 60px rgba(42, 42, 42, 0.4),
+      inset 2px 2px 10px rgba(255, 255, 255, 0.2),
+      inset -2px -2px 10px rgba(0, 0, 0, 0.3);
     opacity: 0.9;
   }
   50% {
-    box-shadow: 0 0 clamp(22px, 4.5vw, 45px) rgba(138, 138, 138, 0.7),
-      inset 0 0 clamp(12px, 2.5vw, 25px) rgba(255, 255, 255, 0.15),
-      0 0 clamp(35px, 7vw, 70px) rgba(42, 42, 42, 0.5),
-      inset clamp(1.2px, 0.25vw, 2.5px) clamp(1.2px, 0.25vw, 2.5px)
-        clamp(6px, 1.2vw, 12px) rgba(255, 255, 255, 0.25),
-      inset clamp(-1.2px, -0.25vw, -2.5px) clamp(-1.2px, -0.25vw, -2.5px)
-        clamp(6px, 1.2vw, 12px) rgba(0, 0, 0, 0.35);
+    box-shadow: 0 0 45px rgba(138, 138, 138, 0.7),
+      inset 0 0 25px rgba(255, 255, 255, 0.15), 0 0 70px rgba(42, 42, 42, 0.5),
+      inset 2.5px 2.5px 12px rgba(255, 255, 255, 0.25),
+      inset -2.5px -2.5px 12px rgba(0, 0, 0, 0.35);
     opacity: 0.95;
   }
   100% {
-    box-shadow: 0 0 clamp(25px, 5vw, 50px) rgba(138, 138, 138, 0.8),
-      inset 0 0 clamp(15px, 3vw, 30px) rgba(255, 255, 255, 0.2),
-      0 0 clamp(40px, 8vw, 80px) rgba(42, 42, 42, 0.6),
-      inset clamp(1.5px, 0.3vw, 3px) clamp(1.5px, 0.3vw, 3px)
-        clamp(7px, 1.5vw, 15px) rgba(255, 255, 255, 0.3),
-      inset clamp(-1.5px, -0.3vw, -3px) clamp(-1.5px, -0.3vw, -3px)
-        clamp(7px, 1.5vw, 15px) rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 50px rgba(138, 138, 138, 0.8),
+      inset 0 0 30px rgba(255, 255, 255, 0.2), 0 0 80px rgba(42, 42, 42, 0.6),
+      inset 3px 3px 15px rgba(255, 255, 255, 0.3),
+      inset -3px -3px 15px rgba(0, 0, 0, 0.4);
     opacity: 1;
   }
 }
@@ -1443,20 +1432,20 @@ body,
   0% {
     transform: scale(1);
     opacity: 0.8;
-    box-shadow: 0 0 clamp(8px, 1.5vw, 15px) var(--color-orange-alpha-30),
-      inset 0 0 clamp(5px, 1vw, 10px) var(--color-orange-alpha-20);
+    box-shadow: 0 0 15px var(--color-orange-alpha-30),
+      inset 0 0 10px var(--color-orange-alpha-20);
   }
   50% {
     transform: scale(1.05);
     opacity: 0.9;
-    box-shadow: 0 0 clamp(12px, 2.5vw, 25px) var(--color-orange-alpha-40),
-      inset 0 0 clamp(8px, 1.5vw, 15px) var(--color-orange-alpha-30);
+    box-shadow: 0 0 25px var(--color-orange-alpha-40),
+      inset 0 0 15px var(--color-orange-alpha-30);
   }
   100% {
     transform: scale(1);
     opacity: 0.8;
-    box-shadow: 0 0 clamp(8px, 1.5vw, 15px) var(--color-orange-alpha-30),
-      inset 0 0 clamp(5px, 1vw, 10px) var(--color-orange-alpha-20);
+    box-shadow: 0 0 15px var(--color-orange-alpha-30),
+      inset 0 0 10px var(--color-orange-alpha-20);
   }
 }
 
@@ -1465,20 +1454,20 @@ body,
   0% {
     transform: scale(1);
     opacity: 0.9;
-    box-shadow: 0 0 clamp(12px, 2vw, 20px) var(--color-orange-alpha-40),
-      inset 0 0 clamp(8px, 1.5vw, 15px) var(--color-orange-alpha-30);
+    box-shadow: 0 0 20px var(--color-orange-alpha-40),
+      inset 0 0 15px var(--color-orange-alpha-30);
   }
   50% {
     transform: scale(1.08);
     opacity: 1;
-    box-shadow: 0 0 clamp(18px, 3vw, 30px) var(--color-orange-alpha-60),
-      inset 0 0 clamp(12px, 2vw, 20px) var(--color-orange-alpha-40);
+    box-shadow: 0 0 30px var(--color-orange-alpha-60),
+      inset 0 0 20px var(--color-orange-alpha-40);
   }
   100% {
     transform: scale(1);
     opacity: 0.9;
-    box-shadow: 0 0 clamp(12px, 2vw, 20px) var(--color-orange-alpha-40),
-      inset 0 0 clamp(8px, 1.5vw, 15px) var(--color-orange-alpha-30);
+    box-shadow: 0 0 20px var(--color-orange-alpha-40),
+      inset 0 0 15px var(--color-orange-alpha-30);
   }
 }
 
@@ -1849,7 +1838,7 @@ body,
 
 /* �🏠 CONTENEDOR PRINCIPAL - PRIMERA PANTALLA */
 .main-content-wrapper {
-  /* 🎯 PRIMERA SECCIÓN - POSICIÓN NORMAL */
+  /* 🎯 ESTRUCTURAL: Primera sección ocupa pantalla completa */
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -1874,10 +1863,10 @@ body,
 
 /* 🎭 SECCIÓN CALL TO ACTION - CONTENEDOR PRINCIPAL */
 .call-to-action-section {
-  /* 🎯 POSICIONAMIENTO Y DIMENSIONES BASE */
+  /* 🎯 ESTRUCTURAL: Segunda sección ocupa pantalla completa */
   position: relative;
   top: 0;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -1889,19 +1878,19 @@ body,
   z-index: 2;
   overflow: hidden;
 
-  /* 🔑 CLAVE: Permite que el componente FuenteCero se posicione correctamente */
+  /* 🔑 ESTRUCTURAL: Permite que el componente FuenteCero se posicione correctamente */
   min-height: 100vh;
 }
 
 /* 🎯 CONTENIDO INTERNO DEL CTA */
 .cta-content {
-  max-width: 1000px;
+  max-width: 1400px; /* 🔧 AUMENTADO: De 1000px a 1400px para permitir frases más largas */
   margin: 0 auto !important;
   padding: 20px 24px !important;
   position: relative;
   z-index: 5; /* Por encima del fondo FuenteCero */
   box-sizing: border-box;
-  min-height: 100vh;
+  min-height: 100vh; /* 🎯 ESTRUCTURAL: Contenido CTA ocupa pantalla completa */
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -2008,17 +1997,18 @@ body,
 /* 🎯 CONTENEDOR DEL SUBTÍTULO */
 .cta-subtitle {
   margin: 0;
-  padding: clamp(20px, 3vh, 30px) 0;
+  padding: clamp(15px, 3vw, 30px) 0; /* 🎯 RESPONSIVE: Padding adaptativo */
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: clamp(8px, 1.5vh, 12px);
-  max-width: 100%;
+  gap: clamp(6px, 1.2vw, 12px); /* 🎯 RESPONSIVE: Gap adaptativo */
+  max-width: 100%; /* 🔧 CAMBIO: Aprovechar todo el ancho disponible del contenedor padre */
   width: 100%;
   align-items: center;
   justify-content: center;
   font-synthesis: weight style;
   text-rendering: optimizeLegibility;
+  box-sizing: border-box; /* 🔧 NUEVO: Mejor control del sizing */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -2030,19 +2020,23 @@ body,
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
   font-weight: 400;
-  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-size: clamp(
+    0.75rem,
+    2.5vw,
+    1.5rem
+  ); /* 🎯 RESPONSIVE: Se ajusta de 12px a 24px */
   color: #ffffff;
-  letter-spacing: clamp(-0.02em, -0.01em, 0em);
-  line-height: clamp(0.9, 1vw, 0.95);
+  letter-spacing: 0em;
+  line-height: 0.95;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
   opacity: 1;
   white-space: nowrap;
-  overflow: hidden;
+  overflow: hidden; /* 🔧 RESTAURADO: Necesario para el efecto typewriter */
   border-right: 2px solid #ffffff;
   width: 0;
   text-align: center;
   margin: 0 auto;
-  max-width: 90vw;
+  max-width: 100%;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -2212,7 +2206,7 @@ body,
 }
 
 .cta-subtitle .subtitle-line-1.typewriter-line.typewriter-active {
-  animation: typewriterReveal 3.5s steps(53) 0s forwards,
+  animation: typewriterReveal 3.5s steps(50) 0s forwards,
     blinkCursorLine1 7.5s ease-in-out 0s forwards;
 }
 
@@ -2223,7 +2217,7 @@ body,
 }
 
 .cta-subtitle .subtitle-line-2.typewriter-line.typewriter-active {
-  animation: typewriterReveal 3s steps(38) 4s forwards,
+  animation: typewriterReveal 3s steps(59) 4s forwards,
     blinkCursorLine2 7s ease-in-out 4s forwards;
 }
 
@@ -2295,8 +2289,12 @@ body,
 .cta-button-container {
   position: relative;
   z-index: 10;
-  padding: clamp(5px, 1vh, 15px);
-  margin-top: clamp(5px, 1vh, 15px) !important;
+  padding: clamp(10px, 2vw, 15px); /* 🎯 RESPONSIVE: Padding adaptativo */
+  margin-top: clamp(
+    10px,
+    2vw,
+    15px
+  ) !important; /* 🎯 RESPONSIVE: Margen adaptativo */
   width: 100%;
   display: flex;
   justify-content: center;
@@ -2359,7 +2357,11 @@ body,
 /* 🖼️ IMAGEN DEL BOTÓN CTA */
 .cta-button-image {
   display: block;
-  max-width: 280px !important;
+  max-width: clamp(
+    180px,
+    20vw,
+    280px
+  ) !important; /* 🎯 RESPONSIVE: Se ajusta de 180px a 280px */
   height: auto;
   border-radius: 8px;
   transition: all 0.9s cubic-bezier(0.19, 1, 0.22, 1);
@@ -2402,7 +2404,11 @@ body,
 .cta-button-text-display {
   font-family: "Orbitron", "Courier New", monospace;
   font-weight: 100;
-  font-size: clamp(1rem, 2.2vw, 1.4rem);
+  font-size: clamp(
+    1rem,
+    2vw,
+    1.4rem
+  ); /* 🎯 RESPONSIVE: Se ajusta de 16px a 22.4px */
   color: var(--color-orange-primary);
   text-align: center;
   letter-spacing: 0.1em;
@@ -2840,8 +2846,8 @@ body,
 /* 🎯 FOOTER - CONTENEDOR PRINCIPAL */
 .footer-reveal {
   position: relative;
-  width: 100vw;
-  height: 100vh; /* Cambio de min-height a height fijo */
+  width: 100vw; /* 🎯 ESTRUCTURAL: Tercera sección ocupa pantalla completa */
+  height: 100vh; /* 🎯 ESTRUCTURAL: Tercera sección ocupa pantalla completa */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2898,12 +2904,12 @@ body,
   /* 🎯 INTEGRACIÓN CON SISTEMA RESPONSIVE NUEVO */
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  gap: clamp(20px, 4vw, 40px);
+  gap: 40px;
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: clamp(320px, 90vw, 1400px);
-  padding: clamp(20px, 4vw, 40px);
+  max-width: 1400px;
+  padding: 40px;
   margin: 0 auto;
   min-height: auto;
   height: auto;
@@ -4919,12 +4925,6 @@ body,
 
 /* � ESTILOS PARA FUNCIONALIDAD DEL BOLETÍN */
 
-.call-to-action-section {
-  padding: 40px 20px;
-  margin-top: 100vh;
-  height: 100vh; /* Asegurar altura completa en tablets */
-}
-
 /* .contact-info mobile variant moved to Rebecca.legacy.css */
 
 .contact-item {
@@ -5776,8 +5776,8 @@ body,
 
 .credits-modal-container {
   position: relative !important;
-  max-width: 85vw !important; /* 🎯 REDUCIDO: de 90vw a 85vw */
-  max-height: 85vh !important; /* 🎯 REDUCIDO: de 90vh a 85vh */
+  max-width: 1200px !important; /* 🎯 FIJO: Valor fijo en lugar de 85vw */
+  max-height: 800px !important; /* 🎯 FIJO: Valor fijo en lugar de 85vh */
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
@@ -5813,8 +5813,8 @@ body,
 
 /* 🎯 CONTENEDOR CON MARCO TECNOLÓGICO */
 .credits-frame-container {
-  width: 90vw !important; /* 🎯 AUMENTADO 10% ADICIONAL: de 77vw a 84.7vw */
-  height: 90vh !important; /* 🎯 AUMENTADO 10% ADICIONAL: de 77vh a 84.7vh */
+  width: 1000px !important; /* 🎯 FIJO: Valor fijo en lugar de 90vw */
+  height: 700px !important; /* 🎯 FIJO: Valor fijo en lugar de 90vh */
   background-image: url("../assets/contenedor_creditos.png") !important;
   background-size: contain !important;
   background-repeat: no-repeat !important;
@@ -6887,16 +6887,16 @@ body,
 
 /* Portal effects */
 .portal-effects {
-  width: clamp(280px, 80vw, 400px);
-  height: clamp(280px, 80vw, 400px);
+  width: 400px;
+  height: 400px;
 }
 
 .glow-ring {
-  border: clamp(2px, 0.5vw, 3px) solid transparent;
+  border: 3px solid transparent;
 }
 
 .pulse-ring {
-  border: clamp(1px, 0.3vw, 2px) solid var(--color-orange-primary);
+  border: 2px solid var(--color-orange-primary);
 }
 
 /* 🎯 CORRECCIÓN CRÍTICA: Mantener aspect ratio circular de los rings en móviles */
@@ -6935,8 +6935,8 @@ body,
 }
 
 #interactive-container {
-  width: clamp(70px, 18vw, 90px);
-  height: clamp(70px, 18vw, 90px);
+  width: 90px;
+  height: 90px;
   top: 15px;
   left: 15px;
 }
@@ -7022,7 +7022,7 @@ body,
   align-items: center;
   width: 100%;
   height: auto;
-  min-height: clamp(200px, 40vh, 400px);
+  min-height: 400px;
 }
 
 /* ============================================================================
