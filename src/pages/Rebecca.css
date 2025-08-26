@@ -160,7 +160,23 @@ body,
   max-height: none; /* Permitir altura natural */
 }
 
-/* RESET ESPECÍFICO PARA REBECCA */
+/* 🎯 CONFIGURACIÓN GLOBAL DE SECCIONES - LAYOUT SIN ESPACIOS */
+.main-content-wrapper,
+.call-to-action-section,
+.footer-reveal {
+  margin: 0 !important;
+  border: none !important;
+}
+
+/* Override específico para secciones con flex */
+.call-to-action-section,
+.footer-reveal {
+  padding: 0 !important;
+  display: flex !important;
+  min-height: 100vh !important; /* Cada sección ocupa pantalla completa */
+}
+
+/* 🔧 RESET ESPECÍFICO PARA REBECCA - CONFIGURACIÓN GLOBAL */
 .rebecca-container > div,
 .rebecca-container > section,
 .rebecca-container > footer {
@@ -169,28 +185,344 @@ body,
   line-height: 1 !important;
 }
 
-.footer-content {
-  /* 🎯 INTEGRACIÓN CON SISTEMA RESPONSIVE NUEVO */
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: clamp(20px, 4vw, 40px);
-  align-items: center;
-  justify-content: center;
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🏠 SECCIÓN PRINCIPAL - PRIMERA PANTALLA Y ELEMENTOS CENTRALES        */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* ============================================================================
+   1️⃣ LAYOUT BASE Y CONTENEDORES PRINCIPALES
+   ============================================================================ */
+
+/* 🎯 CONTENEDOR REBECCA Y CONFIGURACIONES GENERALES */
+.rebecca-container {
+  position: relative;
   width: 100%;
-  max-width: clamp(320px, 90vw, 1400px);
-  padding: clamp(20px, 4vw, 40px);
-  margin: 0 auto;
-  min-height: auto;
-  height: auto;
+  min-height: 300vh; /* Permite espacio para las 3 secciones de 100vh cada una */
+  overflow-x: hidden; /* Solo ocultar scroll horizontal */
+  overflow-y: auto; /* Permitir scroll vertical */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  color: var(--color-white);
+  font-size: clamp(14px, 2vw, 18px);
+  line-height: 1.6;
+
+  /* 🎯 FONDO NEGRO SÓLIDO PREMIUM */
+  background: var(--color-black);
+
+  /* 🎯 SIN FONDO - CADA SECCIÓN TENDRÁ SU PROPIO FONDO */
   box-sizing: border-box;
-  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* 🤖 TOOLTIP MINIMALISTA DE IA - SOLO TEXTO HOLOGRÁFICO */
+/* Cursor personalizado específico para la página Rebecca */
+.rebecca-container > div,
+.rebecca-container > section,
+.rebecca-container > footer {
+  box-sizing: border-box !important;
+}
 
-/* 🎯 CONTAINER DE TEXTO PURO */
+/* 🎯 MANTENER CURSOR CAD EN TODOS LOS ELEMENTOS INTERACTIVOS - EXCEPTO HOMEPAGE EMBEBIDA */
+.rebecca-container *,
+.rebecca-container button,
+.rebecca-container .vapi-chat-button,
+.rebecca-container a,
+.rebecca-container .newsletter-button,
+.rebecca-container .newsletter-button *,
+.rebecca-container .ai-matrix-button,
+.rebecca-container .ai-matrix-button *,
+.rebecca-container .button-background,
+.rebecca-container .metallic-surface,
+.rebecca-container .arrow-container,
+.rebecca-container .arrow-icon,
+.rebecca-container .neon-glow,
+.rebecca-container .ai-matrix-container,
+.rebecca-container .ai-core,
+.rebecca-container .neural-network,
+.rebecca-container .neuron,
+.rebecca-container .data-matrix,
+.rebecca-container .hologram-layers,
+.rebecca-container .arrow-geometric,
+.rebecca-container .holo-text,
+.rebecca-container svg,
+.rebecca-container path,
+.rebecca-container circle,
+.rebecca-container g {
+  cursor: none !important;
+}
 
-/* � ANIMACIONES PARA TEXTO HOLOGRÁFICO HOME 3D */
+/* ============================================================================
+   2️⃣ BOTÓN VAPI CHAT - ELEMENTO CENTRAL PRINCIPAL
+   ============================================================================ */
+
+/* 🎯 CONTENIDO PRINCIPAL - CENTRADO SIMPLE Y ESTABLE */
+.vapi-content {
+  z-index: 10;
+  pointer-events: auto;
+}
+
+/* ============================================================================
+   3️⃣ TÍTULO PRINCIPAL - "¡BIENVENIDO AL FUTURO!"
+   ============================================================================ */
+
+/* 🌟 TÍTULO PRINCIPAL - BIENVENIDA SUPERIOR */
+.portal-title {
+  font-size: calc(
+    var(--font-size-3xl) * 0.9
+  ); /* 🎯 MÁS REDUCIDO: Tamaño más compacto */
+  font-weight: 700;
+
+  /* 🎨 GRADIENTE PREMIUM INTELIMARK MEJORADO PARA LEGIBILIDAD */
+  color: #ffffff; /* 🛡️ Respaldo de color sólido para máxima legibilidad */
+  background: linear-gradient(
+    135deg,
+    var(--color-orange-primary) 0%,
+    #ffffff 15%,
+    var(--color-orange-primary) 25%,
+    #f0f0f0 35%,
+    var(--color-orange-primary) 50%,
+    #ffffff 65%,
+    var(--color-orange-primary) 75%,
+    #f8f8f8 85%,
+    var(--color-orange-primary) 100%
+  );
+  background-size: 400% 400%; /* 🎯 Reducido de 600% para animación más sutil y legible */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* 🎯 POSICIONAMIENTO OPTIMIZADO - MÁXIMA VISIBILIDAD */
+  position: absolute !important;
+  top: 60px !important; /* 🎯 MÁS ARRIBA: Posición elevada para elementos más pequeños */
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 25; /* 🔥 Z-index elevado para estar sobre todos los efectos del botón */
+
+  /* 📐 DISEÑO Y TIPOGRAFÍA */
+  text-align: center;
+  white-space: nowrap;
+  margin: 0;
+
+  /* 🏆 EFECTOS VISUALES MEJORADOS PARA MÁXIMA LEGIBILIDAD */
+  text-shadow: 0 0 20px rgba(218, 128, 35, 0.8),
+    0 0 40px rgba(218, 128, 35, 0.6), 0 0 60px rgba(218, 128, 35, 0.4),
+    2px 2px 8px rgba(0, 0, 0, 0.8), 4px 4px 12px rgba(0, 0, 0, 0.6),
+    -1px -1px 3px rgba(255, 255, 255, 0.3);
+
+  /* 💎 FILTROS OPTIMIZADOS PARA LEGIBILIDAD */
+  filter: drop-shadow(0 0 10px rgba(218, 128, 35, 0.6))
+    drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8)) contrast(1.1) brightness(1.2);
+
+  /* 🎬 ANIMACIONES OPTIMIZADAS PARA LEGIBILIDAD */
+  animation: gradient-shift-advanced 6s ease-in-out infinite,
+    text-glow-pulse 4s ease-in-out infinite alternate,
+    subtle-float 8s ease-in-out infinite;
+}
+
+/* 🔮 PSEUDO-ELEMENTO AWWWARDS: PARTÍCULAS PREMIUM INTELIMARK */
+.portal-title::before {
+  content: "";
+  position: absolute;
+  top: -25px;
+  left: -60px;
+  right: -60px;
+  bottom: -25px;
+
+  /* 🎨 PARTÍCULAS PREMIUM CON PALETA INTELIMARK EXCLUSIVA */
+  background: radial-gradient(
+      3px 3px at 15% 8%,
+      var(--color-orange-primary),
+      transparent
+    ),
+    radial-gradient(2px 2px at 35% 15%, rgba(128, 128, 128, 0.8), transparent),
+    radial-gradient(
+      4px 4px at 70% 25%,
+      var(--color-orange-primary),
+      transparent
+    ),
+    radial-gradient(2px 2px at 25% 45%, rgba(64, 64, 64, 0.7), transparent),
+    radial-gradient(3px 3px at 85% 35%, var(--color-white), transparent),
+    radial-gradient(
+      1px 1px at 50% 60%,
+      var(--color-orange-primary),
+      transparent
+    ),
+    radial-gradient(2px 2px at 10% 75%, rgba(26, 26, 26, 0.9), transparent),
+    radial-gradient(3px 3px at 90% 80%, rgba(128, 128, 128, 0.6), transparent),
+    radial-gradient(
+      2px 2px at 60% 90%,
+      var(--color-orange-primary),
+      transparent
+    ),
+    radial-gradient(1px 1px at 80% 65%, var(--color-white), transparent);
+
+  background-size: 300% 300%;
+  opacity: 0.7;
+  z-index: -1;
+  border-radius: 25px;
+
+  /* 🎬 ANIMACIÓN PREMIUM DE MÚLTIPLES CAPAS */
+  animation: digital-particles-premium 12s linear infinite,
+    particle-depth-shift 8s ease-in-out infinite alternate;
+}
+
+/* ============================================================================
+   4️⃣ SISTEMA DE ANILLOS - EFECTOS VISUALES PARA BOTÓN VAPI
+   ============================================================================ */
+
+/* 🎯 SISTEMA DE ANILLOS OPTIMIZADO PARA BOTÓN VAPI */
+
+/* EFECTOS VISUALES DE PORTAL - CENTRADO SIMPLE Y ESTABLE */
+.portal-effects {
+  pointer-events: auto;
+  z-index: 5;
+  width: clamp(
+    180px,
+    30vw,
+    280px
+  ); /* 🎯 MÁS REDUCIDO: Tamaños compactos para evitar superposición con título */
+  height: clamp(180px, 30vw, 280px);
+  border-radius: 50%;
+}
+
+/* ============================================================================
+   5️⃣ VISUALIZADOR 3D INTERACTIVO
+   ============================================================================ */
+
+/* 🎯 CONTENEDOR PRINCIPAL DEL VISUALIZADOR */
+#interactive-container {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  width: 70px;
+  height: 70px;
+  background: transparent;
+  /* 🔹 FORMA INICIAL: Rombo usando clip-path */
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  /* 🔹 TRANSICIONES COORDINADAS */
+  transition: width 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    height 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    top 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    left 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    clip-path 1.8s ease-in-out 0.7s, background 1.5s ease-in-out 1s;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+/* 🔹 ESTADO EXPANDIDO DEL VISUALIZADOR - CORREGIDO PARA 100% PANTALLA */
+#interactive-container.active {
+  position: fixed;
+  top: 0; /* 🎯 CORREGIDO: ocupar desde el borde superior */
+  left: 0; /* 🎯 CORREGIDO: ocupar desde el borde izquierdo */
+  transform: none; /* 🎯 CORREGIDO: sin transforms que puedan descentrar */
+  width: 100vw; /* 🎯 CORREGIDO: ancho completo de pantalla */
+  height: 100vh; /* 🎯 CORREGIDO: altura completa de pantalla */
+  /* 🔹 FORMA FINAL: Rectángulo sin bordes redondeados para ocupar 100% */
+  clip-path: none; /* 🎯 CORREGIDO: sin clip-path que reduzca el área */
+  background: var(--color-black);
+  box-shadow: 0 0 50px rgba(255, 140, 0, 0.8), 0 0 100px rgba(255, 140, 0, 0.4);
+  z-index: 1001;
+}
+
+/* 🎯 CORRECCIÓN PARA MANTENER RINGS CENTRADOS Y CIRCULARES EN ESTADO ACTIVO */
+#interactive-container.active .glow-ring,
+#interactive-container.active .pulse-ring,
+#interactive-container.active .rotating-ring-outer,
+#interactive-container.active .rotating-ring-inner,
+#interactive-container.active .particle-ring {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 50% !important;
+  /* Mantener sus dimensiones específicas pero forzar circularidad */
+  box-sizing: border-box !important;
+}
+
+/* 🎯 CORRECCIÓN ESPECÍFICA PARA ROTATING RINGS - FORZAR CIRCULARIDAD */
+.rotating-ring-outer,
+.rotating-ring-inner {
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 50% !important;
+  transform-origin: center center !important;
+  box-sizing: border-box !important;
+}
+
+/* 🔹 ICONO DEL ROMBO - RESPLANDOR */
+#interactive-container::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: 0 0 8px rgba(255, 140, 0, 0.5);
+  z-index: -1;
+  pointer-events: none;
+  transition: opacity 0.8s ease-out 0.2s, visibility 0.8s ease-out 0.2s;
+}
+
+/* 🔹 ICONO DEL ROMBO - IMAGEN */
+#interactive-container::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  background-image: url("/src/assets/back_buttom.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: drop-shadow(2px 2px 8px var(--color-black-alpha-70));
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.8s ease-out 0.2s, visibility 0.8s ease-out 0.2s;
+}
+
+/* 🔹 OCULTAR ICONOS CUANDO ESTÁ EXPANDIDO */
+#interactive-container.active::before,
+#interactive-container.active::after {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* 🔹 CONTENEDOR DEL CONTENIDO HOMEPAGE */
+.homepage-wrapper {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  overflow: auto;
+  overflow-x: hidden;
+  border-radius: 10px;
+  position: relative;
+  scroll-behavior: smooth;
+  max-height: 100%;
+  /* 🔹 APARECER CON DELAY COORDINADO */
+  transition: opacity 1.2s ease-in-out 2.8s;
+}
+
+/* 🔹 MOSTRAR CONTENIDO CUANDO ESTÁ ACTIVO */
+#interactive-container.active .homepage-wrapper {
+  opacity: 1;
+}
+
+/* 🔹 CONTENIDO EMBEBIDO DE HOMEPAGE */
+.homepage-embedded {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  overflow: hidden;
+  border-radius: 10px;
+}
 
 /* �🎯 CURSOR CAD - CRUZ HORIZONTAL Y VERTICAL */
 .rebecca-container .cursor-cross {
@@ -1544,362 +1876,7 @@ section {
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-/* 🏠 SECCIÓN PRINCIPAL - PRIMERA PANTALLA Y ELEMENTOS CENTRALES        */
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-
-/* ============================================================================
-   1️⃣ LAYOUT BASE Y CONTENEDORES PRINCIPALES
-   ============================================================================ */
-
-/* 🎯 SECCIONES PRINCIPALES - LAYOUT SIN ESPACIOS */
-.main-content-wrapper,
-.call-to-action-section,
-.footer-reveal {
-  margin: 0 !important;
-  border: none !important;
-}
-
-/* Override específico para secciones con flex */
-.call-to-action-section,
-.footer-reveal {
-  padding: 0 !important;
-  display: flex !important;
-  min-height: 100vh !important; /* Cada sección ocupa pantalla completa */
-}
-
-/* 🎯 CONTENEDOR REBECCA Y CONFIGURACIONES GENERALES */
-.rebecca-container {
-  position: relative;
-  width: 100%;
-  min-height: 300vh; /* Permite espacio para las 3 secciones de 100vh cada una */
-  overflow-x: hidden; /* Solo ocultar scroll horizontal */
-  overflow-y: auto; /* Permitir scroll vertical */
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
-  color: var(--color-white);
-  font-size: clamp(14px, 2vw, 18px);
-  line-height: 1.6;
-
-  /* 🎯 FONDO NEGRO SÓLIDO PREMIUM */
-  background: var(--color-black);
-
-  /* 🎯 SIN FONDO - CADA SECCIÓN TENDRÁ SU PROPIO FONDO */
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Cursor personalizado específico para la página Rebecca */
-.rebecca-container > div,
-.rebecca-container > section,
-.rebecca-container > footer {
-  box-sizing: border-box !important;
-}
-
-/* 🎯 MANTENER CURSOR CAD EN TODOS LOS ELEMENTOS INTERACTIVOS - EXCEPTO HOMEPAGE EMBEBIDA */
-.rebecca-container *,
-.rebecca-container button,
-.rebecca-container .vapi-chat-button,
-.rebecca-container a,
-.rebecca-container .newsletter-button,
-.rebecca-container .newsletter-button *,
-.rebecca-container .ai-matrix-button,
-.rebecca-container .ai-matrix-button *,
-.rebecca-container .button-background,
-.rebecca-container .metallic-surface,
-.rebecca-container .arrow-container,
-.rebecca-container .arrow-icon,
-.rebecca-container .neon-glow,
-.rebecca-container .ai-matrix-container,
-.rebecca-container .ai-core,
-.rebecca-container .neural-network,
-.rebecca-container .neuron,
-.rebecca-container .data-matrix,
-.rebecca-container .hologram-layers,
-.rebecca-container .arrow-geometric,
-.rebecca-container .holo-text,
-.rebecca-container svg,
-.rebecca-container path,
-.rebecca-container circle,
-.rebecca-container g {
-  cursor: none !important;
-}
-
-/* ============================================================================
-   2️⃣ BOTÓN VAPI CHAT - ELEMENTO CENTRAL PRINCIPAL
-   ============================================================================ */
-
-/* 🎯 CONTENIDO PRINCIPAL - CENTRADO SIMPLE Y ESTABLE */
-.vapi-content {
-  z-index: 10;
-  pointer-events: auto;
-}
-
-/* ============================================================================
-   3️⃣ TÍTULO PRINCIPAL - "¡BIENVENIDO AL FUTURO!"
-   ============================================================================ */
-
-/* 🌟 TÍTULO PRINCIPAL - BIENVENIDA SUPERIOR */
-.portal-title {
-  font-size: calc(
-    var(--font-size-3xl) * 0.9
-  ); /* 🎯 MÁS REDUCIDO: Tamaño más compacto */
-  font-weight: 700;
-
-  /* 🎨 GRADIENTE PREMIUM INTELIMARK MEJORADO PARA LEGIBILIDAD */
-  color: #ffffff; /* 🛡️ Respaldo de color sólido para máxima legibilidad */
-  background: linear-gradient(
-    135deg,
-    var(--color-orange-primary) 0%,
-    #ffffff 15%,
-    var(--color-orange-primary) 25%,
-    #f0f0f0 35%,
-    var(--color-orange-primary) 50%,
-    #ffffff 65%,
-    var(--color-orange-primary) 75%,
-    #f8f8f8 85%,
-    var(--color-orange-primary) 100%
-  );
-  background-size: 400% 400%; /* 🎯 Reducido de 600% para animación más sutil y legible */
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  /* 🎯 POSICIONAMIENTO OPTIMIZADO - MÁXIMA VISIBILIDAD */
-  position: absolute !important;
-  top: 60px !important; /* 🎯 MÁS ARRIBA: Posición elevada para elementos más pequeños */
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  z-index: 25; /* 🔥 Z-index elevado para estar sobre todos los efectos del botón */
-
-  /* 📐 DISEÑO Y TIPOGRAFÍA */
-  text-align: center;
-  white-space: nowrap;
-  margin: 0;
-
-  /* 🏆 EFECTOS VISUALES MEJORADOS PARA MÁXIMA LEGIBILIDAD */
-  text-shadow: 0 0 20px rgba(218, 128, 35, 0.8),
-    0 0 40px rgba(218, 128, 35, 0.6), 0 0 60px rgba(218, 128, 35, 0.4),
-    2px 2px 8px rgba(0, 0, 0, 0.8), 4px 4px 12px rgba(0, 0, 0, 0.6),
-    -1px -1px 3px rgba(255, 255, 255, 0.3);
-
-  /* 💎 FILTROS OPTIMIZADOS PARA LEGIBILIDAD */
-  filter: drop-shadow(0 0 10px rgba(218, 128, 35, 0.6))
-    drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8)) contrast(1.1) brightness(1.2);
-
-  /* 🎬 ANIMACIONES OPTIMIZADAS PARA LEGIBILIDAD */
-  animation: gradient-shift-advanced 6s ease-in-out infinite,
-    text-glow-pulse 4s ease-in-out infinite alternate,
-    subtle-float 8s ease-in-out infinite;
-}
-
-/* 🔮 PSEUDO-ELEMENTO AWWWARDS: PARTÍCULAS PREMIUM INTELIMARK */
-.portal-title::before {
-  content: "";
-  position: absolute;
-  top: -25px;
-  left: -60px;
-  right: -60px;
-  bottom: -25px;
-
-  /* 🎨 PARTÍCULAS PREMIUM CON PALETA INTELIMARK EXCLUSIVA */
-  background: radial-gradient(
-      3px 3px at 15% 8%,
-      var(--color-orange-primary),
-      transparent
-    ),
-    radial-gradient(2px 2px at 35% 15%, rgba(128, 128, 128, 0.8), transparent),
-    radial-gradient(
-      4px 4px at 70% 25%,
-      var(--color-orange-primary),
-      transparent
-    ),
-    radial-gradient(2px 2px at 25% 45%, rgba(64, 64, 64, 0.7), transparent),
-    radial-gradient(3px 3px at 85% 35%, var(--color-white), transparent),
-    radial-gradient(
-      1px 1px at 50% 60%,
-      var(--color-orange-primary),
-      transparent
-    ),
-    radial-gradient(2px 2px at 10% 75%, rgba(26, 26, 26, 0.9), transparent),
-    radial-gradient(3px 3px at 90% 80%, rgba(128, 128, 128, 0.6), transparent),
-    radial-gradient(
-      2px 2px at 60% 90%,
-      var(--color-orange-primary),
-      transparent
-    ),
-    radial-gradient(1px 1px at 80% 65%, var(--color-white), transparent);
-
-  background-size: 300% 300%;
-  opacity: 0.7;
-  z-index: -1;
-  border-radius: 25px;
-
-  /* 🎬 ANIMACIÓN PREMIUM DE MÚLTIPLES CAPAS */
-  animation: digital-particles-premium 12s linear infinite,
-    particle-depth-shift 8s ease-in-out infinite alternate;
-}
-
-/* ============================================================================
-   4️⃣ SISTEMA DE ANILLOS - EFECTOS VISUALES PARA BOTÓN VAPI
-   ============================================================================ */
-
-/* 🎯 SISTEMA DE ANILLOS OPTIMIZADO PARA BOTÓN VAPI */
-
-/* EFECTOS VISUALES DE PORTAL - CENTRADO SIMPLE Y ESTABLE */
-.portal-effects {
-  pointer-events: auto;
-  z-index: 5;
-  width: clamp(
-    180px,
-    30vw,
-    280px
-  ); /* 🎯 MÁS REDUCIDO: Tamaños compactos para evitar superposición con título */
-  height: clamp(180px, 30vw, 280px);
-  border-radius: 50%;
-}
-
-/* ============================================================================
-   5️⃣ VISUALIZADOR 3D INTERACTIVO
-   ============================================================================ */
-
-/* 🎯 CONTENEDOR PRINCIPAL DEL VISUALIZADOR */
-#interactive-container {
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  width: 70px;
-  height: 70px;
-  background: transparent;
-  /* 🔹 FORMA INICIAL: Rombo usando clip-path */
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-  /* 🔹 TRANSICIONES COORDINADAS */
-  transition: width 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    height 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    top 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    left 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    clip-path 1.8s ease-in-out 0.7s, background 1.5s ease-in-out 1s;
-  z-index: 1000;
-  overflow: hidden;
-}
-
-/* 🔹 ESTADO EXPANDIDO DEL VISUALIZADOR - CORREGIDO PARA 100% PANTALLA */
-#interactive-container.active {
-  position: fixed;
-  top: 0; /* 🎯 CORREGIDO: ocupar desde el borde superior */
-  left: 0; /* 🎯 CORREGIDO: ocupar desde el borde izquierdo */
-  transform: none; /* 🎯 CORREGIDO: sin transforms que puedan descentrar */
-  width: 100vw; /* 🎯 CORREGIDO: ancho completo de pantalla */
-  height: 100vh; /* 🎯 CORREGIDO: altura completa de pantalla */
-  /* 🔹 FORMA FINAL: Rectángulo sin bordes redondeados para ocupar 100% */
-  clip-path: none; /* 🎯 CORREGIDO: sin clip-path que reduzca el área */
-  background: var(--color-black);
-  box-shadow: 0 0 50px rgba(255, 140, 0, 0.8), 0 0 100px rgba(255, 140, 0, 0.4);
-  z-index: 1001;
-}
-
-/* 🎯 CORRECCIÓN PARA MANTENER RINGS CENTRADOS Y CIRCULARES EN ESTADO ACTIVO */
-#interactive-container.active .glow-ring,
-#interactive-container.active .pulse-ring,
-#interactive-container.active .rotating-ring-outer,
-#interactive-container.active .rotating-ring-inner,
-#interactive-container.active .particle-ring {
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  aspect-ratio: 1 / 1 !important;
-  border-radius: 50% !important;
-  /* Mantener sus dimensiones específicas pero forzar circularidad */
-  box-sizing: border-box !important;
-}
-
-/* 🎯 CORRECCIÓN ESPECÍFICA PARA ROTATING RINGS - FORZAR CIRCULARIDAD */
-.rotating-ring-outer,
-.rotating-ring-inner {
-  aspect-ratio: 1 / 1 !important;
-  border-radius: 50% !important;
-  transform-origin: center center !important;
-  box-sizing: border-box !important;
-}
-
-/* 🔹 ICONO DEL ROMBO - RESPLANDOR */
-#interactive-container::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background: transparent;
-  box-shadow: 0 0 8px rgba(255, 140, 0, 0.5);
-  z-index: -1;
-  pointer-events: none;
-  transition: opacity 0.8s ease-out 0.2s, visibility 0.8s ease-out 0.2s;
-}
-
-/* 🔹 ICONO DEL ROMBO - IMAGEN */
-#interactive-container::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 70px;
-  height: 70px;
-  background-image: url("/src/assets/back_buttom.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  filter: drop-shadow(2px 2px 8px var(--color-black-alpha-70));
-  z-index: 1;
-  pointer-events: none;
-  transition: opacity 0.8s ease-out 0.2s, visibility 0.8s ease-out 0.2s;
-}
-
-/* 🔹 OCULTAR ICONOS CUANDO ESTÁ EXPANDIDO */
-#interactive-container.active::before,
-#interactive-container.active::after {
-  opacity: 0;
-  visibility: hidden;
-}
-
-/* 🔹 CONTENEDOR DEL CONTENIDO HOMEPAGE */
-.homepage-wrapper {
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  overflow: auto;
-  overflow-x: hidden;
-  border-radius: 10px;
-  position: relative;
-  scroll-behavior: smooth;
-  max-height: 100%;
-  /* 🔹 APARECER CON DELAY COORDINADO */
-  transition: opacity 1.2s ease-in-out 2.8s;
-}
-
-/* 🔹 MOSTRAR CONTENIDO CUANDO ESTÁ ACTIVO */
-#interactive-container.active .homepage-wrapper {
-  opacity: 1;
-}
-
-/* 🔹 CONTENIDO EMBEBIDO DE HOMEPAGE */
-.homepage-embedded {
-  width: 100%;
-  height: 100%;
-  border: none;
-  background: transparent;
-  overflow: hidden;
-  border-radius: 10px;
-}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-/* 🎯 SECCIÓN CTA - REORGANIZACIÓN CRONOLÓGICA COMPLETA                  */
+/*  SECCIÓN CTA - REORGANIZACIÓN CRONOLÓGICA COMPLETA                  */
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 /* ============================================================================
@@ -2727,6 +2704,24 @@ section {
   align-self: center; /* Centrado verticalmente */
   padding-right: 20px; /* Pequeño padding para separación */
   transform: translateY(-30px); /* 🎯 MOVER 30px HACIA ARRIBA */
+}
+
+/* 🎯 LAYOUT BASE DEL FOOTER - CONFIGURACIÓN PRINCIPAL */
+.footer-content {
+  /* 🎯 INTEGRACIÓN CON SISTEMA RESPONSIVE NUEVO */
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: clamp(20px, 4vw, 40px);
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: clamp(320px, 90vw, 1400px);
+  padding: clamp(20px, 4vw, 40px);
+  margin: 0 auto;
+  min-height: auto;
+  height: auto;
+  box-sizing: border-box;
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 /* 📧 SECCIÓN NEWSLETTER - MEJOR ORGANIZACIÓN */
