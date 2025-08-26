@@ -3118,15 +3118,6 @@ body,
   transform: scale(1.05);
 }
 
-.footer-info h4 {
-  font-size: 0.9rem;
-  color: rgba(0, 0, 0, 0.6);
-  margin-bottom: 16px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
 .newsletter-form {
   display: flex;
   gap: 16px;
@@ -4776,56 +4767,6 @@ body,
 
 /* 📧 ESTILOS PARA FUNCIONALIDAD DEL BOLETÍN */
 
-/* .contact-info mobile variant moved to Rebecca.legacy.css */
-
-.contact-item {
-  padding: 12px 16px;
-  border-radius: 10px;
-  min-height: auto;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  margin: 0 auto;
-  max-width: 280px;
-  width: 100%;
-}
-
-.contact-icon {
-  width: 28px;
-  height: 28px;
-  margin-bottom: 8px;
-}
-
-.contact-icon div {
-  font-size: 14px;
-}
-
-.contact-item p {
-  font-size: 0.95rem;
-  line-height: 1.3;
-  margin: 3px 0;
-  color: rgba(0, 0, 0, 0.8);
-}
-
-.contact-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: rgba(0, 0, 0, 0.6);
-}
-
-/* 🎯 ELIMINAR EFECTOS DE HOVER COMPLEJOS EN MÓVILES */
-.footer-content:has(.ai-matrix-button:hover) .contact-info {
-  max-width: 280px; /* Mantener tamaño estable */
-  gap: 15px;
-}
-
-.footer-content:has(.ai-matrix-button:hover) .contact-item {
-  transform: none; /* No escalar en móviles */
-  padding: 12px 16px; /* Mantener padding estable */
-}
-
 /* 🎯 OPTIMIZACIÓN DE ELEMENTOS INTERNOS DEL BOTÓN */
 .holo-text {
   font-size: 0.65rem;
@@ -4847,26 +4788,7 @@ body,
   height: 4px;
 }
 
-/* 🎯 CONTACT-INFO COMPLETAMENTE REDISEÑADO PARA MÓVILES */
-/* .contact-info mobile variant moved to Rebecca.legacy.css */
-
-.contact-item {
-  padding: 12px 16px;
-  border-radius: 10px;
-  min-height: auto;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  margin: 0 auto;
-  max-width: 280px;
-  width: 100%;
-}
-
-.contact-icon {
-  width: 28px;
-  height: 28px;
-  margin-bottom: 8px;
-}
+/* 🎯 ESPACIADO ADICIONAL PARA MEJOR LEGIBILIDAD */
 
 .contact-icon div {
   font-size: 14px;
@@ -4885,17 +4807,6 @@ body,
   text-transform: uppercase;
   letter-spacing: 1px;
   color: rgba(0, 0, 0, 0.6);
-}
-
-/* 🎯 ELIMINAR EFECTOS DE HOVER COMPLEJOS EN MÓVILES */
-.footer-content:has(.ai-matrix-button:hover) .contact-info {
-  max-width: 280px; /* Mantener tamaño estable */
-  gap: 15px;
-}
-
-.footer-content:has(.ai-matrix-button:hover) .contact-item {
-  transform: none; /* No escalar en móviles */
-  padding: 12px 16px; /* Mantener padding estable */
 }
 
 /* 🎯 OPTIMIZACIÓN DE ELEMENTOS INTERNOS DEL BOTÓN */
@@ -4917,11 +4828,6 @@ body,
 
 .data-stream {
   font-size: 7px;
-}
-
-/* 🎯 ESPACIADO ADICIONAL PARA MEJOR LEGIBILIDAD */
-.footer-info {
-  margin-bottom: 20px;
 }
 
 /* 📧 ESTILOS PARA FUNCIONALIDAD DEL BOLETÍN */
