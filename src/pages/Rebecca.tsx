@@ -1271,7 +1271,7 @@ const Rebecca = memo(() => {
                   className="homepage-access-button ai-matrix-button debug-button-position"
                   style={{
                     marginLeft: "5px", // 🎯 MOVIDO 5px HACIA LA IZQUIERDA (10px - 5px = 5px)
-                    transform: "translateY(15px)", // 🎯 COMPENSAR EL MOVIMIENTO DEL CONTENEDOR PADRE (-65px + 80px = 15px)
+                    transform: "translateY(35px)", // 🎯 MOVER 35px HACIA ABAJO (15px + 20px adicionales)
                     position: "relative",
                     zIndex: 2000000, // 🎯 Z-INDEX MÁS ALTO QUE CURSORES Y CUALQUIER ELEMENTO
                   }}
@@ -1372,207 +1372,67 @@ const Rebecca = memo(() => {
         </footer>
       </div>
 
-      {/* 🎯 MODAL DE CRÉDITOS - VERSIÓN SIMPLIFICADA */}
+      {/* 🎯 MODAL DE CRÉDITOS - VERSIÓN TECNOLÓGICA CON CONTENEDOR PNG */}
       {showCreditsModal &&
         createPortal(
           <div
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              width: "100vw",
-              height: "100vh",
-              backgroundColor: "rgba(0, 0, 0, 0.95)",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              zIndex: 2147483647,
-              padding: "20px",
-              boxSizing: "border-box",
-            }}
+            className="credits-modal-overlay"
             onClick={() => setShowCreditsModal(false)}
           >
-            <div
-              style={{
-                backgroundColor: "#1a1a1a",
-                border: "2px solid #da8023",
-                borderRadius: "8px",
-                padding: "30px",
-                maxWidth: "600px",
-                maxHeight: "80vh",
-                width: "100%",
-                overflowY: "auto",
-                textAlign: "center",
-                color: "#ffffff",
-              }}
-              onClick={(e) => e.stopPropagation()}
-            >
+            <div className="credits-modal-container">
               <button
-                style={{
-                  position: "absolute",
-                  top: "10px",
-                  right: "15px",
-                  background: "none",
-                  border: "none",
-                  color: "#da8023",
-                  fontSize: "24px",
-                  cursor: "pointer",
-                  padding: "5px",
-                }}
+                className="credits-close-button"
                 onClick={() => setShowCreditsModal(false)}
               >
                 ✕
               </button>
-              <h2
-                style={{
-                  color: "#da8023",
-                  marginBottom: "30px",
-                  fontSize: "24px",
-                }}
-              >
-                CRÉDITOS
-              </h2>
-              <div style={{ textAlign: "left", lineHeight: "1.6" }}>
-                <div style={{ marginBottom: "20px" }}>
-                  <h3
-                    style={{
-                      color: "#da8023",
-                      fontSize: "16px",
-                      marginBottom: "5px",
-                    }}
-                  >
-                    Director Creativo
-                  </h3>
-                  <p style={{ margin: "0", fontSize: "14px" }}>
-                    Pablo Carrasco – Sandra Gangas
-                  </p>
-                </div>
-                <div style={{ marginBottom: "20px" }}>
-                  <h3
-                    style={{
-                      color: "#da8023",
-                      fontSize: "16px",
-                      marginBottom: "5px",
-                    }}
-                  >
-                    Diseñador de Interfaz de Usuario y Experiencia de Usuario
-                    (UX)
-                  </h3>
-                  <p style={{ margin: "0", fontSize: "14px" }}>
-                    Pablo Carrasco
-                  </p>
-                </div>
-                <div style={{ marginBottom: "20px" }}>
-                  <h3
-                    style={{
-                      color: "#da8023",
-                      fontSize: "16px",
-                      marginBottom: "5px",
-                    }}
-                  >
-                    Desarrollador Front-end
-                  </h3>
-                  <p style={{ margin: "0", fontSize: "14px" }}>
-                    Pablo Carrasco
-                  </p>
-                </div>
-                <div style={{ marginBottom: "20px" }}>
-                  <h3
-                    style={{
-                      color: "#da8023",
-                      fontSize: "16px",
-                      marginBottom: "5px",
-                    }}
-                  >
-                    Desarrollador Back-end / Ingeniero de Software
-                  </h3>
-                  <p style={{ margin: "0", fontSize: "14px" }}>
-                    Pablo Carrasco
-                  </p>
-                </div>
-                <div style={{ marginBottom: "20px" }}>
-                  <h3
-                    style={{
-                      color: "#da8023",
-                      fontSize: "16px",
-                      marginBottom: "5px",
-                    }}
-                  >
-                    Artista 3D / Animador 3D
-                  </h3>
-                  <p style={{ margin: "0", fontSize: "14px" }}>
-                    Pablo Carrasco
-                  </p>
-                </div>
-                <div style={{ marginBottom: "20px" }}>
-                  <h3
-                    style={{
-                      color: "#da8023",
-                      fontSize: "16px",
-                      marginBottom: "5px",
-                    }}
-                  >
-                    Diseñador de Sonido
-                  </h3>
-                  <p style={{ margin: "0", fontSize: "14px" }}>
-                    Pablo Carrasco
-                  </p>
-                </div>
-                <div style={{ marginBottom: "20px" }}>
-                  <h3
-                    style={{
-                      color: "#da8023",
-                      fontSize: "16px",
-                      marginBottom: "5px",
-                    }}
-                  >
-                    Fotógrafo / Director de Arte
-                  </h3>
-                  <p style={{ margin: "0", fontSize: "14px" }}>
-                    Pablo Carrasco – Sandra Gangas
-                  </p>
-                </div>
-                <div style={{ marginBottom: "20px" }}>
-                  <h3
-                    style={{
-                      color: "#da8023",
-                      fontSize: "16px",
-                      marginBottom: "5px",
-                    }}
-                  >
-                    Especialista en SEO
-                  </h3>
-                  <p style={{ margin: "0", fontSize: "14px" }}>
-                    Pablo Carrasco
-                  </p>
-                </div>
-                <div style={{ marginBottom: "20px" }}>
-                  <h3
-                    style={{
-                      color: "#da8023",
-                      fontSize: "16px",
-                      marginBottom: "5px",
-                    }}
-                  >
-                    Estratega de IA / Ingeniero de Prompts
-                  </h3>
-                  <p style={{ margin: "0", fontSize: "14px" }}>
-                    Pablo Carrasco
-                  </p>
-                </div>
-                <div style={{ marginBottom: "20px" }}>
-                  <h3
-                    style={{
-                      color: "#da8023",
-                      fontSize: "16px",
-                      marginBottom: "5px",
-                    }}
-                  >
-                    Diseñador Gráfico
-                  </h3>
-                  <p style={{ margin: "0", fontSize: "14px" }}>Sandra Gangas</p>
+              <div className="credits-frame-container">
+                <div className="credits-screen">
+                  <div className="credits-scroll">
+                    <div className="credit-item">
+                      <h3>Director Creativo</h3>
+                      <p>Pablo Carrasco – Sandra Gangas</p>
+                    </div>
+                    <div className="credit-item">
+                      <h3>
+                        Diseñador de Interfaz de Usuario y Experiencia de
+                        Usuario (UX)
+                      </h3>
+                      <p>Pablo Carrasco</p>
+                    </div>
+                    <div className="credit-item">
+                      <h3>Desarrollador Front-end</h3>
+                      <p>Pablo Carrasco</p>
+                    </div>
+                    <div className="credit-item">
+                      <h3>Desarrollador Back-end / Ingeniero de Software</h3>
+                      <p>Pablo Carrasco</p>
+                    </div>
+                    <div className="credit-item">
+                      <h3>Artista 3D / Animador 3D</h3>
+                      <p>Pablo Carrasco</p>
+                    </div>
+                    <div className="credit-item">
+                      <h3>Diseñador de Sonido</h3>
+                      <p>Pablo Carrasco</p>
+                    </div>
+                    <div className="credit-item">
+                      <h3>Fotógrafo / Director de Arte</h3>
+                      <p>Pablo Carrasco – Sandra Gangas</p>
+                    </div>
+                    <div className="credit-item">
+                      <h3>Especialista en SEO</h3>
+                      <p>Pablo Carrasco</p>
+                    </div>
+                    <div className="credit-item">
+                      <h3>Estratega de IA / Ingeniero de Prompts</h3>
+                      <p>Pablo Carrasco</p>
+                    </div>
+                    <div className="credit-item">
+                      <h3>Diseñador Gráfico</h3>
+                      <p>Sandra Gangas</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
