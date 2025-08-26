@@ -457,31 +457,6 @@ body,
   z-index: 1001;
 }
 
-/* 🎯 CORRECCIÓN PARA MANTENER RINGS CENTRADOS Y CIRCULARES EN ESTADO ACTIVO */
-#interactive-container.active .glow-ring,
-#interactive-container.active .pulse-ring,
-#interactive-container.active .rotating-ring-outer,
-#interactive-container.active .rotating-ring-inner,
-#interactive-container.active .particle-ring {
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  aspect-ratio: 1 / 1 !important;
-  border-radius: 50% !important;
-  /* Mantener sus dimensiones específicas pero forzar circularidad */
-  box-sizing: border-box !important;
-}
-
-/* 🎯 CORRECCIÓN ESPECÍFICA PARA ROTATING RINGS - FORZAR CIRCULARIDAD */
-.rotating-ring-outer,
-.rotating-ring-inner {
-  aspect-ratio: 1 / 1 !important;
-  border-radius: 50% !important;
-  transform-origin: center center !important;
-  box-sizing: border-box !important;
-}
-
 /* 🔹 ICONO DEL ROMBO - RESPLANDOR */
 #interactive-container::before {
   content: "";
@@ -742,10 +717,6 @@ body,
 }
 
 /* 🎯 CONTENIDO PRINCIPAL - CENTRADO SIMPLE Y ESTABLE */
-.vapi-content {
-  z-index: 10;
-  pointer-events: auto;
-}
 
 /* TITULO OPTIMIZADO - EFECTOS DEL MARCO SIN CONTENEDOR */
 /* 🚀 SISTEMA REVOLUCIONARIO: EFECTOS DIRECTOS EN LETRAS - CONCEPTO NUEVO AWWWARDS */
@@ -1163,30 +1134,6 @@ body,
 
 /* ⚡ ANIMACIÓN DE INTENSIDAD LÁSER */
 
-/* 🎭 ANIMACIÓN PREMIUM DE GLITCH DIGITAL SUTIL */
-@keyframes digital-glitch-subtle {
-  0%,
-  94%,
-  96%,
-  98%,
-  100% {
-    transform: translateX(-50%) translateY(0px);
-    filter: brightness(1.2) contrast(1.1);
-  }
-  95% {
-    transform: translateX(-50%) translateY(0px) translateX(2px);
-    filter: brightness(1.4) contrast(1.3);
-  }
-  97% {
-    transform: translateX(-50%) translateY(0px) translateX(-1px);
-    filter: brightness(1.1) contrast(1.4);
-  }
-  99% {
-    transform: translateX(-50%) translateY(0px) translateX(1px);
-    filter: brightness(1.3) contrast(1.2);
-  }
-}
-
 /* � ANIMACIÓN AWWWARDS: FLUJO DE MATRIZ DE DATOS */
 @keyframes data-matrix-flow {
   0% {
@@ -1236,38 +1183,13 @@ body,
   opacity: 0;
   transition: opacity 0.3s ease;
   font-family: "Oxanium", monospace;
-  backdrop-filter: blur(5px);
+  backdrop-filter: none; /* 🎯 OPTIMIZADO: Sin blur por defecto */
   transform: translate(15px, -50%);
   border: 1px solid var(--color-orange-alpha-20);
 }
 
-/* --- OPTIMIZACIÓN DE EFECTOS COSTOSOS EN TOOLTIP Y TÍTULOS --- */
-.cursor-tooltip {
-  /* Estado base sin blur */
-  backdrop-filter: none;
-}
 .cursor-tooltip[style*="opacity: 1"] {
-  /* Blur solo cuando visible */
-  backdrop-filter: blur(5px);
-}
-
-.button-tooltip {
-  backdrop-filter: none;
-}
-.button-tooltip[style*="opacity: 1"] {
-  backdrop-filter: blur(12px);
-}
-
-.button-tooltip.button-tooltip-3d[style*="opacity: 1"] {
-  box-shadow: 0 0 30px var(--color-orange-alpha-80),
-    0 0 60px var(--color-orange-alpha-40);
-}
-
-.portal-title {
-  text-shadow: none;
-}
-.portal-title:hover {
-  text-shadow: 0 0 30px var(--color-orange-alpha-40);
+  backdrop-filter: blur(5px); /* 🎯 OPTIMIZADO: Blur solo cuando visible */
 }
 
 /* --- FIN OPTIMIZACIÓN --- */
@@ -1457,28 +1379,6 @@ body,
 
 /* 🔮 ANIMACIÓN DE PROCESAMIENTO DIGITAL TIPO MATRIX */
 
-/* 🎯 ANIMACIÓN DE PULSO OPTIMIZADA RESPONSIVE */
-@keyframes pulse-optimized {
-  0% {
-    transform: scale(1);
-    opacity: 0.8;
-    box-shadow: 0 0 15px var(--color-orange-alpha-30),
-      inset 0 0 10px var(--color-orange-alpha-20);
-  }
-  50% {
-    transform: scale(1.05);
-    opacity: 0.9;
-    box-shadow: 0 0 25px var(--color-orange-alpha-40),
-      inset 0 0 15px var(--color-orange-alpha-30);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0.8;
-    box-shadow: 0 0 15px var(--color-orange-alpha-30),
-      inset 0 0 10px var(--color-orange-alpha-20);
-  }
-}
-
 /* 🔥 PULSO INTENSIFICADO PARA MAYOR IMPACTO */
 @keyframes pulse-intensified {
   0% {
@@ -1513,17 +1413,6 @@ body,
   }
 }
 
-/* OVERRIDE para rotating rings activos - mantener rotación centrada */
-#interactive-container.active .rotating-ring-outer {
-  animation: spin-clockwise 8s linear infinite;
-  transform-origin: center center !important;
-}
-
-#interactive-container.active .rotating-ring-inner {
-  animation: spin-counterclockwise 4s linear infinite;
-  transform-origin: center center !important;
-}
-
 /* Rotación en sentido antihorario */
 @keyframes spin-counterclockwise {
   0% {
@@ -1531,25 +1420,6 @@ body,
   }
   100% {
     transform: rotate(-360deg);
-  }
-}
-
-/* 📱 ANIMACIONES ESPECÍFICAS PARA MÓVILES - CENTRADO + ROTACIÓN */
-@keyframes spin-clockwise-mobile {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-@keyframes spin-counterclockwise-mobile {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(-360deg);
   }
 }
 
@@ -1604,26 +1474,6 @@ body,
   100% {
     transform: scale(1.2);
     opacity: 0;
-  }
-}
-
-@keyframes typewriter {
-  0% {
-    width: 0;
-  }
-  100% {
-    width: 100%;
-  }
-}
-
-@keyframes blink {
-  0%,
-  50% {
-    border-color: var(--color-orange-primary) !important;
-  }
-  51%,
-  100% {
-    border-color: transparent !important;
   }
 }
 
@@ -1846,24 +1696,6 @@ body,
 }
 
 /* ANIMACIONES MATRIX - PALETA NARANJO/GRIS/NEGRO/BLANCO */
-
-/* --- OPTIMIZACIÓN DE ANIMACIONES PRINCIPALES --- */
-.glow-ring {
-  animation: rotate 4s linear infinite; /* Duración reducida */
-}
-.pulse-ring {
-  animation: pulse 1.2s ease-in-out infinite; /* Duración reducida */
-}
-.portal-title {
-  animation: gradientShift 2s ease-in-out infinite; /* Duración reducida */
-}
-.button-tooltip {
-  animation: digitalGlitch 0.08s linear infinite alternate; /* Duración reducida */
-}
-.button-tooltip-text {
-  animation: typewriter 1s steps(16) 0.2s forwards, blink 0.7s infinite 1.5s; /* Duración reducida */
-}
-
 /* --- FIN OPTIMIZACIÓN --- */
 
 /* �🏠 CONTENEDOR PRINCIPAL - PRIMERA PANTALLA */
@@ -6605,12 +6437,6 @@ body,
      📱 RESPONSIVE ELEMENTS OPTIMIZATION
      ============================================================================ */
 
-/* Portal effects */
-.portal-effects {
-  width: 400px;
-  height: 400px;
-}
-
 .glow-ring {
   border: 3px solid transparent;
 }
@@ -6619,7 +6445,7 @@ body,
   border: 2px solid var(--color-orange-primary);
 }
 
-/* 🎯 CORRECCIÓN CRÍTICA: Mantener aspect ratio circular de los rings en móviles */
+/* 🎯 CORRECCIÓN CRÍTICA: Mantener aspect ratio circular de los rings */
 .glow-ring,
 .pulse-ring,
 .rotating-ring-outer,
@@ -6629,36 +6455,9 @@ body,
   border-radius: 50% !important; /* 🎯 FORZAR: mantener forma circular */
 }
 
-/* Asegurar que el contenedor activo mantenga los círculos centrados */
-#interactive-container.active .glow-ring,
-#interactive-container.active .pulse-ring,
-#interactive-container.active .rotating-ring-outer,
-#interactive-container.active .rotating-ring-inner {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 /* Rebecca container */
 .rebecca-container {
   padding: var(--space-md);
-}
-
-/* Interactive container updates - CORREGIDO PARA MANTENER CÍRCULOS Y 100% PANTALLA */
-#interactive-container.active {
-  width: 100vw; /* 🎯 CORREGIDO: 100% ancho de pantalla */
-  height: 100vh; /* 🎯 CORREGIDO: 100% altura de pantalla */
-  top: 0; /* 🎯 CORREGIDO: posición desde arriba */
-  left: 0; /* 🎯 CORREGIDO: posición desde izquierda */
-  transform: none; /* 🎯 CORREGIDO: sin transforms que descentren */
-}
-
-#interactive-container {
-  width: 90px;
-  height: 90px;
-  top: 15px;
-  left: 15px;
 }
 
 /* responsive size variants for #interactive-container pseudo-elements moved to Rebecca.legacy.css */
@@ -6693,66 +6492,12 @@ body,
    🎯 SISTEMA RESPONSIVE REORGANIZADO Y CENTRADO VERTICAL
    ============================================================================ */
 
-/* 🎯 BASE: CONFIGURACIÓN GLOBAL PARA CENTRADO VERTICAL */
-.rebecca-container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Asegurar centrado vertical para elementos principales */
-.popup-overlay,
-.content-wrapper,
-.footer-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-
-/* ============================================================================
-   📱 RESPONSIVE BREAKPOINTS ORGANIZADOS
-   ============================================================================ */
-
-/* ============================================================================
-   🎯 CONTENEDORES ESPECÍFICOS - CENTRADO VERTICAL GARANTIZADO
-   ============================================================================ */
-
-/* Asegurar que todos los elementos principales estén centrados */
-.hero-section,
-.main-content,
-.footer-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  width: 100%;
-}
-
-/* Elementos interactivos mantienen proporción */
-.interactive-container,
-.home-3d-visualizer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: auto;
-  min-height: 400px;
-}
-
 /* ============================================================================
    🎯 OVERRIDE DE MEDIA QUERIES CONFLICTIVOS
    ============================================================================ */
 
 /* Reset base para todos los elementos principales */
 .rebecca-container,
-.popup-overlay,
-.content-wrapper,
-.footer-wrapper,
 .footer-content,
 .ai-matrix-button,
 .contact-info,
