@@ -5506,28 +5506,6 @@ body,
 
 /* 🎯 FOOTER - FINAL LAYOUT ADJUSTMENTS */
 
-/* src/pages/Rebecca.css (Añadir al final) */
-
-/* 🎯 ESTILOS PARA LA SECCIÓN "TRABAJEMOS JUNTOS" */
-.call-to-action-section {
-  /* ¡CLAVE! Permite que el componente FuenteCero se posicione correctamente dentro */
-  position: relative;
-  min-height: 100vh;
-}
-
-/* Ocultar el cursor por defecto DENTRO de la sección */
-.call-to-action-section.active-effect {
-  cursor: none;
-}
-
-/* Asegurar que el contenido de texto esté por encima del efecto */
-.call-to-action-section .cta-content {
-  position: relative;
-  z-index: 5;
-}
-
-/* 🎬 ANIMACIONES PARA FUENTE CERO */
-
 /* 🎯 BOTONES DEL FOOTER: MANTENER CURSOR PERSONALIZADO CAD */
 .footer-reveal button,
 .footer-reveal .newsletter-button {
