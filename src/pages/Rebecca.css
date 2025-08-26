@@ -1847,20 +1847,6 @@ body,
 
 /* --- FIN OPTIMIZACIÓN --- */
 
-/* ✅ ASEGURAR QUE NO HAYA GAPS ENTRE SECCIONES CONSECUTIVAS */
-.main-content-wrapper + .call-to-action-section {
-  margin-top: 0 !important;
-}
-
-.call-to-action-section + .footer-reveal {
-  margin-top: 0 !important;
-  position: relative;
-  top: 0;
-}
-
-/* � ESPACIADORES PARA PARALLAX - Crean altura de scroll necesaria */
-
-/* 🏠 CONTENEDOR PRINCIPAL - PRIMERA PANTALLA */
 /* �🏠 CONTENEDOR PRINCIPAL - PRIMERA PANTALLA */
 .main-content-wrapper {
   /* 🎯 PRIMERA SECCIÓN - POSICIÓN NORMAL */
@@ -1911,7 +1897,7 @@ body,
 .cta-content {
   max-width: 1000px;
   margin: 0 auto !important;
-  padding: clamp(10px, 2vh, 20px) clamp(15px, 3vw, 24px) !important;
+  padding: 20px 24px !important;
   position: relative;
   z-index: 5; /* Por encima del fondo FuenteCero */
   box-sizing: border-box;
@@ -1950,10 +1936,10 @@ body,
 
 /* 🏆 TÍTULO PRINCIPAL DEL CTA */
 .cta-title {
-  font-size: clamp(3rem, 8vw, 5.5rem);
+  font-size: 5.5rem;
   font-weight: 900;
   color: var(--color-white);
-  margin-bottom: clamp(15px, 3vh, 30px) !important;
+  margin-bottom: 30px !important;
   text-shadow: 2px 2px 8px var(--color-black-alpha-70);
   font-family: "SohoPro", "SF Pro Display", "Helvetica Neue", sans-serif;
   line-height: 0.95 !important;
@@ -2351,6 +2337,9 @@ body,
   display: inline-block;
   cursor: pointer;
 
+  /* 🚀 OPTIMIZACIÓN: will-change para mejor rendimiento */
+  will-change: opacity, filter, transform;
+
   /* 🌟 EFECTO DE TRANSPARENCIA COMPLEJA - LIGERAMENTE MÁS VISIBLE */
   opacity: 0.65;
   filter: contrast(0.25) brightness(0.42) saturate(0.15) blur(0.8px)
@@ -2370,10 +2359,13 @@ body,
 /* 🖼️ IMAGEN DEL BOTÓN CTA */
 .cta-button-image {
   display: block;
-  max-width: clamp(180px, 20vw, 280px) !important;
+  max-width: 280px !important;
   height: auto;
   border-radius: 8px;
   transition: all 0.9s cubic-bezier(0.19, 1, 0.22, 1);
+
+  /* 🚀 OPTIMIZACIÓN: will-change para mejor rendimiento */
+  will-change: filter, opacity, transform;
 
   /* 🌌 EFECTOS DE TRANSPARENCIA INNOVADORES */
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)) contrast(0.4)
@@ -2390,12 +2382,20 @@ body,
 
 /* 📝 OVERLAY DEL TEXTO DEL BOTÓN */
 .cta-button-text-overlay {
-  width: clamp(130px, 13vw, 180px);
-  height: clamp(35px, 3.5vw, 45px);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   background: transparent;
   border: none;
   box-shadow: none;
+  z-index: 10;
 }
 
 /* 🧡 TEXTO PRINCIPAL - COLOR NARANJA INTELIMARK */
@@ -2408,6 +2408,9 @@ body,
   letter-spacing: 0.1em;
   position: relative;
   z-index: 3;
+
+  /* 🚀 OPTIMIZACIÓN: will-change para mejor rendimiento */
+  will-change: color, text-shadow, transform, opacity;
 
   /* 🌟 EFECTOS AWWWARDS-LEVEL - RESPLANDOR NARANJA PREMIUM */
   text-shadow: 0 0 3px var(--color-orange-primary),
@@ -2430,7 +2433,7 @@ body,
 .cta-button-text-overlay.text-visible .cta-button-text-display {
   animation: elegant-text-appear 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards,
     awwwards-typewriter 1.8s steps(9, end) 0.3s forwards,
-    digital-power-glitch 4s ease-in-out 2.5s infinite;
+    digital-power-glitch 6s ease-in-out 2.5s infinite; /* 🚀 OPTIMIZACIÓN: Aumentado de 4s a 6s */
   opacity: 1;
 }
 
@@ -2450,8 +2453,9 @@ body,
   background: transparent;
   z-index: 2;
   opacity: 0;
-  animation: electrical-malfunction 6s ease-in-out infinite;
+  animation: electrical-malfunction 8s ease-in-out infinite; /* 🚀 OPTIMIZACIÓN: Aumentado de 6s a 8s */
   animation-delay: 2.5s;
+  will-change: opacity, background; /* 🚀 OPTIMIZACIÓN: will-change agregado */
 }
 
 /* 📺 OVERLAY DE GLITCH DIGITAL */
@@ -2464,8 +2468,9 @@ body,
   background: transparent;
   z-index: 1;
   opacity: 0;
-  animation: premium-digital-glitch 8s ease-in-out infinite;
+  animation: premium-digital-glitch 10s ease-in-out infinite; /* 🚀 OPTIMIZACIÓN: Aumentado de 8s a 10s */
   animation-delay: 2.8s;
+  will-change: opacity, background; /* 🚀 OPTIMIZACIÓN: will-change agregado */
 }
 
 /* 🌟 ANIMACIONES PARA EFECTOS LUMINOSOS Y TYPEWRITER */
@@ -2555,7 +2560,7 @@ body,
 
 .cta-button-wrapper:hover .electrical-interference,
 .cta-button-wrapper.hover-active .electrical-interference {
-  animation-duration: 4s; /* Interferencia más rápida */
+  animation-duration: 6s; /* 🚀 OPTIMIZACIÓN: Interferencia más rápida en hover (6s vs 8s) */
 }
 
 /* 🎯 ESTADO ACTIVE */
@@ -2653,7 +2658,23 @@ body,
    📱 RESTO DE ESTILOS - NO RELACIONADOS CON EL CTA
    ============================================================================ */
 
-/* 🤖 FOOTER - SECCIÓN PRINCIPAL */
+/* ============================================================================
+   🤖 FOOTER - SECCIÓN PRINCIPAL REORGANIZADA CRONOLÓGICAMENTE
+   ============================================================================ */
+
+/* 📋 ESTRUCTURA ORGANIZATIVA:
+   1️⃣ BASE FOOTER STYLES & LAYOUT CONFIGURATION
+   2️⃣ BOTÓN AI MATRIX (VOLVER AL INICIO) - Cronológico completo
+   3️⃣ BOTÓN NEWSLETTER (FORMULARIO) - Cronológico completo  
+   4️⃣ BOTÓN MODERN ARROW (CRÉDITOS) - Cronológico completo
+   5️⃣ FOOTER CREDITS & FINAL ADJUSTMENTS
+   ============================================================================ */
+
+/* ============================================================================
+   1️⃣ BASE FOOTER STYLES & LAYOUT CONFIGURATION
+   ============================================================================ */
+
+/* 🎯 FOOTER - CONTENEDOR PRINCIPAL */
 .footer-reveal {
   position: relative;
   width: 100vw;
@@ -2813,6 +2834,41 @@ body,
   position: relative; /* 🎯 PERMITIR POSICIONAMIENTO ABSOLUTO DEL BOTÓN */
   overflow: visible; /* 🎯 PERMITIR EXPANSIÓN DEL BOTÓN */
   z-index: 100; /* 🎯 REDUCIDO: de 2000000 a 100 */
+}
+
+/* ============================================================================
+   2️⃣ BOTÓN AI MATRIX (VOLVER AL INICIO) - CRONOLÓGICO COMPLETO
+   ============================================================================ */
+
+/* 🎯 AI MATRIX - BASE STYLES */
+.ai-matrix-button {
+  /* 🎭 BASE STEALTH - ESTADO INACTIVO (REDUCIDO) */
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(26, 26, 26, 0.8) 0%,
+    rgba(45, 45, 45, 0.9) 50%,
+    rgba(64, 64, 64, 0.8) 100%
+  );
+  border: 1px solid rgba(218, 128, 35, 0.2);
+  border-radius: 15px;
+  padding: 12px 10px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  color: rgba(218, 128, 35, 0.6);
+  cursor: none !important; /* 🎯 CURSOR PERSONALIZADO CAD - NO NATIVO */
+  pointer-events: auto !important; /* 🎯 FORZAR INTERACCIÓN COMPLETA DEL BOTÓN */
+  z-index: 200 !important; /* 🎯 REDUCIDO: de 2000000 a 200 */
+  overflow: hidden;
+  /* POSICIONAMIENTO REMOVIDO - SE MANEJA AL FINAL DEL ARCHIVO */
+  width: 190px; /* Tamaño base inicial */
+  height: 54px; /* 🎯 ALTURA EXACTA DEL INPUT (16px padding + contenido + 16px) */
+  display: block; /* 🎯 ASEGURAR DISPLAY BLOCK PARA CENTRADO */
+  /* TRANSFORM REMOVIDO - SE MANEJA AL FINAL DEL ARCHIVO */
+
+  /* 🌟 EFECTOS BASE */
+  backdrop-filter: blur(10px);
 }
 
 .newsletter-input {
@@ -3178,6 +3234,7 @@ body,
   backdrop-filter: blur(10px);
 }
 
+/* 🎯 AI MATRIX - ELEMENTS STRUCTURE */
 /* 🎯 ASEGURAR QUE TODOS LOS ELEMENTOS INTERNOS NO BLOQUEEN EVENTOS */
 .ai-matrix-button *,
 .ai-matrix-button .data-matrix,
@@ -3189,6 +3246,7 @@ body,
   z-index: 1999999; /* 🎯 POR DEBAJO DEL BOTÓN PADRE */
 }
 
+/* 🎯 FORZAR INTERACCIÓN COMPLETA DEL BOTÓN */
 /* 🎯 FORZAR INTERACCIÓN COMPLETA DEL BOTÓN */
 .ai-matrix-button {
   cursor: none !important;
@@ -4066,6 +4124,7 @@ body,
 }
 
 /* 🌟 ESTADO HOVER - ACTIVACIÓN COMPLETA (AMPLIADA) */
+/* 🎯 AI MATRIX - HOVER EFFECTS */
 .ai-matrix-button:hover {
   /* 🎭 TRANSFORMACIÓN SE MANEJA AL FINAL DEL ARCHIVO */
   /* transform: translateY(-70px) translateX(-35px) scale(1.01); REMOVIDO */
@@ -4703,27 +4762,6 @@ body,
   height: 100vh; /* Asegurar altura completa en tablets */
 }
 
-/* 🎯 CTA TITLE RESPONSIVE PARA MÓVILES */
-.cta-title {
-  font-size: clamp(
-    2rem,
-    5vw,
-    3rem
-  ) !important; /* Responsive específico para móviles */
-  line-height: 0.95 !important; /* Mantener 2 líneas compactas */
-  margin-bottom: clamp(25px, 6vw, 40px) !important;
-  letter-spacing: 0.02em; /* Reducido para pantallas pequeñas */
-}
-
-/* 🔥 BOTÓN CTA - MÓVILES */
-.cta-button-image {
-  max-width: clamp(140px, 16vw, 200px) !important;
-}
-
-.cta-button-container {
-  margin-top: clamp(20px, 5vh, 40px) !important;
-}
-
 /* .contact-info mobile variant moved to Rebecca.legacy.css */
 
 .contact-item {
@@ -4778,1759 +4816,2175 @@ body,
 .holo-text {
   font-size: 0.65rem;
   letter-spacing: 1.5px;
-  /* 🎯 CTA TITLE RESPONSIVE PARA MÓVILES */
-  .cta-title {
-    font-size: clamp(
-      2rem,
-      5vw,
-      3rem
-    ) !important; /* Responsive específico para móviles */
-    line-height: 0.95 !important; /* Mantener 2 líneas compactas */
-    margin-bottom: clamp(25px, 6vw, 40px) !important;
-    letter-spacing: 0.02em; /* Reducido para pantallas pequeñas */
-  }
-
-  /* 📱 ESTILOS FOOTER SIMPLIFICADOS */
-  .footer-reveal {
-    height: auto; /* 🎯 CAMBIO CLAVE: Auto height para pantallas pequeñas */
-    min-height: 100vh; /* Mínimo de pantalla completa pero permite crecer */
-    padding: 40px 15px 60px 15px; /* 🎯 PADDING BOTTOM AUMENTADO PARA CRÉDITOS */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Alinear contenido hacia arriba */
-  }
-
-  .footer-content {
-    display: flex; /* 🎯 CAMBIO: De grid a flexbox para mejor control */
-    flex-direction: column;
-    align-items: center;
-    gap: 40px; /* Espaciado generoso entre secciones */
-    padding: 20px 10px 60px 10px; /* 🎯 PADDING BOTTOM PARA EVITAR SUPERPOSICIÓN */
-    max-width: 100%;
-    height: auto; /* Altura automática */
-  }
-
-  /* 🎯 CTA TITLE RESPONSIVE PARA MÓVILES */
-  .cta-title {
-    font-size: clamp(
-      2rem,
-      5vw,
-      3rem
-    ) !important; /* Responsive específico para móviles */
-    line-height: 0.95 !important; /* Mantener 2 líneas compactas */
-    margin-bottom: clamp(25px, 6vw, 40px) !important;
-    letter-spacing: 0.02em; /* Reducido para pantallas pequeñas */
-  }
-
-  /* 🔥 BOTÓN CTA - MÓVILES */
-  .cta-button-image {
-    max-width: clamp(140px, 16vw, 200px) !important;
-  }
-
-  /* 🎯 CONTENEDOR CTA - OPTIMIZACIÓN MÓVIL */
-  .cta-content {
-    padding: clamp(20px, 3vw, 30px) clamp(10px, 2vw, 20px) !important; /* 🎯 Padding más conservador en móviles */
-    max-width: 95vw !important; /* 🎯 Ancho máximo para evitar desbordamiento */
-    overflow-x: hidden !important; /* 🎯 Asegurar no desbordamiento horizontal */
-  }
-
-  /* 🎯 TEXTO DEL BOTÓN CTA - ESCALADO MÓVIL MEJORADO */
-  .cta-button-text-display {
-    font-size: clamp(
-      1.1rem,
-      3.2vw,
-      1.6rem
-    ) !important; /* 🔥 MEJORADO: Escalado más agresivo para móviles */
-    letter-spacing: 0.06em !important; /* Ajustado para mejor proporción */
-    font-weight: 200 !important; /* Ligeramente más grueso para mejor legibilidad */
-  }
-
-  .cta-button-container {
-    margin-top: clamp(10px, 2vh, 20px) !important; /* Ajustado para móviles */
-  }
-
-  /* 🎯 NEWSLETTER SECTION OPTIMIZADA */
-  .footer-info h3 {
-    font-size: 2.2rem; /* Tamaño legible */
-    margin-bottom: 15px;
-  }
-
-  .footer-info p {
-    font-size: 1rem; /* Texto legible */
-    line-height: 1.4;
-    margin-bottom: 20px;
-  }
-
-  .newsletter-form {
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-  }
-
-  .newsletter-input {
-    width: 100%;
-    padding: 16px 20px;
-    font-size: 1rem;
-  }
-
-  .newsletter-button {
-    align-self: center;
-    width: fit-content;
-    padding: 16px 32px;
-    font-size: 1rem;
-  }
-
-  /* 🎯 ROBOT 3D OPTIMIZADO */
-  .robot-3d-container {
-    width: 280px;
-    height: 350px;
-    margin: 0 auto; /* 🎯 CENTRADO PERFECTO */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* 🎯 CONTACT-INFO COMPLETAMENTE REDISEÑADO PARA MÓVILES */
-  /* .contact-info mobile variant moved to Rebecca.legacy.css */
-
-  .contact-item {
-    padding: 12px 16px;
-    border-radius: 10px;
-    min-height: auto;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    margin: 0 auto;
-    max-width: 280px;
-    width: 100%;
-  }
-
-  .contact-icon {
-    width: 28px;
-    height: 28px;
-    margin-bottom: 8px;
-  }
-
-  .contact-icon div {
-    font-size: 14px;
-  }
-
-  .contact-item p {
-    font-size: 0.95rem;
-    line-height: 1.3;
-    margin: 3px 0;
-    color: rgba(0, 0, 0, 0.8);
-  }
-
-  .contact-label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: rgba(0, 0, 0, 0.6);
-  }
-
-  /* 🎯 ELIMINAR EFECTOS DE HOVER COMPLEJOS EN MÓVILES */
-  .footer-content:has(.ai-matrix-button:hover) .contact-info {
-    max-width: 280px; /* Mantener tamaño estable */
-    gap: 15px;
-  }
-
-  .footer-content:has(.ai-matrix-button:hover) .contact-item {
-    transform: none; /* No escalar en móviles */
-    padding: 12px 16px; /* Mantener padding estable */
-  }
-
-  /* 🎯 OPTIMIZACIÓN DE ELEMENTOS INTERNOS DEL BOTÓN */
-  .holo-text {
-    font-size: 0.65rem;
-    letter-spacing: 1.5px;
-  }
-
-  .ai-core {
-    width: 18px;
-    height: 18px;
-    left: 14px;
-  }
-
-  .neuron {
-    width: 3px;
-    height: 3px;
-  }
-
-  .data-stream {
-    font-size: 7px;
-  }
-
-  /* 🎯 ESPACIADO ADICIONAL PARA MEJOR LEGIBILIDAD */
-  .footer-info {
-    margin-bottom: 20px;
-  }
-
-  /* 📧 ESTILOS PARA FUNCIONALIDAD DEL BOLETÍN */
-  .newsletter-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  .newsletter-input:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-
-  #boletinMensaje {
-    margin-top: 16px;
-    font-size: 1rem;
-    font-weight: 500;
-    text-align: left;
-    min-height: 24px;
-    transition: all 0.3s ease;
-    opacity: 0;
-    pointer-events: none; /* 🎯 NO INTERFERIR CON EL BOTÓN */
-  }
-
-  #boletinMensaje:not(:empty) {
-    opacity: 1;
-  }
-
-  /* src/pages/Rebecca.css (Añadir al final) */
-
-  /* 🎯 ESTILOS PARA LA SECCIÓN "TRABAJEMOS JUNTOS" */
-  .call-to-action-section {
-    /* ¡CLAVE! Permite que el componente FuenteCero se posicione correctamente dentro */
-    position: relative;
-    min-height: 100vh;
-  }
-
-  /* Ocultar el cursor por defecto DENTRO de la sección */
-  .call-to-action-section.active-effect {
-    cursor: none;
-  }
-
-  /* Asegurar que el contenido de texto esté por encima del efecto */
-  .call-to-action-section .cta-content {
-    position: relative;
-    z-index: 5;
-  }
-
-  /* 🎬 ANIMACIONES PARA FUENTE CERO */
-
-  /* 🎯 BOTONES DEL FOOTER: MANTENER CURSOR PERSONALIZADO CAD */
-  .footer-reveal button,
-  .footer-reveal .newsletter-button {
-    cursor: none !important; /* 🎯 CURSOR PERSONALIZADO CAD - NO NATIVO */
-  }
-
-  /* Mantener excepción para homepage-wrapper y homepage-embedded */
-  .rebecca-container .homepage-wrapper *,
-  .rebecca-container .homepage-embedded *,
-  .rebecca-container #interactive-container.active * {
-    cursor: revert !important;
-  }
-  /* --- FIN OPTIMIZACIÓN --- */
-
-  /* 🌟 ANIMACIONES REVOLUCIONARIAS PARA LETRAS INDIVIDUALES - AWWWARDS LEVEL */
-
-  /* ⚡ ANIMACIÓN SIMPLE PARA MODO CHAT */
-  @keyframes letter-pulse-simple {
-    0%,
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.8;
-      transform: scale(1.02);
-    }
-  }
-
-  /* 🔥 ANIMACIÓN HOLOGRÁFICA ONDULANTE POR LETRA */
-  @keyframes letter-hologram-wave {
-    0%,
-    100% {
-      transform: perspective(1000px) rotateY(0deg) translateZ(0);
-      text-shadow: 0 0 20px rgba(218, 128, 35, 0.6),
-        0 0 40px rgba(128, 128, 128, 0.4);
-    }
-    25% {
-      transform: perspective(1000px) rotateY(5deg) translateZ(5px);
-      text-shadow: 0 0 25px rgba(218, 128, 35, 0.7),
-        0 0 50px rgba(128, 128, 128, 0.5), 5px 0 30px rgba(255, 255, 255, 0.3);
-    }
-    50% {
-      transform: perspective(1000px) rotateY(0deg) translateZ(10px);
-      text-shadow: 0 0 30px rgba(218, 128, 35, 0.8),
-        0 0 60px rgba(128, 128, 128, 0.6), 0 5px 35px rgba(255, 255, 255, 0.4);
-    }
-    75% {
-      transform: perspective(1000px) rotateY(-5deg) translateZ(5px);
-      text-shadow: 0 0 25px rgba(218, 128, 35, 0.7),
-        0 0 50px rgba(128, 128, 128, 0.5), -5px 0 30px rgba(255, 255, 255, 0.3);
-    }
-  }
-
-  /* 🌈 ANIMACIÓN DE GRADIENTE DINÁMICO POR LETRA */
-  @keyframes letter-gradient-shift {
-    0% {
-      background-position: 0% 50%;
-      filter: hue-rotate(0deg) saturate(1.1);
-    }
-    25% {
-      background-position: 100% 0%;
-      filter: hue-rotate(5deg) saturate(1.2);
-    }
-    50% {
-      background-position: 200% 50%;
-      filter: hue-rotate(10deg) saturate(1.3);
-    }
-    75% {
-      background-position: 300% 100%;
-      filter: hue-rotate(5deg) saturate(1.2);
-    }
-    100% {
-      background-position: 400% 50%;
-      filter: hue-rotate(0deg) saturate(1.1);
-    }
-  }
-
-  /* 🔮 ANIMACIÓN FLOTANTE DIMENSIONAL */
-  @keyframes letter-dimensional-float {
-    0%,
-    100% {
-      transform: perspective(1000px) translateY(0px) translateZ(0) rotateX(0deg);
-    }
-    20% {
-      transform: perspective(1000px) translateY(-2px) translateZ(3px)
-        rotateX(2deg);
-    }
-    40% {
-      transform: perspective(1000px) translateY(-1px) translateZ(6px)
-        rotateX(1deg);
-    }
-    60% {
-      transform: perspective(1000px) translateY(1px) translateZ(3px)
-        rotateX(-1deg);
-    }
-    80% {
-      transform: perspective(1000px) translateY(2px) translateZ(1px)
-        rotateX(-2deg);
-    }
-  }
-
-  /* 🌠 ANIMACIÓN DE PARTÍCULAS MICRO */
-  @keyframes micro-particles-dance {
-    0%,
-    100% {
-      background-position: 20% 30%, 80% 20%, 60% 80%;
-      opacity: 0.4;
-      transform: scale(1);
-    }
-    33% {
-      background-position: 70% 40%, 30% 70%, 90% 30%;
-      opacity: 0.6;
-      transform: scale(1.1);
-    }
-    66% {
-      background-position: 40% 90%, 90% 10%, 10% 60%;
-      opacity: 0.5;
-      transform: scale(0.9);
-    }
-  }
-
-  /* 🔥 ANIMACIÓN DE ESCANEO LÁSER POR LETRA */
-  @keyframes letter-laser-scan {
-    0%,
-    100% {
-      background-position: -100% 0%;
-      opacity: 0;
-    }
-    15% {
-      background-position: 0% 0%;
-      opacity: 0.6;
-    }
-    30% {
-      background-position: 100% 0%;
-      opacity: 0.8;
-    }
-    45% {
-      background-position: 200% 0%;
-      opacity: 0.4;
-    }
-    60% {
-      opacity: 0;
-    }
-  }
-
-  /* 🌟 ANIMACIONES OPTIMIZADAS PARA EL TÍTULO */
-
-  /* 🎨 ANIMACIÓN DE GRADIENTE SIMPLE */
-  @keyframes gradient-shift-simple {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-
-  /* ✨ ANIMACIÓN DE BRILLO SUTIL */
-  @keyframes subtle-glow {
-    0% {
-      text-shadow: 0 0 15px rgba(218, 128, 35, 0.4),
-        0 0 30px rgba(128, 128, 128, 0.2);
-    }
-    100% {
-      text-shadow: 0 0 20px rgba(218, 128, 35, 0.6),
-        0 0 40px rgba(128, 128, 128, 0.3);
-    }
-  }
-
-  /* 🎯 SECCIÓN DE CRÉDITOS DEL FOOTER */
-  .footer-credits {
-    position: absolute;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: fit-content; /* 🎯 ANCHO ESPECÍFICO EN VEZ DE 100% */
-    text-align: center;
-    z-index: 10;
-    pointer-events: none; /* 🎯 CONTENEDOR SIN EVENTOS */
-  }
-
-  .footer-credits p {
-    font-size: 0.8rem; /* 🎯 LIGERAMENTE MÁS GRANDE COMO EN LA IMAGEN */
-    color: rgba(255, 255, 255, 0.5); /* 🎯 LIGERAMENTE MÁS VISIBLE */
-    margin: 0;
-    font-weight: 300;
-    letter-spacing: 0.5px;
-    pointer-events: none;
-    /* 🎯 RESTAURAR TIPOGRAFÍA ORIGINAL */
-    font-family: "Orbitron", "Oxanium", sans-serif;
-  }
-
-  .footer-credits button {
-    pointer-events: auto; /* 🎯 BOTÓN DE CRÉDITOS FUNCIONAL */
-  }
-
-  /* 🎯 DELIMITAR ÁREA DEL BOTÓN DE CRÉDITOS */
-  .footer-credits .credits-link {
-    max-width: 200px; /* 🎯 LIMITAR ANCHO MÁXIMO */
-    margin: 0 auto 10px auto; /* 🎯 CENTRADO ESPECÍFICO */
-    white-space: nowrap; /* 🎯 TEXTO EN UNA LÍNEA */
-  }
-
-  .footer-credits p:hover {
-    color: rgba(255, 255, 255, 0.4); /* 🎯 SIN CAMBIO DE COLOR EN HOVER */
-  }
-
-  /* 🎯 ENLACE DE CRÉDITOS */
-  .credits-link {
-    background: transparent;
-    border: 1px solid var(--color-orange-alpha-40);
-    color: var(--color-orange-primary);
-    font-size: 0.8rem;
-    padding: 8px 16px;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    cursor: none !important; /* 🎯 CURSOR PERSONALIZADO - NO NATIVO */
-    transition: all 0.3s ease;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    display: inline-block; /* 🎯 CAMBIO DE BLOCK A INLINE-BLOCK */
-    width: auto; /* 🎯 ANCHO AUTOMÁTICO */
-    pointer-events: auto; /* 🎯 ASEGURAR FUNCIONALIDAD */
-    position: relative; /* 🎯 CONTEXTO DE POSICIONAMIENTO */
-    z-index: 11; /* 🎯 POR ENCIMA DEL CONTENEDOR PERO DEBAJO DEL BOTÓN AI */
-  }
-
-  .credits-link:hover {
-    background: var(--color-orange-alpha-10);
-    border-color: var(--color-orange-primary);
-    box-shadow: 0 0 10px var(--color-orange-alpha-30);
-    /* 🎯 REMOVIDO transform: translateY(-2px); PARA EVITAR INTERFERENCIA */
-  }
-
-  /* 🎯 MODAL DE CRÉDITOS */
-  .credits-modal-overlay {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    background: rgba(0, 0, 0, 0.9) !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    z-index: 2147483647 !important; /* 🎯 Z-INDEX MÁXIMO POSIBLE */
-    backdrop-filter: blur(10px) !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    transform: none !important;
-    overflow: hidden !important;
-    /* 🎯 FORZAR CONTEXTO DE APILAMIENTO INDEPENDIENTE */
-    will-change: auto !important;
-    contain: layout style paint !important;
-    isolation: isolate !important; /* 🎯 CREAR NUEVO CONTEXTO DE APILAMIENTO */
-  }
-
-  .credits-modal-container {
-    position: relative !important;
-    max-width: 85vw !important; /* 🎯 REDUCIDO: de 90vw a 85vw */
-    max-height: 85vh !important; /* 🎯 REDUCIDO: de 90vh a 85vh */
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    contain: layout style paint !important;
-  }
-
-  .credits-close-button {
-    position: absolute !important;
-    top: -40px !important;
-    right: 0 !important;
-    background: var(--color-orange-primary) !important;
-    border: none !important;
-    color: white !important;
-    width: 32px !important;
-    height: 32px !important;
-    border-radius: 50% !important;
-    cursor: pointer !important;
-    font-size: 18px !important;
-    font-weight: bold !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    transition: all 0.3s ease !important;
-    box-shadow: 0 4px 12px rgba(218, 128, 35, 0.3) !important;
-    z-index: 10001 !important; /* 🎯 POR ENCIMA DEL MODAL */
-  }
-
-  .credits-close-button:hover {
-    background: #ff9b3d;
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(218, 128, 35, 0.5);
-  }
-
-  /* 🎯 CONTENEDOR CON MARCO TECNOLÓGICO */
-  .credits-frame-container {
-    width: 90vw !important; /* 🎯 AUMENTADO 10% ADICIONAL: de 77vw a 84.7vw */
-    height: 90vh !important; /* 🎯 AUMENTADO 10% ADICIONAL: de 77vh a 84.7vh */
-    background-image: url("../assets/contenedor_creditos.png") !important;
-    background-size: contain !important;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    position: relative !important;
-  }
-
-  /* 🎯 PANTALLA TRANSPARENTE DENTRO DEL MARCO */
-  .credits-screen {
-    width: 58% !important; /* 🎯 REDUCIDO: de 65% a 58% para ajustarse mejor a la pantalla interior */
-    height: 70% !important; /* 🎯 AUMENTADO: de 55% a 70% para expandir área superior de créditos */
-    background: transparent !important; /* 🎯 TRANSPARENTE para mostrar la imagen del marco */
-    border-radius: 8px !important;
-    overflow: hidden !important;
-    position: relative !important;
-    top: -6.5% !important; /* 🎯 MOVIDO MÁS ARRIBA: de -1.5% a -6.5% para mantener límite inferior */
-  }
-
-  /* 🎯 ANIMACIÓN DE SCROLL DE CRÉDITOS */
-  .credits-scroll {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    animation: creditsScroll 45s linear infinite;
-    padding: 10px 15px; /* 🎯 REDUCIDO: menos padding lateral para evitar desbordamiento */
-    text-align: center;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* 🎯 ELEMENTOS INDIVIDUALES DE CRÉDITO */
-  .credit-item {
-    margin-bottom: 50px; /* 🎯 REDUCIDO: de 60px a 50px para mejor distribución */
-    opacity: 1;
-  }
-
-  .credit-item h3 {
-    font-family: "Times New Roman", "Georgia", serif;
-    font-size: 1.1rem; /* 🎯 REDUCIDO: de 1.2rem a 1.1rem para evitar desbordamiento */
-    font-weight: 600;
-    color: var(--color-orange-primary);
-    margin-bottom: 6px; /* 🎯 REDUCIDO: de 8px a 6px */
-    line-height: 1.2; /* 🎯 REDUCIDO: de 1.3 a 1.2 */
-    text-transform: uppercase;
-    letter-spacing: 0.8px; /* 🎯 REDUCIDO: de 1px a 0.8px */
-    text-shadow: 0 0 10px rgba(218, 128, 35, 0.5);
-    word-wrap: break-word; /* 🎯 AGREGADO: para evitar desbordamiento */
-  }
-
-  .credit-item p {
-    font-family: "Times New Roman", "Georgia", serif;
-    font-size: 0.95rem; /* 🎯 REDUCIDO: de 1rem a 0.95rem */
-    color: #ffffff;
-    margin: 0;
-    font-weight: 300;
-    letter-spacing: 0.4px; /* 🎯 REDUCIDO: de 0.5px a 0.4px */
-    line-height: 1.3; /* 🎯 REDUCIDO: de 1.4 a 1.3 */
-    word-wrap: break-word; /* 🎯 AGREGADO: para evitar desbordamiento */
-  }
-
-  /* 🎯 ANIMACIÓN KEYFRAMES TIPO CRÉDITOS DE PELÍCULA */
-  @keyframes creditsScroll {
-    0% {
-      transform: translateY(100%); /* 🎯 COMIENZA COMPLETAMENTE ABAJO */
-    }
-    100% {
-      transform: translateY(
-        -150%
-      ); /* 🎯 TERMINA COMPLETAMENTE ARRIBA (más allá para que el último crédito salga) */
-    }
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideInFromTopRight {
-    from {
-      opacity: 0;
-      transform: translate(100px, -100px) scale(0.8);
-    }
-    to {
-      opacity: 1;
-      transform: translate(0, 0) scale(1);
-    }
-  }
-
-  /* 🎨 BOTÓN NEGRO CON CONTORNO CALADO PREMIUM */
-  .modern-arrow-button {
-    width: 60px !important;
-    height: 60px !important;
-    border-radius: 50% !important;
-    position: relative !important;
-    /* Anillo exterior NEGRO con contorno calado ultra fino */
-    background: linear-gradient(
-      145deg,
-      #404040 0%,
-      #2a2a2a 25%,
-      #1a1a1a 50%,
-      #0f0f0f 75%,
-      #000000 100%
-    ) !important;
-    border: none !important;
-    /* Sombras oscuras profundas + contorno calado premium */
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8), 0 8px 20px rgba(0, 0, 0, 0.6),
-      0 4px 12px rgba(0, 0, 0, 0.4),
-      /* Contorno calado ultra fino - INACTIVO */ 0 0 0 0.5px
-        rgba(80, 80, 80, 0.3),
-      inset 0 0 0 0.5px rgba(60, 60, 60, 0.2),
-      /* Micro bordes metálicos */ inset 0 0.5px 1px rgba(255, 255, 255, 0.03),
-      inset 0 -0.5px 1px rgba(0, 0, 0, 0.9) !important;
-    overflow: visible !important;
-    cursor: none !important; /* 🎯 CURSOR PERSONALIZADO CAD - NO NATIVO */
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    padding: 0 !important;
-  }
-
-  .modern-arrow-button::before {
-    content: "";
-    position: absolute;
-    top: -15px;
-    left: -15px;
-    right: -15px;
-    bottom: -15px;
-    border-radius: 50%;
-    background: transparent;
-    pointer-events: none;
-    z-index: -2;
-    opacity: 0;
-    transition: all 0.3s ease;
-  }
-
-  .modern-arrow-button::before {
-    content: "";
-    position: absolute;
-    top: -8px;
-    left: -8px;
-    right: -8px;
-    bottom: -8px;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle,
-      rgba(255, 107, 53, 0.4) 0%,
-      rgba(255, 107, 53, 0.2) 40%,
-      rgba(255, 107, 53, 0.1) 70%,
-      transparent 100%
-    );
-    filter: blur(8px);
-    pointer-events: none;
-    z-index: -1;
-    animation: glowPulse 3s ease-in-out infinite alternate;
-  }
-
-  @keyframes glowPulse {
-    0% {
-      opacity: 0.6;
-      transform: scale(1);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1.1);
-    }
-  }
-
-  .modern-arrow-button::after {
-    content: "";
-    position: absolute;
-    top: 1px;
-    left: 1px;
-    right: 1px;
-    bottom: 1px;
-    border-radius: 50%;
-    background: linear-gradient(
-      145deg,
-      rgba(255, 255, 255, 0.1) 0%,
-      transparent 30%,
-      rgba(0, 0, 0, 0.05) 70%,
-      rgba(0, 0, 0, 0.1) 100%
-    );
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  /* Borde naranja interno más delgado */
-  .button-background {
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    right: 4px;
-    bottom: 4px;
-    border-radius: 50%;
-    /* ARO NARANJA CON DIÁMETRO MAYOR PERO LÍNEA MÁS DELGADA */
-    background: transparent;
-    border: 1.5px solid rgba(255, 107, 53, 0.9);
-    /* Bordes 3D del anillo naranja muy sutiles */
-    box-shadow: inset 0 0.5px 1px rgba(255, 180, 100, 0.4),
-      inset 0 -0.5px 1px rgba(150, 40, 0, 0.4),
-      inset 0.5px 0 0.8px rgba(255, 160, 80, 0.2),
-      inset -0.5px 0 0.8px rgba(120, 30, 0, 0.2),
-      /* Resplandor exterior sutil del aro */ 0 0 2px rgba(255, 107, 53, 0.3);
-    z-index: 1;
-    transition: all 0.3s ease;
-  }
-
-  /* Centro NEGRO profundo como en la imagen */
-  .metallic-surface {
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    right: 4px;
-    bottom: 4px;
-    background: radial-gradient(
-      circle at 30% 30%,
-      #1a1a1a 0%,
-      #0d0d0d 40%,
-      #000000 100%
-    );
-    border-radius: 50%;
-    border: 1px solid #000;
-    box-shadow: 
-    /* Profundidad interna muy oscura */ inset 0 3px 8px
-        rgba(0, 0, 0, 0.9),
-      inset 0 -1px 3px rgba(255, 255, 255, 0.02);
-    z-index: 2;
-  }
-
-  /* Contenedor de flecha con renderizado premium */
-  .arrow-container {
-    transform: var(--transform-center) translateZ(12px);
-    width: 38px;
-    height: 26px;
-    z-index: 15;
-    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.2));
-  }
-
-  /* SVG principal con efectos ultra refinados */
-  .arrow-icon {
-    width: 100%;
-    height: 100%;
-    transform: perspective(150px) rotateX(3deg);
-    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-
-  /* Líneas de velocidad ultra delgadas - ESTADO INACTIVO */
-  .speed-lines-group {
-    transform: translateZ(-3px);
-    opacity: 0.15;
-  }
-
-  .speed-line {
-    filter: drop-shadow(0 0.5px 1px rgba(0, 0, 0, 0.1));
-    transform-origin: left center;
-  }
-
-  .speed-line-1 {
-    transform: translateY(-0.5px) scaleX(0.9);
-  }
-  .speed-line-2 {
-    transform: translateY(-0.2px) scaleX(1);
-  }
-  .speed-line-3 {
-    transform: translateY(0px) scaleX(0.95);
-  }
-  .speed-line-4 {
-    transform: translateY(0.2px) scaleX(0.9);
-  }
-  .speed-line-5 {
-    transform: translateY(0.5px) scaleX(1);
-  }
-
-  /* Flecha secundaria (outline) - ESTADO INACTIVO */
-  .secondary-arrow-group {
-    transform: translateZ(1px);
-    opacity: 0.2;
-  }
-
-  .secondary-arrow-outline {
-    filter: drop-shadow(0 0.5px 2px rgba(0, 0, 0, 0.15));
-  }
-
-  /* Resplandor principal - OCULTO en estado inactivo */
-  .main-glow-group {
-    transform: translateZ(2px);
-  }
-
-  .main-arrow-glow {
-    transition: all 0.5s ease;
-  }
-
-  /* Flecha principal con detalles premium - ESTADO INACTIVO */
-  .primary-arrow-group {
-    transform: translateZ(10px);
-  }
-
-  .primary-arrow-base {
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-    transform: perspective(100px) rotateX(5deg);
-  }
-
-  /* Highlights internos - OCULTOS en estado inactivo */
-  .inner-highlight-1,
-  .inner-highlight-2,
-  .inner-highlight-3 {
-    transition: all 0.4s ease;
-    transform-origin: center;
-  }
-
-  /* Micro luces - OCULTAS en estado inactivo */
-  .micro-light-1,
-  .micro-light-2,
-  .micro-light-3 {
-    transition: all 0.3s ease;
-    transform-origin: center;
-  }
-
-  /* Línea de energía - OCULTA en estado inactivo */
-  .energy-line {
-    transition: all 0.3s ease;
-    transform-origin: left center;
-  }
-
-  /* Resplandor exterior - OCULTO en estado inactivo */
-  .neon-glow {
-    width: 45px;
-    height: 45px;
-    background: transparent;
-    border-radius: 50%;
-    z-index: 5;
-    opacity: 0;
-    transition: all 0.5s ease;
-  }
-
-  /* Animaciones */
-  @keyframes neonPulse {
-    0% {
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 0.6;
-    }
-    100% {
-      transform: translate(-50%, -50%) scale(1.2);
-      opacity: 0.3;
-    }
-  }
-
-  @keyframes glowPulse {
-    0% {
-      opacity: 0.4;
-      transform: scale(1);
-    }
-    100% {
-      opacity: 0.8;
-      transform: scale(1.05);
-    }
-  }
-
-  /* 🌟 EFECTOS HOVER PREMIUM - CONTORNO CALADO ILUMINADO + DETALLES HD CON RESPLANDOR CONTROLADO */
-  .modern-arrow-button:hover {
-    transform: scale(1.08) translateY(-4px) !important;
-    /* Sombras oscuras profundas + contorno calado naranja iluminado */
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9), 0 15px 35px rgba(0, 0, 0, 0.7),
-      0 8px 20px rgba(0, 0, 0, 0.5),
-      /* CONTORNO CALADO ILUMINADO NARANJA */ 0 0 0 0.5px
-        rgba(255, 107, 53, 0.9),
-      0 0 0 1px rgba(255, 69, 0, 0.7), 0 0 0 1.5px rgba(255, 140, 69, 0.5),
-      0 0 0 2px rgba(255, 180, 100, 0.3),
-      inset 0 0 0 0.5px rgba(255, 107, 53, 0.4),
-      inset 0 0 0 1px rgba(255, 69, 0, 0.3),
-      /* RESPLANDOR EXTERIOR REDUCIDO - NO LLEGA AL CAMPO DE CORREO */ 0 0 25px
-        rgba(255, 69, 0, 0.8),
-      0 0 15px rgba(255, 107, 53, 0.6), 0 0 10px rgba(255, 140, 69, 0.4),
-      /* Micro detalles metálicos */ inset 0 1px 2px rgba(255, 255, 255, 0.05),
-      inset 0 -1px 2px rgba(0, 0, 0, 1) !important;
-  }
-
-  /* Resplandor exterior controlado */
-  .modern-arrow-button:hover::before {
-    opacity: 1;
-    background: radial-gradient(
-      circle,
-      rgba(255, 69, 0, 0.6) 0%,
-      rgba(255, 107, 53, 0.4) 20%,
-      rgba(255, 140, 69, 0.2) 40%,
-      rgba(255, 180, 100, 0.1) 60%,
-      transparent 100%
-    );
-    filter: blur(20px);
-    animation: glowPulse 1.5s ease-in-out infinite alternate;
-    transform: scale(1.15);
-  }
-
-  /* Borde naranja interno premium con resplandor controlado */
-  .modern-arrow-button:hover .button-background {
-    box-shadow: 
+}
+
+.ai-core {
+  width: 16px;
+  height: 16px;
+}
+
+.neuron {
+  width: 3px;
+  height: 3px;
+}
+
+.data-stream {
+  width: 2px;
+  height: 4px;
+}
+
+/* 🎯 CONTACT-INFO COMPLETAMENTE REDISEÑADO PARA MÓVILES */
+/* .contact-info mobile variant moved to Rebecca.legacy.css */
+
+.contact-item {
+  padding: 12px 16px;
+  border-radius: 10px;
+  min-height: auto;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 0 auto;
+  max-width: 280px;
+  width: 100%;
+}
+
+.contact-icon {
+  width: 28px;
+  height: 28px;
+  margin-bottom: 8px;
+}
+
+.contact-icon div {
+  font-size: 14px;
+}
+
+.contact-item p {
+  font-size: 0.95rem;
+  line-height: 1.3;
+  margin: 3px 0;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.contact-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* 🎯 ELIMINAR EFECTOS DE HOVER COMPLEJOS EN MÓVILES */
+.footer-content:has(.ai-matrix-button:hover) .contact-info {
+  max-width: 280px; /* Mantener tamaño estable */
+  gap: 15px;
+}
+
+.footer-content:has(.ai-matrix-button:hover) .contact-item {
+  transform: none; /* No escalar en móviles */
+  padding: 12px 16px; /* Mantener padding estable */
+}
+
+/* 🎯 OPTIMIZACIÓN DE ELEMENTOS INTERNOS DEL BOTÓN */
+.holo-text {
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+}
+
+.ai-core {
+  width: 18px;
+  height: 18px;
+  left: 14px;
+}
+
+.neuron {
+  width: 3px;
+  height: 3px;
+}
+
+.data-stream {
+  font-size: 7px;
+}
+
+/* 🎯 ESPACIADO ADICIONAL PARA MEJOR LEGIBILIDAD */
+.footer-info {
+  margin-bottom: 20px;
+}
+
+/* 📧 ESTILOS PARA FUNCIONALIDAD DEL BOLETÍN */
+.newsletter-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.newsletter-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+#boletinMensaje {
+  margin-top: 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: left;
+  min-height: 24px;
+  transition: all 0.3s ease;
+  opacity: 0;
+  pointer-events: none; /* 🎯 NO INTERFERIR CON EL BOTÓN */
+}
+
+#boletinMensaje:not(:empty) {
+  opacity: 1;
+}
+
+/* 🎯 AI MATRIX - HOVER EFFECTS */
+.ai-matrix-button:hover {
+  /* 🎭 TRANSFORMACIÓN SE MANEJA AL FINAL DEL ARCHIVO */
+  /* transform: translateY(-70px) translateX(-35px) scale(1.01); REMOVIDO */
+  background: linear-gradient(
+    135deg,
+    rgba(26, 26, 26, 0.95) 0%,
+    rgba(45, 45, 45, 0.98) 50%,
+    rgba(64, 64, 64, 0.95) 100%
+  );
+  border: 2px solid rgba(218, 128, 35, 0.8);
+  border-radius: 18px; /* Aumentado de 16px */
+  width: 260px; /* 🎯 REDUCIDO 10px ADICIONALES DEL ANCHO */
+  height: 54px; /* 🎯 MISMA ALTURA QUE EL INPUT DEL NEWSLETTER */
+
+  /* 🔥 EFECTOS HOLOGRÁFICOS */
+  box-shadow: 0 0 0 1px rgba(218, 128, 35, 0.4),
+    0 0 20px rgba(218, 128, 35, 0.3), 0 16px 48px rgba(218, 128, 35, 0.2),
+    0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 20px rgba(218, 128, 35, 0.05);
+}
+
+.ai-matrix-button:hover .ai-core {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.5);
+}
+
+.ai-matrix-button:hover .data-matrix {
+  opacity: 1;
+}
+
+.ai-matrix-button:hover .hologram-layers {
+  opacity: 1;
+}
+
+/* 🚀 EFECTOS 3D EN HOVER - TRIÁNGULO SOBRESALE CON EXTRUSIÓN */
+.ai-matrix-button:hover .triangle-container {
+  transform: translateY(-50%) translateZ(12px) scale(1.2);
+  filter: drop-shadow(0 0 20px var(--color-orange-primary))
+    drop-shadow(6px 3px 12px rgba(0, 0, 0, 0.7))
+    drop-shadow(0 0 35px var(--color-orange-alpha-80));
+}
+
+.ai-matrix-button:hover .triangle-container::before {
+  border-color: transparent var(--color-orange-primary) transparent transparent; /* 🎯 DIRECCIÓN IZQUIERDA + SOLO NARANJAS */
+  border-width: 10px 16px 10px 0; /* 🎯 INVERTIDO PARA DIRECCIÓN IZQUIERDA */
+  filter: drop-shadow(0 0 15px var(--color-orange-primary))
+    drop-shadow(0 0 20px rgba(0, 0, 0, 0.9)) /* 🎯 RESPLANDOR NEGRO INTENSO */
+    drop-shadow(8px 0 8px rgba(0, 0, 0, 0.6));
+
+  /* Efecto de extrusión 3D - DIRECCIÓN IZQUIERDA */
+  box-shadow: 3px 0 0 var(--color-orange-alpha-90),
+    /* 🎯 INVERTIDO: + EN LUGAR DE - */ 6px 0 0 var(--color-orange-alpha-70),
+    9px 0 0 var(--color-orange-alpha-50), 12px 3px 20px rgba(0, 0, 0, 0.6);
+}
+
+.ai-matrix-button:hover .triangle-container::after {
+  border-color: transparent var(--color-orange-alpha-80) transparent transparent; /* 🎯 SOLO TONALIDADES NARANJAS */
+  border-width: 8px 12px 8px 0; /* 🎯 INVERTIDO PARA DIRECCIÓN IZQUIERDA */
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 0 8px var(--color-orange-alpha-60),
+    /* 🎯 RESPLANDOR NARANJA EN LUGAR DE BLANCO */ 0 0 12px rgba(0, 0, 0, 0.7); /* 🎯 RESPLANDOR NEGRO */
+}
+
+/* .ai-matrix-button:hover .holo-text eliminado - elemento blanco que aparecía en el centro */
+
+.ai-matrix-button:hover .triangle-lines-set1::after {
+  width: 10px;
+  height: 1.2px;
+  box-shadow: 0 0 10px var(--color-orange-primary),
+    0 0 20px var(--color-orange-alpha-70);
+  background: linear-gradient(
+    to right,
+    #fff 0%,
+    var(--color-orange-primary) 30%,
+    #fff 60%,
+    var(--color-orange-alpha-80) 100%
+  );
+  transform: rotate(20deg) scale(1.3);
+}
+
+.ai-matrix-button:hover .triangle-lines-set2::before {
+  width: 8px;
+  height: 0.8px;
+  box-shadow: 0 0 8px var(--color-orange-primary),
+    0 0 16px rgba(255, 255, 255, 0.8);
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    #fff 15%,
+    var(--color-orange-primary) 50%,
+    #fff 85%,
+    transparent 100%
+  );
+  transform: translateY(-50%) scale(1.4);
+}
+
+.ai-matrix-button:hover .triangle-lines-set2::after {
+  width: 7px;
+  height: 0.5px;
+  box-shadow: 0 0 6px var(--color-orange-alpha-80);
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    #fff 20%,
+    var(--color-orange-primary) 50%,
+    #fff 80%,
+    transparent 100%
+  );
+  transform: rotate(-15deg) scale(1.2);
+}
+
+.ai-matrix-button:hover .arrow-triangle-main::before {
+  border-color: transparent transparent transparent rgba(218, 128, 35, 0.8);
+  filter: blur(0.3px);
+  transform: scale(1.2);
+}
+
+.ai-matrix-button:hover .arrow-triangle-main::after {
+  border-color: transparent transparent transparent #fff;
+  transform: scale(1.1);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+.ai-matrix-button:hover .arrow-triangle-lines::before {
+  height: 10px;
+  box-shadow: 0 0 8px var(--color-orange-primary),
+    0 0 15px var(--color-orange-alpha-60);
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #fff 20%,
+    var(--color-orange-primary) 50%,
+    #fff 80%,
+    transparent 100%
+  );
+}
+
+.ai-matrix-button:hover .arrow-triangle-lines::after {
+  height: 8px;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+}
+
+.ai-matrix-button:hover .arrow-body-lines::before {
+  width: 14px;
+  height: 2px;
+  transform: translateY(-50%) translateZ(4px);
+  box-shadow: 0 0 8px var(--color-orange-primary), 0 2px 4px rgba(0, 0, 0, 0.4),
+    0 0 20px var(--color-orange-alpha-50);
+  background: linear-gradient(
+    to right,
+    #fff 0%,
+    var(--color-orange-primary) 25%,
+    #fff 50%,
+    var(--color-orange-primary) 75%,
+    rgba(255, 255, 255, 0.8) 100%
+  );
+}
+
+.ai-matrix-button:hover .arrow-body-lines::after {
+  width: 12px;
+  height: 1.2px;
+  box-shadow: 0 0 6px var(--color-orange-alpha-80);
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    #fff 25%,
+    var(--color-orange-primary) 50%,
+    #fff 75%,
+    transparent 100%
+  );
+}
+
+.ai-matrix-button:hover .holo-text {
+  color: #ffa500;
+  text-shadow: 0 0 20px rgba(255, 165, 0, 0.8), 0 0 40px rgba(218, 128, 35, 0.6),
+    0 2px 4px rgba(0, 0, 0, 0.9);
+  transform: scale(1.1);
+}
+
+.ai-matrix-button:hover .text-glitch::before,
+.ai-matrix-button:hover .text-glitch::after {
+  opacity: 0.7;
+}
+
+.ai-matrix-button:hover .depth-scanner {
+  opacity: 1;
+}
+
+/* ⚡ AI MATRIX - ACTIVE STATE */
+.ai-matrix-button:active {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 0 0 3px rgba(218, 128, 35, 0.9),
+    0 0 30px rgba(218, 128, 35, 0.5), 0 8px 24px rgba(218, 128, 35, 0.3),
+    0 4px 16px rgba(0, 0, 0, 0.8);
+}
+
+/* ============================================================================
+   3️⃣ BOTÓN NEWSLETTER (FORMULARIO) - CRONOLÓGICO COMPLETO  
+   ============================================================================ */
+
+/* 🎯 NEWSLETTER - SECTION LAYOUT */
+.newsletter-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  z-index: 1; /* 🎯 Z-INDEX BAJO PARA NO INTERFERIR CON EL BOTÓN AI */
+}
+
+/* 🎯 ASEGURAR QUE TODOS LOS ELEMENTOS DEL NEWSLETTER TENGAN Z-INDEX BAJO */
+.newsletter-section *,
+.newsletter-form,
+.newsletter-form *,
+.newsletter-button,
+.newsletter-input {
+  z-index: 1 !important;
+}
+
+/* 📧 FORMULARIO DE NEWSLETTER - MEJORADO */
+.newsletter-form {
+  display: flex;
+  gap: 14px;
+  margin: 0;
+  position: relative;
+  z-index: 1; /* 🎯 Z-INDEX BAJO PARA NO INTERFERIR CON EL BOTÓN AI */
+}
+
+/* 🎯 NEWSLETTER - INPUT STYLES */
+.newsletter-input {
+  flex: 1;
+  padding: 16px 24px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 1.1rem; /* 🎯 RESTAURADO DEL RESPALDO */
+  backdrop-filter: blur(10px);
+  transition: var(--transition-smooth);
+  /* 🎯 TIPOGRAFÍA CORRECTA: OXANIUM COMO EL RESTO DEL FOOTER */
+  font-family: "Oxanium", sans-serif;
+}
+
+.newsletter-input::placeholder {
+  color: rgba(0, 0, 0, 0.5); /* 🎯 RESTAURADO DEL RESPALDO */
+  /* 🎯 TIPOGRAFÍA CORRECTA: OXANIUM COMO EL RESTO DEL FOOTER */
+  font-family: "Oxanium", sans-serif;
+}
+
+.newsletter-input:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 🎯 NEWSLETTER - BUTTON BASE */
+.newsletter-button {
+  background: rgba(255, 255, 255, 0.9);
+  color: #8b5cf6;
+  border: none;
+  padding: 16px 24px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  min-width: 60px;
+  /* 🎯 TIPOGRAFÍA CORRECTA: OXANIUM COMO EL RESTO DEL FOOTER */
+  font-family: "Oxanium", sans-serif;
+}
+
+/* 🎯 NEWSLETTER - HOVER EFFECTS */
+.newsletter-button:hover {
+  background: #ffffff;
+  transform: scale(1.05);
+}
+
+/* 🎯 NEWSLETTER - STATES & INTERACTIONS */
+.newsletter-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+#boletinMensaje {
+  margin-top: 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: left;
+  min-height: 24px;
+  transition: all 0.3s ease;
+  opacity: 0;
+  pointer-events: none; /* 🎯 NO INTERFERIR CON EL BOTÓN */
+}
+
+#boletinMensaje:not(:empty) {
+  opacity: 1;
+}
+
+/* 🎯 NEWSLETTER - HOVER EFFECTS */
+.newsletter-button:hover {
+  background: #ffffff;
+  transform: scale(1.05);
+}
+
+/* ============================================================================
+   4️⃣ BOTÓN MODERN ARROW (CRÉDITOS) - CRONOLÓGICO COMPLETO
+   ============================================================================ */
+
+/* 🎯 MODERN ARROW - BASE STYLES */
+.modern-arrow-button {
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 50% !important;
+  position: relative !important;
+  /* Anillo exterior NEGRO con contorno calado ultra fino */
+  background: linear-gradient(
+    145deg,
+    #404040 0%,
+    #2a2a2a 25%,
+    #1a1a1a 50%,
+    #0f0f0f 75%,
+    #000000 100%
+  ) !important;
+  border: none !important;
+  /* Sombras oscuras profundas + contorno calado premium */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8), 0 8px 20px rgba(0, 0, 0, 0.6),
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    /* Contorno calado ultra fino - INACTIVO */ 0 0 0 0.5px
+      rgba(80, 80, 80, 0.3),
+    inset 0 0 0 0.5px rgba(60, 60, 60, 0.2),
+    /* Micro bordes metálicos */ inset 0 0.5px 1px rgba(255, 255, 255, 0.03),
+    inset 0 -0.5px 1px rgba(0, 0, 0, 0.9) !important;
+  overflow: visible !important;
+  cursor: pointer !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  padding: 0 !important;
+}
+
+/* 🎯 MODERN ARROW - HOVER EFFECTS */
+.modern-arrow-button:hover {
+  transform: scale(1.08) translateY(-4px) !important;
+  /* Sombras oscuras profundas + contorno calado naranja iluminado */
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9), 0 15px 35px rgba(0, 0, 0, 0.7),
+    0 8px 20px rgba(0, 0, 0, 0.5),
+    /* CONTORNO CALADO ILUMINADO NARANJA */ 0 0 0 0.5px rgba(255, 107, 53, 0.9),
+    0 0 0 1px rgba(255, 69, 0, 0.7), 0 0 0 1.5px rgba(255, 140, 69, 0.5),
+    0 0 0 2px rgba(255, 180, 100, 0.3),
+    inset 0 0 0 0.5px rgba(255, 107, 53, 0.4),
+    inset 0 0 0 1px rgba(255, 69, 0, 0.3),
+    /* RESPLANDOR EXTERIOR REDUCIDO - NO LLEGA AL CAMPO DE CORREO */ 0 0 25px
+      rgba(255, 69, 0, 0.8),
+    0 0 15px rgba(255, 107, 53, 0.6), 0 0 10px rgba(255, 140, 69, 0.4),
+    /* Micro detalles metálicos */ inset 0 1px 2px rgba(255, 255, 255, 0.05),
+    inset 0 -1px 2px rgba(0, 0, 0, 1) !important;
+}
+
+/* Resplandor exterior controlado */
+.modern-arrow-button:hover::before {
+  opacity: 1;
+  background: radial-gradient(
+    circle,
+    rgba(255, 69, 0, 0.6) 0%,
+    rgba(255, 107, 53, 0.4) 20%,
+    rgba(255, 140, 69, 0.2) 40%,
+    rgba(255, 180, 100, 0.1) 60%,
+    transparent 100%
+  );
+  filter: blur(20px);
+  animation: glowPulse 1.5s ease-in-out infinite alternate;
+  transform: scale(1.15);
+}
+
+/* Borde naranja interno premium con resplandor controlado */
+.modern-arrow-button:hover .button-background {
+  box-shadow: 
     /* RESPLANDOR NARANJA INTERNO CONTROLADO */ 0 0 20px
-        rgba(255, 69, 0, 0.8),
-      0 0 12px rgba(255, 107, 53, 0.7), 0 0 8px rgba(255, 140, 69, 0.6),
-      0 0 4px rgba(255, 180, 100, 0.5),
-      /* Bordes 3D ultra refinados */ inset 0 2px 6px rgba(255, 220, 140, 1),
-      inset 0 -2px 6px rgba(180, 40, 0, 1),
-      inset 2px 0 4px rgba(255, 200, 120, 0.9),
-      inset -2px 0 4px rgba(150, 30, 0, 0.9);
-  }
+      rgba(255, 69, 0, 0.8),
+    0 0 12px rgba(255, 107, 53, 0.7), 0 0 8px rgba(255, 140, 69, 0.6),
+    0 0 4px rgba(255, 180, 100, 0.5),
+    /* Bordes 3D ultra refinados */ inset 0 2px 6px rgba(255, 220, 140, 1),
+    inset 0 -2px 6px rgba(180, 40, 0, 1),
+    inset 2px 0 4px rgba(255, 200, 120, 0.9),
+    inset -2px 0 4px rgba(150, 30, 0, 0.9);
+}
 
-  /* ACTIVAR flecha con renderizado premium */
-  .modern-arrow-button:hover .arrow-icon {
-    transform: perspective(150px) rotateX(6deg) translateZ(18px);
-    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
-  }
+/* ACTIVAR flecha con renderizado premium */
+.modern-arrow-button:hover .arrow-icon {
+  transform: perspective(150px) rotateX(6deg) translateZ(18px);
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
+}
 
-  .modern-arrow-button:hover .arrow-container {
-    transform: translate(-50%, -50%) translateZ(18px) scale(1.12);
-    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
-  }
+.modern-arrow-button:hover .arrow-container {
+  transform: translate(-50%, -50%) translateZ(18px) scale(1.12);
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
+}
 
-  /* ACTIVAR líneas de velocidad ultra delgadas */
-  .modern-arrow-button:hover .speed-lines-group {
-    opacity: 0.9;
-  }
+/* ACTIVAR líneas de velocidad ultra delgadas */
+.modern-arrow-button:hover .speed-lines-group {
+  opacity: 0.9;
+}
 
-  .modern-arrow-button:hover .speed-line {
-    filter: drop-shadow(0 0 4px rgba(255, 107, 53, 0.6))
-      drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
-  }
+.modern-arrow-button:hover .speed-line {
+  filter: drop-shadow(0 0 4px rgba(255, 107, 53, 0.6))
+    drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
+}
 
-  .modern-arrow-button:hover .speed-line-1 {
-    transform: translateY(-0.5px) scaleX(1.1);
-  }
-  .modern-arrow-button:hover .speed-line-2 {
-    transform: translateY(-0.2px) scaleX(1.2);
-  }
-  .modern-arrow-button:hover .speed-line-3 {
-    transform: translateY(0px) scaleX(1.15);
-  }
-  .modern-arrow-button:hover .speed-line-4 {
-    transform: translateY(0.2px) scaleX(1.1);
-  }
-  .modern-arrow-button:hover .speed-line-5 {
-    transform: translateY(0.5px) scaleX(1.2);
-  }
+.modern-arrow-button:hover .speed-line-1 {
+  transform: translateY(-0.5px) scaleX(1.1);
+}
+.modern-arrow-button:hover .speed-line-2 {
+  transform: translateY(-0.2px) scaleX(1.2);
+}
+.modern-arrow-button:hover .speed-line-3 {
+  transform: translateY(0px) scaleX(1.15);
+}
+.modern-arrow-button:hover .speed-line-4 {
+  transform: translateY(0.2px) scaleX(1.1);
+}
+.modern-arrow-button:hover .speed-line-5 {
+  transform: translateY(0.5px) scaleX(1.2);
+}
 
-  /* ACTIVAR flecha secundaria */
-  .modern-arrow-button:hover .secondary-arrow-group {
+/* ACTIVAR flecha secundaria */
+.modern-arrow-button:hover .secondary-arrow-group {
+  opacity: 0.8;
+}
+
+.modern-arrow-button:hover .secondary-arrow-outline {
+  filter: drop-shadow(0 0 8px rgba(255, 107, 53, 0.5))
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+/* ACTIVAR resplandor principal */
+.modern-arrow-button:hover .main-arrow-glow {
+  opacity: 0.8;
+  animation: neonPulse 1.8s ease-in-out infinite alternate;
+}
+
+/* MAXIMIZAR flecha principal con todos los detalles premium */
+.modern-arrow-button:hover .primary-arrow-base {
+  filter: drop-shadow(0 0 25px rgba(255, 69, 0, 1))
+    drop-shadow(0 0 15px rgba(255, 107, 53, 0.8))
+    drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
+  transform: perspective(100px) rotateX(8deg) translateZ(2px);
+}
+
+/* ACTIVAR TODOS los highlights internos premium */
+.modern-arrow-button:hover .inner-highlight-1 {
+  opacity: 0.9;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
+  transform: scale(1.05);
+}
+
+.modern-arrow-button:hover .inner-highlight-2 {
+  opacity: 0.8;
+  filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.7));
+  transform: scale(1.08);
+}
+
+.modern-arrow-button:hover .inner-highlight-3 {
+  opacity: 0.7;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6));
+  transform: scale(1.1);
+}
+
+/* ACTIVAR micro luces premium */
+.modern-arrow-button:hover .micro-light-1 {
+  opacity: 1;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 1));
+  transform: scale(1.5);
+}
+
+.modern-arrow-button:hover .micro-light-2 {
+  opacity: 0.9;
+  filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.8));
+  transform: scale(1.8);
+}
+
+.modern-arrow-button:hover .micro-light-3 {
+  opacity: 0.8;
+  filter: drop-shadow(0 0 3px rgba(255, 171, 105, 0.7));
+  transform: scale(1.3);
+}
+
+/* ACTIVAR línea de energía */
+.modern-arrow-button:hover .energy-line {
+  opacity: 1;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 1));
+  transform: scaleX(1.2);
+}
+
+/* ACTIVAR resplandor exterior controlado */
+.modern-arrow-button:hover .neon-glow {
+  opacity: 1;
+  background: radial-gradient(
+    circle,
+    rgba(255, 69, 0, 0.7) 0%,
+    rgba(255, 107, 53, 0.5) 15%,
+    rgba(255, 140, 69, 0.3) 30%,
+    rgba(255, 180, 100, 0.2) 50%,
+    rgba(255, 220, 140, 0.1) 70%,
+    transparent 100%
+  );
+  filter: blur(6px);
+  animation: neonPulse 1s ease-in-out infinite alternate;
+  transform: translate(-50%, -50%) scale(1.6);
+}
+
+/* 🎯 MODERN ARROW - ACTIVE STATE */
+.modern-arrow-button:active {
+  transform: scale(0.98) translateY(1px) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.4),
+    0 0 15px rgba(255, 69, 0, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.6),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.4) !important;
+}
+
+/* ============================================================================
+   5️⃣ FOOTER CREDITS & FINAL ADJUSTMENTS
+   ============================================================================ */
+
+/* 🎯 FOOTER - CREDITS SECTION */
+.footer-credits {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.footer-credits p {
+  font-size: 0.8rem; /* 🎯 RESTAURADO DEL RESPALDO */
+  color: rgba(255, 255, 255, 0.6); /* 🎯 RESTAURADO DEL RESPALDO */
+  margin: 0;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  /* 🎯 TIPOGRAFÍA CORRECTA: OXANIUM COMO EL RESTO DEL FOOTER */
+  font-family: "Oxanium", sans-serif;
+}
+
+.credits-link {
+  color: rgba(255, 255, 255, 0.7); /* 🎯 RESTAURADO DEL RESPALDO */
+  font-size: 0.65rem; /* 🎯 RESTAURADO DEL RESPALDO */
+  padding: 4px 8px; /* 🎯 RESTAURADO DEL RESPALDO */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* 🎯 RESTAURADO DEL RESPALDO */
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.4);
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  display: inline-block;
+  width: auto;
+  position: relative;
+  z-index: 11;
+  text-decoration: none;
+  /* 🎯 TIPOGRAFÍA CORRECTA: OXANIUM COMO EL RESTO DEL FOOTER */
+  font-family: "Oxanium", sans-serif;
+}
+
+.credits-link:hover {
+  background: var(--color-orange-alpha-10);
+  border-color: var(--color-orange-primary);
+  box-shadow: 0 0 10px var(--color-orange-alpha-30);
+  color: var(--color-orange-primary);
+}
+
+/* 🎯 FOOTER - FINAL LAYOUT ADJUSTMENTS */
+
+/* src/pages/Rebecca.css (Añadir al final) */
+
+/* 🎯 ESTILOS PARA LA SECCIÓN "TRABAJEMOS JUNTOS" */
+.call-to-action-section {
+  /* ¡CLAVE! Permite que el componente FuenteCero se posicione correctamente dentro */
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Ocultar el cursor por defecto DENTRO de la sección */
+.call-to-action-section.active-effect {
+  cursor: none;
+}
+
+/* Asegurar que el contenido de texto esté por encima del efecto */
+.call-to-action-section .cta-content {
+  position: relative;
+  z-index: 5;
+}
+
+/* 🎬 ANIMACIONES PARA FUENTE CERO */
+
+/* 🎯 BOTONES DEL FOOTER: MANTENER CURSOR PERSONALIZADO CAD */
+.footer-reveal button,
+.footer-reveal .newsletter-button {
+  cursor: none !important; /* 🎯 CURSOR PERSONALIZADO CAD - NO NATIVO */
+}
+
+/* Mantener excepción para homepage-wrapper y homepage-embedded */
+.rebecca-container .homepage-wrapper *,
+.rebecca-container .homepage-embedded *,
+.rebecca-container #interactive-container.active * {
+  cursor: revert !important;
+}
+/* --- FIN OPTIMIZACIÓN --- */
+
+/* 🌟 ANIMACIONES REVOLUCIONARIAS PARA LETRAS INDIVIDUALES - AWWWARDS LEVEL */
+
+/* ⚡ ANIMACIÓN SIMPLE PARA MODO CHAT */
+@keyframes letter-pulse-simple {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+/* 🔥 ANIMACIÓN HOLOGRÁFICA ONDULANTE POR LETRA */
+@keyframes letter-hologram-wave {
+  0%,
+  100% {
+    transform: perspective(1000px) rotateY(0deg) translateZ(0);
+    text-shadow: 0 0 20px rgba(218, 128, 35, 0.6),
+      0 0 40px rgba(128, 128, 128, 0.4);
+  }
+  25% {
+    transform: perspective(1000px) rotateY(5deg) translateZ(5px);
+    text-shadow: 0 0 25px rgba(218, 128, 35, 0.7),
+      0 0 50px rgba(128, 128, 128, 0.5), 5px 0 30px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    transform: perspective(1000px) rotateY(0deg) translateZ(10px);
+    text-shadow: 0 0 30px rgba(218, 128, 35, 0.8),
+      0 0 60px rgba(128, 128, 128, 0.6), 0 5px 35px rgba(255, 255, 255, 0.4);
+  }
+  75% {
+    transform: perspective(1000px) rotateY(-5deg) translateZ(5px);
+    text-shadow: 0 0 25px rgba(218, 128, 35, 0.7),
+      0 0 50px rgba(128, 128, 128, 0.5), -5px 0 30px rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* 🌈 ANIMACIÓN DE GRADIENTE DINÁMICO POR LETRA */
+@keyframes letter-gradient-shift {
+  0% {
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg) saturate(1.1);
+  }
+  25% {
+    background-position: 100% 0%;
+    filter: hue-rotate(5deg) saturate(1.2);
+  }
+  50% {
+    background-position: 200% 50%;
+    filter: hue-rotate(10deg) saturate(1.3);
+  }
+  75% {
+    background-position: 300% 100%;
+    filter: hue-rotate(5deg) saturate(1.2);
+  }
+  100% {
+    background-position: 400% 50%;
+    filter: hue-rotate(0deg) saturate(1.1);
+  }
+}
+
+/* 🔮 ANIMACIÓN FLOTANTE DIMENSIONAL */
+@keyframes letter-dimensional-float {
+  0%,
+  100% {
+    transform: perspective(1000px) translateY(0px) translateZ(0) rotateX(0deg);
+  }
+  20% {
+    transform: perspective(1000px) translateY(-2px) translateZ(3px)
+      rotateX(2deg);
+  }
+  40% {
+    transform: perspective(1000px) translateY(-1px) translateZ(6px)
+      rotateX(1deg);
+  }
+  60% {
+    transform: perspective(1000px) translateY(1px) translateZ(3px)
+      rotateX(-1deg);
+  }
+  80% {
+    transform: perspective(1000px) translateY(2px) translateZ(1px)
+      rotateX(-2deg);
+  }
+}
+
+/* 🌠 ANIMACIÓN DE PARTÍCULAS MICRO */
+@keyframes micro-particles-dance {
+  0%,
+  100% {
+    background-position: 20% 30%, 80% 20%, 60% 80%;
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  33% {
+    background-position: 70% 40%, 30% 70%, 90% 30%;
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+  66% {
+    background-position: 40% 90%, 90% 10%, 10% 60%;
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+}
+
+/* 🔥 ANIMACIÓN DE ESCANEO LÁSER POR LETRA */
+@keyframes letter-laser-scan {
+  0%,
+  100% {
+    background-position: -100% 0%;
+    opacity: 0;
+  }
+  15% {
+    background-position: 0% 0%;
+    opacity: 0.6;
+  }
+  30% {
+    background-position: 100% 0%;
     opacity: 0.8;
   }
-
-  .modern-arrow-button:hover .secondary-arrow-outline {
-    filter: drop-shadow(0 0 8px rgba(255, 107, 53, 0.5))
-      drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  45% {
+    background-position: 200% 0%;
+    opacity: 0.4;
   }
+  60% {
+    opacity: 0;
+  }
+}
 
-  /* ACTIVAR resplandor principal */
-  .modern-arrow-button:hover .main-arrow-glow {
+/* 🌟 ANIMACIONES OPTIMIZADAS PARA EL TÍTULO */
+
+/* 🎨 ANIMACIÓN DE GRADIENTE SIMPLE */
+@keyframes gradient-shift-simple {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ✨ ANIMACIÓN DE BRILLO SUTIL */
+@keyframes subtle-glow {
+  0% {
+    text-shadow: 0 0 15px rgba(218, 128, 35, 0.4),
+      0 0 30px rgba(128, 128, 128, 0.2);
+  }
+  100% {
+    text-shadow: 0 0 20px rgba(218, 128, 35, 0.6),
+      0 0 40px rgba(128, 128, 128, 0.3);
+  }
+}
+
+/* 🎯 SECCIÓN DE CRÉDITOS DEL FOOTER */
+.footer-credits {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content; /* 🎯 ANCHO ESPECÍFICO EN VEZ DE 100% */
+  text-align: center;
+  z-index: 10;
+  pointer-events: none; /* 🎯 CONTENEDOR SIN EVENTOS */
+}
+
+.footer-credits p {
+  font-size: 0.8rem; /* 🎯 LIGERAMENTE MÁS GRANDE COMO EN LA IMAGEN */
+  color: rgba(255, 255, 255, 0.5); /* 🎯 LIGERAMENTE MÁS VISIBLE */
+  margin: 0;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  pointer-events: none;
+  /* 🎯 RESTAURAR TIPOGRAFÍA ORIGINAL */
+  font-family: "Orbitron", "Oxanium", sans-serif;
+}
+
+.footer-credits button {
+  pointer-events: auto; /* 🎯 BOTÓN DE CRÉDITOS FUNCIONAL */
+}
+
+/* 🎯 DELIMITAR ÁREA DEL BOTÓN DE CRÉDITOS */
+.footer-credits .credits-link {
+  max-width: 200px; /* 🎯 LIMITAR ANCHO MÁXIMO */
+  margin: 0 auto 10px auto; /* 🎯 CENTRADO ESPECÍFICO */
+  white-space: nowrap; /* 🎯 TEXTO EN UNA LÍNEA */
+}
+
+.footer-credits p:hover {
+  color: rgba(255, 255, 255, 0.4); /* 🎯 SIN CAMBIO DE COLOR EN HOVER */
+}
+
+/* 🎯 ENLACE DE CRÉDITOS */
+.credits-link {
+  background: transparent;
+  border: 1px solid var(--color-orange-alpha-40);
+  color: var(--color-orange-primary);
+  font-size: 0.8rem;
+  padding: 8px 16px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  cursor: none !important; /* 🎯 CURSOR PERSONALIZADO - NO NATIVO */
+  transition: all 0.3s ease;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  display: inline-block; /* 🎯 CAMBIO DE BLOCK A INLINE-BLOCK */
+  width: auto; /* 🎯 ANCHO AUTOMÁTICO */
+  pointer-events: auto; /* 🎯 ASEGURAR FUNCIONALIDAD */
+  position: relative; /* 🎯 CONTEXTO DE POSICIONAMIENTO */
+  z-index: 11; /* 🎯 POR ENCIMA DEL CONTENEDOR PERO DEBAJO DEL BOTÓN AI */
+}
+
+.credits-link:hover {
+  background: var(--color-orange-alpha-10);
+  border-color: var(--color-orange-primary);
+  box-shadow: 0 0 10px var(--color-orange-alpha-30);
+  /* 🎯 REMOVIDO transform: translateY(-2px); PARA EVITAR INTERFERENCIA */
+}
+
+/* 🎯 MODAL DE CRÉDITOS */
+.credits-modal-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(0, 0, 0, 0.9) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  z-index: 2147483647 !important; /* 🎯 Z-INDEX MÁXIMO POSIBLE */
+  backdrop-filter: blur(10px) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  transform: none !important;
+  overflow: hidden !important;
+  /* 🎯 FORZAR CONTEXTO DE APILAMIENTO INDEPENDIENTE */
+  will-change: auto !important;
+  contain: layout style paint !important;
+  isolation: isolate !important; /* 🎯 CREAR NUEVO CONTEXTO DE APILAMIENTO */
+}
+
+.credits-modal-container {
+  position: relative !important;
+  max-width: 85vw !important; /* 🎯 REDUCIDO: de 90vw a 85vw */
+  max-height: 85vh !important; /* 🎯 REDUCIDO: de 90vh a 85vh */
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  contain: layout style paint !important;
+}
+
+.credits-close-button {
+  position: absolute !important;
+  top: -40px !important;
+  right: 0 !important;
+  background: var(--color-orange-primary) !important;
+  border: none !important;
+  color: white !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 12px rgba(218, 128, 35, 0.3) !important;
+  z-index: 10001 !important; /* 🎯 POR ENCIMA DEL MODAL */
+}
+
+.credits-close-button:hover {
+  background: #ff9b3d;
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(218, 128, 35, 0.5);
+}
+
+/* 🎯 CONTENEDOR CON MARCO TECNOLÓGICO */
+.credits-frame-container {
+  width: 90vw !important; /* 🎯 AUMENTADO 10% ADICIONAL: de 77vw a 84.7vw */
+  height: 90vh !important; /* 🎯 AUMENTADO 10% ADICIONAL: de 77vh a 84.7vh */
+  background-image: url("../assets/contenedor_creditos.png") !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  position: relative !important;
+}
+
+/* 🎯 PANTALLA TRANSPARENTE DENTRO DEL MARCO */
+.credits-screen {
+  width: 58% !important; /* 🎯 REDUCIDO: de 65% a 58% para ajustarse mejor a la pantalla interior */
+  height: 70% !important; /* 🎯 AUMENTADO: de 55% a 70% para expandir área superior de créditos */
+  background: transparent !important; /* 🎯 TRANSPARENTE para mostrar la imagen del marco */
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  position: relative !important;
+  top: -6.5% !important; /* 🎯 MOVIDO MÁS ARRIBA: de -1.5% a -6.5% para mantener límite inferior */
+}
+
+/* 🎯 ANIMACIÓN DE SCROLL DE CRÉDITOS */
+.credits-scroll {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  animation: creditsScroll 45s linear infinite;
+  padding: 10px 15px; /* 🎯 REDUCIDO: menos padding lateral para evitar desbordamiento */
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 🎯 ELEMENTOS INDIVIDUALES DE CRÉDITO */
+.credit-item {
+  margin-bottom: 50px; /* 🎯 REDUCIDO: de 60px a 50px para mejor distribución */
+  opacity: 1;
+}
+
+.credit-item h3 {
+  font-family: "Times New Roman", "Georgia", serif;
+  font-size: 1.1rem; /* 🎯 REDUCIDO: de 1.2rem a 1.1rem para evitar desbordamiento */
+  font-weight: 600;
+  color: var(--color-orange-primary);
+  margin-bottom: 6px; /* 🎯 REDUCIDO: de 8px a 6px */
+  line-height: 1.2; /* 🎯 REDUCIDO: de 1.3 a 1.2 */
+  text-transform: uppercase;
+  letter-spacing: 0.8px; /* 🎯 REDUCIDO: de 1px a 0.8px */
+  text-shadow: 0 0 10px rgba(218, 128, 35, 0.5);
+  word-wrap: break-word; /* 🎯 AGREGADO: para evitar desbordamiento */
+}
+
+.credit-item p {
+  font-family: "Times New Roman", "Georgia", serif;
+  font-size: 0.95rem; /* 🎯 REDUCIDO: de 1rem a 0.95rem */
+  color: #ffffff;
+  margin: 0;
+  font-weight: 300;
+  letter-spacing: 0.4px; /* 🎯 REDUCIDO: de 0.5px a 0.4px */
+  line-height: 1.3; /* 🎯 REDUCIDO: de 1.4 a 1.3 */
+  word-wrap: break-word; /* 🎯 AGREGADO: para evitar desbordamiento */
+}
+
+/* 🎯 ANIMACIÓN KEYFRAMES TIPO CRÉDITOS DE PELÍCULA */
+@keyframes creditsScroll {
+  0% {
+    transform: translateY(100%); /* 🎯 COMIENZA COMPLETAMENTE ABAJO */
+  }
+  100% {
+    transform: translateY(
+      -150%
+    ); /* 🎯 TERMINA COMPLETAMENTE ARRIBA (más allá para que el último crédito salga) */
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromTopRight {
+  from {
+    opacity: 0;
+    transform: translate(100px, -100px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+/* 🎨 BOTÓN NEGRO CON CONTORNO CALADO PREMIUM */
+.modern-arrow-button {
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 50% !important;
+  position: relative !important;
+  /* Anillo exterior NEGRO con contorno calado ultra fino */
+  background: linear-gradient(
+    145deg,
+    #404040 0%,
+    #2a2a2a 25%,
+    #1a1a1a 50%,
+    #0f0f0f 75%,
+    #000000 100%
+  ) !important;
+  border: none !important;
+  /* Sombras oscuras profundas + contorno calado premium */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8), 0 8px 20px rgba(0, 0, 0, 0.6),
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    /* Contorno calado ultra fino - INACTIVO */ 0 0 0 0.5px
+      rgba(80, 80, 80, 0.3),
+    inset 0 0 0 0.5px rgba(60, 60, 60, 0.2),
+    /* Micro bordes metálicos */ inset 0 0.5px 1px rgba(255, 255, 255, 0.03),
+    inset 0 -0.5px 1px rgba(0, 0, 0, 0.9) !important;
+  overflow: visible !important;
+  cursor: none !important; /* 🎯 CURSOR PERSONALIZADO CAD - NO NATIVO */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  padding: 0 !important;
+}
+
+.modern-arrow-button::before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  right: -15px;
+  bottom: -15px;
+  border-radius: 50%;
+  background: transparent;
+  pointer-events: none;
+  z-index: -2;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.modern-arrow-button::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 107, 53, 0.4) 0%,
+    rgba(255, 107, 53, 0.2) 40%,
+    rgba(255, 107, 53, 0.1) 70%,
+    transparent 100%
+  );
+  filter: blur(8px);
+  pointer-events: none;
+  z-index: -1;
+  animation: glowPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+.modern-arrow-button::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  right: 1px;
+  bottom: 1px;
+  border-radius: 50%;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 30%,
+    rgba(0, 0, 0, 0.05) 70%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Borde naranja interno más delgado */
+.button-background {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  border-radius: 50%;
+  /* ARO NARANJA CON DIÁMETRO MAYOR PERO LÍNEA MÁS DELGADA */
+  background: transparent;
+  border: 1.5px solid rgba(255, 107, 53, 0.9);
+  /* Bordes 3D del anillo naranja muy sutiles */
+  box-shadow: inset 0 0.5px 1px rgba(255, 180, 100, 0.4),
+    inset 0 -0.5px 1px rgba(150, 40, 0, 0.4),
+    inset 0.5px 0 0.8px rgba(255, 160, 80, 0.2),
+    inset -0.5px 0 0.8px rgba(120, 30, 0, 0.2),
+    /* Resplandor exterior sutil del aro */ 0 0 2px rgba(255, 107, 53, 0.3);
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+/* Centro NEGRO profundo como en la imagen */
+.metallic-surface {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    #1a1a1a 0%,
+    #0d0d0d 40%,
+    #000000 100%
+  );
+  border-radius: 50%;
+  border: 1px solid #000;
+  box-shadow: 
+    /* Profundidad interna muy oscura */ inset 0 3px 8px
+      rgba(0, 0, 0, 0.9),
+    inset 0 -1px 3px rgba(255, 255, 255, 0.02);
+  z-index: 2;
+}
+
+/* Contenedor de flecha con renderizado premium */
+.arrow-container {
+  transform: var(--transform-center) translateZ(12px);
+  width: 38px;
+  height: 26px;
+  z-index: 15;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.2));
+}
+
+/* SVG principal con efectos ultra refinados */
+.arrow-icon {
+  width: 100%;
+  height: 100%;
+  transform: perspective(150px) rotateX(3deg);
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Líneas de velocidad ultra delgadas - ESTADO INACTIVO */
+.speed-lines-group {
+  transform: translateZ(-3px);
+  opacity: 0.15;
+}
+
+.speed-line {
+  filter: drop-shadow(0 0.5px 1px rgba(0, 0, 0, 0.1));
+  transform-origin: left center;
+}
+
+.speed-line-1 {
+  transform: translateY(-0.5px) scaleX(0.9);
+}
+.speed-line-2 {
+  transform: translateY(-0.2px) scaleX(1);
+}
+.speed-line-3 {
+  transform: translateY(0px) scaleX(0.95);
+}
+.speed-line-4 {
+  transform: translateY(0.2px) scaleX(0.9);
+}
+.speed-line-5 {
+  transform: translateY(0.5px) scaleX(1);
+}
+
+/* Flecha secundaria (outline) - ESTADO INACTIVO */
+.secondary-arrow-group {
+  transform: translateZ(1px);
+  opacity: 0.2;
+}
+
+.secondary-arrow-outline {
+  filter: drop-shadow(0 0.5px 2px rgba(0, 0, 0, 0.15));
+}
+
+/* Resplandor principal - OCULTO en estado inactivo */
+.main-glow-group {
+  transform: translateZ(2px);
+}
+
+.main-arrow-glow {
+  transition: all 0.5s ease;
+}
+
+/* Flecha principal con detalles premium - ESTADO INACTIVO */
+.primary-arrow-group {
+  transform: translateZ(10px);
+}
+
+.primary-arrow-base {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  transform: perspective(100px) rotateX(5deg);
+}
+
+/* Highlights internos - OCULTOS en estado inactivo */
+.inner-highlight-1,
+.inner-highlight-2,
+.inner-highlight-3 {
+  transition: all 0.4s ease;
+  transform-origin: center;
+}
+
+/* Micro luces - OCULTAS en estado inactivo */
+.micro-light-1,
+.micro-light-2,
+.micro-light-3 {
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+/* Línea de energía - OCULTA en estado inactivo */
+.energy-line {
+  transition: all 0.3s ease;
+  transform-origin: left center;
+}
+
+/* Resplandor exterior - OCULTO en estado inactivo */
+.neon-glow {
+  width: 45px;
+  height: 45px;
+  background: transparent;
+  border-radius: 50%;
+  z-index: 5;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+/* Animaciones */
+@keyframes neonPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.3;
+  }
+}
+
+@keyframes glowPulse {
+  0% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  100% {
     opacity: 0.8;
-    animation: neonPulse 1.8s ease-in-out infinite alternate;
-  }
-
-  /* MAXIMIZAR flecha principal con todos los detalles premium */
-  .modern-arrow-button:hover .primary-arrow-base {
-    filter: drop-shadow(0 0 25px rgba(255, 69, 0, 1))
-      drop-shadow(0 0 15px rgba(255, 107, 53, 0.8))
-      drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
-    transform: perspective(100px) rotateX(8deg) translateZ(2px);
-  }
-
-  /* ACTIVAR TODOS los highlights internos premium */
-  .modern-arrow-button:hover .inner-highlight-1 {
-    opacity: 0.9;
-    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
     transform: scale(1.05);
   }
+}
 
-  .modern-arrow-button:hover .inner-highlight-2 {
-    opacity: 0.8;
-    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.7));
-    transform: scale(1.08);
-  }
+/* 🌟 EFECTOS HOVER PREMIUM - CONTORNO CALADO ILUMINADO + DETALLES HD CON RESPLANDOR CONTROLADO */
+.modern-arrow-button:hover {
+  transform: scale(1.08) translateY(-4px) !important;
+  /* Sombras oscuras profundas + contorno calado naranja iluminado */
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9), 0 15px 35px rgba(0, 0, 0, 0.7),
+    0 8px 20px rgba(0, 0, 0, 0.5),
+    /* CONTORNO CALADO ILUMINADO NARANJA */ 0 0 0 0.5px rgba(255, 107, 53, 0.9),
+    0 0 0 1px rgba(255, 69, 0, 0.7), 0 0 0 1.5px rgba(255, 140, 69, 0.5),
+    0 0 0 2px rgba(255, 180, 100, 0.3),
+    inset 0 0 0 0.5px rgba(255, 107, 53, 0.4),
+    inset 0 0 0 1px rgba(255, 69, 0, 0.3),
+    /* RESPLANDOR EXTERIOR REDUCIDO - NO LLEGA AL CAMPO DE CORREO */ 0 0 25px
+      rgba(255, 69, 0, 0.8),
+    0 0 15px rgba(255, 107, 53, 0.6), 0 0 10px rgba(255, 140, 69, 0.4),
+    /* Micro detalles metálicos */ inset 0 1px 2px rgba(255, 255, 255, 0.05),
+    inset 0 -1px 2px rgba(0, 0, 0, 1) !important;
+}
 
-  .modern-arrow-button:hover .inner-highlight-3 {
-    opacity: 0.7;
-    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6));
-    transform: scale(1.1);
-  }
+/* Resplandor exterior controlado */
+.modern-arrow-button:hover::before {
+  opacity: 1;
+  background: radial-gradient(
+    circle,
+    rgba(255, 69, 0, 0.6) 0%,
+    rgba(255, 107, 53, 0.4) 20%,
+    rgba(255, 140, 69, 0.2) 40%,
+    rgba(255, 180, 100, 0.1) 60%,
+    transparent 100%
+  );
+  filter: blur(20px);
+  animation: glowPulse 1.5s ease-in-out infinite alternate;
+  transform: scale(1.15);
+}
 
-  /* ACTIVAR micro luces premium */
-  .modern-arrow-button:hover .micro-light-1 {
-    opacity: 1;
-    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 1));
-    transform: scale(1.5);
-  }
+/* Borde naranja interno premium con resplandor controlado */
+.modern-arrow-button:hover .button-background {
+  box-shadow: 
+    /* RESPLANDOR NARANJA INTERNO CONTROLADO */ 0 0 20px
+      rgba(255, 69, 0, 0.8),
+    0 0 12px rgba(255, 107, 53, 0.7), 0 0 8px rgba(255, 140, 69, 0.6),
+    0 0 4px rgba(255, 180, 100, 0.5),
+    /* Bordes 3D ultra refinados */ inset 0 2px 6px rgba(255, 220, 140, 1),
+    inset 0 -2px 6px rgba(180, 40, 0, 1),
+    inset 2px 0 4px rgba(255, 200, 120, 0.9),
+    inset -2px 0 4px rgba(150, 30, 0, 0.9);
+}
 
-  .modern-arrow-button:hover .micro-light-2 {
-    opacity: 0.9;
-    filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.8));
-    transform: scale(1.8);
-  }
+/* ACTIVAR flecha con renderizado premium */
+.modern-arrow-button:hover .arrow-icon {
+  transform: perspective(150px) rotateX(6deg) translateZ(18px);
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
+}
 
-  .modern-arrow-button:hover .micro-light-3 {
-    opacity: 0.8;
-    filter: drop-shadow(0 0 3px rgba(255, 171, 105, 0.7));
+.modern-arrow-button:hover .arrow-container {
+  transform: translate(-50%, -50%) translateZ(18px) scale(1.12);
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
+}
+
+/* ACTIVAR líneas de velocidad ultra delgadas */
+.modern-arrow-button:hover .speed-lines-group {
+  opacity: 0.9;
+}
+
+.modern-arrow-button:hover .speed-line {
+  filter: drop-shadow(0 0 4px rgba(255, 107, 53, 0.6))
+    drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
+}
+
+.modern-arrow-button:hover .speed-line-1 {
+  transform: translateY(-0.5px) scaleX(1.1);
+}
+.modern-arrow-button:hover .speed-line-2 {
+  transform: translateY(-0.2px) scaleX(1.2);
+}
+.modern-arrow-button:hover .speed-line-3 {
+  transform: translateY(0px) scaleX(1.15);
+}
+.modern-arrow-button:hover .speed-line-4 {
+  transform: translateY(0.2px) scaleX(1.1);
+}
+.modern-arrow-button:hover .speed-line-5 {
+  transform: translateY(0.5px) scaleX(1.2);
+}
+
+/* ACTIVAR flecha secundaria */
+.modern-arrow-button:hover .secondary-arrow-group {
+  opacity: 0.8;
+}
+
+.modern-arrow-button:hover .secondary-arrow-outline {
+  filter: drop-shadow(0 0 8px rgba(255, 107, 53, 0.5))
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+/* ACTIVAR resplandor principal */
+.modern-arrow-button:hover .main-arrow-glow {
+  opacity: 0.8;
+  animation: neonPulse 1.8s ease-in-out infinite alternate;
+}
+
+/* MAXIMIZAR flecha principal con todos los detalles premium */
+.modern-arrow-button:hover .primary-arrow-base {
+  filter: drop-shadow(0 0 25px rgba(255, 69, 0, 1))
+    drop-shadow(0 0 15px rgba(255, 107, 53, 0.8))
+    drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
+  transform: perspective(100px) rotateX(8deg) translateZ(2px);
+}
+
+/* ACTIVAR TODOS los highlights internos premium */
+.modern-arrow-button:hover .inner-highlight-1 {
+  opacity: 0.9;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
+  transform: scale(1.05);
+}
+
+.modern-arrow-button:hover .inner-highlight-2 {
+  opacity: 0.8;
+  filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.7));
+  transform: scale(1.08);
+}
+
+.modern-arrow-button:hover .inner-highlight-3 {
+  opacity: 0.7;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6));
+  transform: scale(1.1);
+}
+
+/* ACTIVAR micro luces premium */
+.modern-arrow-button:hover .micro-light-1 {
+  opacity: 1;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 1));
+  transform: scale(1.5);
+}
+
+.modern-arrow-button:hover .micro-light-2 {
+  opacity: 0.9;
+  filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.8));
+  transform: scale(1.8);
+}
+
+.modern-arrow-button:hover .micro-light-3 {
+  opacity: 0.8;
+  filter: drop-shadow(0 0 3px rgba(255, 171, 105, 0.7));
+  transform: scale(1.3);
+}
+
+/* ACTIVAR línea de energía */
+.modern-arrow-button:hover .energy-line {
+  opacity: 1;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 1));
+  transform: scaleX(1.2);
+}
+
+/* ACTIVAR resplandor exterior controlado */
+.modern-arrow-button:hover .neon-glow {
+  opacity: 1;
+  background: radial-gradient(
+    circle,
+    rgba(255, 69, 0, 0.7) 0%,
+    rgba(255, 107, 53, 0.5) 15%,
+    rgba(255, 140, 69, 0.3) 30%,
+    rgba(255, 180, 100, 0.2) 50%,
+    rgba(255, 220, 140, 0.1) 70%,
+    transparent 100%
+  );
+  filter: blur(6px);
+  animation: neonPulse 1s ease-in-out infinite alternate;
+  transform: translate(-50%, -50%) scale(1.6);
+}
+
+/* 🌟 EFECTOS ACTIVE - Efecto de presión */
+.modern-arrow-button:active {
+  transform: scale(0.98) translateY(1px) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.4),
+    0 0 15px rgba(255, 69, 0, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.6),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Transiciones suaves para todos los elementos */
+.modern-arrow-button * {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modern-arrow-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 🎆 ANIMACIONES PREMIUM ADICIONALES */
+@keyframes glowPulse {
+  0% {
+    opacity: 0.6;
     transform: scale(1.3);
   }
-
-  /* ACTIVAR línea de energía */
-  .modern-arrow-button:hover .energy-line {
-    opacity: 1;
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 1));
-    transform: scaleX(1.2);
+  50% {
+    opacity: 0.9;
+    transform: scale(1.5);
   }
+  100% {
+    opacity: 0.7;
+    transform: scale(1.4);
+  }
+}
 
-  /* ACTIVAR resplandor exterior controlado */
-  .modern-arrow-button:hover .neon-glow {
-    opacity: 1;
-    background: radial-gradient(
-      circle,
-      rgba(255, 69, 0, 0.7) 0%,
-      rgba(255, 107, 53, 0.5) 15%,
-      rgba(255, 140, 69, 0.3) 30%,
-      rgba(255, 180, 100, 0.2) 50%,
-      rgba(255, 220, 140, 0.1) 70%,
-      transparent 100%
-    );
+@keyframes neonPulse {
+  0% {
+    opacity: 0.8;
     filter: blur(6px);
-    animation: neonPulse 1s ease-in-out infinite alternate;
-    transform: translate(-50%, -50%) scale(1.6);
   }
-
-  /* 🌟 EFECTOS ACTIVE - Efecto de presión */
-  .modern-arrow-button:active {
-    transform: scale(0.98) translateY(1px) !important;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.4),
-      0 0 15px rgba(255, 69, 0, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.6),
-      inset 0 -1px 2px rgba(255, 255, 255, 0.4) !important;
+  50% {
+    opacity: 1;
+    filter: blur(10px);
   }
-
-  /* Transiciones suaves para todos los elementos */
-  .modern-arrow-button * {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  100% {
+    opacity: 0.9;
+    filter: blur(8px);
   }
+}
 
-  .modern-arrow-button {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+@keyframes caladoGlow {
+  0% {
+    box-shadow: 0 0 0 0.5px rgba(255, 107, 53, 0.5),
+      0 0 0 1px rgba(255, 69, 0, 0.3);
   }
-
-  /* 🎆 ANIMACIONES PREMIUM ADICIONALES */
-  @keyframes glowPulse {
-    0% {
-      opacity: 0.6;
-      transform: scale(1.3);
-    }
-    50% {
-      opacity: 0.9;
-      transform: scale(1.5);
-    }
-    100% {
-      opacity: 0.7;
-      transform: scale(1.4);
-    }
+  50% {
+    box-shadow: 0 0 0 0.5px rgba(255, 107, 53, 0.9),
+      0 0 0 1px rgba(255, 69, 0, 0.7), 0 0 0 1.5px rgba(255, 140, 69, 0.5);
   }
-
-  @keyframes neonPulse {
-    0% {
-      opacity: 0.8;
-      filter: blur(6px);
-    }
-    50% {
-      opacity: 1;
-      filter: blur(10px);
-    }
-    100% {
-      opacity: 0.9;
-      filter: blur(8px);
-    }
+  100% {
+    box-shadow: 0 0 0 0.5px rgba(255, 107, 53, 0.7),
+      0 0 0 1px rgba(255, 69, 0, 0.5);
   }
+}
 
-  @keyframes caladoGlow {
-    0% {
-      box-shadow: 0 0 0 0.5px rgba(255, 107, 53, 0.5),
-        0 0 0 1px rgba(255, 69, 0, 0.3);
-    }
-    50% {
-      box-shadow: 0 0 0 0.5px rgba(255, 107, 53, 0.9),
-        0 0 0 1px rgba(255, 69, 0, 0.7), 0 0 0 1.5px rgba(255, 140, 69, 0.5);
-    }
-    100% {
-      box-shadow: 0 0 0 0.5px rgba(255, 107, 53, 0.7),
-        0 0 0 1px rgba(255, 69, 0, 0.5);
-    }
-  }
-
-  /* ✅ DISEÑO COMPLETADO - BOTÓN PREMIUM CON CONTORNO CALADO ILUMINADO 
+/* ✅ DISEÑO COMPLETADO - BOTÓN PREMIUM CON CONTORNO CALADO ILUMINADO 
    - Estado inactivo: Contorno calado sutil con efectos base
    - Estado hover: TODOS los efectos premium activados con contorno calado brillante
    - Flecha ultra-detallada: líneas de energía + micro luces + highlights internos
    - Renderizado de alta definición con calidad impactante
 */
 
-  /* 🎬 ANIMACIONES PARA EL BOTÓN CTA */
+/* 🎬 ANIMACIONES PARA EL BOTÓN CTA */
 
-  /* 🚀 ANIMACIÓN DE ENTRADA ELEGANTE */
-  @keyframes cta-button-entrance {
-    0% {
-      opacity: 0;
-      transform: translateY(30px) scale(0.9);
-    }
-    60% {
-      opacity: 0.8;
-      transform: translateY(-5px) scale(0.95);
-    }
-    100% {
-      opacity: 0.5; /* Estado inicial del botón */
-      transform: translateY(0) scale(0.85);
-    }
+/* 🚀 ANIMACIÓN DE ENTRADA ELEGANTE */
+@keyframes cta-button-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(-5px) scale(0.95);
+  }
+  100% {
+    opacity: 0.5; /* Estado inicial del botón */
+    transform: translateY(0) scale(0.85);
+  }
+}
+
+/* ⌨️ ANIMACIÓN DE ESCRITURA ESTILO MÁQUINA DE ESCRIBIR */
+@keyframes typewriter-effect {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* 🏆 ANIMACIÓN AWWWARDS-LEVEL: ESCRITURA LETRA POR LETRA */
+@keyframes awwwards-typewriter {
+  0% {
+    width: 0;
+    text-shadow: 0 0 3px var(--color-orange-primary),
+      0 0 8px var(--color-orange-primary);
+  }
+  90% {
+    width: 100%;
+    text-shadow: 0 0 3px var(--color-orange-primary),
+      0 0 8px var(--color-orange-primary), 0 0 15px var(--color-orange-primary);
+  }
+  100% {
+    width: 100%;
+    text-shadow: 0 0 3px var(--color-orange-primary),
+      0 0 8px var(--color-orange-primary), 0 0 15px var(--color-orange-primary),
+      0 0 25px rgba(218, 128, 35, 0.8);
+  }
+}
+
+/* ⚡ EFECTOS DE FALLA ELÉCTRICA PREMIUM */
+@keyframes digital-power-glitch {
+  0%,
+  85%,
+  90%,
+  95%,
+  100% {
+    opacity: 1;
+    color: var(--color-orange-primary);
+    text-shadow: 0 0 3px var(--color-orange-primary),
+      0 0 8px var(--color-orange-primary), 0 0 15px var(--color-orange-primary),
+      0 0 25px rgba(218, 128, 35, 0.8);
+    transform: translateX(0) scaleX(1);
   }
 
-  /* ⌨️ ANIMACIÓN DE ESCRITURA ESTILO MÁQUINA DE ESCRIBIR */
-  @keyframes typewriter-effect {
-    0% {
-      width: 0;
-    }
-    100% {
-      width: 100%;
-    }
+  /* 💥 PARPADEO RÁPIDO - SIMULANDO FALLA ELÉCTRICA */
+  86% {
+    opacity: 0.1;
+    color: rgba(218, 128, 35, 0.3);
+    text-shadow: none;
+    transform: translateX(1px) scaleX(0.98);
   }
 
-  /* 🏆 ANIMACIÓN AWWWARDS-LEVEL: ESCRITURA LETRA POR LETRA */
-  @keyframes awwwards-typewriter {
-    0% {
-      width: 0;
-      text-shadow: 0 0 3px var(--color-orange-primary),
-        0 0 8px var(--color-orange-primary);
-    }
-    90% {
-      width: 100%;
-      text-shadow: 0 0 3px var(--color-orange-primary),
-        0 0 8px var(--color-orange-primary),
-        0 0 15px var(--color-orange-primary);
-    }
-    100% {
-      width: 100%;
-      text-shadow: 0 0 3px var(--color-orange-primary),
-        0 0 8px var(--color-orange-primary),
-        0 0 15px var(--color-orange-primary), 0 0 25px rgba(218, 128, 35, 0.8);
-    }
+  87% {
+    opacity: 0.8;
+    color: #ff6b35;
+    text-shadow: 0 0 5px #ff6b35, 0 0 12px #ff6b35;
+    transform: translateX(-1px) scaleX(1.02);
   }
 
-  /* ⚡ EFECTOS DE FALLA ELÉCTRICA PREMIUM */
-  @keyframes digital-power-glitch {
-    0%,
-    85%,
-    90%,
-    95%,
-    100% {
-      opacity: 1;
-      color: var(--color-orange-primary);
-      text-shadow: 0 0 3px var(--color-orange-primary),
-        0 0 8px var(--color-orange-primary),
-        0 0 15px var(--color-orange-primary), 0 0 25px rgba(218, 128, 35, 0.8);
-      transform: translateX(0) scaleX(1);
-    }
-
-    /* 💥 PARPADEO RÁPIDO - SIMULANDO FALLA ELÉCTRICA */
-    86% {
-      opacity: 0.1;
-      color: rgba(218, 128, 35, 0.3);
-      text-shadow: none;
-      transform: translateX(1px) scaleX(0.98);
-    }
-
-    87% {
-      opacity: 0.8;
-      color: #ff6b35;
-      text-shadow: 0 0 5px #ff6b35, 0 0 12px #ff6b35;
-      transform: translateX(-1px) scaleX(1.02);
-    }
-
-    88% {
-      opacity: 0.2;
-      color: rgba(218, 128, 35, 0.4);
-      text-shadow: 0 0 2px rgba(218, 128, 35, 0.4);
-      transform: translateX(0.5px) scaleX(0.99);
-    }
-
-    89% {
-      opacity: 1;
-      color: var(--color-orange-primary);
-      text-shadow: 0 0 8px var(--color-orange-primary),
-        0 0 20px var(--color-orange-primary);
-      transform: translateX(0) scaleX(1);
-    }
-
-    /* 🔌 INTERFERENCIA MENOR */
-    91% {
-      opacity: 0.7;
-      transform: translateX(-0.5px) scaleX(1.01);
-    }
-
-    92% {
-      opacity: 0.4;
-      transform: translateX(0.5px) scaleX(0.99);
-    }
-
-    93% {
-      opacity: 0.9;
-      transform: translateX(0) scaleX(1);
-    }
-
-    /* 💡 SOBRECARGA FINAL */
-    96% {
-      opacity: 0.05;
-      color: rgba(218, 128, 35, 0.1);
-      text-shadow: none;
-      transform: translateX(2px) scaleX(0.95);
-    }
-
-    97% {
-      opacity: 1.2;
-      color: #ffaa44;
-      text-shadow: 0 0 10px #ffaa44, 0 0 25px #ffaa44,
-        0 0 40px rgba(255, 170, 68, 0.8);
-      transform: translateX(0) scaleX(1.05);
-    }
-
-    98% {
-      opacity: 0.3;
-      transform: translateX(-1px) scaleX(0.97);
-    }
+  88% {
+    opacity: 0.2;
+    color: rgba(218, 128, 35, 0.4);
+    text-shadow: 0 0 2px rgba(218, 128, 35, 0.4);
+    transform: translateX(0.5px) scaleX(0.99);
   }
 
-  /* 🔌 INTERFERENCIA ELÉCTRICA AMBIENTAL */
-  @keyframes electrical-malfunction {
-    0%,
-    80%,
-    85%,
-    88%,
-    92%,
-    100% {
-      opacity: 0;
-    }
-
-    81%,
-    83% {
-      opacity: 0.1;
-      background: linear-gradient(
-        45deg,
-        transparent 0%,
-        rgba(218, 128, 35, 0.05) 25%,
-        transparent 50%,
-        rgba(255, 107, 53, 0.03) 75%,
-        transparent 100%
-      );
-      filter: blur(0.5px);
-    }
-
-    84% {
-      opacity: 0.15;
-      background: radial-gradient(
-        ellipse at center,
-        rgba(218, 128, 35, 0.08) 0%,
-        transparent 70%
-      );
-      filter: blur(1px);
-    }
-
-    86% {
-      opacity: 0.08;
-      background: linear-gradient(
-        90deg,
-        transparent 40%,
-        rgba(218, 128, 35, 0.04) 50%,
-        transparent 60%
-      );
-      filter: blur(0.3px);
-    }
-
-    89%,
-    91% {
-      opacity: 0.12;
-      background: conic-gradient(
-        from 0deg at center,
-        transparent 0deg,
-        rgba(255, 140, 26, 0.06) 45deg,
-        transparent 90deg,
-        rgba(218, 128, 35, 0.04) 135deg,
-        transparent 180deg
-      );
-      filter: blur(0.8px);
-    }
-
-    93%,
-    95% {
-      opacity: 0.2;
-      background: linear-gradient(
-        135deg,
-        rgba(218, 128, 35, 0.1) 0%,
-        transparent 30%,
-        rgba(255, 107, 53, 0.08) 70%,
-        transparent 100%
-      );
-      filter: blur(1.2px);
-    }
+  89% {
+    opacity: 1;
+    color: var(--color-orange-primary);
+    text-shadow: 0 0 8px var(--color-orange-primary),
+      0 0 20px var(--color-orange-primary);
+    transform: translateX(0) scaleX(1);
   }
 
-  /* 📺 GLITCH DIGITAL PREMIUM */
-  @keyframes premium-digital-glitch {
-    0%,
-    75%,
-    78%,
-    82%,
-    87%,
-    100% {
-      opacity: 0;
-    }
-
-    76% {
-      opacity: 0.05;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent 0px,
-        rgba(218, 128, 35, 0.02) 1px,
-        transparent 2px,
-        rgba(255, 140, 26, 0.01) 3px,
-        transparent 4px
-      );
-      filter: contrast(1.5) brightness(1.2);
-    }
-
-    77% {
-      opacity: 0.08;
-      background: repeating-linear-gradient(
-        90deg,
-        transparent 0px,
-        rgba(218, 128, 35, 0.03) 1px,
-        transparent 2px
-      );
-      filter: contrast(1.8) brightness(0.8) hue-rotate(10deg);
-    }
-
-    79%,
-    81% {
-      opacity: 0.12;
-      background: repeating-linear-gradient(
-          0deg,
-          transparent 0px,
-          rgba(218, 128, 35, 0.04) 1px,
-          transparent 3px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          transparent 0px,
-          rgba(255, 107, 53, 0.02) 2px,
-          transparent 4px
-        );
-      filter: contrast(2) brightness(0.6) saturate(1.5);
-    }
-
-    83%,
-    85% {
-      opacity: 0.15;
-      background: linear-gradient(
-        45deg,
-        rgba(218, 128, 35, 0.06) 0%,
-        transparent 25%,
-        rgba(255, 140, 26, 0.04) 50%,
-        transparent 75%,
-        rgba(218, 128, 35, 0.02) 100%
-      );
-      filter: contrast(1.5) brightness(1.1) blur(0.2px);
-    }
-
-    88%,
-    91% {
-      opacity: 0.1;
-      background: radial-gradient(
-        circle at 30% 70%,
-        rgba(218, 128, 35, 0.08) 0%,
-        transparent 40%
-      );
-      filter: contrast(1.8) brightness(0.9) hue-rotate(-5deg);
-    }
+  /* 🔌 INTERFERENCIA MENOR */
+  91% {
+    opacity: 0.7;
+    transform: translateX(-0.5px) scaleX(1.01);
   }
 
-  /* 💡 ANIMACIÓN DE PARPADEO LED */
-  @keyframes led-blink {
-    0%,
-    100% {
-      text-shadow: 0 0 5px var(--color-orange-primary),
-        0 0 10px var(--color-orange-primary),
-        0 0 15px var(--color-orange-primary),
-        0 0 20px var(--color-orange-primary);
-    }
-    50% {
-      text-shadow: 0 0 2px var(--color-orange-primary),
-        0 0 5px var(--color-orange-primary), 0 0 8px var(--color-orange-primary),
-        0 0 12px var(--color-orange-primary);
-    }
+  92% {
+    opacity: 0.4;
+    transform: translateX(0.5px) scaleX(0.99);
   }
 
-  /* 📺 ANIMACIÓN DE SCAN DE PANTALLA */
-  @keyframes digital-scan {
-    0% {
-      background-position: 0% 0%;
-    }
-    100% {
-      background-position: 100% 100%;
-    }
+  93% {
+    opacity: 0.9;
+    transform: translateX(0) scaleX(1);
   }
 
-  /* 📱 RESPONSIVE DESIGN PARA BOTÓN CTA */
-
-  /* 🚀 ANIMACIÓN DE MATERIALIZACIÓN TECNOLÓGICA */
-  @keyframes tech-materialize {
-    0% {
-      transform: translateY(50px) scale(0.6) rotateX(45deg);
-      filter: blur(4px) brightness(0.3);
-      opacity: 0;
-    }
-
-    30% {
-      transform: translateY(20px) scale(0.7) rotateX(20deg);
-      filter: blur(2px) brightness(0.6);
-      opacity: 0.4;
-    }
-
-    60% {
-      transform: translateY(5px) scale(0.8) rotateX(5deg);
-      filter: blur(1px) brightness(0.9);
-      opacity: 0.8;
-    }
-
-    100% {
-      transform: translateY(0) scale(0.85) rotateX(0deg);
-      filter: blur(0px) brightness(1);
-      opacity: 1;
-    }
+  /* 💡 SOBRECARGA FINAL */
+  96% {
+    opacity: 0.05;
+    color: rgba(218, 128, 35, 0.1);
+    text-shadow: none;
+    transform: translateX(2px) scaleX(0.95);
   }
 
-  /* ✨ ANIMACIÓN DE EMERGENCIA DESDE LA LLUVIA DE CÓDIGOS */
-  @keyframes tech-emerge {
-    0% {
-      opacity: 0;
-      transform: translateY(30px) scale(0.9);
-      filter: blur(3px) brightness(0.2) contrast(0.5);
-    }
-
-    25% {
-      opacity: 0.3;
-      transform: translateY(15px) scale(0.95);
-      filter: blur(2px) brightness(0.5) contrast(0.8);
-    }
-
-    50% {
-      opacity: 0.7;
-      transform: translateY(5px) scale(0.98);
-      filter: blur(1px) brightness(0.8) contrast(1);
-    }
-
-    75% {
-      opacity: 0.9;
-      transform: translateY(-2px) scale(1.01);
-      filter: blur(0.5px) brightness(1.1) contrast(1.1);
-    }
-
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: blur(0px) brightness(1) contrast(1);
-    }
+  97% {
+    opacity: 1.2;
+    color: #ffaa44;
+    text-shadow: 0 0 10px #ffaa44, 0 0 25px #ffaa44,
+      0 0 40px rgba(255, 170, 68, 0.8);
+    transform: translateX(0) scaleX(1.05);
   }
 
-  /* ✨ ANIMACIÓN ELEGANTE PARA LA APARICIÓN DEL TEXTO */
-  @keyframes elegant-text-appear {
-    0% {
-      opacity: 0;
-      transform: translateY(10px) scale(0.95);
-      filter: blur(2px);
-    }
+  98% {
+    opacity: 0.3;
+    transform: translateX(-1px) scaleX(0.97);
+  }
+}
 
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: blur(0px);
-    }
+/* 🔌 INTERFERENCIA ELÉCTRICA AMBIENTAL */
+@keyframes electrical-malfunction {
+  0%,
+  80%,
+  85%,
+  88%,
+  92%,
+  100% {
+    opacity: 0;
   }
 
-  /* 🎯 INSTRUCCIÓN "CLIC PARA CERRAR" EN VISUALIZADOR HOME 3D */
-  .close-instruction {
-    user-select: none;
-    white-space: nowrap;
-    backdrop-filter: blur(8px);
-    background: rgba(0, 0, 0, 0.3);
-    padding: 6px 12px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.1);
-  }
-
-  /* ✨ ANIMACIÓN DE APARICIÓN SUTIL */
-  @keyframes fadeInGlow {
-    0% {
-      opacity: 0;
-      transform: scale(0.8) translateY(10px);
-      text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-    }
-
-    50% {
-      opacity: 0.7;
-      text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-    }
-
-    100% {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    }
-  }
-
-  /* 🌟 EFECTO MAGNÉTICO PARA TÍTULOS DEL CTA */
-  .magnetic-text {
-    /* Variables CSS para el efecto magnético */
-    --mouse-x: 50%;
-    --mouse-y: 50%;
-    --distance: 1;
-    --intensity: 0;
-
-    position: relative;
-    cursor: default;
-    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-
-  /* 🎆 Estado magnético activo para títulos */
-  .magnetic-text.magnetic-active {
-    /* 🌈 Transformación 3D con rotación y escalado */
-    transform: perspective(1000px) rotateX(calc(var(--intensity) * 2deg))
-      rotateY(calc(var(--intensity) * 3deg))
-      scale(calc(1 + var(--intensity) * 0.1))
-      translateZ(calc(var(--intensity) * 20px)) !important;
-
-    /* 🎨 Resplandor magnético intenso */
-    text-shadow: 0 0 calc(var(--intensity) * 30px)
-        rgba(255, 140, 0, calc(var(--intensity) * 0.9)),
-      0 0 calc(var(--intensity) * 60px)
-        rgba(255, 200, 100, calc(var(--intensity) * 0.6)),
-      0 0 calc(var(--intensity) * 100px)
-        rgba(255, 255, 255, calc(var(--intensity) * 0.4)),
-      2px 2px 8px rgba(0, 0, 0, 0.7);
-
-    /* ⚡ Brillo de fondo dinámico */
-    background: radial-gradient(
-      circle at var(--mouse-x) var(--mouse-y),
-      rgba(255, 140, 0, calc(var(--intensity) * 0.15)) 0%,
-      rgba(255, 200, 100, calc(var(--intensity) * 0.08)) 30%,
-      transparent 70%
-    );
-
-    /* 🎭 Degradado de texto dinámico */
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-
-    /* Fallback para el color del texto */
-    -webkit-text-fill-color: #ffffff;
-
-    /* ✨ Partículas de energía simuladas */
-    filter: brightness(calc(1 + var(--intensity) * 0.4))
-      contrast(calc(1 + var(--intensity) * 0.3))
-      saturate(calc(1 + var(--intensity) * 0.5));
-  }
-
-  /* 🎯 Pseudo-elemento para efectos de partículas en títulos */
-  .magnetic-text.magnetic-active::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: calc(100% + var(--intensity) * 40px);
-    height: calc(100% + var(--intensity) * 40px);
-    transform: translate(-50%, -50%) rotate(calc(var(--intensity) * 45deg));
-    background: radial-gradient(
-      circle at var(--mouse-x) var(--mouse-y),
-      rgba(255, 140, 0, calc(var(--intensity) * 0.1)) 0%,
-      rgba(255, 255, 255, calc(var(--intensity) * 0.05)) 50%,
+  81%,
+  83% {
+    opacity: 0.1;
+    background: linear-gradient(
+      45deg,
+      transparent 0%,
+      rgba(218, 128, 35, 0.05) 25%,
+      transparent 50%,
+      rgba(255, 107, 53, 0.03) 75%,
       transparent 100%
     );
-    border-radius: 50%;
-    opacity: calc(var(--intensity) * 0.8);
-    z-index: -1;
-    pointer-events: none;
-    animation: magneticPulse calc(2s - var(--intensity) * 0.5s) infinite;
+    filter: blur(0.5px);
   }
 
-  /* 🌊 Animación de pulso magnético para títulos */
-  @keyframes magneticPulse {
-    0%,
-    100% {
-      transform: translate(-50%, -50%) rotate(0deg) scale(1);
-      opacity: var(--intensity, 0);
-    }
-
-    50% {
-      transform: translate(-50%, -50%) rotate(180deg) scale(1.1);
-      opacity: calc(var(--intensity) * 0.5);
-    }
+  84% {
+    opacity: 0.15;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(218, 128, 35, 0.08) 0%,
+      transparent 70%
+    );
+    filter: blur(1px);
   }
 
-  /* ============================================================================
-
-    /* Portal effects */
-  .portal-effects {
-    width: clamp(280px, 80vw, 400px);
-    height: clamp(280px, 80vw, 400px);
+  86% {
+    opacity: 0.08;
+    background: linear-gradient(
+      90deg,
+      transparent 40%,
+      rgba(218, 128, 35, 0.04) 50%,
+      transparent 60%
+    );
+    filter: blur(0.3px);
   }
 
-  .glow-ring {
-    border: clamp(2px, 0.5vw, 3px) solid transparent;
+  89%,
+  91% {
+    opacity: 0.12;
+    background: conic-gradient(
+      from 0deg at center,
+      transparent 0deg,
+      rgba(255, 140, 26, 0.06) 45deg,
+      transparent 90deg,
+      rgba(218, 128, 35, 0.04) 135deg,
+      transparent 180deg
+    );
+    filter: blur(0.8px);
   }
 
-  .pulse-ring {
-    border: clamp(1px, 0.3vw, 2px) solid var(--color-orange-primary);
+  93%,
+  95% {
+    opacity: 0.2;
+    background: linear-gradient(
+      135deg,
+      rgba(218, 128, 35, 0.1) 0%,
+      transparent 30%,
+      rgba(255, 107, 53, 0.08) 70%,
+      transparent 100%
+    );
+    filter: blur(1.2px);
+  }
+}
+
+/* 📺 GLITCH DIGITAL PREMIUM */
+@keyframes premium-digital-glitch {
+  0%,
+  75%,
+  78%,
+  82%,
+  87%,
+  100% {
+    opacity: 0;
   }
 
-  /* 🎯 CORRECCIÓN CRÍTICA: Mantener aspect ratio circular de los rings en móviles */
-  .glow-ring,
-  .pulse-ring,
-  .rotating-ring-outer,
-  .rotating-ring-inner,
-  .particle-ring {
-    aspect-ratio: 1 / 1 !important; /* 🎯 FORZAR: mantener proporción 1:1 (circular) */
-    border-radius: 50% !important; /* 🎯 FORZAR: mantener forma circular */
+  76% {
+    opacity: 0.05;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      rgba(218, 128, 35, 0.02) 1px,
+      transparent 2px,
+      rgba(255, 140, 26, 0.01) 3px,
+      transparent 4px
+    );
+    filter: contrast(1.5) brightness(1.2);
   }
 
-  /* Asegurar que el contenedor activo mantenga los círculos centrados */
-  #interactive-container.active .glow-ring,
-  #interactive-container.active .pulse-ring,
-  #interactive-container.active .rotating-ring-outer,
-  #interactive-container.active .rotating-ring-inner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  77% {
+    opacity: 0.08;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      rgba(218, 128, 35, 0.03) 1px,
+      transparent 2px
+    );
+    filter: contrast(1.8) brightness(0.8) hue-rotate(10deg);
   }
 
-  /* Rebecca container */
-  .rebecca-container {
-    padding: var(--space-md);
+  79%,
+  81% {
+    opacity: 0.12;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent 0px,
+        rgba(218, 128, 35, 0.04) 1px,
+        transparent 3px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        rgba(255, 107, 53, 0.02) 2px,
+        transparent 4px
+      );
+    filter: contrast(2) brightness(0.6) saturate(1.5);
   }
 
-  /* Interactive container updates - CORREGIDO PARA MANTENER CÍRCULOS Y 100% PANTALLA */
-  #interactive-container.active {
-    width: 100vw; /* 🎯 CORREGIDO: 100% ancho de pantalla */
-    height: 100vh; /* 🎯 CORREGIDO: 100% altura de pantalla */
-    top: 0; /* 🎯 CORREGIDO: posición desde arriba */
-    left: 0; /* 🎯 CORREGIDO: posición desde izquierda */
-    transform: none; /* 🎯 CORREGIDO: sin transforms que descentren */
+  83%,
+  85% {
+    opacity: 0.15;
+    background: linear-gradient(
+      45deg,
+      rgba(218, 128, 35, 0.06) 0%,
+      transparent 25%,
+      rgba(255, 140, 26, 0.04) 50%,
+      transparent 75%,
+      rgba(218, 128, 35, 0.02) 100%
+    );
+    filter: contrast(1.5) brightness(1.1) blur(0.2px);
   }
 
-  #interactive-container {
-    width: clamp(70px, 18vw, 90px);
-    height: clamp(70px, 18vw, 90px);
-    top: 15px;
-    left: 15px;
+  88%,
+  91% {
+    opacity: 0.1;
+    background: radial-gradient(
+      circle at 30% 70%,
+      rgba(218, 128, 35, 0.08) 0%,
+      transparent 40%
+    );
+    filter: contrast(1.8) brightness(0.9) hue-rotate(-5deg);
+  }
+}
+
+/* 💡 ANIMACIÓN DE PARPADEO LED */
+@keyframes led-blink {
+  0%,
+  100% {
+    text-shadow: 0 0 5px var(--color-orange-primary),
+      0 0 10px var(--color-orange-primary), 0 0 15px var(--color-orange-primary),
+      0 0 20px var(--color-orange-primary);
+  }
+  50% {
+    text-shadow: 0 0 2px var(--color-orange-primary),
+      0 0 5px var(--color-orange-primary), 0 0 8px var(--color-orange-primary),
+      0 0 12px var(--color-orange-primary);
+  }
+}
+
+/* 📺 ANIMACIÓN DE SCAN DE PANTALLA */
+@keyframes digital-scan {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+/* ✨ ANIMACIÓN DE EMERGENCIA DESDE LA LLUVIA DE CÓDIGOS */
+@keyframes tech-emerge {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+    filter: blur(3px) brightness(0.2) contrast(0.5);
   }
 
-  /* responsive size variants for #interactive-container pseudo-elements moved to Rebecca.legacy.css */
-
-  /* Message box */
-  #message-box {
-    padding: 12px 16px;
-    font-size: 0.8rem;
-    border-radius: 6px;
+  25% {
+    opacity: 0.3;
+    transform: translateY(15px) scale(0.95);
+    filter: blur(2px) brightness(0.5) contrast(0.8);
   }
 
-  /* Tooltips */
-  .button-tooltip {
-    font-size: 0.75rem;
-    padding: 8px 12px;
-    border-radius: 4px;
+  50% {
+    opacity: 0.7;
+    transform: translateY(5px) scale(0.98);
+    filter: blur(1px) brightness(0.8) contrast(1);
   }
 
-  .button-tooltip-text {
-    font-size: 0.75rem;
+  75% {
+    opacity: 0.9;
+    transform: translateY(-2px) scale(1.01);
+    filter: blur(0.5px) brightness(1.1) contrast(1.1);
   }
 
-  /* CTA sections */
-  .cta-content {
-    padding: 2rem 1rem;
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px) brightness(1) contrast(1);
+  }
+}
+
+/* 🎯 INSTRUCCIÓN "CLIC PARA CERRAR" EN VISUALIZADOR HOME 3D */
+.close-instruction {
+  user-select: none;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* ✨ ANIMACIÓN DE APARICIÓN SUTIL */
+@keyframes fadeInGlow {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
   }
 
-  .cta-title {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+  50% {
+    opacity: 0.7;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
   }
 
-  /* Magnetic effects reduced for mobile */
-  .magnetic-text.magnetic-active {
-    transform: perspective(800px) rotateX(calc(var(--intensity) * 1deg))
-      rotateY(calc(var(--intensity) * 1.5deg))
-      scale(calc(1 + var(--intensity) * 0.05))
-      translateZ(calc(var(--intensity) * 10px)) !important;
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
   }
+}
+
+/* 🌟 EFECTO MAGNÉTICO PARA TÍTULOS DEL CTA */
+.magnetic-text {
+  /* Variables CSS para el efecto magnético */
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --distance: 1;
+  --intensity: 0;
+
+  position: relative;
+  cursor: default;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* 🎆 Estado magnético activo para títulos */
+.magnetic-text.magnetic-active {
+  /* 🌈 Transformación 3D con rotación y escalado */
+  transform: perspective(1000px) rotateX(calc(var(--intensity) * 2deg))
+    rotateY(calc(var(--intensity) * 3deg))
+    scale(calc(1 + var(--intensity) * 0.1))
+    translateZ(calc(var(--intensity) * 20px)) !important;
+
+  /* 🎨 Resplandor magnético intenso */
+  text-shadow: 0 0 calc(var(--intensity) * 30px)
+      rgba(255, 140, 0, calc(var(--intensity) * 0.9)),
+    0 0 calc(var(--intensity) * 60px)
+      rgba(255, 200, 100, calc(var(--intensity) * 0.6)),
+    0 0 calc(var(--intensity) * 100px)
+      rgba(255, 255, 255, calc(var(--intensity) * 0.4)),
+    2px 2px 8px rgba(0, 0, 0, 0.7);
+
+  /* ⚡ Brillo de fondo dinámico */
+  background: radial-gradient(
+    circle at var(--mouse-x) var(--mouse-y),
+    rgba(255, 140, 0, calc(var(--intensity) * 0.15)) 0%,
+    rgba(255, 200, 100, calc(var(--intensity) * 0.08)) 30%,
+    transparent 70%
+  );
+
+  /* 🎭 Degradado de texto dinámico */
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+
+  /* Fallback para el color del texto */
+  -webkit-text-fill-color: #ffffff;
+
+  /* ✨ Partículas de energía simuladas */
+  filter: brightness(calc(1 + var(--intensity) * 0.4))
+    contrast(calc(1 + var(--intensity) * 0.3))
+    saturate(calc(1 + var(--intensity) * 0.5));
+}
+
+/* 🎯 Pseudo-elemento para efectos de partículas en títulos */
+.magnetic-text.magnetic-active::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(100% + var(--intensity) * 40px);
+  height: calc(100% + var(--intensity) * 40px);
+  transform: translate(-50%, -50%) rotate(calc(var(--intensity) * 45deg));
+  background: radial-gradient(
+    circle at var(--mouse-x) var(--mouse-y),
+    rgba(255, 140, 0, calc(var(--intensity) * 0.1)) 0%,
+    rgba(255, 255, 255, calc(var(--intensity) * 0.05)) 50%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  opacity: calc(var(--intensity) * 0.8);
+  z-index: -1;
+  pointer-events: none;
+  animation: magneticPulse calc(2s - var(--intensity) * 0.5s) infinite;
+}
+
+/* 🌊 Animación de pulso magnético para títulos */
+@keyframes magneticPulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    opacity: var(--intensity, 0);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) rotate(180deg) scale(1.1);
+    opacity: calc(var(--intensity) * 0.5);
+  }
+}
+
+/* ============================================================================
+     📱 RESPONSIVE ELEMENTS OPTIMIZATION
+     ============================================================================ */
+
+/* Portal effects */
+.portal-effects {
+  width: clamp(280px, 80vw, 400px);
+  height: clamp(280px, 80vw, 400px);
+}
+
+.glow-ring {
+  border: clamp(2px, 0.5vw, 3px) solid transparent;
+}
+
+.pulse-ring {
+  border: clamp(1px, 0.3vw, 2px) solid var(--color-orange-primary);
+}
+
+/* 🎯 CORRECCIÓN CRÍTICA: Mantener aspect ratio circular de los rings en móviles */
+.glow-ring,
+.pulse-ring,
+.rotating-ring-outer,
+.rotating-ring-inner,
+.particle-ring {
+  aspect-ratio: 1 / 1 !important; /* 🎯 FORZAR: mantener proporción 1:1 (circular) */
+  border-radius: 50% !important; /* 🎯 FORZAR: mantener forma circular */
+}
+
+/* Asegurar que el contenedor activo mantenga los círculos centrados */
+#interactive-container.active .glow-ring,
+#interactive-container.active .pulse-ring,
+#interactive-container.active .rotating-ring-outer,
+#interactive-container.active .rotating-ring-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Rebecca container */
+.rebecca-container {
+  padding: var(--space-md);
+}
+
+/* Interactive container updates - CORREGIDO PARA MANTENER CÍRCULOS Y 100% PANTALLA */
+#interactive-container.active {
+  width: 100vw; /* 🎯 CORREGIDO: 100% ancho de pantalla */
+  height: 100vh; /* 🎯 CORREGIDO: 100% altura de pantalla */
+  top: 0; /* 🎯 CORREGIDO: posición desde arriba */
+  left: 0; /* 🎯 CORREGIDO: posición desde izquierda */
+  transform: none; /* 🎯 CORREGIDO: sin transforms que descentren */
+}
+
+#interactive-container {
+  width: clamp(70px, 18vw, 90px);
+  height: clamp(70px, 18vw, 90px);
+  top: 15px;
+  left: 15px;
+}
+
+/* responsive size variants for #interactive-container pseudo-elements moved to Rebecca.legacy.css */
+
+/* Message box */
+#message-box {
+  padding: 12px 16px;
+  font-size: 0.8rem;
+  border-radius: 6px;
+}
+
+/* Tooltips */
+.button-tooltip {
+  font-size: 0.75rem;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.button-tooltip-text {
+  font-size: 0.75rem;
+}
+
+/* Magnetic effects reduced for mobile */
+.magnetic-text.magnetic-active {
+  transform: perspective(800px) rotateX(calc(var(--intensity) * 1deg))
+    rotateY(calc(var(--intensity) * 1.5deg))
+    scale(calc(1 + var(--intensity) * 0.05))
+    translateZ(calc(var(--intensity) * 10px)) !important;
 }
 
 /* ============================================================================

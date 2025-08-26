@@ -28,23 +28,34 @@ const Rebecca = memo(() => {
 
   // 🎯 Efecto magnético para textos del CTA (título y subtítulo)
   useEffect(() => {
+    let rafId: number | null = null;
+    let isProcessing = false;
+
     const handleMouseMove = (e: MouseEvent) => {
-      // 🎯 Procesar elementos del subtítulo
-      magneticRefs.current.forEach((textElement) => {
-        if (
-          !textElement ||
-          !textElement.classList.contains("typewriter-complete")
-        )
-          return;
+      // 🚀 OPTIMIZACIÓN: Throttling con requestAnimationFrame
+      if (isProcessing) return;
 
-        applyMagneticEffect(e, textElement);
-      });
+      isProcessing = true;
+      rafId = requestAnimationFrame(() => {
+        // 🎯 Procesar elementos del subtítulo
+        magneticRefs.current.forEach((textElement) => {
+          if (
+            !textElement ||
+            !textElement.classList.contains("typewriter-complete")
+          )
+            return;
 
-      // 🎯 Procesar elementos del título
-      titleMagneticRefs.current.forEach((titleElement) => {
-        if (!titleElement) return;
+          applyMagneticEffect(e, textElement);
+        });
 
-        applyMagneticEffect(e, titleElement, true); // true indica que es título
+        // 🎯 Procesar elementos del título
+        titleMagneticRefs.current.forEach((titleElement) => {
+          if (!titleElement) return;
+
+          applyMagneticEffect(e, titleElement, true); // true indica que es título
+        });
+
+        isProcessing = false;
       });
     };
 
@@ -117,6 +128,9 @@ const Rebecca = memo(() => {
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
     };
   }, []);
 
