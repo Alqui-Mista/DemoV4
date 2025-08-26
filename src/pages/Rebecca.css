@@ -2655,6 +2655,169 @@ body,
 }
 
 /* ============================================================================
+   5️⃣ FASE 5: ANIMACIONES REVOLUCIONARIAS PARA LETRAS DEL TÍTULO
+   ============================================================================ */
+
+/* 🌟 ANIMACIONES REVOLUCIONARIAS PARA LETRAS INDIVIDUALES - AWWWARDS LEVEL */
+
+/* ⚡ ANIMACIÓN SIMPLE PARA MODO CHAT */
+@keyframes letter-pulse-simple {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+/* 🔥 ANIMACIÓN HOLOGRÁFICA ONDULANTE POR LETRA */
+@keyframes letter-hologram-wave {
+  0%,
+  100% {
+    transform: perspective(1000px) rotateY(0deg) translateZ(0);
+    text-shadow: 0 0 20px rgba(218, 128, 35, 0.6),
+      0 0 40px rgba(128, 128, 128, 0.4);
+  }
+  25% {
+    transform: perspective(1000px) rotateY(5deg) translateZ(5px);
+    text-shadow: 0 0 25px rgba(218, 128, 35, 0.7),
+      0 0 50px rgba(128, 128, 128, 0.5), 5px 0 30px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    transform: perspective(1000px) rotateY(0deg) translateZ(10px);
+    text-shadow: 0 0 30px rgba(218, 128, 35, 0.8),
+      0 0 60px rgba(128, 128, 128, 0.6), 0 5px 35px rgba(255, 255, 255, 0.4);
+  }
+  75% {
+    transform: perspective(1000px) rotateY(-5deg) translateZ(5px);
+    text-shadow: 0 0 25px rgba(218, 128, 35, 0.7),
+      0 0 50px rgba(128, 128, 128, 0.5), -5px 0 30px rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* 🌈 ANIMACIÓN DE GRADIENTE DINÁMICO POR LETRA */
+@keyframes letter-gradient-shift {
+  0% {
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg) saturate(1.1);
+  }
+  25% {
+    background-position: 100% 0%;
+    filter: hue-rotate(5deg) saturate(1.2);
+  }
+  50% {
+    background-position: 200% 50%;
+    filter: hue-rotate(10deg) saturate(1.3);
+  }
+  75% {
+    background-position: 300% 100%;
+    filter: hue-rotate(5deg) saturate(1.2);
+  }
+  100% {
+    background-position: 400% 50%;
+    filter: hue-rotate(0deg) saturate(1.1);
+  }
+}
+
+/* 🔮 ANIMACIÓN FLOTANTE DIMENSIONAL */
+@keyframes letter-dimensional-float {
+  0%,
+  100% {
+    transform: perspective(1000px) translateY(0px) translateZ(0) rotateX(0deg);
+  }
+  20% {
+    transform: perspective(1000px) translateY(-2px) translateZ(3px)
+      rotateX(2deg);
+  }
+  40% {
+    transform: perspective(1000px) translateY(-1px) translateZ(6px)
+      rotateX(1deg);
+  }
+  60% {
+    transform: perspective(1000px) translateY(1px) translateZ(3px)
+      rotateX(-1deg);
+  }
+  80% {
+    transform: perspective(1000px) translateY(2px) translateZ(1px)
+      rotateX(-2deg);
+  }
+}
+
+/* 🌠 ANIMACIÓN DE PARTÍCULAS MICRO */
+@keyframes micro-particles-dance {
+  0%,
+  100% {
+    background-position: 20% 30%, 80% 20%, 60% 80%;
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  33% {
+    background-position: 70% 40%, 30% 70%, 90% 30%;
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+  66% {
+    background-position: 40% 90%, 90% 10%, 10% 60%;
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+}
+
+/* 🔥 ANIMACIÓN DE ESCANEO LÁSER POR LETRA */
+@keyframes letter-laser-scan {
+  0%,
+  100% {
+    background-position: -100% 0%;
+    opacity: 0;
+  }
+  15% {
+    background-position: 0% 0%;
+    opacity: 0.6;
+  }
+  30% {
+    background-position: 100% 0%;
+    opacity: 0.8;
+  }
+  45% {
+    background-position: 200% 0%;
+    opacity: 0.4;
+  }
+  60% {
+    opacity: 0;
+  }
+}
+
+/* 🌟 ANIMACIONES OPTIMIZADAS PARA EL TÍTULO */
+
+/* 🎨 ANIMACIÓN DE GRADIENTE SIMPLE */
+@keyframes gradient-shift-simple {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ✨ ANIMACIÓN DE BRILLO SUTIL */
+@keyframes subtle-glow {
+  0% {
+    text-shadow: 0 0 15px rgba(218, 128, 35, 0.4),
+      0 0 30px rgba(128, 128, 128, 0.2);
+  }
+  100% {
+    text-shadow: 0 0 20px rgba(218, 128, 35, 0.6),
+      0 0 40px rgba(128, 128, 128, 0.3);
+  }
+}
+
+/* ============================================================================
    📱 RESTO DE ESTILOS - NO RELACIONADOS CON EL CTA
    ============================================================================ */
 
@@ -5520,166 +5683,7 @@ body,
 }
 /* --- FIN OPTIMIZACIÓN --- */
 
-/* 🌟 ANIMACIONES REVOLUCIONARIAS PARA LETRAS INDIVIDUALES - AWWWARDS LEVEL */
-
-/* ⚡ ANIMACIÓN SIMPLE PARA MODO CHAT */
-@keyframes letter-pulse-simple {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.02);
-  }
-}
-
-/* 🔥 ANIMACIÓN HOLOGRÁFICA ONDULANTE POR LETRA */
-@keyframes letter-hologram-wave {
-  0%,
-  100% {
-    transform: perspective(1000px) rotateY(0deg) translateZ(0);
-    text-shadow: 0 0 20px rgba(218, 128, 35, 0.6),
-      0 0 40px rgba(128, 128, 128, 0.4);
-  }
-  25% {
-    transform: perspective(1000px) rotateY(5deg) translateZ(5px);
-    text-shadow: 0 0 25px rgba(218, 128, 35, 0.7),
-      0 0 50px rgba(128, 128, 128, 0.5), 5px 0 30px rgba(255, 255, 255, 0.3);
-  }
-  50% {
-    transform: perspective(1000px) rotateY(0deg) translateZ(10px);
-    text-shadow: 0 0 30px rgba(218, 128, 35, 0.8),
-      0 0 60px rgba(128, 128, 128, 0.6), 0 5px 35px rgba(255, 255, 255, 0.4);
-  }
-  75% {
-    transform: perspective(1000px) rotateY(-5deg) translateZ(5px);
-    text-shadow: 0 0 25px rgba(218, 128, 35, 0.7),
-      0 0 50px rgba(128, 128, 128, 0.5), -5px 0 30px rgba(255, 255, 255, 0.3);
-  }
-}
-
-/* 🌈 ANIMACIÓN DE GRADIENTE DINÁMICO POR LETRA */
-@keyframes letter-gradient-shift {
-  0% {
-    background-position: 0% 50%;
-    filter: hue-rotate(0deg) saturate(1.1);
-  }
-  25% {
-    background-position: 100% 0%;
-    filter: hue-rotate(5deg) saturate(1.2);
-  }
-  50% {
-    background-position: 200% 50%;
-    filter: hue-rotate(10deg) saturate(1.3);
-  }
-  75% {
-    background-position: 300% 100%;
-    filter: hue-rotate(5deg) saturate(1.2);
-  }
-  100% {
-    background-position: 400% 50%;
-    filter: hue-rotate(0deg) saturate(1.1);
-  }
-}
-
-/* 🔮 ANIMACIÓN FLOTANTE DIMENSIONAL */
-@keyframes letter-dimensional-float {
-  0%,
-  100% {
-    transform: perspective(1000px) translateY(0px) translateZ(0) rotateX(0deg);
-  }
-  20% {
-    transform: perspective(1000px) translateY(-2px) translateZ(3px)
-      rotateX(2deg);
-  }
-  40% {
-    transform: perspective(1000px) translateY(-1px) translateZ(6px)
-      rotateX(1deg);
-  }
-  60% {
-    transform: perspective(1000px) translateY(1px) translateZ(3px)
-      rotateX(-1deg);
-  }
-  80% {
-    transform: perspective(1000px) translateY(2px) translateZ(1px)
-      rotateX(-2deg);
-  }
-}
-
-/* 🌠 ANIMACIÓN DE PARTÍCULAS MICRO */
-@keyframes micro-particles-dance {
-  0%,
-  100% {
-    background-position: 20% 30%, 80% 20%, 60% 80%;
-    opacity: 0.4;
-    transform: scale(1);
-  }
-  33% {
-    background-position: 70% 40%, 30% 70%, 90% 30%;
-    opacity: 0.6;
-    transform: scale(1.1);
-  }
-  66% {
-    background-position: 40% 90%, 90% 10%, 10% 60%;
-    opacity: 0.5;
-    transform: scale(0.9);
-  }
-}
-
-/* 🔥 ANIMACIÓN DE ESCANEO LÁSER POR LETRA */
-@keyframes letter-laser-scan {
-  0%,
-  100% {
-    background-position: -100% 0%;
-    opacity: 0;
-  }
-  15% {
-    background-position: 0% 0%;
-    opacity: 0.6;
-  }
-  30% {
-    background-position: 100% 0%;
-    opacity: 0.8;
-  }
-  45% {
-    background-position: 200% 0%;
-    opacity: 0.4;
-  }
-  60% {
-    opacity: 0;
-  }
-}
-
-/* 🌟 ANIMACIONES OPTIMIZADAS PARA EL TÍTULO */
-
-/* 🎨 ANIMACIÓN DE GRADIENTE SIMPLE */
-@keyframes gradient-shift-simple {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* ✨ ANIMACIÓN DE BRILLO SUTIL */
-@keyframes subtle-glow {
-  0% {
-    text-shadow: 0 0 15px rgba(218, 128, 35, 0.4),
-      0 0 30px rgba(128, 128, 128, 0.2);
-  }
-  100% {
-    text-shadow: 0 0 20px rgba(218, 128, 35, 0.6),
-      0 0 40px rgba(128, 128, 128, 0.3);
-  }
-}
-
-/* 🎯 SECCIÓN DE CRÉDITOS DEL FOOTER */
+/*  SECCIÓN DE CRÉDITOS DEL FOOTER */
 .footer-credits {
   position: absolute;
   bottom: 15px;
