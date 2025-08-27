@@ -1685,47 +1685,18 @@ body,
    5️⃣ FASE 5: EFECTOS DE ENTRADA CONTROLADOS POR SCROLL PARA EL TÍTULO
    ============================================================================ */
 
-/* 🌟 EFECTO MAGNÉTICO BASE PARA TÍTULOS */
+/* 🌟 EFECTO MAGNÉTICO BASE PARA TÍTULOS - OPTIMIZADO */
 .magnetic-text {
-  --mouse-x: 50%;
-  --mouse-y: 50%;
-  --distance: 1;
-  --intensity: 0;
   position: relative;
   cursor: default;
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* 🎆 ESTADO MAGNÉTICO ACTIVO PARA TÍTULOS */
+/* 🎆 ESTADO MAGNÉTICO OPTIMIZADO PARA TÍTULOS */
 .magnetic-text.magnetic-active {
-  transform: perspective(1000px) rotateX(calc(var(--intensity) * 2deg))
-    rotateY(calc(var(--intensity) * 3deg))
-    scale(calc(1 + var(--intensity) * 0.1))
-    translateZ(calc(var(--intensity) * 20px)) !important;
-
-  text-shadow: 0 0 calc(var(--intensity) * 30px)
-      rgba(255, 140, 0, calc(var(--intensity) * 0.9)),
-    0 0 calc(var(--intensity) * 60px)
-      rgba(255, 200, 100, calc(var(--intensity) * 0.6)),
-    0 0 calc(var(--intensity) * 100px)
-      rgba(255, 255, 255, calc(var(--intensity) * 0.4)),
-    2px 2px 8px rgba(0, 0, 0, 0.7);
-
-  background: radial-gradient(
-    circle at var(--mouse-x) var(--mouse-y),
-    rgba(255, 140, 0, calc(var(--intensity) * 0.15)) 0%,
-    rgba(255, 200, 100, calc(var(--intensity) * 0.08)) 30%,
-    transparent 70%
-  );
-
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: #ffffff;
-
-  filter: brightness(calc(1 + var(--intensity) * 0.4))
-    contrast(calc(1 + var(--intensity) * 0.3))
-    saturate(calc(1 + var(--intensity) * 0.5));
+  transform: scale(1.05) translateY(-2px) !important;
+  text-shadow: 0 0 15px rgba(255, 140, 0, 0.6);
+  filter: brightness(1.2) contrast(1.1);
 }
 
 /* ============================================================================
@@ -1780,13 +1751,9 @@ body,
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: default;
   will-change: transform, color, text-shadow, filter;
-  --mouse-x: 50%;
-  --mouse-y: 50%;
-  --distance: 1;
-  --intensity: 0;
 }
 
-/* 📝 ANIMACIONES KEYFRAMES PARA TYPEWRITER */
+/* 📝 ANIMACIÓN TYPEWRITER OPTIMIZADA */
 @keyframes typewriter {
   0% {
     width: 0;
@@ -1811,127 +1778,39 @@ body,
    7️⃣ FASE 7: EFECTOS DE REACCIONES DEL TÍTULO Y SUBTÍTULO AL HOVER
    ============================================================================ */
 
-/* 🎯 ESTADO CUANDO EL TEXTO ESTÁ COMPLETAMENTE ESCRITO */
+/* 🎯 ESTADO CUANDO EL TEXTO ESTÁ COMPLETAMENTE ESCRITO - SIMPLIFICADO */
 .cta-subtitle .subtitle-line-1.typewriter-complete,
 .cta-subtitle .subtitle-line-2.typewriter-complete {
   border-right: none; /* Remover cursor */
 
-  /* 🌈 Efecto magnético base */
-  transform: perspective(1000px) translateZ(calc(var(--intensity) * 20px))
-    rotateX(calc(var(--intensity) * 2deg))
-    rotateY(calc(var(--intensity) * 1deg))
-    scale(calc(1 + var(--intensity) * 0.05));
+  /* 🌈 Efecto hover básico */
+  transform: translateY(-1px) scale(1.01);
 
-  /* 🎨 Color shifting basado en proximidad */
-  color: rgb(
-    calc(255 - var(--intensity) * 50),
-    calc(255 - var(--intensity) * 50),
-    calc(255 + var(--intensity) * 100)
-  );
+  /* ✨ Glow optimizado */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7), 0 0 15px rgba(255, 107, 53, 0.4);
 
-  /* ✨ Glow intensivo */
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7),
-    0 0 calc(var(--intensity) * 30px)
-      rgba(255, 107, 53, calc(var(--intensity) * 0.8)),
-    0 0 calc(var(--intensity) * 60px)
-      rgba(255, 140, 51, calc(var(--intensity) * 0.6)),
-    0 0 calc(var(--intensity) * 100px)
-      rgba(218, 128, 35, calc(var(--intensity) * 0.4));
-
-  /* 🌊 Filtro de ondulación */
-  filter: blur(calc(var(--intensity) * 0.5px))
-    brightness(calc(1 + var(--intensity) * 0.3))
-    contrast(calc(1 + var(--intensity) * 0.2))
-    hue-rotate(calc(var(--intensity) * 30deg));
+  /* 🌊 Filtro mínimo */
+  filter: brightness(1.05);
 }
 
-/* 🎆 ESTADO DE MÁXIMA INTENSIDAD (MOUSE MUY CERCA) */
+/* 🎆 ESTADO DE MÁXIMA INTENSIDAD OPTIMIZADO */
 .cta-subtitle .subtitle-line-1.magnetic-active,
 .cta-subtitle .subtitle-line-2.magnetic-active {
   animation: magneticPulse 1.5s ease-in-out infinite;
 }
 
-/* 🎯 PARTÍCULAS QUE EMERGEN DEL TEXTO */
-.cta-subtitle .subtitle-line-1.typewriter-complete::before,
-.cta-subtitle .subtitle-line-2.typewriter-complete::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: var(--mouse-x);
-  width: calc(var(--intensity) * 100px);
-  height: calc(var(--intensity) * 100px);
-  background: radial-gradient(
-    circle,
-    rgba(255, 107, 53, calc(var(--intensity) * 0.3)) 0%,
-    rgba(255, 140, 51, calc(var(--intensity) * 0.2)) 30%,
-    transparent 70%
-  );
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  opacity: var(--intensity);
-  animation: particleFloat 2s ease-in-out infinite;
-}
-
-/* 🌟 EFECTO DE ESTELA LUMINOSA */
-.cta-subtitle .subtitle-line-1.typewriter-complete::after,
-.cta-subtitle .subtitle-line-2.typewriter-complete::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 107, 53, calc(var(--intensity) * 0.1)) calc(var(--mouse-x) - 20%),
-    rgba(255, 140, 51, calc(var(--intensity) * 0.2)) var(--mouse-x),
-    rgba(255, 107, 53, calc(var(--intensity) * 0.1)) calc(var(--mouse-x) + 20%),
-    transparent 100%
-  );
-  pointer-events: none;
-  opacity: var(--intensity);
-  mix-blend-mode: overlay;
-}
-
-/* 🎭 ANIMACIONES PARA EL EFECTO MAGNÉTICO */
+/* 🎭 ANIMACIÓN MAGNÉTICA OPTIMIZADA */
 @keyframes magneticPulse {
   0%,
   100% {
-    transform: perspective(1000px) scale(1) rotateX(0deg);
+    transform: scale(1) translateY(0px);
   }
   50% {
-    transform: perspective(1000px) scale(1.02) rotateX(1deg);
+    transform: scale(1.02) translateY(-1px);
   }
 }
 
-@keyframes particleFloat {
-  0%,
-  100% {
-    transform: translate(-50%, -50%) scale(1) rotate(0deg);
-  }
-  33% {
-    transform: translate(-50%, -60%) scale(1.1) rotate(120deg);
-  }
-  66% {
-    transform: translate(-50%, -40%) scale(0.9) rotate(240deg);
-  }
-}
-
-@keyframes magneticWave {
-  0% {
-    filter: hue-rotate(0deg) brightness(1);
-  }
-  25% {
-    filter: hue-rotate(10deg) brightness(1.1);
-  }
-  50% {
-    filter: hue-rotate(0deg) brightness(1.2);
-  }
-}
-
-/* 🎯 ANIMACIONES TYPEWRITER ESPECÍFICAS PARA LAS LÍNEAS */
+/* 🎯 ANIMACIONES TYPEWRITER ESPECÍFICAS OPTIMIZADAS */
 
 /* Efecto typewriter sincronizado - Línea 1 */
 .cta-subtitle .subtitle-line-1.typewriter-line {
@@ -1940,8 +1819,8 @@ body,
 }
 
 .cta-subtitle .subtitle-line-1.typewriter-line.typewriter-active {
-  animation: typewriterReveal 3.5s steps(50) 0s forwards,
-    blinkCursorLine1 7.5s ease-in-out 0s forwards;
+  animation: typewriter 2s ease-out 0s forwards,
+    blink 4s ease-in-out 0s forwards;
 }
 
 /* Efecto typewriter sincronizado - Línea 2 */
@@ -1951,68 +1830,8 @@ body,
 }
 
 .cta-subtitle .subtitle-line-2.typewriter-line.typewriter-active {
-  animation: typewriterReveal 3s steps(59) 4s forwards,
-    blinkCursorLine2 7s ease-in-out 4s forwards;
-}
-
-/* Animación revelar texto typewriter */
-@keyframes typewriterReveal {
-  0% {
-    width: 0;
-  }
-  100% {
-    width: 100%;
-  }
-}
-
-/* Fade in para typewriter */
-@keyframes fadeInTypewriter {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-/* Cursor parpadeante - Línea 1 */
-@keyframes blinkCursorLine1 {
-  0%,
-  46.6% {
-    border-right-color: #ffffff;
-  }
-  47%,
-  48% {
-    border-right-color: transparent;
-  }
-  48.5%,
-  50% {
-    border-right-color: #ffffff;
-  }
-  50.1%,
-  100% {
-    border-right-color: transparent;
-  }
-}
-
-/* Cursor parpadeante - Línea 2 */
-@keyframes blinkCursorLine2 {
-  0%,
-  57.1% {
-    border-right-color: #ffffff;
-  }
-  58%,
-  60% {
-    border-right-color: transparent;
-  }
-  60.5%,
-  62% {
-    border-right-color: #ffffff;
-  }
-  62.1%,
-  100% {
-    border-right-color: transparent;
-  }
+  animation: typewriter 2s ease-out 2.5s forwards,
+    blink 4s ease-in-out 2.5s forwards;
 }
 
 /* ============================================================================
@@ -2030,11 +1849,11 @@ body,
   justify-content: center;
   align-items: center;
 
-  /* Estado inicial */
+  /* Estado inicial optimizado */
   opacity: 0;
   visibility: hidden;
-  transform: translateY(20px);
-  transition: all 0.6s ease;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
   pointer-events: none;
 
   /* 🎯 DIMENSIONES ESPECÍFICAS */
@@ -2050,21 +1869,21 @@ body,
   pointer-events: auto;
 }
 
-/* 💨 ESTADO OCULTO */
+/* 💨 ESTADO OCULTO OPTIMIZADO */
 .cta-button-container.hidden {
   opacity: 0;
   visibility: hidden;
-  transform: translateY(15px);
+  transform: translateY(5px);
   pointer-events: none;
 }
 
-/* 🎯 WRAPPER DEL BOTÓN SIMPLIFICADO */
+/* 🎯 WRAPPER DEL BOTÓN OPTIMIZADO */
 .cta-button-wrapper {
   position: relative;
   display: inline-block;
   cursor: pointer;
   opacity: 0.8;
-  transition: all 0.3s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 /* 🖼️ IMAGEN DEL BOTÓN CTA SIMPLIFICADA */
@@ -2109,23 +1928,23 @@ body,
   /* Efecto de resplandor sutil */
   text-shadow: 0 0 8px var(--color-orange-primary);
 
-  /* Estado inicial */
+  /* Estado inicial optimizado */
   opacity: 0;
   width: 0;
   overflow: hidden;
   white-space: nowrap;
-  transition: all 0.3s ease;
+  transition: opacity 0.2s ease, width 0.2s ease;
 }
 
 /* ============================================================================
    🔟 ESTADOS DEL TEXTO SIMPLIFICADOS
    ============================================================================ */
 
-/* 📝 ESTADO VISIBLE DEL TEXTO */
+/* 📝 ESTADO VISIBLE DEL TEXTO - OPTIMIZADO PARA PERFORMANCE */
 .cta-button-text-overlay.text-visible .cta-button-text-display {
   opacity: 1;
   width: 100%;
-  animation: simple-typewriter 1.5s steps(9, end) forwards;
+  animation: optimized-text-reveal 0.8s ease-out forwards;
 }
 
 .cta-button-text-overlay.text-hidden .cta-button-text-display {
@@ -2133,13 +1952,15 @@ body,
   opacity: 0;
 }
 
-/* 🌟 ANIMACIÓN TYPEWRITER SIMPLIFICADA */
-@keyframes simple-typewriter {
+/* 🌟 ANIMACIÓN OPTIMIZADA - SIN STEPS() COSTOSOS */
+@keyframes optimized-text-reveal {
   0% {
-    width: 0;
+    opacity: 0;
+    transform: translateX(-10px);
   }
   100% {
-    width: 100%;
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
@@ -2147,22 +1968,21 @@ body,
    1️⃣1️⃣ EFECTOS DE HOVER SIMPLIFICADOS
    ============================================================================ */
 
-/* 🚀 ESTADO HOVER SIMPLIFICADO */
+/* 🚀 ESTADO HOVER OPTIMIZADO - REDUCIDO PARA PERFORMANCE */
 .cta-button-wrapper:hover,
 .cta-button-wrapper.hover-active {
   opacity: 1;
-  transform: translateY(-2px) scale(1.03);
+  transform: translateY(-2px) scale(1.02);
 }
 
 .cta-button-wrapper:hover .cta-button-image,
 .cta-button-wrapper.hover-active .cta-button-image {
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
 .cta-button-wrapper:hover .cta-button-text-display,
 .cta-button-wrapper.hover-active .cta-button-text-display {
-  text-shadow: 0 0 15px var(--color-orange-primary),
-    0 0 25px var(--color-orange-primary);
+  text-shadow: 0 0 8px var(--color-orange-primary);
 }
 
 /* 🎯 ESTADO ACTIVE */
@@ -2193,76 +2013,49 @@ body,
   }
 }
 
-/* 🔥 ANIMACIÓN HOLOGRÁFICA ONDULANTE POR LETRA */
+/* 🔥 ANIMACIÓN HOLOGRÁFICA OPTIMIZADA */
 @keyframes letter-hologram-wave {
   0%,
   100% {
-    transform: perspective(1000px) rotateY(0deg) translateZ(0);
-    text-shadow: 0 0 20px rgba(218, 128, 35, 0.6),
-      0 0 40px rgba(128, 128, 128, 0.4);
-  }
-  25% {
-    transform: perspective(1000px) rotateY(5deg) translateZ(5px);
-    text-shadow: 0 0 25px rgba(218, 128, 35, 0.7),
-      0 0 50px rgba(128, 128, 128, 0.5), 5px 0 30px rgba(255, 255, 255, 0.3);
+    transform: translateY(0) scale(1);
+    text-shadow: 0 0 10px rgba(218, 128, 35, 0.4);
   }
   50% {
-    transform: perspective(1000px) rotateY(0deg) translateZ(10px);
-    text-shadow: 0 0 30px rgba(218, 128, 35, 0.8),
-      0 0 60px rgba(128, 128, 128, 0.6), 0 5px 35px rgba(255, 255, 255, 0.4);
-  }
-  75% {
-    transform: perspective(1000px) rotateY(-5deg) translateZ(5px);
-    text-shadow: 0 0 25px rgba(218, 128, 35, 0.7),
-      0 0 50px rgba(128, 128, 128, 0.5), -5px 0 30px rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px) scale(1.02);
+    text-shadow: 0 0 15px rgba(218, 128, 35, 0.6);
   }
 }
 
-/* 🌈 ANIMACIÓN DE GRADIENTE DINÁMICO POR LETRA */
+/* 🌈 ANIMACIÓN DE GRADIENTE OPTIMIZADA */
 @keyframes letter-gradient-shift {
   0% {
-    background-position: 0% 50%;
-    filter: hue-rotate(0deg) saturate(1.1);
-  }
-  25% {
-    background-position: 100% 0%;
-    filter: hue-rotate(5deg) saturate(1.2);
+    opacity: 1;
   }
   50% {
-    background-position: 200% 50%;
-    filter: hue-rotate(10deg) saturate(1.3);
-  }
-  75% {
-    background-position: 300% 100%;
-    filter: hue-rotate(5deg) saturate(1.2);
+    opacity: 0.8;
   }
   100% {
-    background-position: 400% 50%;
-    filter: hue-rotate(0deg) saturate(1.1);
+    opacity: 1;
   }
 }
 
-/* 🔮 ANIMACIÓN FLOTANTE DIMENSIONAL */
+/* 🔮 ANIMACIÓN FLOTANTE OPTIMIZADA */
 @keyframes letter-dimensional-float {
   0%,
   100% {
-    transform: perspective(1000px) translateY(0px) translateZ(0) rotateX(0deg);
+    transform: translateY(0px) scale(1);
   }
   20% {
-    transform: perspective(1000px) translateY(-2px) translateZ(3px)
-      rotateX(2deg);
+    transform: translateY(-2px) scale(1.01);
   }
   40% {
-    transform: perspective(1000px) translateY(-1px) translateZ(6px)
-      rotateX(1deg);
+    transform: translateY(-1px) scale(1.02);
   }
   60% {
-    transform: perspective(1000px) translateY(1px) translateZ(3px)
-      rotateX(-1deg);
+    transform: translateY(1px) scale(1.01);
   }
   80% {
-    transform: perspective(1000px) translateY(2px) translateZ(1px)
-      rotateX(-2deg);
+    transform: translateY(2px) scale(1);
   }
 }
 
@@ -2286,23 +2079,19 @@ body,
   }
 }
 
-/* 🔥 ANIMACIÓN DE ESCANEO LÁSER POR LETRA */
+/* 🔥 ANIMACIÓN DE ESCANEO OPTIMIZADA */
 @keyframes letter-laser-scan {
   0%,
   100% {
-    background-position: -100% 0%;
     opacity: 0;
   }
   15% {
-    background-position: 0% 0%;
     opacity: 0.6;
   }
   30% {
-    background-position: 100% 0%;
     opacity: 0.8;
   }
   45% {
-    background-position: 200% 0%;
     opacity: 0.4;
   }
   60% {
@@ -5382,32 +5171,7 @@ body,
 
 /* 🌟 ANIMACIONES REVOLUCIONARIAS PARA LETRAS INDIVIDUALES - AWWWARDS LEVEL */
 
-/* 🔥 ANIMACIÓN HOLOGRÁFICA ONDULANTE POR LETRA */
-@keyframes letter-hologram-wave {
-  0%,
-  100% {
-    transform: perspective(1000px) rotateY(0deg) translateZ(0);
-    text-shadow: 0 0 20px rgba(218, 128, 35, 0.6),
-      0 0 40px rgba(128, 128, 128, 0.4);
-  }
-  25% {
-    transform: perspective(1000px) rotateY(5deg) translateZ(5px);
-    text-shadow: 0 0 25px rgba(218, 128, 35, 0.7),
-      0 0 50px rgba(128, 128, 128, 0.5), 5px 0 30px rgba(255, 255, 255, 0.3);
-  }
-  50% {
-    transform: perspective(1000px) rotateY(0deg) translateZ(10px);
-    text-shadow: 0 0 30px rgba(218, 128, 35, 0.8),
-      0 0 60px rgba(128, 128, 128, 0.6), 0 5px 35px rgba(255, 255, 255, 0.4);
-  }
-  75% {
-    transform: perspective(1000px) rotateY(-5deg) translateZ(5px);
-    text-shadow: 0 0 25px rgba(218, 128, 35, 0.7),
-      0 0 50px rgba(128, 128, 128, 0.5), -5px 0 30px rgba(255, 255, 255, 0.3);
-  }
-}
-
-/* 📺 GLITCH DIGITAL PREMIUM */
+/*  GLITCH DIGITAL PREMIUM */
 @keyframes premium-digital-glitch {
   0%,
   100% {
@@ -5507,94 +5271,6 @@ body,
     opacity: 1;
     transform: scale(1) translateY(0);
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-  }
-}
-
-/* 🌟 EFECTO MAGNÉTICO PARA TÍTULOS DEL CTA */
-.magnetic-text {
-  /* Variables CSS para el efecto magnético */
-  --mouse-x: 50%;
-  --mouse-y: 50%;
-  --distance: 1;
-  --intensity: 0;
-
-  position: relative;
-  cursor: default;
-  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-/* 🎆 Estado magnético activo para títulos */
-.magnetic-text.magnetic-active {
-  /* 🌈 Transformación 3D con rotación y escalado */
-  transform: perspective(1000px) rotateX(calc(var(--intensity) * 2deg))
-    rotateY(calc(var(--intensity) * 3deg))
-    scale(calc(1 + var(--intensity) * 0.1))
-    translateZ(calc(var(--intensity) * 20px)) !important;
-
-  /* 🎨 Resplandor magnético intenso */
-  text-shadow: 0 0 calc(var(--intensity) * 30px)
-      rgba(255, 140, 0, calc(var(--intensity) * 0.9)),
-    0 0 calc(var(--intensity) * 60px)
-      rgba(255, 200, 100, calc(var(--intensity) * 0.6)),
-    0 0 calc(var(--intensity) * 100px)
-      rgba(255, 255, 255, calc(var(--intensity) * 0.4)),
-    2px 2px 8px rgba(0, 0, 0, 0.7);
-
-  /* ⚡ Brillo de fondo dinámico */
-  background: radial-gradient(
-    circle at var(--mouse-x) var(--mouse-y),
-    rgba(255, 140, 0, calc(var(--intensity) * 0.15)) 0%,
-    rgba(255, 200, 100, calc(var(--intensity) * 0.08)) 30%,
-    transparent 70%
-  );
-
-  /* 🎭 Degradado de texto dinámico */
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-
-  /* Fallback para el color del texto */
-  -webkit-text-fill-color: #ffffff;
-
-  /* ✨ Partículas de energía simuladas */
-  filter: brightness(calc(1 + var(--intensity) * 0.4))
-    contrast(calc(1 + var(--intensity) * 0.3))
-    saturate(calc(1 + var(--intensity) * 0.5));
-}
-
-/* 🎯 Pseudo-elemento para efectos de partículas en títulos */
-.magnetic-text.magnetic-active::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: calc(100% + var(--intensity) * 40px);
-  height: calc(100% + var(--intensity) * 40px);
-  transform: translate(-50%, -50%) rotate(calc(var(--intensity) * 45deg));
-  background: radial-gradient(
-    circle at var(--mouse-x) var(--mouse-y),
-    rgba(255, 140, 0, calc(var(--intensity) * 0.1)) 0%,
-    rgba(255, 255, 255, calc(var(--intensity) * 0.05)) 50%,
-    transparent 100%
-  );
-  border-radius: 50%;
-  opacity: calc(var(--intensity) * 0.8);
-  z-index: -1;
-  pointer-events: none;
-  animation: magneticPulse calc(2s - var(--intensity) * 0.5s) infinite;
-}
-
-/* 🌊 Animación de pulso magnético para títulos */
-@keyframes magneticPulse {
-  0%,
-  100% {
-    transform: translate(-50%, -50%) rotate(0deg) scale(1);
-    opacity: var(--intensity, 0);
-  }
-
-  50% {
-    transform: translate(-50%, -50%) rotate(180deg) scale(1.1);
-    opacity: calc(var(--intensity) * 0.5);
   }
 }
 
