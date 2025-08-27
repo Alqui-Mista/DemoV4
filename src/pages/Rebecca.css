@@ -2010,6 +2010,57 @@ body,
    5️⃣ FOOTER CREDITS & FINAL ADJUSTMENTS
    ============================================================================ */
 
+/* 🎯 SECCIÓN DE CRÉDITOS DEL FOOTER */
+.footer-credits {
+  position: absolute;
+  bottom: 15px; /* Muy cerca del borde inferior */
+  left: 50%; /* Centrado horizontalmente respecto al footer completo */
+  transform: translateX(-50%); /* Centrado perfecto */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px; /* Gap mínimo */
+  z-index: 25; /* Alto z-index para estar visible */
+  pointer-events: auto;
+  width: auto; /* Ancho automático */
+}
+
+/* 🔗 BOTÓN DE CRÉDITOS */
+.credits-link {
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  border: 2px solid #da8023;
+  color: #ffffff;
+  padding: 8px 16px; /* Más compacto */
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 11px; /* Más pequeño */
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  display: inline-block;
+  font-family: "Courier New", monospace;
+  box-shadow: 0 0 8px rgba(218, 128, 35, 0.3);
+  margin: 0;
+  white-space: nowrap; /* Evitar salto de línea */
+}
+
+.credits-link:hover {
+  background: linear-gradient(145deg, #da8023, #b86f1d);
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(218, 128, 35, 0.6);
+  border-color: #ffffff;
+}
+
+.footer-credits p {
+  color: #888888;
+  font-size: 9px; /* Muy pequeño */
+  margin: 0;
+  opacity: 0.7;
+  white-space: nowrap; /* Evitar salto de línea */
+}
+
 /* ============================================================================
    1️⃣ BASE FOOTER STYLES & LAYOUT CONFIGURATION
    ============================================================================ */
@@ -2057,6 +2108,7 @@ body,
   align-items: center; /* Centrado vertical para mejor alineación */
   height: auto; /* Cambiado de 100% a auto para mejor adaptación */
   transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative; /* Para posicionamiento absoluto de créditos */
 }
 
 /* 📧 SECCIÓN NEWSLETTER - MEJOR ORGANIZACIÓN */
@@ -3754,6 +3806,286 @@ body,
   box-shadow: 0 0 0 3px rgba(218, 128, 35, 0.9),
     0 0 30px rgba(218, 128, 35, 0.5), 0 8px 24px rgba(218, 128, 35, 0.3),
     0 4px 16px rgba(0, 0, 0, 0.8);
+}
+
+/* ============================================================================
+   6️⃣ MODAL OFICIAL DE CRÉDITOS - CONTENEDOR TECNOLÓGICO
+   ============================================================================ */
+
+/* 🎬 OVERLAY PRINCIPAL */
+.credits-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 🎭 CONTENEDOR PRINCIPAL DEL MODAL */
+.credits-modal-container {
+  position: relative;
+  width: 90vw;
+  max-width: 1000px;
+  height: 80vh;
+  max-height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ❌ BOTÓN DE CIERRE */
+.credits-close-button {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  border: 2px solid #da8023;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(218, 128, 35, 0.3);
+}
+
+.credits-close-button:hover {
+  background: linear-gradient(145deg, #da8023, #b86f1d);
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(218, 128, 35, 0.6);
+}
+
+/* 🖼️ MARCO TECNOLÓGICO CON IMAGEN PNG */
+.credits-tech-frame {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: techFrameGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes techFrameGlow {
+  0% {
+    filter: drop-shadow(0 0 20px rgba(218, 128, 35, 0.3));
+  }
+  100% {
+    filter: drop-shadow(0 0 40px rgba(218, 128, 35, 0.6));
+  }
+}
+
+/* 📺 ÁREA DE CONTENIDO DENTRO DEL MARCO */
+.credits-screen-content {
+  width: 75%;
+  height: 70%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(218, 128, 35, 0.3);
+}
+
+/* 🎯 TÍTULO DE CRÉDITOS */
+.credits-title {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(218, 128, 35, 0.2),
+    transparent
+  );
+  border-bottom: 1px solid rgba(218, 128, 35, 0.3);
+}
+
+.credits-title h2 {
+  color: #da8023;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  text-shadow: 0 0 10px rgba(218, 128, 35, 0.5);
+  font-family: "Courier New", monospace;
+  letter-spacing: 2px;
+}
+
+/* 🎬 CONTENEDOR DE SCROLL TIPO PELÍCULA */
+.credits-scroll-container {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+/* 📜 SCROLL ANIMADO DE CRÉDITOS */
+.credits-scroll {
+  position: absolute;
+  width: 100%;
+  animation: creditsScroll 25s linear infinite;
+  padding: 40px 20px;
+}
+
+@keyframes creditsScroll {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+/* 🎭 SECCIÓN DE CRÉDITOS */
+.credit-section {
+  text-align: center;
+  color: #ffffff;
+}
+
+/* 👤 ITEM INDIVIDUAL DE CRÉDITO */
+.credit-item {
+  margin-bottom: 40px;
+  animation: creditItemGlow 3s ease-in-out infinite alternate;
+}
+
+.credit-item h3 {
+  color: #da8023;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(218, 128, 35, 0.7);
+  font-family: "Courier New", monospace;
+}
+
+.credit-item p {
+  color: #ffffff;
+  font-size: 16px;
+  margin: 0;
+  font-weight: 300;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+@keyframes creditItemGlow {
+  0% {
+    text-shadow: 0 0 10px rgba(218, 128, 35, 0.3);
+  }
+  100% {
+    text-shadow: 0 0 20px rgba(218, 128, 35, 0.7);
+  }
+}
+
+/* 🏆 CRÉDITO FINAL ESPECIAL */
+.credit-item.final-credit {
+  margin-top: 60px;
+  padding: 30px;
+  border: 2px solid rgba(218, 128, 35, 0.5);
+  border-radius: 10px;
+  background: rgba(218, 128, 35, 0.1);
+}
+
+.credit-item.final-credit h3 {
+  font-size: 22px;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+.credit-item.final-credit p {
+  color: #da8023;
+  font-size: 14px;
+}
+
+/* 📱 RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .credits-modal-container {
+    width: 95vw;
+    height: 85vh;
+  }
+
+  .credits-tech-frame {
+    background-size: cover;
+  }
+
+  .credits-screen-content {
+    width: 85%;
+    height: 75%;
+  }
+
+  .credits-title h2 {
+    font-size: 20px;
+  }
+
+  .credit-item h3 {
+    font-size: 16px;
+  }
+
+  .credit-item p {
+    font-size: 14px;
+  }
+
+  .credits-close-button {
+    top: -15px;
+    right: -15px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .credits-modal-container {
+    width: 98vw;
+    height: 90vh;
+  }
+
+  .credits-screen-content {
+    width: 90%;
+    height: 80%;
+  }
+
+  .credits-title h2 {
+    font-size: 18px;
+  }
+
+  .credit-item h3 {
+    font-size: 14px;
+  }
+
+  .credit-item p {
+    font-size: 12px;
+  }
 }
 
 /* ============================================================================

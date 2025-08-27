@@ -10,6 +10,7 @@ import FuenteCero from "../components/FuenteCero";
 import { useTitleAnimation } from "../hooks/useTitleAnimation";
 import { useFaviconAnimation } from "../hooks/useFaviconAnimation";
 import CTAButtonImage from "../assets/CTAButtom.png"; // Importar imagen del botón CTA
+import ContenedorCreditos from "../assets/contenedor_creditos.png"; // Importar imagen del contenedor tecnológico
 import "./Rebecca.css";
 
 const Rebecca = memo(() => {
@@ -1357,22 +1358,24 @@ const Rebecca = memo(() => {
                 <span className="contact-label">Oficina Principal</span>
               </div>
             </div>
+
+            {/* 🎯 SECCIÓN DE CRÉDITOS DENTRO DEL GRID */}
+            <div className="footer-credits">
+              <button
+                className="credits-link"
+                onClick={() => setShowCreditsModal(true)}
+              >
+                VER TODOS LOS CREDITOS
+              </button>
+              <p>© 2025 InteliMark - Todos los derechos reservados</p>
+            </div>
           </div>
 
-          {/* 🎯 SECCIÓN DE CRÉDITOS */}
-          <div className="footer-credits">
-            <button
-              className="credits-link"
-              onClick={() => setShowCreditsModal(true)}
-            >
-              VER TODOS LOS CREDITOS
-            </button>
-            <p>© 2025 InteliMark - Todos los derechos reservados</p>
-          </div>
+          {/* Sección de créditos removida de aquí y movida arriba */}
         </footer>
       </div>
 
-      {/* 🎯 MODAL DE CRÉDITOS - VERSIÓN TECNOLÓGICA CON CONTENEDOR PNG */}
+      {/* � MODAL OFICIAL DE CRÉDITOS - CONTENEDOR TECNOLÓGICO */}
       {showCreditsModal &&
         createPortal(
           <div
@@ -1386,51 +1389,62 @@ const Rebecca = memo(() => {
               >
                 ✕
               </button>
-              <div className="credits-frame-container">
-                <div className="credits-screen">
-                  <div className="credits-scroll">
-                    <div className="credit-item">
-                      <h3>Director Creativo</h3>
-                      <p>Pablo Carrasco – Sandra Gangas</p>
-                    </div>
-                    <div className="credit-item">
-                      <h3>
-                        Diseñador de Interfaz de Usuario y Experiencia de
-                        Usuario (UX)
-                      </h3>
-                      <p>Pablo Carrasco</p>
-                    </div>
-                    <div className="credit-item">
-                      <h3>Desarrollador Front-end</h3>
-                      <p>Pablo Carrasco</p>
-                    </div>
-                    <div className="credit-item">
-                      <h3>Desarrollador Back-end / Ingeniero de Software</h3>
-                      <p>Pablo Carrasco</p>
-                    </div>
-                    <div className="credit-item">
-                      <h3>Artista 3D / Animador 3D</h3>
-                      <p>Pablo Carrasco</p>
-                    </div>
-                    <div className="credit-item">
-                      <h3>Diseñador de Sonido</h3>
-                      <p>Pablo Carrasco</p>
-                    </div>
-                    <div className="credit-item">
-                      <h3>Fotógrafo / Director de Arte</h3>
-                      <p>Pablo Carrasco – Sandra Gangas</p>
-                    </div>
-                    <div className="credit-item">
-                      <h3>Especialista en SEO</h3>
-                      <p>Pablo Carrasco</p>
-                    </div>
-                    <div className="credit-item">
-                      <h3>Estratega de IA / Ingeniero de Prompts</h3>
-                      <p>Pablo Carrasco</p>
-                    </div>
-                    <div className="credit-item">
-                      <h3>Diseñador Gráfico</h3>
-                      <p>Sandra Gangas</p>
+              <div
+                className="credits-tech-frame"
+                style={{ backgroundImage: `url(${ContenedorCreditos})` }}
+              >
+                <div className="credits-screen-content">
+                  <div className="credits-title">
+                    <h2>CRÉDITOS DEL PROYECTO</h2>
+                  </div>
+                  <div className="credits-scroll-container">
+                    <div className="credits-scroll">
+                      <div className="credit-section">
+                        <div className="credit-item">
+                          <h3>DIRECTOR CREATIVO</h3>
+                          <p>Pablo Carrasco · Sandra Gangas</p>
+                        </div>
+                        <div className="credit-item">
+                          <h3>DISEÑADOR UX/UI</h3>
+                          <p>Pablo Carrasco</p>
+                        </div>
+                        <div className="credit-item">
+                          <h3>DESARROLLADOR FRONTEND</h3>
+                          <p>Pablo Carrasco</p>
+                        </div>
+                        <div className="credit-item">
+                          <h3>DESARROLLADOR BACKEND</h3>
+                          <p>Pablo Carrasco</p>
+                        </div>
+                        <div className="credit-item">
+                          <h3>ARTISTA 3D</h3>
+                          <p>Pablo Carrasco</p>
+                        </div>
+                        <div className="credit-item">
+                          <h3>DISEÑADOR DE SONIDO</h3>
+                          <p>Pablo Carrasco</p>
+                        </div>
+                        <div className="credit-item">
+                          <h3>DIRECTOR DE ARTE</h3>
+                          <p>Pablo Carrasco · Sandra Gangas</p>
+                        </div>
+                        <div className="credit-item">
+                          <h3>ESPECIALISTA SEO</h3>
+                          <p>Pablo Carrasco</p>
+                        </div>
+                        <div className="credit-item">
+                          <h3>ESTRATEGA DE IA</h3>
+                          <p>Pablo Carrasco</p>
+                        </div>
+                        <div className="credit-item">
+                          <h3>DISEÑADOR GRÁFICO</h3>
+                          <p>Sandra Gangas</p>
+                        </div>
+                        <div className="credit-item final-credit">
+                          <h3>INTELIMARK STUDIOS</h3>
+                          <p>© 2025 - Todos los derechos reservados</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
