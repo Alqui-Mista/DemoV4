@@ -163,7 +163,12 @@ body,
   border: none;
 }
 
-/* Override específico para secciones con flex - CONSOLIDADO EN SECCIÓN CTA PRINCIPAL */
+/* Override específico para secciones con flex */
+.call-to-action-section {
+  padding: 0;
+  display: flex;
+  min-height: 100vh;
+}
 
 .footer-reveal {
   display: flex;
@@ -1609,7 +1614,6 @@ body,
   top: 0;
   width: 100%;
   height: 100vh;
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1620,7 +1624,8 @@ body,
   z-index: 2;
   overflow: hidden;
 
-  /* 🔑 ESTRUCTURAL: Configurado para trabajar con FuenteCero como fondo */
+  /* 🔑 ESTRUCTURAL: Permite que el componente FuenteCero se posicione correctamente */
+  min-height: 100vh;
 }
 
 /* 🎯 CONTENIDO INTERNO DEL CTA */
@@ -1629,7 +1634,7 @@ body,
   margin: 0 auto !important;
   padding: 20px 24px !important;
   position: relative;
-  z-index: 5; /* 🌧️ CAPA SUPERIOR: Por encima del fondo FuenteCero (lluvia de códigos) */
+  z-index: 5; /* Por encima del fondo FuenteCero */
   box-sizing: border-box;
   min-height: 100vh; /* 🎯 ESTRUCTURAL: Contenido CTA ocupa pantalla completa */
   display: flex;
@@ -1639,24 +1644,25 @@ body,
 }
 
 /* ============================================================================
-   2️⃣ FASE 2: COMPONENTE FUENTECERO (LLUVIA DE CÓDIGOS) - FONDO CTA
+   2️⃣ FASE 2: COMPONENTE FUENTECERO (LLUVIA DE CÓDIGOS)
    ============================================================================ */
 
-/* 🌧️ CONFIGURACIÓN DEL FONDO FUENTECERO:
-   - El componente FuenteCero.tsx se renderiza como fondo de la sección CTA
-   - Posicionamiento: z-index inferior al contenido (< 5)
-   - Los estilos específicos están definidos en el componente React FuenteCero.tsx
-   - Interactúa con efectos del mouse y cursor personalizado
-   - No requiere estilos CSS adicionales aquí (todo manejado en React)
-*/
+/* 🌧️ El componente FuenteCero se renderiza como fondo de la sección CTA */
+/* Los estilos específicos están en el componente React FuenteCero.tsx */
 
 /* ============================================================================
-   3️⃣ FASE 3: EFECTOS DE INTERACCIÓN CON FUENTECERO
+   3️⃣ FASE 3: EFECTOS QUE INTERACTÚAN CON LA LLUVIA + AURA LUMINOSA
    ============================================================================ */
 
-/* 🌟 CURSOR PERSONALIZADO - INTERACTÚA CON LA LLUVIA DE CÓDIGOS */
+/* 🌟 CURSOR PERSONALIZADO DENTRO DEL CTA */
 .call-to-action-section.active-effect {
-  cursor: none; /* Permite cursor personalizado que interactúa con FuenteCero */
+  cursor: none;
+}
+
+/* 🎯 AURA LUMINOSA QUE PERSIGUE AL MOUSE */
+.call-to-action-section .cta-content {
+  position: relative;
+  z-index: 5;
 }
 
 /* ============================================================================
