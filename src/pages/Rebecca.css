@@ -189,7 +189,7 @@ body,
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 /* 🎯 DISEÑO DESKTOP PURO - SIN RESPONSIVE ADAPTATIVO
-   ✅ SOLO RESPONSIVE ESTRUCTURAL (100vw/100vh para 3 secciones de pantalla completa)
+   ✅ SOLO ESTRUCTURAL (100vw/100vh para 3 secciones de pantalla completa)
    ❌ SIN CLAMP(), VIEWPORT UNITS ADAPTATIVOS, NI MEDIA QUERIES
 */
 
@@ -683,7 +683,7 @@ body,
   background-position: 0% 0%, 0% 0%, 0% 0%;
   background-clip: border-box;
 
-  /* 🌟 EFECTOS DE SOMBRA Y RESPLANDOR MULTICAPA - RESPONSIVE */
+  /* 🌟 EFECTOS DE SOMBRA Y RESPLANDOR MULTICAPA */
   box-shadow: 
     /* Resplandor exterior principal */ 0 0 20px
       rgba(138, 138, 138, 0.3),
@@ -725,7 +725,7 @@ body,
     #1a1a1a 360deg
   );
 
-  /* Efectos de brillo y textura - RESPONSIVE - INTENSIFICADO */
+  /* Efectos de brillo y textura - INTENSIFICADO */
   box-shadow: 0 0 35px rgba(138, 138, 138, 0.25),
     inset 0 0 15px rgba(0, 0, 0, 0.35), 0 0 20px rgba(187, 187, 187, 0.15);
 
@@ -755,11 +755,11 @@ body,
   animation: reflective-pulse 6s ease-in-out infinite;
 }
 
-/* 🔥 ANILLO DE PULSO OPTIMIZADO - RESPONSIVE */
+/* 🔥 ANILLO DE PULSO OPTIMIZADO */
 .pulse-ring {
   width: 65%; /* 🎯 MÁS REDUCIDO: de 75% a 65% */
   height: 65%; /* 🎯 MÁS REDUCIDO: de 75% a 65% */
-  border: 2px solid var(--color-orange-primary); /* 🎨 Borde responsive */
+  border: 2px solid var(--color-orange-primary); /* 🎨 Borde */
   border-radius: 50%;
   background: transparent; /* 🔍 Interior completamente transparente */
   position: absolute;
@@ -769,7 +769,7 @@ body,
   z-index: 7; /* 🎯 Z-index mayor para estar encima del glow-ring */
   opacity: 0.8; /* 🎨 Opacidad optimizada */
 
-  /* 🌟 Efectos de resplandor responsive */
+  /* 🌟 Efectos de resplandor */
   box-shadow: 0 0 15px var(--color-orange-alpha-30),
     inset 0 0 10px var(--color-orange-alpha-20);
 
@@ -1252,7 +1252,7 @@ body,
   }
 }
 
-/* Pulsación de resplandor metálico responsive */
+/* Pulsación de resplandor metálico */
 @keyframes reflective-pulse {
   0% {
     box-shadow: 0 0 30px rgba(138, 138, 138, 0.6),
@@ -1743,11 +1743,11 @@ body,
 /* 🎯 CONTENEDOR DEL SUBTÍTULO */
 .cta-subtitle {
   margin: 0;
-  padding: clamp(15px, 3vw, 30px) 0; /* 🎯 RESPONSIVE: Padding adaptativo */
+  padding: 30px 0; /* 🎯 FIXED: Padding fijo */
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: clamp(6px, 1.2vw, 12px); /* 🎯 RESPONSIVE: Gap adaptativo */
+  gap: 12px; /* 🎯 FIXED: Gap fijo */
   max-width: 100%; /* 🔧 CAMBIO: Aprovechar todo el ancho disponible del contenedor padre */
   width: 100%;
   align-items: center;
@@ -1766,11 +1766,7 @@ body,
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
   font-weight: 400;
-  font-size: clamp(
-    0.75rem,
-    2.5vw,
-    1.5rem
-  ); /* 🎯 RESPONSIVE: Se ajusta de 12px a 24px */
+  font-size: 1.5rem; /* 🎯 FIXED: Tamaño fijo 24px */
   color: #ffffff;
   letter-spacing: 0em;
   line-height: 0.95;
@@ -2048,10 +2044,8 @@ body,
   transform: translateY(20px);
   transition: all 0.6s ease;
   pointer-events: none;
-}
 
-/* 🎯 REGLA ESPECÍFICA PARA FORZAR DIMENSIONES DEL CONTENEDOR */
-.cta-button-container {
+  /* 🎯 DIMENSIONES ESPECÍFICAS */
   max-width: 200px !important;
   margin: 10px auto !important;
 }
@@ -2089,12 +2083,6 @@ body,
   height: auto;
   border-radius: 8px;
   transition: all 0.3s ease;
-}
-
-/* 🎯 REGLA ESPECÍFICA ADICIONAL PARA FORZAR TAMAÑO */
-.cta-button-container .cta-button-wrapper .cta-button-image {
-  max-width: 180px !important;
-  width: 180px !important;
 }
 
 /* ============================================================================
@@ -2193,83 +2181,6 @@ body,
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 /* 🎯 FIN DEL BOTÓN CTA SIMPLIFICADO                                     */
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-
-/* 🎯 ANIMACIONES ADICIONALES PARA CURSORS MOBILE */
-@keyframes blinkCursorMobileLine1 {
-  0%,
-  50% {
-    border-right-color: #ffffff;
-  }
-  50.5%,
-  52% {
-    border-right-color: transparent;
-  }
-  52.5%,
-  55% {
-    border-right-color: #ffffff;
-  }
-  55.5%,
-  100% {
-    border-right-color: transparent;
-  }
-}
-
-@keyframes blinkCursorMobileLine2 {
-  0%,
-  46.1% {
-    border-right-color: #ffffff;
-  }
-  46.5%,
-  48% {
-    border-right-color: transparent;
-  }
-  48.5%,
-  50% {
-    border-right-color: #ffffff;
-  }
-  50.5%,
-  100% {
-    border-right-color: transparent;
-  }
-}
-
-@keyframes blinkCursorSmallLine1 {
-  0%,
-  50% {
-    border-right-color: #ffffff;
-  }
-  50.5%,
-  52% {
-    border-right-color: transparent;
-  }
-  52.5%,
-  55% {
-    border-right-color: #ffffff;
-  }
-  55.5%,
-  100% {
-    border-right-color: transparent;
-  }
-}
-
-@keyframes blinkCursorSmallLine2 {
-  0%,
-  45.4% {
-    border-right-color: #ffffff;
-  }
-  46%,
-  47% {
-    border-right-color: transparent;
-  }
-  47.5%,
-  49% {
-    border-right-color: #ffffff;
-  }
-  49.5%,
-  100% {
-    border-right-color: transparent;
-  }
-}
 
 /* ============================================================================
    5️⃣ FASE 5: ANIMACIONES REVOLUCIONARIAS PARA LETRAS DEL TÍTULO
@@ -2970,9 +2881,6 @@ body,
 .ai-matrix-button .arrow-tip,
 .ai-matrix-button .arrow-line,
 .ai-matrix-button .arrow-accent,
-.ai-matrix-button .neuron,
-.ai-matrix-button .neural-connection,
-.ai-matrix-button .data-stream,
 .ai-matrix-button .holo-layer {
   pointer-events: none !important;
 }
@@ -2996,105 +2904,6 @@ body,
   pointer-events: none; /* 🎯 PERMITIR CLICK ATRAVESAR A BUTTON PADRE */
 }
 
-/* 🧠 NÚCLEO DE INTELIGENCIA ARTIFICIAL */
-.ai-core {
-  position: absolute;
-  top: 50%;
-  left: 16px; /* Reducido de 20px para el botón más pequeño */
-  transform: translateY(-50%);
-  width: 20px; /* Reducido de 24px */
-  height: 20px; /* Reducido de 24px */
-  opacity: 0.3;
-  pointer-events: none; /* 🎯 NO BLOQUEAR CLICKS DEL BOTÓN PADRE */
-  transition: all 0.6s ease;
-}
-
-.ai-brain-icon {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(218, 128, 35, 0.3) 0%,
-    rgba(255, 140, 51, 0.2) 50%,
-    transparent 70%
-  );
-}
-
-/* 🔗 RED NEURONAL */
-.neural-network {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  pointer-events: none; /* 🎯 NO BLOQUEAR EVENTOS DEL BOTÓN PADRE */
-}
-
-.neuron {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: #da8023;
-  border-radius: 50%;
-  box-shadow: 0 0 6px rgba(218, 128, 35, 0.6);
-  pointer-events: none; /* 🎯 NO BLOQUEAR EVENTOS DEL BOTÓN PADRE */
-  animation: neuronPulse 2s ease-in-out infinite;
-}
-
-.neuron.n1 {
-  top: 2px;
-  left: 2px;
-  animation-delay: 0s;
-}
-.neuron.n2 {
-  top: 2px;
-  right: 2px;
-  animation-delay: 0.5s;
-}
-.neuron.n3 {
-  bottom: 2px;
-  left: 2px;
-  animation-delay: 1s;
-}
-.neuron.n4 {
-  bottom: 2px;
-  right: 2px;
-  animation-delay: 1.5s;
-}
-
-.neural-connection {
-  position: absolute;
-  background: linear-gradient(
-    45deg,
-    transparent 0%,
-    rgba(218, 128, 35, 0.4) 50%,
-    transparent 100%
-  );
-  animation: connectionFlow 3s ease-in-out infinite;
-}
-
-.neural-connection.c1 {
-  top: 4px;
-  left: 6px;
-  width: 12px;
-  height: 1px;
-  transform: rotate(0deg);
-}
-.neural-connection.c2 {
-  top: 10px;
-  left: 4px;
-  width: 16px;
-  height: 1px;
-  transform: rotate(45deg);
-}
-.neural-connection.c3 {
-  top: 16px;
-  left: 6px;
-  width: 12px;
-  height: 1px;
-  transform: rotate(-45deg);
-}
-
 /* 📊 FLUJO DE DATOS MATRIZ */
 .data-matrix {
   position: absolute;
@@ -3105,32 +2914,6 @@ body,
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.6s ease;
-}
-
-.data-stream {
-  position: absolute;
-  font-family: "Consolas", monospace;
-  font-size: 8px;
-  color: rgba(218, 128, 35, 0.3);
-  font-weight: 300;
-  letter-spacing: 1px;
-  animation: dataFlow 4s linear infinite;
-}
-
-.data-stream.ds1 {
-  top: 10px;
-  left: 60px;
-  animation-delay: 0s;
-}
-.data-stream.ds2 {
-  top: 25px;
-  left: 80px;
-  animation-delay: 1.3s;
-}
-.data-stream.ds3 {
-  top: 40px;
-  left: 70px;
-  animation-delay: 2.6s;
 }
 
 /* 🌐 CAPAS HOLOGRÁFICAS 3D */
@@ -3177,11 +2960,6 @@ body,
 /* 🚫 OCULTAR COMPLETAMENTE ELEMENTOS ANTIGUOS DE ENERGÍA Y NEURALES */
 
 /* 🏹 TRIÁNGULO GEOMÉTRICO COMPLEJO CON LÍNEAS MÚLTIPLES Y TEXTURAS HD */
-.data-matrix.arrow-shape .data-stream {
-  position: absolute !important;
-  color: transparent; /* Sin contenido de texto */
-  animation: none; /* Removemos animaciones de texto */
-}
 
 /* 🔺 CONTENEDOR PRINCIPAL DEL TRIÁNGULO */
 .triangle-container {
@@ -3837,11 +3615,6 @@ body,
     inset 0 0 20px rgba(218, 128, 35, 0.05);
 }
 
-.ai-matrix-button:hover .ai-core {
-  opacity: 1;
-  transform: translateY(-50%) scale(1.5);
-}
-
 .ai-matrix-button:hover .data-matrix {
   opacity: 1;
 }
@@ -4013,48 +3786,6 @@ body,
 }
 
 /* 🎬 ANIMACIONES CINEMATOGRÁFICAS */
-@keyframes neuronPulse {
-  0%,
-  100% {
-    opacity: 0.4;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.2);
-    box-shadow: 0 0 12px rgba(218, 128, 35, 1);
-  }
-}
-
-@keyframes connectionFlow {
-  0% {
-    opacity: 0.2;
-  }
-  50% {
-    opacity: 0.8;
-  }
-  100% {
-    opacity: 0.2;
-  }
-}
-
-@keyframes dataFlow {
-  0% {
-    transform: translateY(0px) translateX(0px);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-20px) translateX(10px);
-    opacity: 0;
-  }
-}
-
 @keyframes holoFloat {
   0%,
   100% {
@@ -4329,21 +4060,6 @@ body,
   letter-spacing: 1.5px;
 }
 
-.ai-core {
-  width: 16px;
-  height: 16px;
-}
-
-.neuron {
-  width: 3px;
-  height: 3px;
-}
-
-.data-stream {
-  width: 2px;
-  height: 4px;
-}
-
 /* 🎯 ESPACIADO ADICIONAL PARA MEJOR LEGIBILIDAD */
 
 .contact-icon div {
@@ -4369,21 +4085,6 @@ body,
 .holo-text {
   font-size: 0.65rem;
   letter-spacing: 1.5px;
-}
-
-.ai-core {
-  width: 18px;
-  height: 18px;
-  left: 14px;
-}
-
-.neuron {
-  width: 3px;
-  height: 3px;
-}
-
-.data-stream {
-  font-size: 7px;
 }
 
 /* 📧 ESTILOS PARA FUNCIONALIDAD DEL BOLETÍN */
@@ -4433,11 +4134,6 @@ body,
     0 0 20px rgba(218, 128, 35, 0.3), 0 16px 48px rgba(218, 128, 35, 0.2),
     0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1),
     inset 0 0 20px rgba(218, 128, 35, 0.05);
-}
-
-.ai-matrix-button:hover .ai-core {
-  opacity: 1;
-  transform: translateY(-50%) scale(1.5);
 }
 
 .ai-matrix-button:hover .data-matrix {
@@ -5673,18 +5369,6 @@ body,
   }
 }
 
-/* ⌨️ ANIMACIÓN DE ESCRITURA ESTILO MÁQUINA DE ESCRIBIR */
-@keyframes typewriter-effect {
-  0% {
-    width: 0;
-  }
-  100% {
-    width: 100%;
-  }
-}
-
-/* Animación awwwards-typewriter removida - reemplazada por simple-typewriter */
-
 /* ⚡ EFECTOS DE FALLA ELÉCTRICA PREMIUM */
 @keyframes digital-power-glitch {
   0%,
@@ -6010,64 +5694,7 @@ body,
 }
 
 /* ============================================================================
-     📱 RESPONSIVE ELEMENTS OPTIMIZATION
-     ============================================================================ */
-
-.glow-ring {
-  border: 3px solid transparent;
-}
-
-.pulse-ring {
-  border: 2px solid var(--color-orange-primary);
-}
-
-/* 🎯 CORRECCIÓN CRÍTICA: Mantener aspect ratio circular de los rings */
-.glow-ring,
-.pulse-ring,
-.rotating-ring-outer,
-.rotating-ring-inner,
-.particle-ring {
-  aspect-ratio: 1 / 1 !important; /* 🎯 FORZAR: mantener proporción 1:1 (circular) */
-  border-radius: 50% !important; /* 🎯 FORZAR: mantener forma circular */
-}
-
-/* Rebecca container */
-.rebecca-container {
-  padding: var(--space-md);
-}
-
-/* Message box */
-#message-box {
-  padding: 12px 16px;
-  font-size: 0.8rem;
-  border-radius: 6px;
-}
-
-/* Tooltips */
-.button-tooltip {
-  font-size: 0.75rem;
-  padding: 8px 12px;
-  border-radius: 4px;
-}
-
-.button-tooltip-text {
-  font-size: 0.75rem;
-}
-
-/* Magnetic effects reduced for mobile */
-.magnetic-text.magnetic-active {
-  transform: perspective(800px) rotateX(calc(var(--intensity) * 1deg))
-    rotateY(calc(var(--intensity) * 1.5deg))
-    scale(calc(1 + var(--intensity) * 0.05))
-    translateZ(calc(var(--intensity) * 10px)) !important;
-}
-
-/* ============================================================================
-   🎯 SISTEMA RESPONSIVE REORGANIZADO Y CENTRADO VERTICAL
-   ============================================================================ */
-
-/* ============================================================================
-   🎯 OVERRIDE DE MEDIA QUERIES CONFLICTIVOS
+   🎯 FINAL DEL ARCHIVO CSS
    ============================================================================ */
 
 /* Reset base para todos los elementos principales */
