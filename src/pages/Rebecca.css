@@ -162,12 +162,6 @@ body,
   border: none;
 }
 
-.footer-reveal {
-  display: flex;
-  min-height: 100vh;
-  max-height: 100vh;
-}
-
 /* 🔧 RESET ESPECÍFICO PARA REBECCA - CONFIGURACIÓN GLOBAL */
 .rebecca-container > div,
 .rebecca-container > section {
@@ -208,7 +202,7 @@ body,
 
   /* 🎯 SIN FONDO - CADA SECCIÓN TENDRÁ SU PROPIO FONDO */
   box-sizing: border-box;
-  scroll-behavior: smooth;
+  scroll-behavior: auto; /* 🔧 CORREGIDO: Eliminado smooth scroll para mejor fluidez */
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -1575,9 +1569,9 @@ body,
 
 /* �🏠 CONTENEDOR PRINCIPAL - PRIMERA PANTALLA */
 .main-content-wrapper {
-  /* 🎯 ESTRUCTURAL: Primera sección ocupa pantalla completa */
+  /* 🎯 ESTRUCTURAL: Primera sección con altura mínima para scroll fluido */
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh; /* 🔧 CORREGIDO: Cambiado de height a min-height para evitar scroll snap */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1685,19 +1679,7 @@ body,
    5️⃣ FASE 5: EFECTOS DE ENTRADA CONTROLADOS POR SCROLL PARA EL TÍTULO
    ============================================================================ */
 
-/* 🌟 EFECTO MAGNÉTICO BASE PARA TÍTULOS - OPTIMIZADO */
-.magnetic-text {
-  position: relative;
-  cursor: default;
-  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-/* 🎆 ESTADO MAGNÉTICO OPTIMIZADO PARA TÍTULOS */
-.magnetic-text.magnetic-active {
-  transform: scale(1.05) translateY(-2px) !important;
-  text-shadow: 0 0 15px rgba(255, 140, 0, 0.6);
-  filter: brightness(1.2) contrast(1.1);
-}
+/* � Los efectos magnéticos están consolidados en la sección de HOVER más abajo */
 
 /* ============================================================================
    6️⃣ FASE 6: SUBTÍTULO - LAS DOS FRASES + EFECTO TYPEWRITER
@@ -1775,40 +1757,10 @@ body,
 }
 
 /* ============================================================================
-   7️⃣ FASE 7: EFECTOS DE REACCIONES DEL TÍTULO Y SUBTÍTULO AL HOVER
+   7️⃣ FASE 7: EFECTOS TYPEWRITER - ANIMACIONES Y COMPORTAMIENTO
    ============================================================================ */
 
-/* 🎯 ESTADO CUANDO EL TEXTO ESTÁ COMPLETAMENTE ESCRITO - SIMPLIFICADO */
-.cta-subtitle .subtitle-line-1.typewriter-complete,
-.cta-subtitle .subtitle-line-2.typewriter-complete {
-  border-right: none; /* Remover cursor */
-
-  /* 🌈 Efecto hover básico */
-  transform: translateY(-1px) scale(1.01);
-
-  /* ✨ Glow optimizado */
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7), 0 0 15px rgba(255, 107, 53, 0.4);
-
-  /* 🌊 Filtro mínimo */
-  filter: brightness(1.05);
-}
-
-/* 🎆 ESTADO DE MÁXIMA INTENSIDAD OPTIMIZADO */
-.cta-subtitle .subtitle-line-1.magnetic-active,
-.cta-subtitle .subtitle-line-2.magnetic-active {
-  animation: magneticPulse 1.5s ease-in-out infinite;
-}
-
-/* 🎭 ANIMACIÓN MAGNÉTICA OPTIMIZADA */
-@keyframes magneticPulse {
-  0%,
-  100% {
-    transform: scale(1) translateY(0px);
-  }
-  50% {
-    transform: scale(1.02) translateY(-1px);
-  }
-}
+/* 🎯 Los efectos de hover están consolidados en la sección HOVER más abajo */
 
 /* 🎯 ANIMACIONES TYPEWRITER ESPECÍFICAS OPTIMIZADAS */
 
@@ -1964,15 +1916,71 @@ body,
   }
 }
 
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🎯 FIN DEL BOTÓN CTA SIMPLIFICADO                                     */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
 /* ============================================================================
-   1️⃣1️⃣ EFECTOS DE HOVER SIMPLIFICADOS
+   🎭 CONSOLIDACIÓN DE TODOS LOS EFECTOS HOVER DEL CTA
    ============================================================================ */
 
-/* 🚀 ESTADO HOVER OPTIMIZADO - REDUCIDO PARA PERFORMANCE */
+/* 
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    🎭 EFECTOS DE HOVER CONSOLIDADOS                         ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ ✅ TÍTULOS: Efecto magnético con scale + glow + transform                   ║
+║ ✅ SUBTÍTULOS: Pulse magnético + glow suave después de typewriter           ║
+║ ✅ BOTÓN: Transform + shadow + escala al hover                              ║
+║ ✅ TEXTO WHATSAPP: Text-shadow naranja intensificado                        ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+*/
+
+/* 🎯 1. EFECTOS MAGNÉTICOS PARA TÍTULOS ("TRABAJEMOS" y "JUNTOS") */
+.magnetic-text {
+  position: relative;
+  cursor: default;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform, text-shadow, filter;
+}
+
+.magnetic-text.magnetic-active {
+  transform: scale(1.05) translateY(-2px) !important;
+  text-shadow: 0 0 15px rgba(255, 140, 0, 0.6);
+  filter: brightness(1.2) contrast(1.1);
+}
+
+/* 🎯 2. EFECTOS PARA SUBTÍTULOS DESPUÉS DE TYPEWRITER */
+.cta-subtitle .subtitle-line-1.typewriter-complete,
+.cta-subtitle .subtitle-line-2.typewriter-complete {
+  border-right: none; /* Remover cursor typewriter */
+  transform: translateY(-1px) scale(1.01);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7), 0 0 15px rgba(255, 107, 53, 0.4);
+  filter: brightness(1.05);
+  transition: all 0.3s ease;
+}
+
+/* 🎯 3. EFECTOS MAGNÉTICOS INTENSOS PARA SUBTÍTULOS */
+.cta-subtitle .subtitle-line-1.magnetic-active,
+.cta-subtitle .subtitle-line-2.magnetic-active {
+  animation: magneticPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes magneticPulse {
+  0%,
+  100% {
+    transform: scale(1) translateY(0px);
+  }
+  50% {
+    transform: scale(1.02) translateY(-1px);
+  }
+}
+
+/* 🎯 4. EFECTOS DE HOVER PARA BOTÓN WHATSAPP */
 .cta-button-wrapper:hover,
 .cta-button-wrapper.hover-active {
   opacity: 1;
   transform: translateY(-2px) scale(1.02);
+  transition: all 0.3s ease;
 }
 
 .cta-button-wrapper:hover .cta-button-image,
@@ -1980,19 +1988,19 @@ body,
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
+/* 🎯 5. EFECTOS DE HOVER PARA TEXTO "WHATSAPP" */
 .cta-button-wrapper:hover .cta-button-text-display,
 .cta-button-wrapper.hover-active .cta-button-text-display {
   text-shadow: 0 0 8px var(--color-orange-primary);
+  color: var(--color-orange-primary);
+  transform: scale(1.02);
 }
 
-/* 🎯 ESTADO ACTIVE */
+/* 🎯 6. ESTADO ACTIVE (CLICK) DEL BOTÓN */
 .cta-button-wrapper:active {
   transform: scale(1.02) translateY(-1px);
+  transition: transform 0.1s ease;
 }
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-/* 🎯 FIN DEL BOTÓN CTA SIMPLIFICADO                                     */
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 /* ============================================================================
    📱 RESTO DE ESTILOS - NO RELACIONADOS CON EL CTA
@@ -2070,9 +2078,9 @@ body,
 /* 🎯 FOOTER - CONTENEDOR PRINCIPAL */
 .footer-reveal {
   position: relative;
-  width: 100vw; /* 🎯 ESTRUCTURAL: Tercera sección ocupa pantalla completa */
-  height: 100vh; /* 🎯 ESTRUCTURAL: Tercera sección ocupa pantalla completa */
-  max-height: 100vh; /* 🎯 AGREGADO: Evitar overflow */
+  width: 100vw; /* 🎯 ESTRUCTURAL: Tercera sección ocupa ancho completo */
+  min-height: 100vh; /* 🔧 CORREGIDO: Cambiado de height a min-height para scroll fluido */
+  max-height: none; /* 🔧 CORREGIDO: Permitir expansión vertical según contenido */
   display: flex;
   align-items: center;
   justify-content: center;

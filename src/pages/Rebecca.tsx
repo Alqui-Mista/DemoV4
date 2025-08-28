@@ -17,15 +17,21 @@ const Rebecca = memo(() => {
   useFaviconAnimation();
   useTitleAnimation();
 
-  // Estados para la sección CTA
+  // 🎯 ESTADOS CONSOLIDADOS PARA LA SECCIÓN CTA
   const [ctaScrollPercent, setCtaScrollPercent] = useState(0); // 0 a 1
   const [isCtaButtonVisible, setIsCtaButtonVisible] = useState(false); // Control de fade-in tecnológico
   const [isCtaTextVisible, setIsCtaTextVisible] = useState(false); // Control de texto
-  const [isTypewriterActive, setIsTypewriterActive] = useState(false); // 🎯 NUEVO: Control del typewriter
+  const [isTypewriterActive, setIsTypewriterActive] = useState(false); // Control del typewriter
+  const [isEffectActive, setIsEffectActive] = useState(false); // Control FuenteCero/Matrix Rain
 
-  // 🌟 MAGNETIC TEXT GLOW EFFECT - Referencias para el efecto magnético
-  const magneticRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const titleMagneticRefs = useRef<(HTMLSpanElement | null)[]>([]); // 🎯 AGREGADO: Referencias para el título
+  // 🎯 ESTADOS CONSOLIDADOS PARA EFECTOS DE HOVER/MOUSE
+  const [isHoveringButton, setIsHoveringButton] = useState(false); // Hover del botón WhatsApp
+  const [isHovering, setIsHovering] = useState(false); // Hover general del visualizador
+
+  // � REFERENCIAS CONSOLIDADAS PARA EL CTA
+  const magneticRefs = useRef<(HTMLSpanElement | null)[]>([]); // Referencias magnéticas del subtítulo
+  const titleMagneticRefs = useRef<(HTMLSpanElement | null)[]>([]); // Referencias magnéticas del título
+  const ctaSectionRef = useRef<HTMLElement>(null); // Referencia principal de la sección CTA
 
   // 🎯 Efecto magnético para textos del CTA (título y subtítulo)
   useEffect(() => {
@@ -135,83 +141,112 @@ const Rebecca = memo(() => {
     };
   }, []);
 
-  // Observer para detectar el porcentaje de visibilidad de la sección CTA
+  // 🎯 CONTROLADOR UNIFICADO DE SCROLL CTA - REORGANIZADO
   useEffect(() => {
+    /* 
+    ╔══════════════════════════════════════════════════════════════════════════════╗
+    ║                      📊 UMBRALES DE ACTIVACIÓN CTA                          ║
+    ╠══════════════════════════════════════════════════════════════════════════════╣
+    ║ 🎭 FuenteCero/Matrix Rain:    30% visible → Activa lluvia de códigos       ║
+    ║ 🎯 Typewriter Effect:         90% visible → Inicia animación de escritura   ║
+    ║ 📱 Botón WhatsApp:           95% visible → Aparece botón + texto           ║
+    ║ 🔄 Reset Completo:           10% visible → Resetea todos los efectos       ║
+    ║ 📉 Desvanecimiento:          30% visible → Oculta botón (salida suave)     ║
+    ╚══════════════════════════════════════════════════════════════════════════════╝
+    */
+
+    // 🎯 Función helper para control de typewriter
+    const handleTypewriterControl = (ratio: number, isActive: boolean) => {
+      if (ratio >= 0.9 && !isActive) {
+        console.log("🎯 Activando typewriter - CTA 90% visible", ratio);
+        setIsTypewriterActive(true);
+
+        const line1 = document.querySelector(
+          ".subtitle-line-1.typewriter-line"
+        );
+        const line2 = document.querySelector(
+          ".subtitle-line-2.typewriter-line"
+        );
+
+        if (line1) {
+          line1.classList.add("typewriter-active");
+          console.log("✅ Typewriter línea 1 activada");
+        }
+        if (line2) {
+          line2.classList.add("typewriter-active");
+          console.log("✅ Typewriter línea 2 activada");
+        }
+      }
+    };
+
+    // 🎯 Función helper para control del botón WhatsApp
+    const handleButtonControl = (ratio: number) => {
+      if (ratio >= 0.95) {
+        setIsCtaButtonVisible(true);
+        setTimeout(() => setIsCtaTextVisible(true), 600);
+        console.log("✅ Botón WhatsApp activado al 95%");
+      } else if (ratio < 0.3) {
+        setIsCtaButtonVisible(false);
+        setIsCtaTextVisible(false);
+      }
+    };
+
+    // 🎯 Función helper para reset completo
+    const handleResetEffects = (ratio: number, isActive: boolean) => {
+      if (ratio < 0.1 && isActive) {
+        console.log("🔄 Reset completo de efectos CTA");
+        setIsTypewriterActive(false);
+
+        const line1 = document.querySelector(
+          ".subtitle-line-1.typewriter-line"
+        );
+        const line2 = document.querySelector(
+          ".subtitle-line-2.typewriter-line"
+        );
+
+        if (line1) line1.classList.remove("typewriter-active");
+        if (line2) line2.classList.remove("typewriter-active");
+      }
+    };
+
+    // 🎯 Función helper para FuenteCero/Matrix Rain
+    const handleMatrixRainControl = (ratio: number) => {
+      if (ratio >= 0.3) {
+        setIsEffectActive(true);
+      } else {
+        setIsEffectActive(false);
+      }
+    };
+
+    // 🎯 Observer principal reorganizado
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          setCtaScrollPercent(entry.intersectionRatio);
+          const ratio = entry.intersectionRatio;
+          setCtaScrollPercent(ratio);
 
-          // 🎯 CONTROL DEL TYPEWRITER (90% visible para debug)
-          if (entry.intersectionRatio >= 0.9 && !isTypewriterActive) {
-            console.log(
-              "🎯 Activando typewriter - CTA 90% visible (debug)",
-              entry.intersectionRatio
-            );
-            setIsTypewriterActive(true);
-            // Activar clases CSS para el typewriter
-            const line1 = document.querySelector(
-              ".subtitle-line-1.typewriter-line"
-            );
-            const line2 = document.querySelector(
-              ".subtitle-line-2.typewriter-line"
-            );
-            if (line1) {
-              line1.classList.add("typewriter-active");
-              console.log("✅ Clase typewriter-active agregada a línea 1");
-            }
-            if (line2) {
-              line2.classList.add("typewriter-active");
-              console.log("✅ Clase typewriter-active agregada a línea 2");
-            }
-          }
-
-          // 🎯 CONTROL ELEGANTE DE FADE-IN DEL BOTÓN CTA (95% visible)
-          if (entry.intersectionRatio >= 0.95) {
-            setIsCtaButtonVisible(true);
-            // Activar texto después de un pequeño delay
-            setTimeout(() => {
-              setIsCtaTextVisible(true);
-            }, 600);
-          } else if (entry.intersectionRatio < 0.3) {
-            // Desvanecimiento elegante al salir
-            setIsCtaButtonVisible(false);
-            setIsCtaTextVisible(false);
-            // 🎯 RESETEAR TYPEWRITER cuando se sale de la vista
-            if (entry.intersectionRatio < 0.1 && isTypewriterActive) {
-              setIsTypewriterActive(false);
-              const line1 = document.querySelector(
-                ".subtitle-line-1.typewriter-line"
-              );
-              const line2 = document.querySelector(
-                ".subtitle-line-2.typewriter-line"
-              );
-              if (line1) line1.classList.remove("typewriter-active");
-              if (line2) line2.classList.remove("typewriter-active");
-            }
-          }
-
-          // Activar/desactivar lluvia de códigos según visibilidad
-          if (entry.intersectionRatio >= 0.3) {
-            setIsEffectActive(true);
-          } else {
-            setIsEffectActive(false);
-          }
+          // 🎯 Ejecutar controles en orden lógico
+          handleTypewriterControl(ratio, isTypewriterActive);
+          handleButtonControl(ratio);
+          handleResetEffects(ratio, isTypewriterActive);
+          handleMatrixRainControl(ratio);
         });
       },
       {
-        threshold: Array.from({ length: 101 }, (_, i) => i / 100), // 0.00 a 1.00
+        threshold: Array.from({ length: 101 }, (_, i) => i / 100), // Precisión 0.01
       }
     );
+
     if (ctaSectionRef.current) {
       observer.observe(ctaSectionRef.current);
     }
+
     return () => {
       if (ctaSectionRef.current) {
         observer.unobserve(ctaSectionRef.current);
       }
     };
-  }, [isTypewriterActive]); // 🎯 AGREGADO: Dependencia del estado typewriter
+  }, [isTypewriterActive]); // Dependencia del estado typewriter
 
   // 🎯 NUEVO: Listener para redimensionamiento de ventana para mejorar responsividad
   useEffect(() => {
@@ -244,7 +279,6 @@ const Rebecca = memo(() => {
   const containerRef = useRef<HTMLDivElement>(null!);
   const tooltipRef = useRef<HTMLDivElement>(null!);
   const buttonTooltipRef = useRef<HTMLDivElement>(null!);
-  const [isHovering, setIsHovering] = useState(false);
 
   const [isActive, setIsActive] = useState(false);
   const [showHomePage, setShowHomePage] = useState(false);
@@ -253,7 +287,6 @@ const Rebecca = memo(() => {
   useEffect(() => {
     showHomePageRef.current = showHomePage;
   }, [showHomePage]);
-  const [isHoveringButton, setIsHoveringButton] = useState(false);
 
   // 🎯 ESTADOS PARA INSTRUCCIÓN "CLIC PARA CERRAR"
   const [showCloseInstruction, setShowCloseInstruction] = useState(false);
@@ -261,12 +294,8 @@ const Rebecca = memo(() => {
 
   const home3dAudioRef = useRef<HTMLAudioElement | null>(null);
 
-  const [isEffectActive, setIsEffectActive] = useState(false);
-
   // 🎯 ESTADO PARA MODAL DE CRÉDITOS
   const [showCreditsModal, setShowCreditsModal] = useState(false);
-
-  const ctaSectionRef = useRef<HTMLElement>(null);
 
   // useEffect para controlar la visibilidad del cursor CAD completo
   useEffect(() => {
