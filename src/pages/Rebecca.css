@@ -259,10 +259,10 @@ body,
   -webkit-text-fill-color: transparent;
 
   /* 🎯 POSICIONAMIENTO OPTIMIZADO DEL TÍTULO */
-  position: absolute; /* 🎯 REMOVIDO !important innecesario */
-  top: 35px; /* 🎯 REMOVIDO !important innecesario */
-  left: 50%; /* 🎯 REMOVIDO !important innecesario */
-  transform: translateX(-50%); /* 🎯 REMOVIDO !important innecesario */
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 25; /* 🔥 Z-index elevado para estar sobre todos los efectos del botón */
 
   /* 📐 DISEÑO Y TIPOGRAFÍA */
@@ -402,7 +402,7 @@ body,
   box-shadow: 0 0 8px rgba(255, 140, 0, 0.5);
   z-index: -1;
   pointer-events: none;
-  transition: opacity 0.8s ease-out 0.2s, visibility 0.8s ease-out 0.2s;
+  /* 🎯 TRANSITION CONSOLIDADA ARRIBA */
 }
 
 /* 🔹 ICONO DEL ROMBO - IMAGEN PRINCIPAL */
@@ -421,7 +421,7 @@ body,
   filter: drop-shadow(2px 2px 8px var(--color-black-alpha-70));
   z-index: 1;
   pointer-events: none;
-  transition: opacity 0.8s ease-out 0.2s, visibility 0.8s ease-out 0.2s;
+  /* 🎯 TRANSITION CONSOLIDADA ARRIBA */
 }
 
 /* 🔹 OCULTAR ICONOS CUANDO ESTÁ EXPANDIDO */
@@ -510,7 +510,7 @@ body,
   z-index: 100;
   transform: translate(-50%, -50%);
   opacity: 0;
-  transition: opacity 0.1s ease;
+  /* 🎯 TRANSITION CONSOLIDADA ARRIBA */
   will-change: transform, opacity;
 }
 
@@ -587,7 +587,7 @@ body,
   z-index: 101;
   transform: translate(-50%, -50%);
   opacity: 0;
-  transition: opacity 0.1s ease;
+  /* 🎯 TRANSITION CONSOLIDADA ARRIBA */
   will-change: transform, opacity;
 }
 
@@ -674,10 +674,7 @@ body,
     /* Reflejo metálico */ inset 1px 1px 5px rgba(255, 255, 255, 0.1),
     inset -1px -1px 5px rgba(0, 0, 0, 0.15);
 
-  /* 🎬 ANIMACIÓN CINEMATOGRÁFICA COMPLEJA - INTENSIFICADA */
-  animation: metallic-rotate 8s linear infinite,
-    reflective-pulse 3s ease-in-out infinite alternate,
-    shimmer-effect 5s linear infinite;
+  /* 🎬 ANIMACIÓN CONSOLIDADA ARRIBA */
 }
 
 /* 🔬 PSEUDO-ELEMENTO PARA TEXTURA METÁLICA ADICIONAL */
@@ -711,7 +708,7 @@ body,
   box-shadow: 0 0 35px rgba(138, 138, 138, 0.25),
     inset 0 0 15px rgba(0, 0, 0, 0.35), 0 0 20px rgba(187, 187, 187, 0.15);
 
-  animation: metallic-rotate 8s linear infinite reverse;
+  /* 🎬 ANIMACIÓN CONSOLIDADA ARRIBA */
 }
 
 /* 🌟 PSEUDO-ELEMENTO PARA EFECTOS DE LUZ ADICIONALES */
@@ -720,8 +717,8 @@ body,
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 105%; /* 🎯 MÁS REDUCIDO: de 110% a 105% */
-  height: 105%; /* 🎯 MÁS REDUCIDO: de 110% a 105% */
+  width: 105%;
+  height: 105%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   z-index: -2;
@@ -734,19 +731,19 @@ body,
     /* 🎯 Reducido de 0.1 a 0.04 */ transparent 70%
   );
 
-  animation: reflective-pulse 6s ease-in-out infinite;
+  /* 🎬 ANIMACIÓN CONSOLIDADA ARRIBA */
 }
 
 /* 🔥 ANILLO DE PULSO OPTIMIZADO */
 .pulse-ring {
-  width: 65%; /* 🎯 MÁS REDUCIDO: de 75% a 65% */
-  height: 65%; /* 🎯 MÁS REDUCIDO: de 75% a 65% */
-  border: 2px solid var(--color-orange-primary); /* 🎨 Borde */
+  width: 65%;
+  height: 65%;
+  border: 2px solid var(--color-orange-primary);
   border-radius: 50%;
-  background: transparent; /* 🔍 Interior completamente transparente */
+  background: transparent;
   position: absolute;
-  top: 17.5%; /* 🎯 RECENTRADO: de 12.5% a 17.5% */
-  left: 17.5%; /* 🎯 RECENTRADO: de 12.5% a 17.5% */
+  top: 17.5%;
+  left: 17.5%;
   /* 🎯 POINTER-EVENTS CONSOLIDADO ARRIBA */
   z-index: 7; /* 🎯 Z-index mayor para estar encima del glow-ring */
   opacity: 0.8; /* 🎨 Opacidad optimizada */
@@ -909,7 +906,18 @@ body,
   animation: wave-expansion 8s ease-out infinite;
 }
 
-/* 🌈 ANIMACIONES */
+/* � CONSOLIDACIÓN DE TRANSICIONES - EFECTOS DE OPACIDAD */
+#interactive-container::before,
+#interactive-container::after {
+  transition: opacity 0.8s ease-out 0.2s, visibility 0.8s ease-out 0.2s;
+}
+
+.rebecca-container .cursor-cross,
+.rebecca-container.custom-cursor::after {
+  transition: opacity 0.1s ease;
+}
+
+/* �🌈 ANIMACIONES */
 
 /* 🎯 CONSOLIDACIÓN DE POINTER-EVENTS - TODOS LOS EFECTOS VISUALES */
 .glow-ring,
@@ -921,6 +929,21 @@ body,
 .wave-effect,
 .cursor-tooltip {
   pointer-events: none; /* 🎯 CONSOLIDADO: Todos los efectos visuales no deben bloquear clicks */
+}
+
+/* 🎯 CONSOLIDACIÓN DE ANIMACIONES METÁLICAS */
+.glow-ring {
+  animation: metallic-rotate 8s linear infinite,
+    reflective-pulse 3s ease-in-out infinite alternate,
+    shimmer-effect 5s linear infinite;
+}
+
+.glow-ring::before {
+  animation: metallic-rotate 8s linear infinite reverse;
+}
+
+.glow-ring::after {
+  animation: reflective-pulse 6s ease-in-out infinite;
 }
 
 /* 🚀 ANIMACIONES FUTURISTAS PARA TÍTULO DE ALTA TECNOLOGÍA */
