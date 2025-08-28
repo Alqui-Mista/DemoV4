@@ -710,7 +710,6 @@ const Rebecca = memo(() => {
   return (
     <>
       <div ref={containerRef} className="rebecca-container">
-        <div id="message-box"></div>
         <div className="main-content-wrapper">
           <div
             id="interactive-container"

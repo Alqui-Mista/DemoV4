@@ -209,11 +209,7 @@ body,
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Cursor personalizado específico para la página Rebecca */
-.rebecca-container > div,
-.rebecca-container > section {
-  box-sizing: border-box;
-}
+/* ✅ DUPLICADO ELIMINADO - .rebecca-container > section ya definido arriba */
 
 /* 🎯 CURSOR CAD PERSONALIZADO - APLICADO A ELEMENTOS ESPECÍFICOS DE REBECCA */
 .rebecca-container .main-content,
@@ -263,10 +259,10 @@ body,
   -webkit-text-fill-color: transparent;
 
   /* 🎯 POSICIONAMIENTO OPTIMIZADO DEL TÍTULO */
-  position: absolute !important;
-  top: 35px !important; /* 🎯 POSICIONADO: Alineado al visualizador interactivo */
-  left: 50% !important;
-  transform: translateX(-50%) !important;
+  position: absolute; /* 🎯 REMOVIDO !important innecesario */
+  top: 35px; /* 🎯 REMOVIDO !important innecesario */
+  left: 50%; /* 🎯 REMOVIDO !important innecesario */
+  transform: translateX(-50%); /* 🎯 REMOVIDO !important innecesario */
   z-index: 25; /* 🔥 Z-index elevado para estar sobre todos los efectos del botón */
 
   /* 📐 DISEÑO Y TIPOGRAFÍA */
@@ -621,7 +617,7 @@ body,
   position: absolute;
   top: 12.5%; /* 🎯 RECENTRADO: (100% - 75%) / 2 = 12.5% */
   left: 12.5%; /* 🎯 RECENTRADO: (100% - 75%) / 2 = 12.5% */
-  pointer-events: none;
+  /* 🎯 POINTER-EVENTS CONSOLIDADO ARRIBA */
   z-index: 6;
   opacity: 0.55; /* 🔥 OPACIDAD AUMENTADA: De 0.35 a 0.55 para mayor visibilidad de efectos */
 
@@ -751,7 +747,7 @@ body,
   position: absolute;
   top: 17.5%; /* 🎯 RECENTRADO: de 12.5% a 17.5% */
   left: 17.5%; /* 🎯 RECENTRADO: de 12.5% a 17.5% */
-  pointer-events: none;
+  /* 🎯 POINTER-EVENTS CONSOLIDADO ARRIBA */
   z-index: 7; /* 🎯 Z-index mayor para estar encima del glow-ring */
   opacity: 0.8; /* 🎨 Opacidad optimizada */
 
@@ -775,7 +771,7 @@ body,
   position: absolute;
   top: -2.5%; /* 🎯 MÁS AJUSTADO: de -5% a -2.5% */
   left: -2.5%; /* 🎯 MÁS AJUSTADO: de -5% a -2.5% */
-  pointer-events: none;
+  /* 🎯 POINTER-EVENTS CONSOLIDADO ARRIBA */
   z-index: 4;
   opacity: 0.7;
 
@@ -799,7 +795,7 @@ body,
   position: absolute;
   top: 5%;
   left: 5%;
-  pointer-events: none;
+  /* 🎯 POINTER-EVENTS CONSOLIDADO ARRIBA */
   z-index: 8;
   opacity: 0.6;
 
@@ -818,7 +814,7 @@ body,
   position: absolute;
   top: -7.5%; /* 🎯 MÁS AJUSTADO: de -15% a -7.5% */
   left: -7.5%; /* 🎯 MÁS AJUSTADO: de -15% a -7.5% */
-  pointer-events: none;
+  /* 🎯 POINTER-EVENTS CONSOLIDADO ARRIBA */
   z-index: 3;
   opacity: 0.4;
   border-radius: 50%;
@@ -879,7 +875,7 @@ body,
   position: absolute;
   top: -20%; /* 🎯 MÁS AJUSTADO: de -35% a -20% */
   left: -20%; /* 🎯 MÁS AJUSTADO: de -35% a -20% */
-  pointer-events: none;
+  /* 🎯 POINTER-EVENTS CONSOLIDADO ARRIBA */
   z-index: 2;
   opacity: 0.15;
   border-radius: 50%;
@@ -903,7 +899,7 @@ body,
   position: absolute;
   top: -50%; /* 🎯 MÁS AJUSTADO: de -75% a -50% */
   left: -50%; /* 🎯 MÁS AJUSTADO: de -75% a -50% */
-  pointer-events: none;
+  /* 🎯 POINTER-EVENTS CONSOLIDADO ARRIBA */
   z-index: 1;
   opacity: 0;
   border-radius: 50%;
@@ -914,6 +910,18 @@ body,
 }
 
 /* 🌈 ANIMACIONES */
+
+/* 🎯 CONSOLIDACIÓN DE POINTER-EVENTS - TODOS LOS EFECTOS VISUALES */
+.glow-ring,
+.pulse-ring,
+.rotating-ring-outer,
+.rotating-ring-inner,
+.particle-ring,
+.energy-pulse,
+.wave-effect,
+.cursor-tooltip {
+  pointer-events: none; /* 🎯 CONSOLIDADO: Todos los efectos visuales no deben bloquear clicks */
+}
 
 /* 🚀 ANIMACIONES FUTURISTAS PARA TÍTULO DE ALTA TECNOLOGÍA */
 
@@ -1080,87 +1088,7 @@ body,
 
 /* --- FIN OPTIMIZACIÓN --- */
 
-#message-box {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--color-black-alpha-70);
-  color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-size: 1rem;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-  z-index: 1001;
-  font-family: "Oxanium", "Arial", sans-serif;
-}
-
-/* �💬 TOOLTIP DEL BOTÓN INTERACTIVO - EFECTO DIGITAL TECNOLÓGICO */
-.button-tooltip {
-  position: fixed;
-  background: var(--gradient-dark-blue-light);
-  color: var(--color-orange-primary);
-  padding: 10px 15px;
-  border-radius: 8px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  white-space: nowrap;
-  pointer-events: none;
-  z-index: 50;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  font-family: "Courier New", "Oxanium", monospace;
-  backdrop-filter: blur(12px);
-  border: 2px solid transparent;
-  background-clip: padding-box;
-  position: relative;
-  overflow: hidden;
-
-  /* 🎯 BORDE NEÓN ANIMADO */
-  box-shadow: 0 0 20px var(--color-orange-alpha-40),
-    0 0 40px var(--color-orange-alpha-20),
-    inset 0 0 20px var(--color-orange-alpha-10);
-
-  /* 🎯 ANIMACIÓN DE GLITCH */
-  animation: digitalGlitch 0.1s linear infinite alternate;
-}
-
-/* 🔥 BORDE NEÓN ANIMADO */
-.button-tooltip::before {
-  content: "";
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: var(
-    --gradient-tooltip-border
-  ) !important; /* Gradiente específico */
-  background-size: 200% 200%;
-  border-radius: 8px;
-  z-index: -1;
-  animation: borderFlow 2s linear infinite;
-}
-
-/* 🎯 EFECTO DE LÍNEAS DE CÓDIGO EN FONDO */
-.button-tooltip::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: repeating-linear-gradient(
-    90deg,
-    transparent,
-    transparent 2px,
-    var(--color-orange-alpha-05) 2px,
-    var(--color-orange-alpha-05) 4px
-  );
-  pointer-events: none;
-  z-index: -1;
-}
+/* ✅ CÓDIGO OPTIMIZADO - MESSAGE-BOX Y TOOLTIP BÁSICO ELIMINADOS (NO UTILIZADOS) */
 
 /* 🌀 ANIMACIONES DIGITALES */
 @keyframes digitalGlitch {
@@ -1502,12 +1430,12 @@ body,
 
 .ai-holo-text {
   font-family: "Orbitron", "Oxanium", sans-serif;
-  font-size: 12px !important; /* Reduced Size */
-  font-weight: 600 !important;
-  letter-spacing: 2px !important;
+  font-size: 12px; /* 🎯 REMOVIDO !important innecesario */
+  font-weight: 600; /* 🎯 REMOVIDO !important innecesario */
+  letter-spacing: 2px; /* 🎯 REMOVIDO !important innecesario */
   text-transform: uppercase;
   position: relative;
-  color: #fff !important;
+  color: #fff; /* 🎯 REMOVIDO !important innecesario */
   /* More prominent orange glow */
   text-shadow: 0 0 4px #fff, 0 0 8px var(--color-orange-primary),
     0 0 12px var(--color-orange-primary), 0 0 18px var(--color-orange-primary),
@@ -1541,14 +1469,7 @@ body,
   animation-delay: 0.3s !important;
 }
 
-/* Holographic layer 2 (subtle gray/cyan glitch) */
-.ai-holo-text::after {
-  color: rgba(200, 230, 255, 0.3) !important;
-  text-shadow: none !important;
-  filter: blur(2px);
-  animation: holographic-flicker 5s linear infinite alternate-reverse !important;
-  animation-delay: 0.6s !important;
-}
+/* ✅ DUPLICADO ELIMINADO - .ai-holo-text::after ya definido arriba */
 
 @keyframes text-glow-subtle {
   from {
@@ -2297,7 +2218,7 @@ body,
 .ai-matrix-button .depth-scanner {
   pointer-events: none !important;
   position: relative;
-  z-index: 1999999;
+  z-index: 5; /* 🎯 REDUCIDO: de 1999999 a 5 (valor razonable) */
 }
 
 /* 🎯 FORZAR INTERACCIÓN COMPLETA DEL BOTÓN */
@@ -3773,7 +3694,7 @@ body,
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10000;
+  z-index: 100; /* 🎯 REDUCIDO: de 10000 a 100 */
   animation: fadeIn 0.3s ease-out;
 }
 
@@ -3812,7 +3733,7 @@ body,
   font-size: 24px;
   font-weight: bold;
   cursor: pointer;
-  z-index: 10001;
+  z-index: 101; /* 🎯 REDUCIDO: de 10001 a 101 */
   display: flex;
   align-items: center;
   justify-content: center;
