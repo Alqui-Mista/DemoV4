@@ -2,8 +2,6 @@
 
 /* ✅ Importar fuente Oxanium */
 @import url("https://fonts.googleapis.com/css2?family=Oxanium:wght@700&display=swap");
-/* 🎯 Importar sistema responsive avanzado */
-@import "../styles/responsive.css";
 
 /* 🎯 CURSOR PERSONALIZADO - MANTENER CONSISTENCIA CON REBECCA */
 .homepage-container,
