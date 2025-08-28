@@ -187,10 +187,11 @@ body,
 .rebecca-container {
   position: relative;
   width: 100%;
-  min-height: 100vh; /* 🎯 CORREGIDO: Solo lo necesario, no 300vh */
-  height: auto; /* 🎯 AGREGADO: Permitir altura automática basada en contenido */
+  min-height: 100vh;
+  /* 🔧 OPTIMIZADO: Usar height específica para evitar bloqueos de scroll */
+  height: fit-content;
   overflow-x: hidden; /* Solo ocultar scroll horizontal */
-  overflow-y: auto; /* Permitir scroll vertical */
+  /* 🔧 REMOVIDO: overflow-y auto que causaba doble scroll */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
   color: var(--color-white);
@@ -579,7 +580,7 @@ body,
 /* 🎯 CURSOR CAD - CUADRADO CENTRAL DE MIRA */
 .rebecca-container::after {
   content: "";
-  position: absolute;
+  position: fixed; /* 🔧 CORREGIDO: Cambiar de absolute a fixed */
   width: 4px;
   height: 4px;
   left: var(--cursor-x);
@@ -1787,7 +1788,7 @@ body,
 }
 
 /* ============================================================================
-   8️⃣ BOTÓN CTA SIMPLIFICADO - WHATSAPP
+   8️⃣ BOTÓN CTA Y TEXTO WHATSAPP - SISTEMA COMPLETO
    ============================================================================ */
 
 /* 🔥 CONTENEDOR DEL BOTÓN CTA */
@@ -1848,10 +1849,6 @@ body,
   transition: all 0.3s ease;
 }
 
-/* ============================================================================
-   9️⃣ TEXTO "WHATSAPP" SIMPLIFICADO
-   ============================================================================ */
-
 /* 📝 OVERLAY DEL TEXTO DEL BOTÓN */
 .cta-button-text-overlay {
   position: absolute;
@@ -1877,10 +1874,7 @@ body,
   position: relative;
   z-index: 3;
 
-  /* Efecto de resplandor sutil */
-  text-shadow: 0 0 8px var(--color-orange-primary);
-
-  /* Estado inicial optimizado */
+  /* Estado inicial - oculto por defecto */
   opacity: 0;
   width: 0;
   overflow: hidden;
@@ -1888,32 +1882,15 @@ body,
   transition: opacity 0.2s ease, width 0.2s ease;
 }
 
-/* ============================================================================
-   🔟 ESTADOS DEL TEXTO SIMPLIFICADOS
-   ============================================================================ */
-
-/* 📝 ESTADO VISIBLE DEL TEXTO - OPTIMIZADO PARA PERFORMANCE */
+/* 🎯 ESTADOS DE VISIBILIDAD DEL TEXTO WHATSAPP */
 .cta-button-text-overlay.text-visible .cta-button-text-display {
   opacity: 1;
-  width: 100%;
-  animation: optimized-text-reveal 0.8s ease-out forwards;
+  width: auto;
 }
 
 .cta-button-text-overlay.text-hidden .cta-button-text-display {
-  width: 0;
   opacity: 0;
-}
-
-/* 🌟 ANIMACIÓN OPTIMIZADA - SIN STEPS() COSTOSOS */
-@keyframes optimized-text-reveal {
-  0% {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  width: 0;
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -1931,7 +1908,7 @@ body,
 ║ ✅ TÍTULOS: Efecto magnético con scale + glow + transform                   ║
 ║ ✅ SUBTÍTULOS: Pulse magnético + glow suave después de typewriter           ║
 ║ ✅ BOTÓN: Transform + shadow + escala al hover                              ║
-║ ✅ TEXTO WHATSAPP: Text-shadow naranja intensificado                        ║
+║ ✅ TEXTO WHATSAPP: Visibilidad controlada + intensified glow en hover       ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 */
 
@@ -1976,24 +1953,23 @@ body,
 }
 
 /* 🎯 4. EFECTOS DE HOVER PARA BOTÓN WHATSAPP */
-.cta-button-wrapper:hover,
 .cta-button-wrapper.hover-active {
   opacity: 1;
   transform: translateY(-2px) scale(1.02);
   transition: all 0.3s ease;
 }
 
-.cta-button-wrapper:hover .cta-button-image,
 .cta-button-wrapper.hover-active .cta-button-image {
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
 /* 🎯 5. EFECTOS DE HOVER PARA TEXTO "WHATSAPP" */
-.cta-button-wrapper:hover .cta-button-text-display,
 .cta-button-wrapper.hover-active .cta-button-text-display {
-  text-shadow: 0 0 8px var(--color-orange-primary);
+  text-shadow: 0 0 6px rgba(255, 140, 0, 0.4),
+    0 0 12px var(--color-orange-primary), 0 0 20px rgba(255, 140, 0, 0.6);
   color: var(--color-orange-primary);
   transform: scale(1.02);
+  filter: brightness(1.1);
 }
 
 /* 🎯 6. ESTADO ACTIVE (CLICK) DEL BOTÓN */

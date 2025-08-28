@@ -389,6 +389,9 @@ const Rebecca = memo(() => {
           container.classList.remove("custom-cursor");
           cursorCross.classList.remove("visible");
           cursorCross.style.display = "none";
+          // 🔧 ASEGURAR QUE EL CUADRADO TAMBIÉN SE OCULTE
+          container.style.setProperty("--cursor-x", "-100px");
+          container.style.setProperty("--cursor-y", "-100px");
           break;
         case "footer":
         case "default":

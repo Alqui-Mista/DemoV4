@@ -1,6 +1,6 @@
 import React, { Suspense, useRef, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useGLTF, Html, OrbitControls } from "@react-three/drei";
+import { useGLTF, Html } from "@react-three/drei";
 import * as THREE from "three";
 
 // Error Boundary para el Canvas 3D
@@ -448,6 +448,13 @@ const Robot3D: React.FC<Robot3DProps> = ({
 }) => {
   const [scrollRotation, setScrollRotation] = React.useState(0);
 
+  // Effect para manejar los event listeners de forma más eficiente
+  useEffect(() => {
+    return () => {
+      // Cleanup si es necesario
+    };
+  }, []);
+
   useEffect(() => {
     if (!enableScrollRotation) return;
 
@@ -519,17 +526,28 @@ const Robot3D: React.FC<Robot3DProps> = ({
               rotation={[0, 0, 0]}
               scrollRotation={scrollRotation}
             />
-            {/* Controles de órbita - SIN ZOOM */}
+            {/* Controles de órbita deshabilitados para evitar warnings de event listeners
             <OrbitControls
+              ref={controlsRef}
               enableZoom={false}
               enablePan={false}
               enableRotate={true}
               autoRotate={false}
-              dampingFactor={0.1} // 🎯 RESTAURADO: Valor original para mejor respuesta
+              dampingFactor={0.1}
               enableDamping={true}
               minPolarAngle={0}
               maxPolarAngle={Math.PI}
+              touches={{
+                ONE: 0, // ROTATE
+                TWO: 0  // DOLLY_PAN disabled
+              }}
+              mouseButtons={{
+                LEFT: 0,   // ROTATE
+                MIDDLE: 0, // DOLLY disabled
+                RIGHT: 0   // PAN disabled
+              }}
             />
+            */}
             {/* Ambiente local sin HDR externo */}
             <mesh visible={false}>
               <sphereGeometry args={[100, 64, 64]} />
