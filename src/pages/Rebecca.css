@@ -2006,8 +2006,9 @@ body,
    1️⃣ BASE FOOTER STYLES & LAYOUT CONFIGURATION
    2️⃣ BOTÓN AI MATRIX (VOLVER AL INICIO) - Cronológico completo
    3️⃣ BOTÓN NEWSLETTER (FORMULARIO) - Cronológico completo  
-   4️⃣ BOTÓN MODERN ARROW (CRÉDITOS) - Cronológico completo
-   5️⃣ FOOTER CREDITS & FINAL ADJUSTMENTS
+   4️⃣ BOTÓN DE CRÉDITOS (SIMPLE) - Sección de footer
+   5️⃣ BOTÓN MODERN ARROW (NEWSLETTER) - Cronológico completo
+   6️⃣ FOOTER CREDITS & FINAL ADJUSTMENTS
    ============================================================================ */
 
 /* 🎯 SECCIÓN DE CRÉDITOS DEL FOOTER */
@@ -2266,47 +2267,6 @@ body,
   min-width: 60px;
   /* 🎯 TIPOGRAFÍA CORRECTA: OXANIUM COMO EL RESTO DEL FOOTER */
   font-family: "Oxanium", sans-serif;
-}
-
-.newsletter-button:hover {
-  background: #ffffff;
-  transform: scale(1.05);
-}
-
-.newsletter-form {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 40px;
-}
-
-.newsletter-input {
-  flex: 1;
-  padding: 16px 24px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50px;
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(0, 0, 0, 0.8);
-  font-size: 1.1rem;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-}
-
-.newsletter-input:focus {
-  outline: none;
-  border-color: rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.newsletter-button {
-  background: rgba(255, 255, 255, 0.9);
-  color: #8b5cf6;
-  border: none;
-  padding: 16px 24px;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 600;
-  min-width: 60px;
 }
 
 .newsletter-button:hover {
@@ -4032,69 +3992,8 @@ body,
   font-size: 14px;
 }
 
-/* 📱 RESPONSIVE DESIGN */
-@media (max-width: 768px) {
-  .credits-modal-container {
-    width: 95vw;
-    height: 85vh;
-  }
-
-  .credits-tech-frame {
-    background-size: cover;
-  }
-
-  .credits-screen-content {
-    width: 85%;
-    height: 75%;
-  }
-
-  .credits-title h2 {
-    font-size: 20px;
-  }
-
-  .credit-item h3 {
-    font-size: 16px;
-  }
-
-  .credit-item p {
-    font-size: 14px;
-  }
-
-  .credits-close-button {
-    top: -15px;
-    right: -15px;
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .credits-modal-container {
-    width: 98vw;
-    height: 90vh;
-  }
-
-  .credits-screen-content {
-    width: 90%;
-    height: 80%;
-  }
-
-  .credits-title h2 {
-    font-size: 18px;
-  }
-
-  .credit-item h3 {
-    font-size: 14px;
-  }
-
-  .credit-item p {
-    font-size: 12px;
-  }
-}
-
 /* ============================================================================
-   4️⃣ BOTÓN MODERN ARROW (NEWSLETTER) - CRONOLÓGICO COMPLETO
+   5️⃣ BOTÓN MODERN ARROW (NEWSLETTER) - CRONOLÓGICO COMPLETO
    ============================================================================ */
 
 /* 🎯 BOTÓN NEGRO CON CONTORNO CALADO PREMIUM */
@@ -4518,9 +4417,5 @@ body,
 
 /* Transiciones suaves para todos los elementos */
 .modern-arrow-button * {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.modern-arrow-button {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
