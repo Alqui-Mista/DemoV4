@@ -52,10 +52,11 @@ export const useFaviconAnimation = (config: FaviconAnimationConfig = {}) => {
 
     // 🎯 VARIABLES DE CONTROL DE RENDIMIENTO
     let lastRenderTime = 0;
-    const TARGET_FPS = 30; // 🎯 LIMITADO: 30fps en lugar de 60fps para mejor performance
-    const frameInterval = 1000 / TARGET_FPS; // ~33ms entre frames
+    const TARGET_FPS = 15; // 🔧 REDUCIDO: 15fps para mejor performance
+    const frameInterval = 1000 / TARGET_FPS; // ~66ms entre frames
     let startTime: number | null = null;
     let isImageLoaded = false;
+    let lastDataURL = ""; // 🔧 CACHE: Evitar comparaciones costosas
 
     // 🎯 FUNCIÓN DE RENDERIZADO OPTIMIZADA
     const renderFavicon = (timestamp: number) => {
@@ -64,7 +65,7 @@ export const useFaviconAnimation = (config: FaviconAnimationConfig = {}) => {
         return;
       }
 
-      // 🎯 THROTTLING: Solo renderizar cada frameInterval
+      // 🎯 THROTTLING ESTRICTO: Mayor intervalo entre frames
       if (timestamp - lastRenderTime < frameInterval) {
         globalAnimationId = requestAnimationFrame(renderFavicon);
         return;
@@ -87,30 +88,43 @@ export const useFaviconAnimation = (config: FaviconAnimationConfig = {}) => {
       const currentAngle = rotationProgress * Math.PI * 2;
 
       try {
-        // 🎯 RENDERIZAR FAVICON ANIMADO
-        ctx.clearRect(0, 0, faviconSize, faviconSize);
-        ctx.save();
-        ctx.translate(faviconSize / 2, faviconSize / 2);
+        // 🔧 OPTIMIZACIÓN: Usar requestIdleCallback si está disponible
+        const renderOperation = () => {
+          // 🎯 RENDERIZAR FAVICON ANIMADO
+          ctx.clearRect(0, 0, faviconSize, faviconSize);
+          ctx.save();
+          ctx.translate(faviconSize / 2, faviconSize / 2);
 
-        // 🎯 GIRO 3D SOBRE EJE Y
-        const scaleX = Math.cos(currentAngle);
-        ctx.scale(scaleX, 1);
+          // 🎯 GIRO 3D SOBRE EJE Y
+          const scaleX = Math.cos(currentAngle);
+          ctx.scale(scaleX, 1);
 
-        // 🎯 DIBUJAR IMAGEN
-        ctx.drawImage(
-          faviconImg,
-          -faviconSize / 2,
-          -faviconSize / 2,
-          faviconSize,
-          faviconSize
-        );
+          // 🎯 DIBUJAR IMAGEN
+          ctx.drawImage(
+            faviconImg,
+            -faviconSize / 2,
+            -faviconSize / 2,
+            faviconSize,
+            faviconSize
+          );
 
-        ctx.restore();
+          ctx.restore();
 
-        // 🎯 ACTUALIZAR FAVICON (solo si cambió)
-        const newDataURL = faviconCanvas.toDataURL("image/png");
-        if (favicon.href !== newDataURL) {
-          favicon.href = newDataURL;
+          // 🔧 OPTIMIZACIÓN: Solo actualizar cada 3 frames para reducir overhead
+          if (Math.floor(elapsedTime / frameInterval) % 3 === 0) {
+            const newDataURL = faviconCanvas.toDataURL("image/png");
+            if (favicon.href !== newDataURL && lastDataURL !== newDataURL) {
+              favicon.href = newDataURL;
+              lastDataURL = newDataURL;
+            }
+          }
+        };
+
+        // 🔧 USAR requestIdleCallback si está disponible, sino ejecutar inmediatamente
+        if ("requestIdleCallback" in window) {
+          requestIdleCallback(renderOperation, { timeout: frameInterval });
+        } else {
+          renderOperation();
         }
       } catch (error) {
         console.error("🎯 Error al renderizar favicon:", error);
@@ -122,13 +136,30 @@ export const useFaviconAnimation = (config: FaviconAnimationConfig = {}) => {
       }
     };
 
-    // 🎯 MANEJO DE VISIBILIDAD DE PÁGINA
+    // 🎯 MANEJO DE VISIBILIDAD Y PAUSA DE PÁGINA
     const handleVisibilityChange = () => {
       if (document.hidden && globalAnimationId) {
         cancelAnimationFrame(globalAnimationId);
         globalAnimationId = null;
+        console.log("🎯 Favicon animation pausada (pestaña oculta)");
       } else if (!document.hidden && isActiveRef.current && globalIsActive) {
+        console.log("🎯 Favicon animation reanudada (pestaña visible)");
         globalAnimationId = requestAnimationFrame(renderFavicon);
+      }
+    };
+
+    // 🔧 NUEVA: Pausar animación durante interacciones importantes
+    const handleUserInteraction = () => {
+      if (globalAnimationId) {
+        cancelAnimationFrame(globalAnimationId);
+        globalAnimationId = null;
+
+        // Reanudar después de un breve delay
+        setTimeout(() => {
+          if (isActiveRef.current && globalIsActive && !document.hidden) {
+            globalAnimationId = requestAnimationFrame(renderFavicon);
+          }
+        }, 100);
       }
     };
 
@@ -137,8 +168,13 @@ export const useFaviconAnimation = (config: FaviconAnimationConfig = {}) => {
       isImageLoaded = true;
       console.log("🎯 Favicon image loaded, iniciando animación");
 
-      // 🎯 AGREGAR LISTENER DE VISIBILIDAD
+      // 🎯 AGREGAR LISTENERS DE VISIBILIDAD Y INTERACCIÓN
       document.addEventListener("visibilitychange", handleVisibilityChange, {
+        passive: true,
+      });
+
+      // 🔧 PAUSAR DURANTE CLICKS IMPORTANTES
+      document.addEventListener("click", handleUserInteraction, {
         passive: true,
       });
 
@@ -166,6 +202,7 @@ export const useFaviconAnimation = (config: FaviconAnimationConfig = {}) => {
       }
 
       document.removeEventListener("visibilitychange", handleVisibilityChange);
+      document.removeEventListener("click", handleUserInteraction);
     };
   }, [faviconSize, rotationAnimationDuration]);
 

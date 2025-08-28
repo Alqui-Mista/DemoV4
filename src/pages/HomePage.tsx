@@ -1,5 +1,7 @@
-import { useTitleAnimation } from "../hooks/useTitleAnimation";
-import { useFaviconAnimation } from "../hooks/useFaviconAnimation";
+// 🔧 TEMPORAL: Import comentado para testing
+// import { useTitleAnimation } from "../hooks/useTitleAnimation";
+// 🔧 TEMPORAL: Import comentado para testing
+// import { useFaviconAnimation } from "../hooks/useFaviconAnimation";
 // Archivo: src/pages/HomePage.tsx (Versión Final y Definitiva)
 
 import {
@@ -820,8 +822,10 @@ const HomePage: FC<HomePageProps> = ({
   const setupScrollTriggerRef = useRef<(() => void) | null>(null);
 
   // ...existing code...
-  useFaviconAnimation();
-  useTitleAnimation();
+  // 🔧 TEMPORAL: Favicon desactivado para testing
+  // useFaviconAnimation();
+  // 🔧 TEMPORAL: Título animado desactivado para testing
+  // useTitleAnimation();
 
   // ✅ COORDINACIÓN MEJORADA: Sincronizar Canvas ready con ScrollTrigger setup
   useEffect(() => {

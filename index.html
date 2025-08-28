@@ -1,127 +1,190 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link id="favicon" rel="icon" href="/favicon.ico" />
+    <!-- 🔧 TEMPORAL: Favicon removido para testing -->
+    <!-- <link id="favicon" rel="icon" href="/favicon.ico" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <!-- SEO Meta Tags -->
-    <title>InteliMark - IA Entrenada para la Precision</title>
-    <meta name="description" content="InteliMark es una inteligencia artificial avanzada entrenada para la precision. Descubre el futuro de la tecnologia con Rebecca, nuestra IA especializada." />
-    <meta name="keywords" content="inteligencia artificial, IA, precision, tecnologia, Rebecca, InteliMark, robot, automatizacion" />
+    <!-- 🔧 TEMPORAL: Título simplificado para testing -->
+    <title>TEST - Sin Animaciones</title>
+    <meta
+      name="description"
+      content="InteliMark es una inteligencia artificial avanzada entrenada para la precision. Descubre el futuro de la tecnologia con Rebecca, nuestra IA especializada."
+    />
+    <meta
+      name="keywords"
+      content="inteligencia artificial, IA, precision, tecnologia, Rebecca, InteliMark, robot, automatizacion"
+    />
     <meta name="author" content="InteliMark" />
     <meta name="robots" content="index, follow" />
-    
+
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="InteliMark - IA Entrenada para la Precision" />
-    <meta property="og:description" content="Descubre el futuro de la tecnologia con Rebecca, nuestra IA especializada en precision." />
+    <meta
+      property="og:title"
+      content="InteliMark - IA Entrenada para la Precision"
+    />
+    <meta
+      property="og:description"
+      content="Descubre el futuro de la tecnologia con Rebecca, nuestra IA especializada en precision."
+    />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://tudominio.com/" />
     <meta property="og:image" content="https://tudominio.com/og-image.jpg" />
     <meta property="og:locale" content="es_ES" />
-    
+
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="InteliMark - IA Entrenada para la Precision" />
-    <meta name="twitter:description" content="Descubre el futuro de la tecnologia con Rebecca, nuestra IA especializada en precision." />
-    <meta name="twitter:image" content="https://tudominio.com/twitter-image.jpg" />
-    
+    <meta
+      name="twitter:title"
+      content="InteliMark - IA Entrenada para la Precision"
+    />
+    <meta
+      name="twitter:description"
+      content="Descubre el futuro de la tecnologia con Rebecca, nuestra IA especializada en precision."
+    />
+    <meta
+      name="twitter:image"
+      content="https://tudominio.com/twitter-image.jpg"
+    />
+
     <!-- Canonical URL -->
     <link rel="canonical" href="https://tudominio.com/" />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    
+
     <script>
-// Esperamos a que el DOM esté completamente cargado y React haya renderizado
-function initBoletinFunctionality() {
-  // Conectamos el script a los elementos del footer usando sus IDs
-  const emailInput = document.getElementById('boletinEmailInput');
-  const submitButton = document.getElementById('boletinSubmitButton');
-  const formMessage = document.getElementById('boletinMensaje');
+      // Esperamos a que el DOM esté completamente cargado y React haya renderizado
+      function initBoletinFunctionality() {
+        // 🔧 VERIFICACIÓN MEJORADA: Solo proceder si el footer realmente existe Y está visible
+        const footer = document.querySelector("footer");
 
-  // Si los elementos no están disponibles aún, reintentamos después
-  if (!emailInput || !submitButton || !formMessage) {
-    setTimeout(initBoletinFunctionality, 500);
-    return;
-  }
-
-  // La URL del script de Google
-  const googleScriptURL = 'https://script.google.com/macros/s/AKfycbwxEGdjC28M49Fy1q4uaxMSfRo35jMvRBNI3R0XqDCfIREcyZWKQ9nbDPqOQy44xnHOIQ/exec';
-
-  // Lógica de envío y validación
-  submitButton.addEventListener('click', (e) => {
-      e.preventDefault(); // Previene la recarga de la página
-
-      if (!emailInput.value.trim() || !emailInput.value.includes('@')) {
-          formMessage.textContent = "Por favor, ingresa un correo válido.";
-          formMessage.style.color = '#ffcc00'; // Color de advertencia
+        if (!footer) {
+          // Footer no existe aún, reintentar en 2 segundos
+          setTimeout(initBoletinFunctionality, 2000);
           return;
+        }
+
+        // 🔧 NUEVA VERIFICACIÓN: Usar IntersectionObserver para verificar visibilidad real
+        const observer = new IntersectionObserver(
+          (entries) => {
+            const footerEntry = entries[0];
+            if (footerEntry.isIntersecting) {
+              // Footer está visible, proceder con inicialización
+              observer.disconnect(); // Desconectar observer
+              initActualBoletinFunctionality();
+            }
+          },
+          {
+            threshold: 0.1, // Footer debe ser al menos 10% visible
+          }
+        );
+
+        observer.observe(footer);
+
+        // También verificar si el footer ya está visible desde el inicio
+        const rect = footer.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+
+        if (isVisible) {
+          observer.disconnect();
+          initActualBoletinFunctionality();
+        }
       }
 
-      formMessage.textContent = "Registrando tu correo...";
-      formMessage.style.color = 'white';
-      submitButton.disabled = true;
-      emailInput.disabled = true;
+      function initActualBoletinFunctionality() {
+        // Conectamos el script a los elementos del footer usando sus IDs
+        const emailInput = document.getElementById("boletinEmailInput");
+        const submitButton = document.getElementById("boletinSubmitButton");
+        const formMessage = document.getElementById("boletinMensaje");
 
-      // SOLUCIÓN CORS: Usar GET con parámetros en lugar de POST
-      const params = new URLSearchParams({
-          email: emailInput.value
-      });
-      
-      const getURL = `${googleScriptURL}?${params.toString()}`;
+        // Si los elementos no están disponibles aún, reintentamos después
+        if (!emailInput || !submitButton || !formMessage) {
+          setTimeout(initActualBoletinFunctionality, 1000);
+          return;
+        }
 
-      // MÉTODO 1: Intentar con fetch GET
-      fetch(getURL, {
-          method: 'GET',
-          mode: 'no-cors', // Evita problemas de CORS
-          cache: 'no-cache'
-      })
-      .then(() => {
-          // Con no-cors no podemos leer la respuesta, asumimos éxito
-          formMessage.textContent = '✅ ¡Gracias! Te mantendremos informado.';
-          formMessage.style.color = '#7CFC00'; // Color de éxito
-          emailInput.value = ''; 
-          
-          // Reactivar campos después de un delay
-          setTimeout(() => {
-              submitButton.disabled = false;
-              emailInput.disabled = false;
-          }, 2000);
-      })
-      .catch(error => {
-          console.error('Fetch failed, trying alternative method:', error);
-          
-          // MÉTODO 2: Alternativa usando iframe (más confiable para CORS)
-          const iframe = document.createElement('iframe');
-          iframe.style.display = 'none';
-          iframe.src = getURL;
-          document.body.appendChild(iframe);
-          
-          // Mostrar éxito y limpiar
-          formMessage.textContent = '✅ ¡Gracias! Te mantendremos informado.';
-          formMessage.style.color = '#7CFC00';
-          emailInput.value = '';
-          
-          // Limpiar iframe después de 3 segundos
-          setTimeout(() => {
-              document.body.removeChild(iframe);
-              submitButton.disabled = false;
-              emailInput.disabled = false;
-          }, 3000);
-      });
-  });
+        // La URL del script de Google
+        const googleScriptURL =
+          "https://script.google.com/macros/s/AKfycbwxEGdjC28M49Fy1q4uaxMSfRo35jMvRBNI3R0XqDCfIREcyZWKQ9nbDPqOQy44xnHOIQ/exec";
 
-  console.log('✅ Funcionalidad del boletín inicializada correctamente');
-}
+        // Lógica de envío y validación
+        submitButton.addEventListener("click", (e) => {
+          e.preventDefault(); // Previene la recarga de la página
 
-// Iniciamos la funcionalidad cuando el DOM esté listo
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initBoletinFunctionality);
-} else {
-  initBoletinFunctionality();
-}
+          if (!emailInput.value.trim() || !emailInput.value.includes("@")) {
+            formMessage.textContent = "Por favor, ingresa un correo válido.";
+            formMessage.style.color = "#ffcc00"; // Color de advertencia
+            return;
+          }
+
+          formMessage.textContent = "Registrando tu correo...";
+          formMessage.style.color = "white";
+          submitButton.disabled = true;
+          emailInput.disabled = true;
+
+          // SOLUCIÓN CORS: Usar GET con parámetros en lugar de POST
+          const params = new URLSearchParams({
+            email: emailInput.value,
+          });
+
+          const getURL = `${googleScriptURL}?${params.toString()}`;
+
+          // MÉTODO 1: Intentar con fetch GET
+          fetch(getURL, {
+            method: "GET",
+            mode: "no-cors", // Evita problemas de CORS
+            cache: "no-cache",
+          })
+            .then(() => {
+              // Con no-cors no podemos leer la respuesta, asumimos éxito
+              formMessage.textContent =
+                "✅ ¡Gracias! Te mantendremos informado.";
+              formMessage.style.color = "#7CFC00"; // Color de éxito
+              emailInput.value = "";
+
+              // Reactivar campos después de un delay
+              setTimeout(() => {
+                submitButton.disabled = false;
+                emailInput.disabled = false;
+              }, 2000);
+            })
+            .catch((error) => {
+              console.error("Fetch failed, trying alternative method:", error);
+
+              // MÉTODO 2: Alternativa usando iframe (más confiable para CORS)
+              const iframe = document.createElement("iframe");
+              iframe.style.display = "none";
+              iframe.src = getURL;
+              document.body.appendChild(iframe);
+
+              // Mostrar éxito y limpiar
+              formMessage.textContent =
+                "✅ ¡Gracias! Te mantendremos informado.";
+              formMessage.style.color = "#7CFC00";
+              emailInput.value = "";
+
+              // Limpiar iframe después de 3 segundos
+              setTimeout(() => {
+                document.body.removeChild(iframe);
+                submitButton.disabled = false;
+                emailInput.disabled = false;
+              }, 3000);
+            });
+        });
+
+        console.log("✅ Funcionalidad del boletín inicializada correctamente");
+      }
+
+      // Iniciamos la funcionalidad cuando el DOM esté listo
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initBoletinFunctionality);
+      } else {
+        initBoletinFunctionality();
+      }
     </script>
   </body>
 </html>

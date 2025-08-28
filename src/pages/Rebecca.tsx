@@ -7,20 +7,35 @@ import { vapiConfig } from "../config/vapi.config";
 import HomePage from "./HomePage";
 import Robot3D from "../components/Robot3D";
 import FuenteCero from "../components/FuenteCero";
-import { useTitleAnimation } from "../hooks/useTitleAnimation";
-import { useFaviconAnimation } from "../hooks/useFaviconAnimation";
+
+// 🔧 VARIABLES GLOBALES para prevenir double mounting en Strict Mode
+let isRebeccaMounted = false;
+let isHome3dAudioInitialized = false;
+let globalHome3dAudio: HTMLAudioElement | null = null;
+// 🔧 TEMPORAL: Import comentado para testing
+// import { useTitleAnimation } from "../hooks/useTitleAnimation";
+// 🔧 TEMPORAL: Import comentado para testing
+// import { useFaviconAnimation } from "../hooks/useFaviconAnimation";
 import CTAButtonImage from "../assets/CTAButtom.png"; // Importar imagen del botón CTA
 import ContenedorCreditos from "../assets/contenedor_creditos.png"; // Importar imagen del contenedor tecnológico
 import "./Rebecca.css";
 
 const Rebecca = memo(() => {
-  useFaviconAnimation();
-  useTitleAnimation();
+  // 🔧 TEMPORAL: Favicon desactivado para testing
+  // useFaviconAnimation();
+  // 🔧 TEMPORAL: Título animado desactivado para testing
+  // useTitleAnimation();
 
   // 🎯 ESTADOS CONSOLIDADOS PARA LA SECCIÓN CTA
   const [ctaScrollPercent, setCtaScrollPercent] = useState(0); // 0 a 1
   const [isCtaButtonVisible, setIsCtaButtonVisible] = useState(false); // Control de fade-in tecnológico
   const [isCtaTextVisible, setIsCtaTextVisible] = useState(false); // Control de texto
+  const [isClickProcessing, setIsClickProcessing] = useState(false); // Control click CTA
+
+  // 🔧 NUEVA: Banderas para prevenir múltiples activaciones
+  const [typewriterTriggered, setTypewriterTriggered] = useState(false);
+  const [buttonTriggered, setButtonTriggered] = useState(false);
+  const [resetTriggered, setResetTriggered] = useState(false);
   const [isTypewriterActive, setIsTypewriterActive] = useState(false); // Control del typewriter
   const [isEffectActive, setIsEffectActive] = useState(false); // Control FuenteCero/Matrix Rain
 
@@ -39,30 +54,34 @@ const Rebecca = memo(() => {
     let isProcessing = false;
 
     const handleMouseMove = (e: MouseEvent) => {
-      // 🚀 OPTIMIZACIÓN: Throttling con requestAnimationFrame
+      // 🚀 OPTIMIZACIÓN: Throttling con requestAnimationFrame mejorado
       if (isProcessing) return;
 
       isProcessing = true;
       rafId = requestAnimationFrame(() => {
-        // 🎯 Procesar elementos del subtítulo
-        magneticRefs.current.forEach((textElement) => {
-          if (
-            !textElement ||
-            !textElement.classList.contains("typewriter-complete")
-          )
-            return;
+        try {
+          // 🎯 Procesar elementos del subtítulo
+          magneticRefs.current.forEach((textElement) => {
+            if (
+              !textElement ||
+              !textElement.classList.contains("typewriter-complete")
+            )
+              return;
 
-          applyMagneticEffect(e, textElement);
-        });
+            applyMagneticEffect(e, textElement);
+          });
 
-        // 🎯 Procesar elementos del título
-        titleMagneticRefs.current.forEach((titleElement) => {
-          if (!titleElement) return;
+          // 🎯 Procesar elementos del título
+          titleMagneticRefs.current.forEach((titleElement) => {
+            if (!titleElement) return;
 
-          applyMagneticEffect(e, titleElement, true); // true indica que es título
-        });
-
-        isProcessing = false;
+            applyMagneticEffect(e, titleElement, true); // true indica que es título
+          });
+        } catch (error) {
+          console.warn("Error en efectos magnéticos:", error);
+        } finally {
+          isProcessing = false;
+        }
       });
     };
 
@@ -155,11 +174,12 @@ const Rebecca = memo(() => {
     ╚══════════════════════════════════════════════════════════════════════════════╝
     */
 
-    // 🎯 Función helper para control de typewriter
+    // 🎯 Función helper para control de typewriter (CON GUARD)
     const handleTypewriterControl = (ratio: number, isActive: boolean) => {
-      if (ratio >= 0.9 && !isActive) {
+      if (ratio >= 0.9 && !isActive && !typewriterTriggered) {
         console.log("🎯 Activando typewriter - CTA 90% visible", ratio);
         setIsTypewriterActive(true);
+        setTypewriterTriggered(true); // 🔧 Prevenir múltiples activaciones
 
         const line1 = document.querySelector(
           ".subtitle-line-1.typewriter-line"
@@ -179,23 +199,27 @@ const Rebecca = memo(() => {
       }
     };
 
-    // 🎯 Función helper para control del botón WhatsApp
+    // 🎯 Función helper para control del botón WhatsApp (CON GUARD)
     const handleButtonControl = (ratio: number) => {
-      if (ratio >= 0.95) {
+      if (ratio >= 0.95 && !buttonTriggered) {
         setIsCtaButtonVisible(true);
+        setButtonTriggered(true); // 🔧 Prevenir múltiples activaciones
         setTimeout(() => setIsCtaTextVisible(true), 600);
         console.log("✅ Botón WhatsApp activado al 95%");
-      } else if (ratio < 0.3) {
+      } else if (ratio < 0.3 && buttonTriggered) {
         setIsCtaButtonVisible(false);
         setIsCtaTextVisible(false);
+        setButtonTriggered(false); // 🔧 Reset para permitir reactivación
       }
     };
 
-    // 🎯 Función helper para reset completo
+    // 🎯 Función helper para reset completo (CON GUARD)
     const handleResetEffects = (ratio: number, isActive: boolean) => {
-      if (ratio < 0.1 && isActive) {
+      if (ratio < 0.1 && isActive && !resetTriggered) {
         console.log("🔄 Reset completo de efectos CTA");
         setIsTypewriterActive(false);
+        setTypewriterTriggered(false); // 🔧 Reset banderas
+        setResetTriggered(true); // 🔧 Prevenir múltiples resets
 
         const line1 = document.querySelector(
           ".subtitle-line-1.typewriter-line"
@@ -206,6 +230,8 @@ const Rebecca = memo(() => {
 
         if (line1) line1.classList.remove("typewriter-active");
         if (line2) line2.classList.remove("typewriter-active");
+      } else if (ratio > 0.2) {
+        setResetTriggered(false); // 🔧 Permitir nuevo reset cuando scroll sube
       }
     };
 
@@ -246,7 +272,12 @@ const Rebecca = memo(() => {
         observer.unobserve(ctaSectionRef.current);
       }
     };
-  }, [isTypewriterActive]); // Dependencia del estado typewriter
+  }, [
+    isTypewriterActive,
+    typewriterTriggered,
+    buttonTriggered,
+    resetTriggered,
+  ]); // 🔧 Dependencias actualizadas
 
   // 🎯 NUEVO: Listener para redimensionamiento de ventana para mejorar responsividad
   useEffect(() => {
@@ -419,6 +450,7 @@ const Rebecca = memo(() => {
         currentZone === "footer" ||
         currentZone === "home3d"
       ) {
+        // 🔧 OPTIMIZACIÓN: RAF throttling mejorado para cursor
         requestAnimationFrame(() => {
           container.style.setProperty("--cursor-x", `${e.clientX}px`);
           container.style.setProperty("--cursor-y", `${e.clientY}px`);
@@ -468,7 +500,14 @@ const Rebecca = memo(() => {
   // Eliminado observer antiguo para animaciones de textos en CTA
 
   useEffect(() => {
+    // 🔧 PREVENCIÓN COMPLETA: No ejecutar si ya está montado
+    if (isRebeccaMounted) {
+      return;
+    }
+
     console.log("🎯 Rebecca montada - restaurando posición al inicio...");
+    isRebeccaMounted = true;
+
     const isInitialMount = window.scrollY === 0;
     if (isInitialMount) {
       window.scrollTo({ top: 0, left: 0, behavior: "instant" });
@@ -478,21 +517,39 @@ const Rebecca = memo(() => {
     } else {
       console.log("📍 Manteniendo posición actual de scroll:", window.scrollY);
     }
+
+    return () => {
+      // Solo resetear en unmount verdadero
+      isRebeccaMounted = false;
+    };
   }, []);
 
   // Estados para la sección CTA
 
   useEffect(() => {
+    // 🔧 PREVENCIÓN COMPLETA: No ejecutar si ya está inicializado
+    if (isHome3dAudioInitialized) {
+      return;
+    }
+
     console.log("🎵 Inicializando sonido HOME 3D...");
+    isHome3dAudioInitialized = true;
+
     const audio = new Audio("/home3d_bottom.mp3");
     audio.volume = 0.5;
     audio.preload = "auto";
+    globalHome3dAudio = audio;
     home3dAudioRef.current = audio;
+
     return () => {
+      if (globalHome3dAudio) {
+        globalHome3dAudio.pause();
+        globalHome3dAudio = null;
+      }
       if (home3dAudioRef.current) {
-        home3dAudioRef.current.pause();
         home3dAudioRef.current = null;
       }
+      isHome3dAudioInitialized = false;
     };
   }, []);
 
@@ -528,33 +585,37 @@ const Rebecca = memo(() => {
 
         let ticking = false; // 🎯 THROTTLING: Prevenir múltiples llamadas por frame
 
-        // 🎯 HANDLER UNIFICADO: Maneja tanto el límite de scroll como las instrucciones
+        // 🎯 HANDLER UNIFICADO: Optimizado para mejor performance
         const handleUnifiedScroll = (e: Event) => {
           if (!ticking) {
+            ticking = true;
             requestAnimationFrame(() => {
-              const container = e.target as HTMLElement;
+              try {
+                const container = e.target as HTMLElement;
 
-              // 🎯 PARTE 1: LIMITADOR DE SCROLL (55% del contenido total)
-              const maxScroll = container.scrollHeight * 0.55;
-              if (container.scrollTop > maxScroll) {
-                container.scrollTop = maxScroll;
+                // 🎯 PARTE 1: LIMITADOR DE SCROLL (55% del contenido total)
+                const maxScroll = container.scrollHeight * 0.55;
+                if (container.scrollTop > maxScroll) {
+                  container.scrollTop = maxScroll;
+                }
+
+                // 🎯 PARTE 2: CONTROL DE INSTRUCCIONES "CLIC PARA CERRAR"
+                const scrollTop = container.scrollTop;
+                const scrollHeight =
+                  container.scrollHeight - container.clientHeight;
+                const scrollPercent = (scrollTop / scrollHeight) * 100;
+
+                // Mostrar instrucción al 20% del scroll
+                const shouldShow = scrollPercent >= 20;
+                if (shouldShow !== showCloseInstruction) {
+                  setShowCloseInstruction(shouldShow);
+                }
+              } catch (error) {
+                console.warn("Error en scroll handler:", error);
+              } finally {
+                ticking = false; // 🎯 RESET: Permitir próxima actualización
               }
-
-              // 🎯 PARTE 2: CONTROL DE INSTRUCCIONES "CLIC PARA CERRAR"
-              const scrollTop = container.scrollTop;
-              const scrollHeight =
-                container.scrollHeight - container.clientHeight;
-              const scrollPercent = (scrollTop / scrollHeight) * 100;
-
-              // Mostrar instrucción al 20% del scroll
-              const shouldShow = scrollPercent >= 20;
-              if (shouldShow !== showCloseInstruction) {
-                setShowCloseInstruction(shouldShow);
-              }
-
-              ticking = false; // 🎯 RESET: Permitir próxima actualización
             });
-            ticking = true; // 🎯 LOCK: Prevenir múltiples RAF hasta completar
           }
         };
 
@@ -935,7 +996,14 @@ const Rebecca = memo(() => {
               <div
                 className="cta-button-wrapper"
                 onClick={() => {
+                  // 🔧 OPTIMIZACIÓN: Prevenir clicks múltiples rápidos
+                  if (isClickProcessing) return;
+
+                  setIsClickProcessing(true);
                   window.open("https://wa.me/56949459379", "_blank");
+
+                  // Reset después de un breve delay
+                  setTimeout(() => setIsClickProcessing(false), 300);
                 }}
                 onMouseEnter={(e) => {
                   const wrapper = e.currentTarget;
