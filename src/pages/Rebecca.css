@@ -2117,7 +2117,7 @@ body,
   display: flex;
   flex-direction: column;
   gap: 12px; /* Reducido de 16px */
-  transform: translateY(40px); /* 🎯 MOVER 40px HACIA ABAJO */
+  transform: translateY(10px); /* 🎯 MOVER 40px HACIA ABAJO */
   max-width: 280px; /* 🎯 ANCHO REDUCIDO para input más corto */
 }
 
