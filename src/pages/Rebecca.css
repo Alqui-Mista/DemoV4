@@ -2013,7 +2013,7 @@ body,
 /* 🎯 SECCIÓN DE CRÉDITOS DEL FOOTER */
 .footer-credits {
   position: absolute;
-  bottom: 15px; /* Muy cerca del borde inferior */
+  bottom: -45px; /* Mucho más abajo para que copyright toque el borde inferior */
   left: 50%; /* Centrado horizontalmente respecto al footer completo */
   transform: translateX(-50%); /* Centrado perfecto */
   text-align: center;
@@ -2054,11 +2054,12 @@ body,
 }
 
 .footer-credits p {
-  color: #888888;
-  font-size: 9px; /* Muy pequeño */
+  color: #000000; /* Negro */
+  font-size: 12px; /* Aumentado de 9px a 12px */
   margin: 0;
-  opacity: 0.7;
+  opacity: 0.8; /* Ligeramente transparente para que no sea demasiado fuerte */
   white-space: nowrap; /* Evitar salto de línea */
+  font-weight: 500; /* Un poco más de peso para mejor legibilidad */
 }
 
 /* ============================================================================
@@ -2117,6 +2118,7 @@ body,
   flex-direction: column;
   gap: 12px; /* Reducido de 16px */
   transform: translateY(40px); /* 🎯 MOVER 40px HACIA ABAJO */
+  max-width: 280px; /* 🎯 ANCHO REDUCIDO para input más corto */
 }
 
 .footer-info h4 {
@@ -2140,6 +2142,8 @@ body,
   line-height: 0.95;
   letter-spacing: -0.02em;
   font-family: "Oxanium", sans-serif;
+  max-width: 270px; /* 🎯 AUMENTADO de 220px a 240px para que "a" quepa en línea 1 */
+  word-wrap: break-word;
 }
 
 .footer-info p {
@@ -2148,9 +2152,10 @@ body,
   margin: 0;
   line-height: 1.4;
   font-weight: 400;
-  max-width: 300px;
+  max-width: 265px !important; /* 🎯 MÁS RESTRICTIVO y forzado con !important */
   word-wrap: break-word;
   font-family: "Oxanium", sans-serif;
+  white-space: normal; /* 🎯 ASEGURAR QUE PERMITA SALTOS DE LÍNEA */
 }
 
 /* 📧 FORMULARIO DE NEWSLETTER - MEJORADO */
