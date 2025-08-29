@@ -14,7 +14,7 @@ let isRebeccaMounted = false;
 // import { useTitleAnimation } from "../hooks/useTitleAnimation";
 // 🔧 TEMPORAL: Import comentado para testing
 // import { useFaviconAnimation } from "../hooks/useFaviconAnimation";
-import CTAButtonImage from "../assets/CTAButtom.png"; // Importar imagen del botón CTA
+import CTAButtonImage from "../assets/CTAButtonV2.png"; // Imagen optimizada V2
 import ContenedorCreditos from "../assets/contenedor_creditos.png"; // Importar imagen del contenedor tecnológico
 import "./Rebecca.css";
 
@@ -949,11 +949,13 @@ const Rebecca = memo(() => {
                   wrapper.classList.remove("hover-active");
                 }}
               >
-                {/* Imagen del botón */}
+                {/* Imagen del botón optimizada */}
                 <img
                   src={CTAButtonImage}
                   alt="WhatsApp Button"
                   className="cta-button-image"
+                  loading="eager"
+                  decoding="async"
                   style={{
                     maxWidth: "100%",
                     height: "auto",
