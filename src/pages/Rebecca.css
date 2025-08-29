@@ -86,10 +86,7 @@ body {
   height: 100%;
   scroll-behavior: auto; /* Desactivar smooth scroll para navegación */
 }
-/* 🔧 CLASES DE UTILIDAD PARA OPTIMIZACIÓN */
-/* ... (rest of the CSS code) ... */
-
-/* 🔧 CLASES DE UTILIDAD PARA OPTIMIZACIÓN */
+/* Clases de utilidad para optimización */
 .center-absolute {
   position: absolute;
   top: 50%;
@@ -103,28 +100,28 @@ body {
   justify-content: center;
 }
 
-/* ✅ FORZAR SCROLL AL INICIO AL CARGAR REBECCA */
+/* Forzar scroll al inicio al cargar Rebecca */
 html:has(.rebecca-container),
 body:has(.rebecca-container) {
   scroll-behavior: auto;
   overflow-y: auto;
 }
 
-/* 🎯 ELIMINAR ESPACIOS EXTRA AL FINAL */
+/* Eliminar espacios extra al final */
 html,
 body,
 #root {
   max-height: none;
 }
 
-/* 🎯 CONFIGURACIÓN GLOBAL DE SECCIONES - LAYOUT SIN ESPACIOS */
+/* Configuración global de secciones */
 .main-content-wrapper,
 .footer-reveal {
   margin: 0;
   border: none;
 }
 
-/* 🔧 RESET ESPECÍFICO PARA REBECCA - CONFIGURACIÓN GLOBAL */
+/* Reset específico para Rebecca */
 .rebecca-container > div,
 .rebecca-container > section {
   margin: 0;
@@ -153,7 +150,6 @@ body,
   /* 🔧 OPTIMIZADO: Usar height específica para evitar bloqueos de scroll */
   height: fit-content;
   overflow-x: hidden; /* Solo ocultar scroll horizontal */
-  /* 🔧 REMOVIDO: overflow-y auto que causaba doble scroll */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
   color: var(--color-white);
@@ -162,16 +158,12 @@ body,
 
   /* 🎯 FONDO NEGRO SÓLIDO PREMIUM */
   background: var(--color-black);
-
-  /* 🎯 SIN FONDO - CADA SECCIÓN TENDRÁ SU PROPIO FONDO */
   box-sizing: border-box;
-  scroll-behavior: auto; /* 🔧 CORREGIDO: Eliminado smooth scroll para mejor fluidez */
+  scroll-behavior: auto;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-/* ✅ DUPLICADO ELIMINADO - .rebecca-container > section ya definido arriba */
 
 /* 🎯 CURSOR CAD PERSONALIZADO - APLICADO A ELEMENTOS ESPECÍFICOS DE REBECCA */
 .rebecca-container .main-content,
@@ -215,7 +207,7 @@ body,
     #f8f8f8 85%,
     var(--color-orange-primary) 100%
   );
-  background-size: 400% 400%; /* 🎯 Reducido de 600% para animación más sutil y legible */
+  background-size: 400% 400%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -331,7 +323,7 @@ body,
     top 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     left 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     clip-path 1.8s ease-in-out 0.7s, background 1.5s ease-in-out 1s;
-  z-index: 1000;
+  z-index: 9;
   overflow: hidden;
 }
 
@@ -347,7 +339,7 @@ body,
   clip-path: none; /* 🎯 CORREGIDO: sin clip-path que reduzca el área */
   background: var(--color-black);
   box-shadow: 0 0 50px rgba(255, 140, 0, 0.8), 0 0 100px rgba(255, 140, 0, 0.4);
-  z-index: 1001;
+  z-index: 10;
 }
 
 /* 🔹 ICONO DEL ROMBO - RESPLANDOR DE FONDO */
@@ -571,8 +563,8 @@ body,
 
 /* � ANILLO METÁLICO FUTURISTA - ESTILO CIENCIA FICCIÓN */
 .glow-ring {
-  width: 75%; /* 🎯 REDUCIDO: De 100% a 75% para evitar topar con el título */
-  height: 75%; /* 🎯 REDUCIDO: De 100% a 75% para evitar topar con el título */
+  width: 75%;
+  height: 75%;
   border: 4px solid transparent;
   border-radius: 50%;
   background: transparent;
@@ -589,18 +581,18 @@ body,
       45deg,
       transparent 30%,
       rgba(255, 255, 255, 0.4) 45%,
-      /* 🎯 Reducido de 0.8 a 0.4 */ rgba(255, 255, 255, 0.5) 50%,
-      /* 🎯 Reducido de 0.9 a 0.5 */ rgba(255, 255, 255, 0.4) 55%,
-      /* 🎯 Reducido de 0.8 a 0.4 */ transparent 70%
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0.4) 55%,
+      transparent 70%
     ),
     /* Capa de reflejo principal (efecto espejo) */
       linear-gradient(
         45deg,
         transparent 30%,
         rgba(255, 255, 255, 0.4) 45%,
-        /* 🎯 Reducido de 0.8 a 0.4 */ rgba(255, 255, 255, 0.5) 50%,
-        /* 🎯 Reducido de 0.9 a 0.5 */ rgba(255, 255, 255, 0.4) 55%,
-        /* 🎯 Reducido de 0.8 a 0.4 */ transparent 70%
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0.4) 55%,
+        transparent 70%
       ),
     /* Textura metálica base */
       linear-gradient(
@@ -619,8 +611,8 @@ body,
       radial-gradient(
         ellipse at 30% 30%,
         rgba(255, 255, 255, 0.1) 0%,
-        /* 🎯 Reducido de 0.3 a 0.1 */ rgba(255, 255, 255, 0.05) 40%,
-        /* 🎯 Reducido de 0.1 a 0.05 */ transparent 70%
+        rgba(255, 255, 255, 0.05) 40%,
+        transparent 70%
       );
 
   background-size: 200% 200%, 100% 100%, 100% 100%;
@@ -689,8 +681,8 @@ body,
   background: radial-gradient(
     circle,
     rgba(138, 138, 138, 0.08) 0%,
-    /* 🎯 Reducido de 0.2 a 0.08 */ rgba(138, 138, 138, 0.04) 40%,
-    /* 🎯 Reducido de 0.1 a 0.04 */ transparent 70%
+    rgba(138, 138, 138, 0.04) 40%,
+    transparent 70%
   );
 
   /* 🎬 ANIMACIÓN CONSOLIDADA ARRIBA */
@@ -1343,34 +1335,34 @@ body,
 
 .button-tooltip.button-tooltip-3d {
   position: fixed !important;
-  z-index: 60 !important;
+  z-index: 60;
   pointer-events: none !important;
   background: radial-gradient(
     circle at 50% 50%,
     rgba(15, 5, 0, 0.9),
     rgba(0, 0, 0, 0.95)
-  ) !important;
-  backdrop-filter: blur(8px) !important;
-  border: 1px solid var(--color-orange-alpha-80) !important;
-  border-radius: 10px !important;
-  padding: 8px 15px !important; /* Reduced Size */
+  );
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--color-orange-alpha-80);
+  border-radius: 10px;
+  padding: 8px 15px; /* Reduced Size */
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8),
-    0 0 35px var(--color-orange-alpha-60), inset 0 0 20px rgba(0, 0, 0, 0.6) !important;
-  width: auto !important;
-  height: auto !important;
-  white-space: nowrap !important;
-  transition: opacity 0.4s ease !important; /* Only transition opacity for hiding */
+    0 0 35px var(--color-orange-alpha-60), inset 0 0 20px rgba(0, 0, 0, 0.6);
+  width: auto;
+  height: auto;
+  white-space: nowrap;
+  transition: opacity 0.4s ease; /* Only transition opacity for hiding */
   overflow: hidden;
 }
 
 .button-tooltip.button-tooltip-3d[style*="opacity: 1"] {
-  animation: holographic-entrance 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards !important;
+  animation: holographic-entrance 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 
 /* Scanning grid overlay - More prominent orange */
 .button-tooltip.button-tooltip-3d::before {
-  content: "" !important;
-  position: absolute !important;
+  content: "";
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -1379,10 +1371,10 @@ body,
       var(--color-orange-alpha-20) 1px,
       transparent 1px
     ),
-    linear-gradient(to right, var(--color-orange-alpha-20) 1px, transparent 1px) !important;
-  background-size: 25px 25px !important;
-  opacity: 0.7 !important;
-  animation: none !important;
+    linear-gradient(to right, var(--color-orange-alpha-20) 1px, transparent 1px);
+  background-size: 25px 25px;
+  opacity: 0.7;
+  animation: none;
   z-index: 0;
 }
 
@@ -1415,12 +1407,12 @@ body,
 
 .ai-holo-text {
   font-family: "Orbitron", "Oxanium", sans-serif;
-  font-size: 12px; /* 🎯 REMOVIDO !important innecesario */
-  font-weight: 600; /* 🎯 REMOVIDO !important innecesario */
-  letter-spacing: 2px; /* 🎯 REMOVIDO !important innecesario */
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
   text-transform: uppercase;
   position: relative;
-  color: #fff; /* 🎯 REMOVIDO !important innecesario */
+  color: #fff;
   /* More prominent orange glow */
   text-shadow: 0 0 4px #fff, 0 0 8px var(--color-orange-primary),
     0 0 12px var(--color-orange-primary), 0 0 18px var(--color-orange-primary),
@@ -1453,8 +1445,6 @@ body,
   animation: holographic-flicker 4s linear infinite alternate !important;
   animation-delay: 0.3s !important;
 }
-
-/* ✅ DUPLICADO ELIMINADO - .ai-holo-text::after ya definido arriba */
 
 @keyframes text-glow-subtle {
   from {
@@ -1600,7 +1590,7 @@ body,
   display: flex;
   flex-direction: column;
   gap: 12px; /* 🎯 FIXED: Gap fijo */
-  max-width: 100%; /* 🔧 CAMBIO: Aprovechar todo el ancho disponible del contenedor padre */
+  max-width: 100%;
   width: 100%;
   align-items: center;
   justify-content: center;
@@ -2008,7 +1998,7 @@ body,
   display: flex;
   flex-direction: column;
   gap: 12px; /* Reducido de 16px */
-  transform: translateY(10px); /* 🎯 MOVER 40px HACIA ABAJO */
+  transform: translateY(10px);
   max-width: 280px; /* 🎯 ANCHO REDUCIDO para input más corto */
 }
 
@@ -2026,7 +2016,7 @@ body,
 
 /* 📝 TÍTULO Y DESCRIPCIÓN DE NEWSLETTER */
 .footer-info h3 {
-  font-size: 2.8rem; /* 🎯 RESTAURADO DEL RESPALDO */
+  font-size: 2.8rem;
   color: rgba(0, 0, 0, 0.9);
   margin: 0;
   font-weight: 900;
@@ -2038,8 +2028,8 @@ body,
 }
 
 .footer-info p {
-  font-size: 1.1rem; /* 🎯 RESTAURADO DEL RESPALDO */
-  color: rgba(0, 0, 0, 0.7); /* 🎯 RESTAURADO DEL RESPALDO */
+  font-size: 1.1rem;
+  color: rgba(0, 0, 0, 0.7);
   margin: 0;
   line-height: 1.4;
   font-weight: 400;
@@ -2126,7 +2116,7 @@ body,
   border-radius: 50px;
   background: rgba(255, 255, 255, 0.1);
   color: rgba(0, 0, 0, 0.8);
-  font-size: 1.1rem; /* 🎯 RESTAURADO DEL RESPALDO */
+  font-size: 1.1rem;
   backdrop-filter: blur(10px);
   transition: var(--transition-smooth);
   /* 🎯 TIPOGRAFÍA CORRECTA: OXANIUM COMO EL RESTO DEL FOOTER */
@@ -2134,7 +2124,7 @@ body,
 }
 
 .newsletter-input::placeholder {
-  color: rgba(0, 0, 0, 0.5); /* 🎯 RESTAURADO DEL RESPALDO */
+  color: rgba(0, 0, 0, 0.5);
   /* 🎯 TIPOGRAFÍA CORRECTA: OXANIUM COMO EL RESTO DEL FOOTER */
   font-family: "Oxanium", sans-serif;
 }
@@ -2182,7 +2172,7 @@ body,
   font-family: "Consolas", "Monaco", "Courier New", monospace;
   color: rgba(218, 128, 35, 0.6);
   pointer-events: auto !important; /* 🎯 FORZAR INTERACCIÓN COMPLETA DEL BOTÓN */
-  z-index: 200 !important; /* 🎯 REDUCIDO: de 2000000 a 200 */
+  z-index: 200 !important;
   overflow: hidden;
   /* POSICIONAMIENTO REMOVIDO - SE MANEJA AL FINAL DEL ARCHIVO */
   width: 190px; /* Tamaño base inicial */
@@ -2221,14 +2211,14 @@ body,
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1000; /* 🎯 REDUCIDO: de 2000001 a 1000 */
+  z-index: 9;
   pointer-events: auto;
 }
 
 /* 🎯 ASEGURAR QUE EL BOTÓN AI TENGA PRIORIDAD SOBRE CREDITS */
 .navigation-section .ai-matrix-button {
   position: relative;
-  z-index: 999 !important; /* 🎯 REDUCIDO: de 2000000 a 999 */
+  z-index: 8 !important;
 }
 
 /* 🎯 REGLA ESPECÍFICA PARA ELEMENTOS PROBLEMÁTICOS */
@@ -2953,7 +2943,6 @@ body,
 /* 🎯 AI MATRIX - HOVER EFFECTS */
 .ai-matrix-button:hover {
   /* 🎭 TRANSFORMACIÓN SE MANEJA AL FINAL DEL ARCHIVO */
-  /* transform: translateY(-70px) translateX(-35px) scale(1.01); REMOVIDO */
   background: linear-gradient(
     135deg,
     rgba(26, 26, 26, 0.95) 0%,
@@ -3474,7 +3463,6 @@ body,
 /* 🎯 AI MATRIX - HOVER EFFECTS */
 .ai-matrix-button:hover {
   /* 🎭 TRANSFORMACIÓN SE MANEJA AL FINAL DEL ARCHIVO */
-  /* transform: translateY(-70px) translateX(-35px) scale(1.01); REMOVIDO */
   background: linear-gradient(
     135deg,
     rgba(26, 26, 26, 0.95) 0%,
@@ -4383,7 +4371,7 @@ body,
   font-size: 8px;
   color: var(--color-orange-primary);
   text-shadow: 0 0 4px var(--color-orange-primary);
-  z-index: 1000;
+  z-index: 7;
   opacity: 0;
   transform: scale(0);
   transition: all 0.3s ease;
