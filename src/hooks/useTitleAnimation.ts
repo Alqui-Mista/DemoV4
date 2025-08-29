@@ -11,10 +11,7 @@ interface TitleAnimationConfig {
 export const useTitleAnimation = (config: TitleAnimationConfig = {}) => {
   const {
     staticPart = "InteliMark || ",
-    scrollingParts = [
-      "Sitio en construcción... |",
-      "Promocional página DEMO |",
-    ],
+    scrollingParts = ["Sitio en construcción... |", "Vuelve pronto. |"],
     separator = "   ",
     visibleWidth = 35,
     updateInterval = 300,
@@ -88,4 +85,3 @@ export const useTitleAnimation = (config: TitleAnimationConfig = {}) => {
       titleFramesRef.current[currentFrameIndexRef.current] || "InteliMark",
   };
 };
-// Archivo limpiado: hook de animación de título eliminado para evitar residuos y problemas de red.

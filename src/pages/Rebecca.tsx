@@ -11,19 +11,12 @@ import { useFooterController } from "../hooks/useFooterController";
 
 // 🔧 VARIABLES GLOBALES para prevenir double mounting en Strict Mode
 let isRebeccaMounted = false;
-// 🔧 TEMPORAL: Import comentado para testing
-// import { useTitleAnimation } from "../hooks/useTitleAnimation";
-// 🔧 TEMPORAL: Import comentado para testing
-// import { useFaviconAnimation } from "../hooks/useFaviconAnimation";
 import CTAButtonImage from "../assets/CTAButtonV2.png"; // Imagen optimizada V2
 import ContenedorCreditos from "../assets/contenedor_creditos.png"; // Importar imagen del contenedor tecnológico
 import "./Rebecca.css";
 
 const Rebecca = memo(() => {
-  // 🔧 TEMPORAL: Favicon desactivado para testing
-  // useFaviconAnimation();
-  // 🔧 TEMPORAL: Título animado desactivado para testing
-  // useTitleAnimation();
+  // 🎯 EFECTOS DE PESTAÑA AHORA GESTIONADOS GLOBALMENTE EN App.tsx
 
   // 🎯 ESTADOS CONSOLIDADOS PARA LA SECCIÓN CTA
   const [ctaScrollPercent, setCtaScrollPercent] = useState(0); // 0 a 1

@@ -5,7 +5,7 @@ interface FaviconAnimationConfig {
   rotationAnimationDuration?: number;
 }
 
-// 🎯 SINGLETON: Asegurar una sola instancia de animación
+// Singleton: Asegurar una sola instancia de animación
 let globalAnimationId: number | null = null;
 let globalIsActive = false;
 
@@ -14,10 +14,10 @@ export const useFaviconAnimation = (config: FaviconAnimationConfig = {}) => {
   const isActiveRef = useRef<boolean>(false);
 
   useEffect(() => {
-    // 🎯 PREVENIR MÚLTIPLES INSTANCIAS
+    // Prevenir múltiples instancias
     if (globalIsActive) {
       console.log(
-        "🎯 Favicon animation ya está activa, omitiendo nueva instancia"
+        "Favicon animation ya está activa, omitiendo nueva instancia"
       );
       return;
     }
