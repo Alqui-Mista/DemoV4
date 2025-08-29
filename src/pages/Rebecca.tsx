@@ -7,6 +7,7 @@ import { vapiConfig } from "../config/vapi.config";
 import HomePage from "./HomePage";
 import Robot3D from "../components/Robot3D";
 import FuenteCero from "../components/FuenteCero";
+import { useFooterController } from "../hooks/useFooterController";
 
 // 🔧 VARIABLES GLOBALES para prevenir double mounting en Strict Mode
 let isRebeccaMounted = false;
@@ -40,6 +41,13 @@ const Rebecca = memo(() => {
   // 🎯 ESTADOS CONSOLIDADOS PARA EFECTOS DE HOVER/MOUSE
   const [isHoveringButton, setIsHoveringButton] = useState(false); // Hover del botón WhatsApp
   const [isHovering, setIsHovering] = useState(false); // Hover general del visualizador
+
+  // 🦶 CONTROLADOR UNIFICADO DEL FOOTER - Mantiene lógica actual intacta
+  const {
+    footerState,
+    handleFooterHover,
+    // updateComponentStatus // Disponible para futuras funcionalidades específicas
+  } = useFooterController();
 
   // � REFERENCIAS CONSOLIDADAS PARA EL CTA
   const magneticRefs = useRef<(HTMLSpanElement | null)[]>([]); // Referencias magnéticas del subtítulo
@@ -978,10 +986,26 @@ const Rebecca = memo(() => {
           </div>
         </section>
 
-        <footer className="footer-reveal" id="footer-reveal">
-          <div className="footer-content">
+        <footer
+          className="footer-reveal"
+          id="footer-reveal"
+          onMouseEnter={() => handleFooterHover(true)}
+          onMouseLeave={() => handleFooterHover(false)}
+          data-footer-active={footerState.isActive}
+          data-footer-hovered={footerState.isHovered}
+        >
+          <div
+            className="footer-content"
+            data-components-status={JSON.stringify(
+              footerState.componentsStatus
+            )}
+          >
             <div className="footer-info">
-              <div className="newsletter-section">
+              <div
+                className="newsletter-section"
+                data-footer-component="newsletter"
+                data-component-active={footerState.componentsStatus.newsletter}
+              >
                 <h4>MANTENTE ACTUALIZADO</h4>
                 <h3>
                   suscríbete a<br />
@@ -1304,9 +1328,14 @@ const Rebecca = memo(() => {
                 <p id="boletinMensaje"></p>
               </div>
 
-              <div className="navigation-section">
+              <div
+                className="navigation-section"
+                data-footer-component="aiMatrix"
+                data-component-active={footerState.componentsStatus.aiMatrix}
+              >
                 <button
                   className="homepage-access-button ai-matrix-button debug-button-position"
+                  data-footer-coordinated="true"
                   style={{
                     marginLeft: "5px", // 🎯 MOVIDO 5px HACIA LA IZQUIERDA (10px - 5px = 5px)
                     transform: "translateY(35px)", // 🎯 MOVER 35px HACIA ABAJO (15px + 20px adicionales)
@@ -1345,8 +1374,15 @@ const Rebecca = memo(() => {
               </div>
             </div>
 
-            <div className="footer-robot">
-              <div className="robot-3d-container">
+            <div
+              className="footer-robot"
+              data-footer-component="robot3D"
+              data-component-active={footerState.componentsStatus.robot3D}
+            >
+              <div
+                className="robot-3d-container"
+                data-footer-coordinated="true"
+              >
                 <Robot3D
                   width="380px"
                   height="480px"
@@ -1356,7 +1392,11 @@ const Rebecca = memo(() => {
               </div>
             </div>
 
-            <div className="contact-info">
+            <div
+              className="contact-info"
+              data-footer-component="contactInfo"
+              data-component-active={footerState.componentsStatus.contactInfo}
+            >
               <h4>PONTE EN CONTACTO</h4>
 
               <div className="contact-item general">
@@ -1397,9 +1437,14 @@ const Rebecca = memo(() => {
             </div>
 
             {/* 🎯 SECCIÓN DE CRÉDITOS DENTRO DEL GRID */}
-            <div className="footer-credits">
+            <div
+              className="footer-credits"
+              data-footer-component="credits"
+              data-component-active={footerState.componentsStatus.credits}
+            >
               <button
                 className="credits-link"
+                data-footer-coordinated="true"
                 onClick={() => setShowCreditsModal(true)}
               >
                 VER TODOS LOS CREDITOS
