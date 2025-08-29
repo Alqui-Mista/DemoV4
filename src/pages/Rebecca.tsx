@@ -10,8 +10,6 @@ import FuenteCero from "../components/FuenteCero";
 
 // 🔧 VARIABLES GLOBALES para prevenir double mounting en Strict Mode
 let isRebeccaMounted = false;
-let isHome3dAudioInitialized = false;
-let globalHome3dAudio: HTMLAudioElement | null = null;
 // 🔧 TEMPORAL: Import comentado para testing
 // import { useTitleAnimation } from "../hooks/useTitleAnimation";
 // 🔧 TEMPORAL: Import comentado para testing
@@ -323,8 +321,6 @@ const Rebecca = memo(() => {
   const [showCloseInstruction, setShowCloseInstruction] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  const home3dAudioRef = useRef<HTMLAudioElement | null>(null);
-
   // 🎯 ESTADO PARA MODAL DE CRÉDITOS
   const [showCreditsModal, setShowCreditsModal] = useState(false);
 
@@ -527,33 +523,6 @@ const Rebecca = memo(() => {
   // Estados para la sección CTA
 
   useEffect(() => {
-    // 🔧 PREVENCIÓN COMPLETA: No ejecutar si ya está inicializado
-    if (isHome3dAudioInitialized) {
-      return;
-    }
-
-    console.log("🎵 Inicializando sonido HOME 3D...");
-    isHome3dAudioInitialized = true;
-
-    const audio = new Audio("/home3d_bottom.mp3");
-    audio.volume = 0.5;
-    audio.preload = "auto";
-    globalHome3dAudio = audio;
-    home3dAudioRef.current = audio;
-
-    return () => {
-      if (globalHome3dAudio) {
-        globalHome3dAudio.pause();
-        globalHome3dAudio = null;
-      }
-      if (home3dAudioRef.current) {
-        home3dAudioRef.current = null;
-      }
-      isHome3dAudioInitialized = false;
-    };
-  }, []);
-
-  useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (tooltipRef.current && isHovering && !isHoveringButton) {
         tooltipRef.current.style.left = e.clientX + "px";
@@ -695,13 +664,6 @@ const Rebecca = memo(() => {
 
   const handleInteractiveClick = () => {
     if (!isActive) {
-      if (home3dAudioRef.current) {
-        console.log("🎵 Reproduciendo sonido HOME 3D...");
-        home3dAudioRef.current.currentTime = 0;
-        home3dAudioRef.current.play().catch((error) => {
-          console.log("⚠️ No se pudo reproducir el sonido HOME 3D:", error);
-        });
-      }
       setIsActive(true);
       setShowHomePage(true);
     }
@@ -754,33 +716,7 @@ const Rebecca = memo(() => {
                 onClick={(e) => {
                   e.stopPropagation();
 
-                  // 🎯 NO CERRAR SI EL CLIC VIENE DEL AUDIO VISUALIZER
-                  const target = e.target as HTMLElement;
-                  const isAudioVisualizerClick =
-                    target.closest(".audio-visualizer-container") ||
-                    target.closest(".audio-activate-button") ||
-                    target.closest(".audio-visualizer-active") ||
-                    target.classList.contains("audio-text") ||
-                    target.classList.contains("bar") ||
-                    target.classList.contains("bar-reflection");
-
-                  if (isAudioVisualizerClick) {
-                    console.log(
-                      "🎵 Clic en AudioVisualizer detectado - No cerrar modal"
-                    );
-                    return; // No cerrar el modal
-                  }
-
                   console.log("🔒 Cerrando visualizador HOME 3D");
-                  if (home3dAudioRef.current) {
-                    home3dAudioRef.current.currentTime = 0;
-                    home3dAudioRef.current.play().catch((error) => {
-                      console.log(
-                        "⚠️ No se pudo reproducir el sonido HOME 3D (cerrar):",
-                        error
-                      );
-                    });
-                  }
                   setIsActive(false);
                   setShowHomePage(false);
                   setIsHoveringButton(false);
