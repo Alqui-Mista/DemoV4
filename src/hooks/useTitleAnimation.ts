@@ -17,37 +17,33 @@ export const useTitleAnimation = (config: TitleAnimationConfig = {}) => {
     updateInterval = 300,
   } = config;
 
-  const titleFramesRef = useRef<string[]>([]);
-  const currentFrameIndexRef = useRef<number>(0);
   const animationFrameRef = useRef<number>(0);
   const isActiveRef = useRef<boolean>(false);
 
   useEffect(() => {
-    // Configurar frames de título
-    const setupTitleAnimation = () => {
-      const scrollContent = scrollingParts.join(separator) + separator;
-      titleFramesRef.current = [];
-      for (let i = 0; i < scrollContent.length; i++) {
-        const rotatedString =
-          scrollContent.substring(i) + scrollContent.substring(0, i);
-        const frameText = staticPart + rotatedString.substring(0, visibleWidth);
-        titleFramesRef.current.push(frameText);
-      }
-    };
+    // Generar frames de animación (inline simplificado)
+    const scrollContent = scrollingParts.join(separator) + separator;
+    const titleFrames: string[] = [];
+
+    // Algoritmo simplificado de rotación
+    for (let i = 0; i < scrollContent.length; i++) {
+      const rotated = scrollContent.slice(i) + scrollContent.slice(0, i);
+      titleFrames.push(staticPart + rotated.substring(0, visibleWidth));
+    }
 
     let lastUpdate = 0;
+    let currentIndex = 0;
+
     const titleAnimationLoop = (timestamp: number) => {
-      if (document.hidden) return;
       if (timestamp - lastUpdate > updateInterval) {
         lastUpdate = timestamp;
-        const currentFrame =
-          titleFramesRef.current[currentFrameIndexRef.current];
+        const currentFrame = titleFrames[currentIndex];
         if (currentFrame) {
           document.title = currentFrame;
         }
-        currentFrameIndexRef.current =
-          (currentFrameIndexRef.current + 1) % titleFramesRef.current.length;
+        currentIndex = (currentIndex + 1) % titleFrames.length;
       }
+
       if (isActiveRef.current) {
         animationFrameRef.current = requestAnimationFrame(titleAnimationLoop);
       }
@@ -65,7 +61,6 @@ export const useTitleAnimation = (config: TitleAnimationConfig = {}) => {
     };
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
-    setupTitleAnimation();
     isActiveRef.current = true;
     animationFrameRef.current = requestAnimationFrame(titleAnimationLoop);
 
@@ -81,7 +76,5 @@ export const useTitleAnimation = (config: TitleAnimationConfig = {}) => {
 
   return {
     isActive: isActiveRef.current,
-    currentFrame:
-      titleFramesRef.current[currentFrameIndexRef.current] || "InteliMark",
   };
 };
