@@ -1,5 +1,7 @@
-import { useTitleAnimation } from "../hooks/useTitleAnimation";
-import { useFaviconAnimation } from "../hooks/useFaviconAnimation";
+// 🔧 TEMPORAL: Import comentado para testing
+// import { useTitleAnimation } from "../hooks/useTitleAnimation";
+// 🔧 TEMPORAL: Import comentado para testing
+// import { useFaviconAnimation } from "../hooks/useFaviconAnimation";
 // Archivo: src/pages/HomePage.tsx (Versión Final y Definitiva)
 
 import {
@@ -23,7 +25,6 @@ import LogoWithGlitchEffect from "../components/LogoWithGlitchEffect";
 import AnimatedTextPhrase1 from "../components/AnimatedTextPhrase1";
 import AudioVisualizer from "../components/AudioVisualizer";
 // Eliminadas animaciones de favicon y título
-import { useResponsive } from "../hooks/useResponsive";
 import "./HomePage.css";
 
 // 🎯 CONSTANTES: Valores reutilizables para mejor mantenibilidad
@@ -194,10 +195,6 @@ const HomePage: FC<HomePageProps> = ({
   isEmbedded = false,
   maxScrollPercentage = 100,
 }) => {
-  // 🎯 RESPONSIVE HOOKS
-  const { isMobile, isTablet, performanceConfig, prefersReducedMotion } =
-    useResponsive();
-
   const cameraRef = useRef<THREE.PerspectiveCamera>(null!);
   const sceneRef = useRef<THREE.Group>(null!);
   const mainRef = useRef<HTMLDivElement>(null!);
@@ -231,32 +228,30 @@ const HomePage: FC<HomePageProps> = ({
 
   const navigate = useNavigate();
 
-  // 🎯 CONFIGURACIÓN RESPONSIVE DINÁMICA
+  // 🎯 CONFIGURACIÓN DESKTOP ESTÁTICA
   const responsiveConfig = useMemo(() => {
     return {
-      // WebGL settings adaptivos
+      // WebGL settings para desktop
       webgl: {
-        antialias: performanceConfig.webgl.antialias,
-        precision: performanceConfig.webgl.precision,
-        powerPreference: performanceConfig.webgl.powerPreference,
-        pixelRatio: performanceConfig.webgl.pixelRatio,
+        antialias: true,
+        precision: "highp" as const,
+        powerPreference: "high-performance" as const,
+        pixelRatio: Math.min(window.devicePixelRatio, 2),
       },
-      // Configuración de animaciones
+      // Configuración de animaciones para desktop
       animations: {
-        duration: prefersReducedMotion
-          ? 0.01
-          : performanceConfig.animations.duration,
-        fps: performanceConfig.animations.fps,
-        scrollThrottleInterval: isMobile ? 3 : isTablet ? 2 : 1, // Más throttling en móvil
+        duration: 1.2,
+        fps: 60,
+        scrollThrottleInterval: 1, // Sin throttling en desktop
       },
-      // Configuración del mouse trail
+      // Configuración del mouse trail para desktop
       mouseTrail: {
-        maxPoints: isMobile ? 15 : isTablet ? 25 : 35,
-        updateInterval: isMobile ? 32 : isTablet ? 24 : 16, // 30fps, 45fps, 60fps
-        particleSize: isMobile ? 8 : isTablet ? 10 : 12,
+        maxPoints: 35,
+        updateInterval: 16, // 60fps
+        particleSize: 12,
       },
     };
-  }, [isMobile, isTablet, performanceConfig, prefersReducedMotion]);
+  }, []);
 
   // 🎨 ANIMACIONES DE FAVICON Y TÍTULO
 
@@ -264,7 +259,7 @@ const HomePage: FC<HomePageProps> = ({
   useEffect(() => {
     // ✅ DEBUG: Verificación inicial consolidada (optimizada para evitar spam en desarrollo)
     if (import.meta.env.DEV) {
-      console.log("🏁 HomePage:", { isMobile, isTablet, prefersReducedMotion });
+      console.log("🏁 HomePage Desktop Mode - Sistema responsivo eliminado");
     }
 
     return () => {
@@ -827,8 +822,10 @@ const HomePage: FC<HomePageProps> = ({
   const setupScrollTriggerRef = useRef<(() => void) | null>(null);
 
   // ...existing code...
-  useFaviconAnimation();
-  useTitleAnimation();
+  // 🔧 TEMPORAL: Favicon desactivado para testing
+  // useFaviconAnimation();
+  // 🔧 TEMPORAL: Título animado desactivado para testing
+  // useTitleAnimation();
 
   // ✅ COORDINACIÓN MEJORADA: Sincronizar Canvas ready con ScrollTrigger setup
   useEffect(() => {
