@@ -4,8 +4,9 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import { useEffect } from "react";
-import HomePage from "./pages/HomePage";
+import { useEffect, lazy, Suspense } from "react";
+// 🚀 LAZY LOADING: HomePage solo se carga cuando es necesario
+const HomePage = lazy(() => import("./pages/HomePage"));
 import Rebecca from "./pages/Rebecca";
 import { useTitleAnimation } from "./hooks/useTitleAnimation";
 import { useFaviconAnimation } from "./hooks/useFaviconAnimation";
@@ -55,10 +56,28 @@ function App() {
       <div className="app">
         <ScrollToTop />
         <main className="app-main">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/rebecca" element={<Rebecca />} />
-          </Routes>
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "100vh",
+                  color: "#ff6b35",
+                  fontSize: "18px",
+                  fontFamily: "Arial, sans-serif",
+                }}
+              >
+                Cargando...
+              </div>
+            }
+          >
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/rebecca" element={<Rebecca />} />
+            </Routes>
+          </Suspense>
         </main>
       </div>
     </Router>

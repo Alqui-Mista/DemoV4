@@ -1,10 +1,11 @@
 // src/pages/Rebecca.tsx (Versión Optimizada para Performance)
 
-import { useEffect, useRef, useState, memo } from "react";
+import { useEffect, useRef, useState, memo, lazy, Suspense } from "react";
 import { createPortal } from "react-dom";
 import { VapiChatButton } from "../components/VapiChatButton";
 import { vapiConfig } from "../config/vapi.config";
-import HomePage from "./HomePage";
+// 🚀 OPTIMIZADO: Lazy loading de HomePage
+const HomePage = lazy(() => import("./HomePage"));
 import Robot3D from "../components/Robot3D";
 import FuenteCero from "../components/FuenteCero";
 import { useFooterController } from "../hooks/useFooterController";
@@ -735,11 +736,28 @@ const Rebecca = memo(() => {
                     overflow: "hidden", // Cortar contenido que exceda
                   }}
                 >
-                  <HomePage
-                    scrollContainer="homepage-scroll-container"
-                    isEmbedded={true}
-                    maxScrollPercentage={55} // 🎯 ALINEADO: Coincide con el límite de scroll del contenedor (55%)
-                  />
+                  <Suspense
+                    fallback={
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          height: "100%",
+                          color: "var(--color-orange-primary)",
+                          fontSize: "18px",
+                        }}
+                      >
+                        Cargando vista previa...
+                      </div>
+                    }
+                  >
+                    <HomePage
+                      scrollContainer="homepage-scroll-container"
+                      isEmbedded={true}
+                      maxScrollPercentage={55} // 🎯 ALINEADO: Coincide con el límite de scroll del contenedor (55%)
+                    />
+                  </Suspense>
                 </div>
 
                 {/* 🎯 INSTRUCCIÓN "CLIC PARA CERRAR" - Aparece al 20% del scroll */}
