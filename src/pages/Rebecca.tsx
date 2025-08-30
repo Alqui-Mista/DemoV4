@@ -45,14 +45,15 @@ const Rebecca = memo(() => {
     let rafId: number | null = null;
     let isProcessing = false;
 
-    const handleMouseMove = (e: MouseEvent) => {
-      // 🚀 OPTIMIZACIÓN: Throttling con requestAnimationFrame mejorado
+    // 🔧 UNIFICADO: Un solo handler de mouse para todos los efectos magnéticos
+    const handleUnifiedMouseMove = (e: MouseEvent) => {
+      // 🚀 Throttling unificado con requestAnimationFrame
       if (isProcessing) return;
 
       isProcessing = true;
       rafId = requestAnimationFrame(() => {
         try {
-          // 🎯 Procesar elementos del subtítulo
+          // 🎯 Procesar elementos del subtítulo (efectos magnéticos)
           magneticRefs.current.forEach((textElement) => {
             if (
               !textElement ||
@@ -63,11 +64,10 @@ const Rebecca = memo(() => {
             applyMagneticEffect(e, textElement);
           });
 
-          // 🎯 Procesar elementos del título
+          // 🎯 Procesar elementos del título (efectos magnéticos)
           titleMagneticRefs.current.forEach((titleElement) => {
             if (!titleElement) return;
-
-            applyMagneticEffect(e, titleElement, true); // true indica que es título
+            applyMagneticEffect(e, titleElement, true);
           });
         } catch (error) {
           console.warn("Error en efectos magnéticos:", error);
@@ -141,11 +141,11 @@ const Rebecca = memo(() => {
     };
 
     // Agregar listener al documento y ejecutar detección
-    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mousemove", handleUnifiedMouseMove);
     checkTypewriterComplete();
 
     return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mousemove", handleUnifiedMouseMove);
       if (rafId) {
         cancelAnimationFrame(rafId);
       }
@@ -310,7 +310,7 @@ const Rebecca = memo(() => {
 
   // Estados para instrucción "Clic para cerrar"
   const [showCloseInstruction, setShowCloseInstruction] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  // 🔧 ELIMINADO: mousePosition no utilizado
 
   // 🎯 ESTADO PARA MODAL DE CRÉDITOS
   const [showCreditsModal, setShowCreditsModal] = useState(false);
@@ -330,64 +330,9 @@ const Rebecca = memo(() => {
       container.appendChild(cursorCross);
     }
 
-    // Elementos de zona
-    let zoneElements: {
-      footer?: HTMLElement;
-      cta?: HTMLElement;
-      home3d?: HTMLElement;
-    } = {};
-    const cacheZoneElements = () => {
-      zoneElements = {
-        footer: document.getElementById("footer-reveal") as HTMLElement,
-        cta: document.getElementById("cta-section") as HTMLElement,
-        home3d: document.getElementById(
-          "homepage-scroll-container"
-        ) as HTMLElement,
-      };
-    };
+    // 🔧 ELIMINADO: Elementos de zona no utilizados (zoneElements, cacheZoneElements)
 
-    // Detectar zona del mouse
-    let currentZone: string = "default";
-    const detectZone = (e: MouseEvent): string => {
-      cacheZoneElements();
-      // Prioridad 1: HOME 3D
-      if (zoneElements.home3d) {
-        const rect = zoneElements.home3d.getBoundingClientRect();
-        if (
-          e.clientX >= rect.left &&
-          e.clientX <= rect.right &&
-          e.clientY >= rect.top &&
-          e.clientY <= rect.bottom
-        ) {
-          return "home3d";
-        }
-      }
-      // Prioridad 2: Footer
-      if (zoneElements.footer) {
-        const rect = zoneElements.footer.getBoundingClientRect();
-        if (
-          e.clientX >= rect.left &&
-          e.clientX <= rect.right &&
-          e.clientY >= rect.top &&
-          e.clientY <= rect.bottom
-        ) {
-          return "footer";
-        }
-      }
-      // Prioridad 3: CTA
-      if (zoneElements.cta) {
-        const rect = zoneElements.cta.getBoundingClientRect();
-        if (
-          e.clientX >= rect.left &&
-          e.clientX <= rect.right &&
-          e.clientY >= rect.top &&
-          e.clientY <= rect.bottom
-        ) {
-          return "cta";
-        }
-      }
-      return "default";
-    };
+    // 🔧 ELIMINADO: Detectar zona del mouse (currentZone, detectZone) - no utilizados
 
     const applyCursorForZone = (zone: string) => {
       if (showHomePage) {
@@ -411,7 +356,6 @@ const Rebecca = memo(() => {
           container.style.setProperty("--cursor-x", "-100px");
           container.style.setProperty("--cursor-y", "-100px");
           break;
-        case "footer":
         case "default":
           container.classList.add("custom-cursor");
           cursorCross.classList.add("visible");
@@ -420,51 +364,39 @@ const Rebecca = memo(() => {
       }
     };
 
-    const handleMouseMove = (e: MouseEvent) => {
-      if (showHomePage) {
-        container.classList.remove("custom-cursor");
-        cursorCross.classList.remove("visible");
-        cursorCross.style.display = "none";
-        return;
-      }
-      const newZone = detectZone(e);
-      if (newZone !== currentZone) {
-        currentZone = newZone;
-        applyCursorForZone(newZone);
-      }
-      if (
-        currentZone === "default" ||
-        currentZone === "footer" ||
-        currentZone === "home3d"
-      ) {
-        // 🔧 OPTIMIZACIÓN: RAF throttling mejorado para cursor
-        requestAnimationFrame(() => {
-          container.style.setProperty("--cursor-x", `${e.clientX}px`);
-          container.style.setProperty("--cursor-y", `${e.clientY}px`);
-          cursorCross.style.left = `${e.clientX}px`;
-          cursorCross.style.top = `${e.clientY}px`;
-        });
-      }
-    };
+    // 🔧 ELIMINADO: handleMouseMove no utilizado (comentado línea 444)
 
     const handleMouseLeave = () => {
       container.classList.remove("custom-cursor");
       cursorCross.classList.remove("visible");
       cursorCross.style.display = "none";
-      currentZone = "default";
+      // 🔧 SIMPLIFICADO: Sin referencias a currentZone
     };
 
     const handleMouseEnter = () => {
-      cacheZoneElements();
-      currentZone = "default";
+      // 🔧 SIMPLIFICADO: Sin cacheZoneElements ni currentZone
       applyCursorForZone("default");
     };
 
-    document.addEventListener("mousemove", handleMouseMove);
+    // 🔧 HANDLER SIMPLIFICADO: Solo para actualizar posición del cursor CAD
+    const handleCursorMove = (e: MouseEvent) => {
+      if (showHomePage) return; // No mostrar cursor en modo HomePage
+
+      // 🎯 Actualizar posición del cursor CAD
+      requestAnimationFrame(() => {
+        container.style.setProperty("--cursor-x", `${e.clientX}px`);
+        container.style.setProperty("--cursor-y", `${e.clientY}px`);
+        cursorCross.style.left = `${e.clientX}px`;
+        cursorCross.style.top = `${e.clientY}px`;
+      });
+    };
+
+    // 🔧 ACTIVAR: Handler de cursor simplificado
+    document.addEventListener("mousemove", handleCursorMove);
     container.addEventListener("mouseleave", handleMouseLeave);
     container.addEventListener("mouseenter", handleMouseEnter);
 
-    currentZone = "default";
+    // 🔧 SIMPLIFICADO: Aplicar cursor por defecto
     applyCursorForZone("default");
 
     const timer = setTimeout(() => {
@@ -475,7 +407,8 @@ const Rebecca = memo(() => {
 
     return () => {
       clearTimeout(timer);
-      document.removeEventListener("mousemove", handleMouseMove);
+      // 🔧 CLEANUP: Remover handler de cursor simplificado
+      document.removeEventListener("mousemove", handleCursorMove);
       container.removeEventListener("mouseleave", handleMouseLeave);
       container.removeEventListener("mouseenter", handleMouseEnter);
       if (cursorCross && container.contains(cursorCross)) {
@@ -485,20 +418,16 @@ const Rebecca = memo(() => {
   }, [showHomePage]);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (tooltipRef.current && isHovering && !isHoveringButton) {
-        tooltipRef.current.style.left = e.clientX + "px";
-        tooltipRef.current.style.top = e.clientY + "px";
-      }
-    };
+    // 🔧 ELIMINADO: handleMouseMove no utilizado para tooltip
 
+    // 🔧 TEMPORAL: Comentado para evitar conflicto con handler unificado
     // El efecto del mouse solo depende de isHovering y isHoveringButton
-    if (isHovering && !isHoveringButton) {
-      document.addEventListener("mousemove", handleMouseMove);
-    }
+    // if (isHovering && !isHoveringButton) {
+    //   document.addEventListener("mousemove", handleMouseMove);
+    // }
 
     return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
+      // document.removeEventListener("mousemove", handleMouseMove);
     };
   }, [isHovering, isHoveringButton]);
 
@@ -596,29 +525,15 @@ const Rebecca = memo(() => {
       );
 
       if (scrollContainer) {
-        let lastUpdateTime = 0;
-        const throttleDelay = 16; // 🎯 THROTTLING: Máximo 60fps
+        // 🔧 ELIMINADO: Variables no utilizadas (lastUpdateTime, throttleDelay)
 
-        const handleMouseMove = (e: MouseEvent) => {
-          const now = Date.now();
-          if (
-            now - lastUpdateTime >= throttleDelay &&
-            showCloseInstructionRef.current
-          ) {
-            setMousePosition({
-              x: e.clientX,
-              y: e.clientY,
-            });
-            lastUpdateTime = now;
-          }
-        };
-
-        scrollContainer.addEventListener("mousemove", handleMouseMove, {
-          passive: true,
-        });
+        // 🔧 TEMPORAL: Comentado para evitar conflicto
+        // scrollContainer.addEventListener("mousemove", handleMouseMove, {
+        //   passive: true,
+        // });
 
         return () => {
-          scrollContainer.removeEventListener("mousemove", handleMouseMove);
+          // scrollContainer.removeEventListener("mousemove", handleMouseMove);
         };
       }
     }
@@ -725,8 +640,8 @@ const Rebecca = memo(() => {
                   <div
                     style={{
                       position: "fixed",
-                      left: mousePosition.x + 25, // Offset horizontal del cursor
-                      top: mousePosition.y - 20, // Offset vertical del cursor
+                      right: "20px", // 🔧 FIX: Posición fija en lugar de seguir mouse
+                      top: "20px", // 🔧 FIX: Posición fija en lugar de seguir mouse
                       color: "rgba(255, 255, 255, 0.7)",
                       fontSize: "0.55rem",
                       fontWeight: "300",
@@ -1359,6 +1274,7 @@ const Rebecca = memo(() => {
                   height="480px"
                   scale={1.2}
                   enableScrollRotation={true}
+                  isFooterActive={footerState.componentsStatus.robot3D}
                 />
               </div>
             </div>

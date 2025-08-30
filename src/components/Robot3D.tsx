@@ -48,6 +48,7 @@ interface RobotModelProps {
   position?: [number, number, number];
   rotation?: [number, number, number];
   scrollRotation?: number;
+  isFooterActive?: boolean; // 🔧 Estado compartido desde useFooterController
 }
 
 function RobotModel({
@@ -55,48 +56,20 @@ function RobotModel({
   position = [0, 0, 0],
   rotation = [0, 0, 0],
   scrollRotation = 0,
+  isFooterActive = false, // 🔧 Usar prop en lugar de estado interno
 }: RobotModelProps) {
   const meshRef = useRef<THREE.Group>(null);
+  // 🔧 RESTAURADO: Estado para seguimiento del mouse (necesario para interacción)
   const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
   const [animationIntensity, setAnimationIntensity] = React.useState(0.1);
-  const [isFooterVisible, setIsFooterVisible] = React.useState(false);
+  // 🔧 Usar prop isFooterActive en lugar de estado interno y observer
 
   const { scene } = useGLTF("/cabeza_robot.glb");
 
-  React.useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          setIsFooterVisible(entry.isIntersecting);
-        });
-      },
-      {
-        root: null,
-        rootMargin: "50px",
-        threshold: 0.1,
-      }
-    );
-
-    const footerElement =
-      document.querySelector(".footer-reveal") ||
-      document.querySelector("#footer-reveal") ||
-      document.querySelector("footer") ||
-      document.querySelector(".footer-content");
-
-    if (footerElement) {
-      observer.observe(footerElement);
-    }
-
-    return () => {
-      if (footerElement) {
-        observer.unobserve(footerElement);
-      }
-      observer.disconnect();
-    };
-  }, []);
+  // 🔧 ELIMINADO: IntersectionObserver redundante - usar estado compartido
 
   React.useEffect(() => {
-    if (!isFooterVisible) {
+    if (!isFooterActive) {
       setAnimationIntensity(0.1);
       return;
     }
@@ -110,7 +83,7 @@ function RobotModel({
 
     const intervalId = setInterval(animatePulsation, 60);
     return () => clearInterval(intervalId);
-  }, [isFooterVisible]);
+  }, [isFooterActive]);
 
   React.useEffect(() => {
     if (scene) {
@@ -145,6 +118,7 @@ function RobotModel({
     }
   }, [scene, animationIntensity]);
 
+  // 🔧 RESTAURADO: MouseMove handler para seguimiento de cabeza del robot
   React.useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
       const footerContainer =
@@ -182,6 +156,7 @@ function RobotModel({
 
   useFrame(() => {
     if (meshRef.current) {
+      // 🔧 RESTAURADO: Rotación base + scroll + seguimiento de mouse
       let baseRotationY = rotation[1] + scrollRotation;
       const mouseRotationY = mousePosition.x * 0.3;
       const mouseRotationX = mousePosition.y * 0.2;
@@ -206,7 +181,7 @@ function RobotModel({
         rotation={rotation}
       />
 
-      {isFooterVisible && (
+      {isFooterActive && (
         <>
           <pointLight
             position={[0.2, 0.1, 0.5]}
@@ -263,6 +238,7 @@ interface Robot3DProps {
   height?: string;
   scale?: number;
   enableScrollRotation?: boolean;
+  isFooterActive?: boolean; // 🔧 Recibir estado desde useFooterController
 }
 
 const Robot3D: React.FC<Robot3DProps> = ({
@@ -270,6 +246,7 @@ const Robot3D: React.FC<Robot3DProps> = ({
   height = "300px",
   scale = 15,
   enableScrollRotation = false,
+  isFooterActive = false, // 🔧 Usar estado compartido en lugar de propio observer
 }) => {
   const [scrollRotation, setScrollRotation] = React.useState(0);
 
@@ -326,6 +303,7 @@ const Robot3D: React.FC<Robot3DProps> = ({
               position={[0, -1.05, 0]}
               rotation={[0, 0, 0]}
               scrollRotation={scrollRotation}
+              isFooterActive={isFooterActive}
             />
           </Suspense>
         </Canvas>

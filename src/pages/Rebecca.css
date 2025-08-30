@@ -158,6 +158,9 @@ body,
 
   /* 🎯 FONDO NEGRO SÓLIDO PREMIUM */
   background: var(--color-black);
+
+  /* 🔧 FIX: Cursor personalizado para todo el contenedor */
+  cursor: none;
   box-sizing: border-box;
   scroll-behavior: auto;
   text-rendering: optimizeLegibility;
@@ -461,7 +464,7 @@ body,
       transparent 14px
     );
   pointer-events: none;
-  z-index: 100;
+  z-index: 9999; /* 🔧 FIX: Z-index más alto para asegurar visibilidad */
   transform: translate(-50%, -50%);
   opacity: 0;
   /* 🎯 TRANSITION CONSOLIDADA ARRIBA */
@@ -470,7 +473,12 @@ body,
 
 /* 🎯 CURSOR CAD - CRUZ VISIBLE */
 .rebecca-container .cursor-cross.visible {
-  opacity: 1;
+  opacity: 1 !important; /* 🔧 FIX: Forzar visibilidad */
+}
+
+/* 🔧 DEBUG: Cursor siempre visible para testing */
+.rebecca-container .cursor-cross {
+  opacity: 0.8 !important; /* 🔧 TEMPORAL: Visible para debugging */
 }
 
 /* 🎯 CURSOR CAD - OCULTO POR EFECTOS ESPECIALES */
@@ -1730,7 +1738,7 @@ body,
 .cta-button-wrapper {
   position: relative;
   display: inline-block;
-  cursor: pointer;
+  cursor: none; /* 🔧 FIX: Sin cursor nativo - usa cursor CAD personalizado */
   opacity: 0.8;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
@@ -1914,7 +1922,7 @@ body,
   color: #ffffff;
   padding: 8px 16px; /* Más compacto */
   border-radius: 6px;
-  cursor: pointer;
+  cursor: none; /* 🔧 FIX: Sin cursor nativo - usa cursor CAD personalizado */
   font-size: 11px; /* Más pequeño */
   font-weight: bold;
   letter-spacing: 0.5px;
@@ -2141,7 +2149,7 @@ body,
   border: none;
   padding: 16px 24px;
   border-radius: 50px;
-  cursor: pointer;
+  cursor: none; /* 🔧 FIX: Sin cursor nativo - usa cursor CAD personalizado */
   transition: all 0.3s ease;
   font-weight: 600;
   min-width: 60px;
@@ -3705,7 +3713,7 @@ body,
   color: #ffffff;
   font-size: 24px;
   font-weight: bold;
-  cursor: pointer;
+  cursor: none; /* 🔧 FIX: Sin cursor nativo - usa cursor CAD personalizado */
   z-index: 101; /* 🎯 REDUCIDO: de 10001 a 101 */
   display: flex;
   align-items: center;
@@ -4389,11 +4397,11 @@ body,
   0%,
   100% {
     opacity: 0;
-    transform: scale(1);
+    /* 🔧 FIX: ELIMINADO transform: scale(1) - causaba loops infinitos en IntersectionObserver */
   }
   50% {
     opacity: 0.3;
-    transform: scale(1.01);
+    /* 🔧 FIX: ELIMINADO transform: scale(1.01) - causaba cambios de layout */
   }
 }
 

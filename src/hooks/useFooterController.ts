@@ -37,6 +37,11 @@ export const useFooterController = () => {
   const footerRef = useRef<HTMLElement | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
+  // 🔧 ANTI-FLICKERING: Debouncing y hysteresis
+  const debounceTimeoutRef = useRef<number | null>(null);
+  const lastStateRef = useRef<boolean>(false);
+  const stateChangesRef = useRef<number>(0);
+
   // 🔍 Detectar visibilidad del footer
   useEffect(() => {
     const initFooterObserver = () => {
@@ -48,11 +53,27 @@ export const useFooterController = () => {
         return;
       }
 
-      // Crear observer para detectar cuando el footer entra en viewport
-      observerRef.current = new IntersectionObserver(
-        (entries) => {
-          const footerEntry = entries[0];
-          const isVisible = footerEntry.isIntersecting;
+      // 🛡️ Función de debouncing para evitar activaciones infinitas
+      const debouncedFooterToggle = (isVisible: boolean) => {
+        // Limpiar timeout anterior si existe
+        if (debounceTimeoutRef.current) {
+          clearTimeout(debounceTimeoutRef.current);
+        }
+
+        // Evitar cambios rápidos múltiples (hysteresis)
+        if (lastStateRef.current === isVisible) {
+          return; // No cambiar si ya está en el mismo estado
+        }
+
+        // Contar cambios para detectar flickering
+        stateChangesRef.current += 1;
+
+        // Si hay muchos cambios en poco tiempo, usar delay más largo
+        const delay = stateChangesRef.current > 3 ? 300 : 150;
+
+        debounceTimeoutRef.current = setTimeout(() => {
+          lastStateRef.current = isVisible;
+          stateChangesRef.current = 0; // Reset contador
 
           setFooterState((prev) => ({
             ...prev,
@@ -60,24 +81,53 @@ export const useFooterController = () => {
             isActive: isVisible,
           }));
 
-          // 🎯 LOG UNIFICADO - Solo uno para todo el footer
+          // Log unificado
           if (isVisible) {
-            console.log(
-              "🦶 Footer activado - Todos los componentes operativos"
-            );
-            // Activar componentes individuales
+            console.log("🦶 Footer activado - Componentes operativos");
             activateFooterComponents();
           } else {
-            console.log(
-              "🦶 Footer desactivado - Todos los componentes en standby"
-            );
-            // Desactivar componentes individuales
+            console.log("🦶 Footer desactivado - Componentes en standby");
             deactivateFooterComponents();
+          }
+        }, delay);
+      };
+
+      // Crear observer para detectar cuando el footer entra en viewport
+      observerRef.current = new IntersectionObserver(
+        (entries) => {
+          const footerEntry = entries[0];
+          const ratio = footerEntry.intersectionRatio;
+
+          // 🔧 ANTI-LOOP: Prevenir cambios rápidos
+          const now = Date.now();
+          if (now - (debounceTimeoutRef.current || 0) < 100) {
+            console.log(`⏰ Ignorando cambio muy rápido`);
+            return;
+          }
+
+          console.log(
+            `🔍 Footer Observer: ratio=${ratio.toFixed(3)}, lastState=${
+              lastStateRef.current
+            }`
+          );
+
+          // 🔧 LÓGICA ESTRICTA: Evitar loops
+          const shouldActivate = ratio >= 0.6; // Más visible
+          const shouldDeactivate = ratio <= 0.3; // Menos visible
+
+          if (shouldActivate && !lastStateRef.current) {
+            console.log("✅ ACTIVANDO footer (ratio >= 0.6)");
+            lastStateRef.current = true;
+            debouncedFooterToggle(true);
+          } else if (shouldDeactivate && lastStateRef.current) {
+            console.log("❌ DESACTIVANDO footer (ratio <= 0.3)");
+            lastStateRef.current = false;
+            debouncedFooterToggle(false);
           }
         },
         {
-          threshold: 0.1, // Footer debe ser al menos 10% visible
-          rootMargin: "50px", // Margen adicional para activación temprana
+          threshold: [0, 0.3, 0.6, 1], // 🔧 UMBRALES ESPECÍFICOS
+          rootMargin: "0px",
         }
       );
 
@@ -87,13 +137,19 @@ export const useFooterController = () => {
     initFooterObserver();
 
     return () => {
+      // Limpiar observer
       if (observerRef.current) {
         observerRef.current.disconnect();
+      }
+
+      // 🧹 Limpiar timeout pendiente para evitar memory leaks
+      if (debounceTimeoutRef.current) {
+        clearTimeout(debounceTimeoutRef.current);
       }
     };
   }, []);
 
-  // 🔧 Activar componentes del footer (coordinación con lógica existente)
+  // 🔧 Activar componentes del footer
   const activateFooterComponents = () => {
     setFooterState((prev) => ({
       ...prev,
@@ -105,9 +161,7 @@ export const useFooterController = () => {
         contactInfo: true,
       },
     }));
-
-    // 🎯 Coordinación con sistemas existentes sin modificarlos
-    coordinateWithExistingSystems("activate");
+    // ✅ Sin manipulaciones del DOM - Solo estado de React
   };
 
   // 🔧 Desactivar componentes del footer
@@ -122,47 +176,7 @@ export const useFooterController = () => {
         contactInfo: false,
       },
     }));
-
-    coordinateWithExistingSystems("deactivate");
-  };
-
-  // 🤝 Coordinación con sistemas existentes (sin modificar su código)
-  const coordinateWithExistingSystems = (action: "activate" | "deactivate") => {
-    // Coordinación con el newsletter (JavaScript existente en index.html)
-    const newsletterInput = document.getElementById("boletinEmailInput");
-    const newsletterButton = document.getElementById("boletinSubmitButton");
-
-    if (newsletterInput && newsletterButton) {
-      if (action === "activate") {
-        // Elementos ya gestionados por su script, solo marcamos como coordinados
-        newsletterInput.setAttribute("data-footer-coordinated", "true");
-        newsletterButton.setAttribute("data-footer-coordinated", "true");
-      } else {
-        // En desactivación, simplemente removemos marca de coordinación
-        newsletterInput.removeAttribute("data-footer-coordinated");
-        newsletterButton.removeAttribute("data-footer-coordinated");
-      }
-    }
-
-    // Coordinación con el botón AI Matrix (mantener lógica existente)
-    const aiMatrixButton = document.querySelector(".ai-matrix-button");
-    if (aiMatrixButton) {
-      if (action === "activate") {
-        aiMatrixButton.setAttribute("data-footer-coordinated", "true");
-      } else {
-        aiMatrixButton.removeAttribute("data-footer-coordinated");
-      }
-    }
-
-    // Coordinación con Robot3D (mantener componente React existente)
-    const robotContainer = document.querySelector(".robot-3d-container");
-    if (robotContainer) {
-      if (action === "activate") {
-        robotContainer.setAttribute("data-footer-coordinated", "true");
-      } else {
-        robotContainer.removeAttribute("data-footer-coordinated");
-      }
-    }
+    // ✅ Sin manipulaciones del DOM - Solo estado de React
   };
 
   // 🎯 Detectar hover del footer
