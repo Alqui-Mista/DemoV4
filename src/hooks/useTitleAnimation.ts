@@ -24,6 +24,9 @@ export const useTitleAnimation = (config: TitleAnimationConfig = {}) => {
   const isActiveRef = useRef<boolean>(false);
 
   useEffect(() => {
+    // Establecer título inicial inmediatamente
+    document.title = STATIC_PART.slice(0, -3); // "InteliMark"
+
     // Generar frames de animación optimizado
     const scrollContent = scrollingParts.join(SEPARATOR) + SEPARATOR;
     const contentLength = scrollContent.length;
