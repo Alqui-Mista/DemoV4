@@ -10,22 +10,18 @@ import Robot3D from "../components/Robot3D";
 import FuenteCero from "../components/FuenteCero";
 import { useFooterController } from "../hooks/useFooterController";
 
-// 🔧 VARIABLES GLOBALES para prevenir double mounting en Strict Mode
-let isRebeccaMounted = false;
 import CTAButtonImage from "../assets/CTAButtonV2.png"; // Imagen optimizada V2
 import ContenedorCreditos from "../assets/contenedor_creditos.png"; // Importar imagen del contenedor tecnológico
 import "./Rebecca.css";
 
 const Rebecca = memo(() => {
-  // 🎯 EFECTOS DE PESTAÑA AHORA GESTIONADOS GLOBALMENTE EN App.tsx
-
   // 🎯 ESTADOS CONSOLIDADOS PARA LA SECCIÓN CTA
   const [ctaScrollPercent, setCtaScrollPercent] = useState(0); // 0 a 1
   const [isCtaButtonVisible, setIsCtaButtonVisible] = useState(false); // Control de fade-in tecnológico
   const [isCtaTextVisible, setIsCtaTextVisible] = useState(false); // Control de texto
   const [isClickProcessing, setIsClickProcessing] = useState(false); // Control click CTA
 
-  // 🔧 NUEVA: Banderas para prevenir múltiples activaciones
+  // 🔧 Banderas para prevenir múltiples activaciones
   const [typewriterTriggered, setTypewriterTriggered] = useState(false);
   const [buttonTriggered, setButtonTriggered] = useState(false);
   const [resetTriggered, setResetTriggered] = useState(false);
@@ -37,11 +33,7 @@ const Rebecca = memo(() => {
   const [isHovering, setIsHovering] = useState(false); // Hover general del visualizador
 
   // 🦶 CONTROLADOR UNIFICADO DEL FOOTER - Mantiene lógica actual intacta
-  const {
-    footerState,
-    handleFooterHover,
-    // updateComponentStatus // Disponible para futuras funcionalidades específicas
-  } = useFooterController();
+  const { footerState, handleFooterHover } = useFooterController();
 
   // � REFERENCIAS CONSOLIDADAS PARA EL CTA
   const magneticRefs = useRef<(HTMLSpanElement | null)[]>([]); // Referencias magnéticas del subtítulo
@@ -163,15 +155,12 @@ const Rebecca = memo(() => {
   // 🎯 CONTROLADOR UNIFICADO DE SCROLL CTA - REORGANIZADO
   useEffect(() => {
     /* 
-    ╔══════════════════════════════════════════════════════════════════════════════╗
-    ║                      📊 UMBRALES DE ACTIVACIÓN CTA                          ║
-    ╠══════════════════════════════════════════════════════════════════════════════╣
-    ║ 🎭 FuenteCero/Matrix Rain:    30% visible → Activa lluvia de códigos       ║
-    ║ 🎯 Typewriter Effect:         90% visible → Inicia animación de escritura   ║
-    ║ 📱 Botón WhatsApp:           95% visible → Aparece botón + texto           ║
-    ║ 🔄 Reset Completo:           10% visible → Resetea todos los efectos       ║
-    ║ 📉 Desvanecimiento:          30% visible → Oculta botón (salida suave)     ║
-    ╚══════════════════════════════════════════════════════════════════════════════╝
+    📊 UMBRALES DE ACTIVACIÓN CTA:
+    • Matrix Rain: 30% visible → Activa lluvia de códigos
+    • Typewriter: 90% visible → Inicia animación de escritura
+    • Botón WhatsApp: 95% visible → Aparece botón + texto
+    • Reset: 10% visible → Resetea todos los efectos
+    • Desvanecimiento: 30% visible → Oculta botón
     */
 
     // 🎯 Función helper para control de typewriter (CON GUARD)
@@ -279,7 +268,7 @@ const Rebecca = memo(() => {
     resetTriggered,
   ]); // 🔧 Dependencias actualizadas
 
-  // 🎯 NUEVO: Listener para redimensionamiento de ventana para mejorar responsividad
+  // 🎯 Listener para redimensionamiento de ventana para mejorar responsividad
   useEffect(() => {
     const handleResize = () => {
       // Forzar recálculo de estilos del subtítulo para mejor adaptabilidad
@@ -319,7 +308,7 @@ const Rebecca = memo(() => {
     showHomePageRef.current = showHomePage;
   }, [showHomePage]);
 
-  // 🎯 ESTADOS PARA INSTRUCCIÓN "CLIC PARA CERRAR"
+  // Estados para instrucción "Clic para cerrar"
   const [showCloseInstruction, setShowCloseInstruction] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -494,35 +483,6 @@ const Rebecca = memo(() => {
       }
     };
   }, [showHomePage]);
-
-  // Eliminado observer antiguo para animaciones de textos en CTA
-
-  useEffect(() => {
-    // 🔧 PREVENCIÓN COMPLETA: No ejecutar si ya está montado
-    if (isRebeccaMounted) {
-      return;
-    }
-
-    console.log("🎯 Rebecca montada - restaurando posición al inicio...");
-    isRebeccaMounted = true;
-
-    const isInitialMount = window.scrollY === 0;
-    if (isInitialMount) {
-      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-      console.log("✅ Posición de scroll restaurada:", window.scrollY);
-    } else {
-      console.log("📍 Manteniendo posición actual de scroll:", window.scrollY);
-    }
-
-    return () => {
-      // Solo resetear en unmount verdadero
-      isRebeccaMounted = false;
-    };
-  }, []);
-
-  // Estados para la sección CTA
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -727,7 +687,7 @@ const Rebecca = memo(() => {
                 <div
                   className="homepage-embedded"
                   style={{
-                    // 🎯 ALTURA AJUSTADA: Para llegar hasta la frase específica
+                    // Altura ajustada para contenido específico
                     minHeight: "250vh", // Aumentado para alcanzar más contenido
                     height: "250vh", // Altura suficiente para la frase objetivo
                     width: "100%",
@@ -755,18 +715,18 @@ const Rebecca = memo(() => {
                     <HomePage
                       scrollContainer="homepage-scroll-container"
                       isEmbedded={true}
-                      maxScrollPercentage={55} // 🎯 ALINEADO: Coincide con el límite de scroll del contenedor (55%)
+                      maxScrollPercentage={55} // Límite de scroll del contenedor
                     />
                   </Suspense>
                 </div>
 
-                {/* 🎯 INSTRUCCIÓN "CLIC PARA CERRAR" - Aparece al 20% del scroll */}
+                {/* Instrucción "Clic para cerrar" - Aparece al 20% del scroll */}
                 {showCloseInstruction && (
                   <div
                     style={{
                       position: "fixed",
-                      left: mousePosition.x + 25, // 🎯 AUMENTADO: de +8 a +25 (más alejado del cursor)
-                      top: mousePosition.y - 20, // 🎯 AUMENTADO: de -5 a -20 (más alejado del cursor)
+                      left: mousePosition.x + 25, // Offset horizontal del cursor
+                      top: mousePosition.y - 20, // Offset vertical del cursor
                       color: "rgba(255, 255, 255, 0.7)",
                       fontSize: "0.55rem",
                       fontWeight: "300",
@@ -853,7 +813,7 @@ const Rebecca = memo(() => {
                 maxWidth: "none", // 🎯 REMOVIDO: límite de ancho para permitir animación completa
                 margin: "0 auto",
                 overflow: "visible", // 🎯 CAMBIADO: de hidden a visible para permitir animación desde bordes
-                minHeight: "clamp(120px, 15vh, 180px)", // 🎯 AGREGADO: altura mínima para evitar corte
+                minHeight: "clamp(120px, 15vh, 180px)", // Altura mínima para evitar corte
                 paddingTop: "clamp(10px, 2vh, 20px)", // 🎯 AGREGADO: padding superior
                 paddingBottom: "clamp(10px, 2vh, 20px)", // 🎯 AGREGADO: padding inferior
               }}
@@ -877,7 +837,7 @@ const Rebecca = memo(() => {
                   fontVariationSettings: '"wght" 900',
                   letterSpacing: "clamp(0.02em, 0.5vw, 0.04em)",
                   zIndex: 10,
-                  lineHeight: 1.1, // 🎯 AUMENTADO: de 0.95 a 1.1 para evitar corte
+                  lineHeight: 1.1, // Evitar corte de texto
                   fontSize: "clamp(2.5rem, 7vw, 5.5rem)",
                   color: "#ffffff",
                   textShadow: "2px 2px 8px rgba(0, 0, 0, 0.7)",
@@ -907,7 +867,7 @@ const Rebecca = memo(() => {
                   fontVariationSettings: '"wght" 900',
                   letterSpacing: "clamp(0.02em, 0.5vw, 0.04em)",
                   zIndex: 10,
-                  lineHeight: 1.1, // 🎯 AUMENTADO: de 0.95 a 1.1 para evitar corte
+                  lineHeight: 1.1, // Evitar corte de texto
                   textTransform: "uppercase",
                   fontSize: "clamp(2.5rem, 7vw, 5.5rem)",
                   color: "#ffffff",
