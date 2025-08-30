@@ -476,11 +476,6 @@ body,
   opacity: 1 !important; /* 🔧 FIX: Forzar visibilidad */
 }
 
-/* 🔧 DEBUG: Cursor siempre visible para testing */
-.rebecca-container .cursor-cross {
-  opacity: 0.8 !important; /* 🔧 TEMPORAL: Visible para debugging */
-}
-
 /* 🎯 CURSOR CAD - OCULTO POR EFECTOS ESPECIALES */
 
 /* 📊 MATRIZ DE DATOS AWWWARDS-LEVEL CON PALETA INTELIMARK */
@@ -1901,18 +1896,14 @@ body,
 
 /* 🎯 SECCIÓN DE CRÉDITOS DEL FOOTER */
 .footer-credits {
-  position: absolute;
-  bottom: -45px; /* Mucho más abajo para que copyright toque el borde inferior */
-  left: 50%; /* Centrado horizontalmente respecto al footer completo */
-  transform: translateX(-50%); /* Centrado perfecto */
-  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px; /* Gap mínimo */
-  z-index: 25; /* Alto z-index para estar visible */
+  gap: 10px;
+  margin-top: 20px;
+  text-align: center;
   pointer-events: auto;
-  width: auto; /* Ancho automático */
+  width: 100%;
 }
 
 /* 🔗 BOTÓN DE CRÉDITOS */
@@ -1944,11 +1935,12 @@ body,
 
 .footer-credits p {
   color: #000000; /* Negro */
-  font-size: 12px; /* Aumentado de 9px a 12px */
+  font-size: 14px; /* Tamaño legible */
   margin: 0;
-  opacity: 0.8; /* Ligeramente transparente para que no sea demasiado fuerte */
+  opacity: 0.8; /* Ligeramente transparente */
   white-space: nowrap; /* Evitar salto de línea */
-  font-weight: 500; /* Un poco más de peso para mejor legibilidad */
+  font-weight: 500; /* Peso medio para legibilidad */
+  font-family: "Oxanium", sans-serif; /* Consistente con el footer */
 }
 
 /* ============================================================================
@@ -2223,7 +2215,7 @@ body,
   pointer-events: auto;
 }
 
-/* 🎯 ASEGURAR QUE EL BOTÓN AI TENGA PRIORIDAD SOBRE CREDITS */
+/* 🎯 CONFIGURACIÓN Z-INDEX PARA BOTÓN AI */
 .navigation-section .ai-matrix-button {
   position: relative;
   z-index: 8 !important;
@@ -3381,6 +3373,7 @@ body,
   justify-content: flex-start;
   align-self: flex-start;
   transform: translateY(50px); /* 🎯 MOVER 50px HACIA ABAJO */
+  gap: 0; /* Sin gap para mantener elementos juntos */
 }
 
 /* 🤖 CONTENEDOR DEL ROBOT 3D - CENTRADO PERFECTO */
@@ -3675,7 +3668,7 @@ body,
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 100; /* 🎯 REDUCIDO: de 10000 a 100 */
+  z-index: 100;
   animation: fadeIn 0.3s ease-out;
 }
 
@@ -3714,7 +3707,7 @@ body,
   font-size: 24px;
   font-weight: bold;
   cursor: none; /* 🔧 FIX: Sin cursor nativo - usa cursor CAD personalizado */
-  z-index: 101; /* 🎯 REDUCIDO: de 10001 a 101 */
+  z-index: 101;
   display: flex;
   align-items: center;
   justify-content: center;

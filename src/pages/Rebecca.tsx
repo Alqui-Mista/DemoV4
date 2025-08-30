@@ -35,7 +35,7 @@ const Rebecca = memo(() => {
   // 🦶 CONTROLADOR UNIFICADO DEL FOOTER - Mantiene lógica actual intacta
   const { footerState, handleFooterHover } = useFooterController();
 
-  // � REFERENCIAS CONSOLIDADAS PARA EL CTA
+  // 🎯 REFERENCIAS CONSOLIDADAS PARA EL CTA
   const magneticRefs = useRef<(HTMLSpanElement | null)[]>([]); // Referencias magnéticas del subtítulo
   const titleMagneticRefs = useRef<(HTMLSpanElement | null)[]>([]); // Referencias magnéticas del título
   const ctaSectionRef = useRef<HTMLElement>(null); // Referencia principal de la sección CTA
@@ -70,7 +70,7 @@ const Rebecca = memo(() => {
             applyMagneticEffect(e, titleElement, true);
           });
         } catch (error) {
-          console.warn("Error en efectos magnéticos:", error);
+          // Silent error handling
         } finally {
           isProcessing = false;
         }
@@ -166,7 +166,6 @@ const Rebecca = memo(() => {
     // 🎯 Función helper para control de typewriter (CON GUARD)
     const handleTypewriterControl = (ratio: number, isActive: boolean) => {
       if (ratio >= 0.9 && !isActive && !typewriterTriggered) {
-        console.log("🎯 Activando typewriter - CTA 90% visible", ratio);
         setIsTypewriterActive(true);
         setTypewriterTriggered(true); // 🔧 Prevenir múltiples activaciones
 
@@ -179,7 +178,6 @@ const Rebecca = memo(() => {
 
         if (line1) {
           line1.classList.add("typewriter-active");
-          console.log("✅ Typewriter línea 1 activada");
         }
         if (line2) {
           line2.classList.add("typewriter-active");
@@ -194,7 +192,6 @@ const Rebecca = memo(() => {
         setIsCtaButtonVisible(true);
         setButtonTriggered(true); // 🔧 Prevenir múltiples activaciones
         setTimeout(() => setIsCtaTextVisible(true), 600);
-        console.log("✅ Botón WhatsApp activado al 95%");
       } else if (ratio < 0.3 && buttonTriggered) {
         setIsCtaButtonVisible(false);
         setIsCtaTextVisible(false);
@@ -205,7 +202,6 @@ const Rebecca = memo(() => {
     // 🎯 Función helper para reset completo (CON GUARD)
     const handleResetEffects = (ratio: number, isActive: boolean) => {
       if (ratio < 0.1 && isActive && !resetTriggered) {
-        console.log("🔄 Reset completo de efectos CTA");
         setIsTypewriterActive(false);
         setTypewriterTriggered(false); // 🔧 Reset banderas
         setResetTriggered(true); // 🔧 Prevenir múltiples resets
@@ -315,99 +311,73 @@ const Rebecca = memo(() => {
   // 🎯 ESTADO PARA MODAL DE CRÉDITOS
   const [showCreditsModal, setShowCreditsModal] = useState(false);
 
-  // useEffect para controlar la visibilidad del cursor CAD completo
+  // 🔧 SISTEMA DE CURSOR CAD SIMPLIFICADO
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    // Solo agregar la cruz si no existe
+    // Crear cursor CAD si no existe
     let cursorCross = container.querySelector(
       ".cursor-cross"
     ) as HTMLDivElement | null;
     if (!cursorCross) {
       cursorCross = document.createElement("div");
-      cursorCross.className = "cursor-cross";
+      cursorCross.className = "cursor-cross visible"; // Siempre visible
       container.appendChild(cursorCross);
     }
 
-    // 🔧 ELIMINADO: Elementos de zona no utilizados (zoneElements, cacheZoneElements)
-
-    // 🔧 ELIMINADO: Detectar zona del mouse (currentZone, detectZone) - no utilizados
-
-    const applyCursorForZone = (zone: string) => {
+    // 🔧 HANDLER UNIFICADO: Solo actualizar posición del cursor
+    const handleCursorMove = (e: MouseEvent) => {
       if (showHomePage) {
-        container.classList.remove("custom-cursor");
-        cursorCross.classList.remove("visible");
         cursorCross.style.display = "none";
         return;
       }
-      switch (zone) {
-        case "home3d":
-          // 🎯 MANTENER CURSOR PERSONALIZADO EN HOME 3D PARA CALIBRACIÓN CORRECTA
-          container.classList.add("custom-cursor");
-          cursorCross.classList.add("visible");
-          cursorCross.style.display = "block";
-          break;
-        case "cta":
-          container.classList.remove("custom-cursor");
-          cursorCross.classList.remove("visible");
-          cursorCross.style.display = "none";
-          // 🔧 ASEGURAR QUE EL CUADRADO TAMBIÉN SE OCULTE
-          container.style.setProperty("--cursor-x", "-100px");
-          container.style.setProperty("--cursor-y", "-100px");
-          break;
-        case "default":
-          container.classList.add("custom-cursor");
-          cursorCross.classList.add("visible");
-          cursorCross.style.display = "block";
-          break;
+
+      // 🔧 DETECCIÓN DE ZONA CTA PARA OCULTAR CURSOR
+      const ctaSection = document.getElementById("cta-section");
+      let inCTA = false;
+
+      if (ctaSection) {
+        const rect = ctaSection.getBoundingClientRect();
+        inCTA =
+          e.clientX >= rect.left &&
+          e.clientX <= rect.right &&
+          e.clientY >= rect.top &&
+          e.clientY <= rect.bottom;
+      }
+
+      if (inCTA) {
+        cursorCross.style.display = "none";
+        container.style.setProperty("--cursor-x", "-100px");
+        container.style.setProperty("--cursor-y", "-100px");
+      } else {
+        cursorCross.style.display = "block";
+        // 🎯 Actualizar posición del cursor CAD
+        requestAnimationFrame(() => {
+          container.style.setProperty("--cursor-x", `${e.clientX}px`);
+          container.style.setProperty("--cursor-y", `${e.clientY}px`);
+          cursorCross.style.left = `${e.clientX}px`;
+          cursorCross.style.top = `${e.clientY}px`;
+        });
       }
     };
 
-    // 🔧 ELIMINADO: handleMouseMove no utilizado (comentado línea 444)
-
     const handleMouseLeave = () => {
-      container.classList.remove("custom-cursor");
-      cursorCross.classList.remove("visible");
       cursorCross.style.display = "none";
-      // 🔧 SIMPLIFICADO: Sin referencias a currentZone
     };
 
     const handleMouseEnter = () => {
-      // 🔧 SIMPLIFICADO: Sin cacheZoneElements ni currentZone
-      applyCursorForZone("default");
+      if (!showHomePage) {
+        cursorCross.style.display = "block";
+      }
     };
 
-    // 🔧 HANDLER SIMPLIFICADO: Solo para actualizar posición del cursor CAD
-    const handleCursorMove = (e: MouseEvent) => {
-      if (showHomePage) return; // No mostrar cursor en modo HomePage
-
-      // 🎯 Actualizar posición del cursor CAD
-      requestAnimationFrame(() => {
-        container.style.setProperty("--cursor-x", `${e.clientX}px`);
-        container.style.setProperty("--cursor-y", `${e.clientY}px`);
-        cursorCross.style.left = `${e.clientX}px`;
-        cursorCross.style.top = `${e.clientY}px`;
-      });
-    };
-
-    // 🔧 ACTIVAR: Handler de cursor simplificado
+    // 🔧 LISTENERS SIMPLIFICADOS
     document.addEventListener("mousemove", handleCursorMove);
     container.addEventListener("mouseleave", handleMouseLeave);
     container.addEventListener("mouseenter", handleMouseEnter);
 
-    // 🔧 SIMPLIFICADO: Aplicar cursor por defecto
-    applyCursorForZone("default");
-
-    const timer = setTimeout(() => {
-      document.querySelectorAll(".fade-in-delayed").forEach((el) => {
-        el.classList.add("fade-in-active");
-      });
-    }, 500);
-
     return () => {
-      clearTimeout(timer);
-      // 🔧 CLEANUP: Remover handler de cursor simplificado
       document.removeEventListener("mousemove", handleCursorMove);
       container.removeEventListener("mouseleave", handleMouseLeave);
       container.removeEventListener("mouseenter", handleMouseEnter);
@@ -416,7 +386,6 @@ const Rebecca = memo(() => {
       }
     };
   }, [showHomePage]);
-
   useEffect(() => {
     // 🔧 ELIMINADO: handleMouseMove no utilizado para tooltip
 
@@ -471,7 +440,7 @@ const Rebecca = memo(() => {
                   setShowCloseInstruction(shouldShow);
                 }
               } catch (error) {
-                console.warn("Error en scroll handler:", error);
+                // Silent error handling
               } finally {
                 ticking = false; // 🎯 RESET: Permitir próxima actualización
               }
@@ -593,7 +562,6 @@ const Rebecca = memo(() => {
                 onClick={(e) => {
                   e.stopPropagation();
 
-                  console.log("🔒 Cerrando visualizador HOME 3D");
                   setIsActive(false);
                   setShowHomePage(false);
                   setIsHoveringButton(false);
@@ -1277,6 +1245,22 @@ const Rebecca = memo(() => {
                   isFooterActive={footerState.componentsStatus.robot3D}
                 />
               </div>
+
+              {/* 🎯 CRÉDITOS DIRECTAMENTE DEBAJO DEL ROBOT */}
+              <div
+                className="footer-credits"
+                data-footer-component="credits"
+                data-component-active={footerState.componentsStatus.credits}
+              >
+                <button
+                  className="credits-link"
+                  data-footer-coordinated="true"
+                  onClick={() => setShowCreditsModal(true)}
+                >
+                  VER TODOS LOS CREDITOS
+                </button>
+                <p>© 2025 InteliMark - Todos los derechos reservados</p>
+              </div>
             </div>
 
             <div
@@ -1322,25 +1306,7 @@ const Rebecca = memo(() => {
                 <span className="contact-label">Oficina Principal</span>
               </div>
             </div>
-
-            {/* 🎯 SECCIÓN DE CRÉDITOS DENTRO DEL GRID */}
-            <div
-              className="footer-credits"
-              data-footer-component="credits"
-              data-component-active={footerState.componentsStatus.credits}
-            >
-              <button
-                className="credits-link"
-                data-footer-coordinated="true"
-                onClick={() => setShowCreditsModal(true)}
-              >
-                VER TODOS LOS CREDITOS
-              </button>
-              <p>© 2025 InteliMark - Todos los derechos reservados</p>
-            </div>
           </div>
-
-          {/* Sección de créditos removida de aquí y movida arriba */}
         </footer>
       </div>
 

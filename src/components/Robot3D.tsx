@@ -118,41 +118,44 @@ function RobotModel({
     }
   }, [scene, animationIntensity]);
 
-  // 🔧 RESTAURADO: MouseMove handler para seguimiento de cabeza del robot
+  // 🔧 RESTORED: MouseMove global with footer detection
   React.useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
-      const footerContainer =
-        document.querySelector(".footer-reveal") ||
-        document.querySelector("#footer-reveal") ||
-        document.querySelector("footer") ||
-        document.querySelector(".footer-content");
+      const footerContainer = document.querySelector("#footer-reveal");
+      if (!footerContainer) {
+        setMousePosition({ x: 0, y: 0 });
+        return;
+      }
 
-      if (footerContainer) {
-        const rect = footerContainer.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
+      const rect = footerContainer.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
 
-        const isInside =
-          event.clientX >= rect.left &&
-          event.clientX <= rect.right &&
-          event.clientY >= rect.top &&
-          event.clientY <= rect.bottom;
+      const isInside =
+        event.clientX >= rect.left &&
+        event.clientX <= rect.right &&
+        event.clientY >= rect.top &&
+        event.clientY <= rect.bottom;
 
-        if (isInside) {
-          const x = (event.clientX - centerX) / (rect.width / 2);
-          const y = (event.clientY - centerY) / (rect.height / 2);
+      if (isInside && isFooterActive) {
+        const x = (event.clientX - centerX) / (rect.width / 2);
+        const y = (event.clientY - centerY) / (rect.height / 2);
 
-          const clampedX = Math.max(-1, Math.min(1, x));
-          const clampedY = Math.max(-1, Math.min(1, y));
+        const clampedX = Math.max(-1, Math.min(1, x));
+        const clampedY = Math.max(-1, Math.min(1, y));
 
-          setMousePosition({ x: clampedX, y: clampedY });
-        }
+        setMousePosition({ x: clampedX, y: clampedY });
+      } else {
+        setMousePosition({ x: 0, y: 0 });
       }
     };
 
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [isFooterActive]);
 
   useFrame(() => {
     if (meshRef.current) {
