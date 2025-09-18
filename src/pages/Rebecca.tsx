@@ -13,6 +13,7 @@ import SimpleCreditsModal from "../components/SimpleCreditsModal";
 import { TranscriptModal } from "../components/TranscriptModal";
 
 import CTAButtonImage from "../assets/CTAButtonV2.png";
+import EmbeddedHomePortalButton from "../components/EmbeddedHomePortalButton";
 import ContenedorCreditos from "../assets/contenedor_creditos.png";
 import "./Rebecca.css";
 
@@ -278,6 +279,7 @@ const Rebecca = memo(() => {
         }`}
       >
         <div className="main-content-wrapper">
+          <EmbeddedHomePortalButton />
           <h1 className="portal-title">
             {entryState.fromPortal
               ? "¡Bienvenido al futuro!"

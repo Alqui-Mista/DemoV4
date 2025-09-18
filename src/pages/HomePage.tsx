@@ -7,7 +7,7 @@ import {
   useMemo,
   memo,
 } from "react";
-import type { FC } from "react";
+import React, { FC } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
   useTexture,
@@ -238,9 +238,23 @@ const TextPhrase2: FC<{ scrollPercentage: number }> = memo(
 
 TextPhrase2.displayName = "TextPhrase2";
 
-interface HomePageProps {}
+interface HomePageProps {
+  mode?: "standalone" | "embedded";
+  disableAudio?: boolean;
+  disablePortalTransition?: boolean; // fuerza no navegar
+  maxScrollPercentage?: number; // recorte de progreso
+  compact?: boolean; // reduce altura scroll
+  scrollerRef?: React.RefObject<HTMLElement>; // scroller personalizado
+}
 
-const HomePage: FC<HomePageProps> = () => {
+const HomePage: FC<HomePageProps> = ({
+  mode = "standalone",
+  disableAudio = false,
+  disablePortalTransition = false,
+  maxScrollPercentage = 65, // evitar alcanzar 70% portal
+  compact = false,
+  scrollerRef,
+}) => {
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const sceneRef = useRef<THREE.Group | null>(null);
   const mainRef = useRef<HTMLDivElement | null>(null);
@@ -261,6 +275,8 @@ const HomePage: FC<HomePageProps> = () => {
   const transitionAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const navigate = useNavigate();
+
+  const isEmbedded = mode === "embedded";
 
   // 🌀 NUEVO: Hook de gestión de transiciones
   const transitionContext = useTransition();
@@ -363,44 +379,40 @@ const HomePage: FC<HomePageProps> = () => {
   );
 
   useEffect(() => {
+    if (disableAudio) return; // permitir audio también en embebido
     const audio = createAudioElement({
       src: AUDIO_CONFIG.AMBIENT_PATH,
       volume: AUDIO_CONFIG.AMBIENT_VOLUME,
       loop: true,
       preload: "auto",
       onError: (_error) => {
-        // Commented for production - console.warn("Error cargando audio ambiente:", error.message);
+        // silencioso
       },
     });
-
     ambientAudioRef.current = audio;
-
     return () => {
       if (ambientAudioRef.current) {
         ambientAudioRef.current.pause();
         ambientAudioRef.current = null;
       }
     };
-  }, [createAudioElement]);
+  }, [createAudioElement, disableAudio]);
 
   useEffect(() => {
+    if (disableAudio) return;
     const transitionAudio = createAudioElement({
       src: AUDIO_CONFIG.TRANSITION_PATH,
       volume: AUDIO_CONFIG.TRANSITION_VOLUME,
       preload: "auto",
-      onError: (_error) => {
-        // Ignorar errores de carga del audio de transición
-      },
+      onError: (_error) => {},
     });
-
     transitionAudioRef.current = transitionAudio;
-
     return () => {
       if (transitionAudioRef.current) {
         transitionAudioRef.current = null;
       }
     };
-  }, [createAudioElement]);
+  }, [createAudioElement, disableAudio]);
 
   useEffect(() => {
     return () => {
@@ -417,6 +429,7 @@ const HomePage: FC<HomePageProps> = () => {
   const handleAudioVisualizerToggle = useCallback(
     async (isActive: boolean) => {
       try {
+        if (disableAudio) return; // permitir en embebido
         if (isActive) {
           setAreSoundsEnabled(true);
           if (ambientAudioRef.current) {
@@ -457,7 +470,7 @@ const HomePage: FC<HomePageProps> = () => {
         // Ignorar errores al manejar audio
       }
     },
-    [setAreSoundsEnabled, setHasStartedAmbientSound]
+    [setAreSoundsEnabled, setHasStartedAmbientSound, disableAudio]
   );
 
   const trailPointsRef = useRef<{ x: number; y: number; opacity: number }[]>(
@@ -482,7 +495,7 @@ const HomePage: FC<HomePageProps> = () => {
 
     // console.log("✅ Elementos encontrados, iniciando transición...");
 
-    if (areSoundsEnabled) {
+    if (areSoundsEnabled && !isEmbedded && !disablePortalTransition) {
       // Ducking: bajar volumen del ambiente durante la transición
       if (ambientAudioRef.current) {
         try {
@@ -658,7 +671,11 @@ const HomePage: FC<HomePageProps> = () => {
     // 🧹 LIMPIEZA Y NAVEGACIÓN: Todo consolidado en un solo callback
     portalTimeline.eventCallback("onComplete", () => {
       // 🎯 NAVEGACIÓN SINCRONIZADA: Se ejecuta al completar la animación real
-      if (!navigationExecutedRef.current) {
+      if (
+        !navigationExecutedRef.current &&
+        !isEmbedded &&
+        !disablePortalTransition
+      ) {
         navigationExecutedRef.current = true;
 
         // 🔓 RESTAURAR SCROLL: Habilitar scroll antes de navegar
@@ -688,7 +705,14 @@ const HomePage: FC<HomePageProps> = () => {
         navigationExecutedRef.current = false;
       }, 1000);
     });
-  }, [navigate, areSoundsEnabled, transitionContext, createAudioElement]);
+  }, [
+    navigate,
+    areSoundsEnabled,
+    transitionContext,
+    createAudioElement,
+    isEmbedded,
+    disablePortalTransition,
+  ]);
 
   // Enlazar función en ref estable
   useEffect(() => {
@@ -775,11 +799,16 @@ const HomePage: FC<HomePageProps> = () => {
         clearTimeout(mouseStoppedTimeoutRef.current);
       }
 
-      trailPointsRef.current.push({
-        x: e.clientX,
-        y: e.clientY,
-        opacity: 1,
-      });
+      // Coordenadas relativas al contenedor para que funcione en embebido y standalone
+      const container = mainRef.current;
+      if (container) {
+        const rect = container.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        trailPointsRef.current.push({ x, y, opacity: 1 });
+      } else {
+        trailPointsRef.current.push({ x: e.clientX, y: e.clientY, opacity: 1 });
+      }
 
       const maxPoints = config.mouseTrail.maxPoints;
       if (trailPointsRef.current.length > maxPoints) {
@@ -825,12 +854,12 @@ const HomePage: FC<HomePageProps> = () => {
   useEffect(() => {
     const canvas = trailCanvasRef.current;
     const container = mainRef.current;
-
     if (!canvas || !container) return;
 
     const updateCanvasSize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const rect = container.getBoundingClientRect();
+      canvas.width = Math.max(1, Math.floor(rect.width));
+      canvas.height = Math.max(1, Math.floor(rect.height));
     };
 
     updateCanvasSize();
@@ -885,6 +914,8 @@ const HomePage: FC<HomePageProps> = () => {
 
       const scene = sceneRef.current!;
       const scrollElement = scrollRef.current!;
+      const customScroller =
+        isEmbedded && scrollerRef?.current ? scrollerRef.current : window;
 
       const logoMesh = (scene.children?.[1] as THREE.Mesh) || null;
       const textPhrase1 = (scene.children?.[2] as THREE.Group) || null;
@@ -899,11 +930,14 @@ const HomePage: FC<HomePageProps> = () => {
             scrub: 1,
             invalidateOnRefresh: true,
             refreshPriority: -1,
-            scroller: window,
+            scroller: customScroller,
             onUpdate: (self) => {
-              const progress = Math.round(self.progress * 100);
-              if (Math.abs(progress - scrollPercentageRef.current) >= 1) {
-                setScrollPercentage(progress);
+              const raw = Math.round(self.progress * 100);
+              const capped = isEmbedded
+                ? Math.min(raw, maxScrollPercentage)
+                : raw;
+              if (Math.abs(capped - scrollPercentageRef.current) >= 1) {
+                setScrollPercentage(capped);
               }
             },
           },
@@ -913,7 +947,7 @@ const HomePage: FC<HomePageProps> = () => {
           trigger: scrollElement,
           start: "top top",
           end: "bottom bottom",
-          scroller: window,
+          scroller: customScroller,
           onUpdate: (self) => {
             const progress = self.progress * 100;
 
@@ -933,7 +967,9 @@ const HomePage: FC<HomePageProps> = () => {
             if (
               progress >= SCROLL_CONFIG.PORTAL_TRIGGER_PERCENTAGE &&
               !portalTriggeredRef.current &&
-              !isTransitioningRef.current
+              !isTransitioningRef.current &&
+              !isEmbedded &&
+              !disablePortalTransition
             ) {
               portalTriggeredRef.current = true;
               setIsTransitioning(true);
@@ -1060,10 +1096,27 @@ const HomePage: FC<HomePageProps> = () => {
       navigationExecutedRef.current = false;
       setIsTransitioning(false);
     };
-  }, [active, isCanvasReady]);
+  }, [
+    active,
+    isCanvasReady,
+    isEmbedded,
+    maxScrollPercentage,
+    scrollerRef,
+    disablePortalTransition,
+  ]);
+
+  // Scroll-content reducido si compact
+  const scrollContentStyle = compact
+    ? { height: "150vh", minHeight: "150vh" }
+    : undefined;
 
   return (
-    <div ref={mainRef} className="homepage-container">
+    <div
+      ref={mainRef}
+      className={`homepage-container ${
+        isEmbedded ? "embedded-home-scope" : ""
+      }`}
+    >
       <canvas
         ref={trailCanvasRef}
         className="cursor-trail-canvas full-viewport-fixed gpu-accelerated"
@@ -1115,9 +1168,11 @@ const HomePage: FC<HomePageProps> = () => {
       <div
         className="scroll-content responsive-scroll-height gpu-accelerated-scroll"
         ref={scrollRef}
+        style={scrollContentStyle}
       ></div>
-
-      <AudioVisualizer onAudioToggle={handleAudioVisualizerToggle} />
+      {!disableAudio && (
+        <AudioVisualizer onAudioToggle={handleAudioVisualizerToggle} />
+      )}
     </div>
   );
 };
