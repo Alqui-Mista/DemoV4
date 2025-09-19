@@ -63,11 +63,13 @@ export const EmbeddedHomePortalButton: React.FC = () => {
               >
                 <LazyHomePage
                   mode="embedded"
-                  /* Paridad completa con HomePage */
-                  disableAudio={false}
-                  disablePortalTransition={false}
-                  maxScrollPercentage={100}
-                  compact={false}
+                  // ✅ Props ajustadas para el modo embebido.
+                  // Esto previene la transición de página y solapamiento de audio.
+                  disableAudio={true}
+                  disablePortalTransition={true}
+                  maxScrollPercentage={68} // Limita el scroll justo antes de que se active la transición (70%).
+                  compact={true} // Reduce la altura del scroll para una mejor experiencia en el modal.
+                  scrollerRef={scrollerRef}
                 />
               </Suspense>
             </div>

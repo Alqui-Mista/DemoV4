@@ -7,7 +7,7 @@ import {
   useMemo,
   memo,
 } from "react";
-import type { FC } from "react";
+import type { FC, RefObject } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
   useTexture,
@@ -244,6 +244,7 @@ interface HomePageProps {
   disablePortalTransition?: boolean; // fuerza no navegar
   maxScrollPercentage?: number; // recorte de progreso
   compact?: boolean; // reduce altura scroll
+  scrollerRef?: RefObject<HTMLElement | null>;
 }
 
 const HomePage: FC<HomePageProps> = ({
@@ -252,6 +253,7 @@ const HomePage: FC<HomePageProps> = ({
   disablePortalTransition = false,
   maxScrollPercentage = 65, // evitar alcanzar 70% portal
   compact = false,
+  scrollerRef,
 }) => {
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const sceneRef = useRef<THREE.Group | null>(null);
@@ -881,8 +883,8 @@ const HomePage: FC<HomePageProps> = ({
 
   useEffect(() => {
     // Gatear por readiness real: Canvas creado y assets listos (drei)
-    if (isEmbedded) return; // no configurar ScrollTrigger completo en embebido
     const isReady = () => {
+      const hasScroller = isEmbedded ? scrollerRef?.current : true;
       return !!(
         isCanvasReady &&
         !active &&
@@ -891,7 +893,8 @@ const HomePage: FC<HomePageProps> = ({
         scrollRef.current.offsetHeight > 0 &&
         sceneRef.current &&
         sceneRef.current.children &&
-        sceneRef.current.children.length >= UI_CONFIG.SCENE_READY_MIN_CHILDREN
+        sceneRef.current.children.length >= UI_CONFIG.SCENE_READY_MIN_CHILDREN &&
+        hasScroller
       );
     };
 
@@ -912,6 +915,8 @@ const HomePage: FC<HomePageProps> = ({
       }
       setupAttemptsRef.current = 0;
 
+      // ✅ CORREGIDO: El scroller se define aquí para asegurar que scrollerRef.current tenga valor.
+      const scroller = scrollerRef?.current || window;
       const scene = sceneRef.current!;
       const scrollElement = scrollRef.current!;
 
@@ -928,7 +933,7 @@ const HomePage: FC<HomePageProps> = ({
             scrub: 1,
             invalidateOnRefresh: true,
             refreshPriority: -1,
-            scroller: window,
+            scroller: scroller,
             onUpdate: (self) => {
               const raw = Math.round(self.progress * 100);
               const capped = isEmbedded
@@ -945,7 +950,7 @@ const HomePage: FC<HomePageProps> = ({
           trigger: scrollElement,
           start: "top top",
           end: "bottom bottom",
-          scroller: window,
+          scroller: scroller,
           onUpdate: (self) => {
             const progress = self.progress * 100;
 
@@ -1092,7 +1097,7 @@ const HomePage: FC<HomePageProps> = ({
       navigationExecutedRef.current = false;
       setIsTransitioning(false);
     };
-  }, [active, isCanvasReady, isEmbedded, maxScrollPercentage]);
+  }, [active, isCanvasReady, isEmbedded, maxScrollPercentage, scrollerRef]);
 
   // Scroll-content reducido si compact
   const scrollContentStyle = compact
