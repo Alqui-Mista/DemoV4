@@ -7,7 +7,7 @@ import {
   useMemo,
   memo,
 } from "react";
-import React, { FC } from "react";
+import type { FC } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
   useTexture,
@@ -244,7 +244,6 @@ interface HomePageProps {
   disablePortalTransition?: boolean; // fuerza no navegar
   maxScrollPercentage?: number; // recorte de progreso
   compact?: boolean; // reduce altura scroll
-  scrollerRef?: React.RefObject<HTMLElement>; // scroller personalizado
 }
 
 const HomePage: FC<HomePageProps> = ({
@@ -253,7 +252,6 @@ const HomePage: FC<HomePageProps> = ({
   disablePortalTransition = false,
   maxScrollPercentage = 65, // evitar alcanzar 70% portal
   compact = false,
-  scrollerRef,
 }) => {
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const sceneRef = useRef<THREE.Group | null>(null);
@@ -379,7 +377,7 @@ const HomePage: FC<HomePageProps> = ({
   );
 
   useEffect(() => {
-    if (disableAudio) return; // permitir audio también en embebido
+    if (isEmbedded || disableAudio) return; // no crear audio en modo embebido
     const audio = createAudioElement({
       src: AUDIO_CONFIG.AMBIENT_PATH,
       volume: AUDIO_CONFIG.AMBIENT_VOLUME,
@@ -396,10 +394,10 @@ const HomePage: FC<HomePageProps> = ({
         ambientAudioRef.current = null;
       }
     };
-  }, [createAudioElement, disableAudio]);
+  }, [createAudioElement, isEmbedded, disableAudio]);
 
   useEffect(() => {
-    if (disableAudio) return;
+    if (isEmbedded || disableAudio) return;
     const transitionAudio = createAudioElement({
       src: AUDIO_CONFIG.TRANSITION_PATH,
       volume: AUDIO_CONFIG.TRANSITION_VOLUME,
@@ -412,7 +410,7 @@ const HomePage: FC<HomePageProps> = ({
         transitionAudioRef.current = null;
       }
     };
-  }, [createAudioElement, disableAudio]);
+  }, [createAudioElement, isEmbedded, disableAudio]);
 
   useEffect(() => {
     return () => {
@@ -429,7 +427,7 @@ const HomePage: FC<HomePageProps> = ({
   const handleAudioVisualizerToggle = useCallback(
     async (isActive: boolean) => {
       try {
-        if (disableAudio) return; // permitir en embebido
+        if (isEmbedded || disableAudio) return; // ignorar toggle
         if (isActive) {
           setAreSoundsEnabled(true);
           if (ambientAudioRef.current) {
@@ -470,7 +468,7 @@ const HomePage: FC<HomePageProps> = ({
         // Ignorar errores al manejar audio
       }
     },
-    [setAreSoundsEnabled, setHasStartedAmbientSound, disableAudio]
+    [setAreSoundsEnabled, setHasStartedAmbientSound, isEmbedded, disableAudio]
   );
 
   const trailPointsRef = useRef<{ x: number; y: number; opacity: number }[]>(
@@ -787,6 +785,7 @@ const HomePage: FC<HomePageProps> = ({
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
+      if (isEmbedded) return; // desactivar rastro en modo embebido
       const currentTime = performance.now();
 
       const updateInterval = config.mouseTrail.updateInterval;
@@ -799,16 +798,11 @@ const HomePage: FC<HomePageProps> = ({
         clearTimeout(mouseStoppedTimeoutRef.current);
       }
 
-      // Coordenadas relativas al contenedor para que funcione en embebido y standalone
-      const container = mainRef.current;
-      if (container) {
-        const rect = container.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        trailPointsRef.current.push({ x, y, opacity: 1 });
-      } else {
-        trailPointsRef.current.push({ x: e.clientX, y: e.clientY, opacity: 1 });
-      }
+      trailPointsRef.current.push({
+        x: e.clientX,
+        y: e.clientY,
+        opacity: 1,
+      });
 
       const maxPoints = config.mouseTrail.maxPoints;
       if (trailPointsRef.current.length > maxPoints) {
@@ -823,7 +817,12 @@ const HomePage: FC<HomePageProps> = ({
         isMouseActiveRef.current = false;
       }, SCROLL_CONFIG.MOUSE_IDLE_TIMEOUT);
     },
-    [renderTrail, config.mouseTrail.updateInterval, config.mouseTrail.maxPoints]
+    [
+      renderTrail,
+      config.mouseTrail.updateInterval,
+      config.mouseTrail.maxPoints,
+      isEmbedded,
+    ]
   );
 
   const handleMouseLeave = useCallback(() => {
@@ -855,11 +854,11 @@ const HomePage: FC<HomePageProps> = ({
     const canvas = trailCanvasRef.current;
     const container = mainRef.current;
     if (!canvas || !container) return;
+    if (isEmbedded) return; // no inicializar trail
 
     const updateCanvasSize = () => {
-      const rect = container.getBoundingClientRect();
-      canvas.width = Math.max(1, Math.floor(rect.width));
-      canvas.height = Math.max(1, Math.floor(rect.height));
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     };
 
     updateCanvasSize();
@@ -878,10 +877,11 @@ const HomePage: FC<HomePageProps> = ({
         cancelAnimationFrame(animationFrameRef.current);
       animationFrameRef.current = 0;
     };
-  }, [handleMouseMove, handleMouseLeave]);
+  }, [handleMouseMove, handleMouseLeave, isEmbedded]);
 
   useEffect(() => {
     // Gatear por readiness real: Canvas creado y assets listos (drei)
+    if (isEmbedded) return; // no configurar ScrollTrigger completo en embebido
     const isReady = () => {
       return !!(
         isCanvasReady &&
@@ -914,8 +914,6 @@ const HomePage: FC<HomePageProps> = ({
 
       const scene = sceneRef.current!;
       const scrollElement = scrollRef.current!;
-      const customScroller =
-        isEmbedded && scrollerRef?.current ? scrollerRef.current : window;
 
       const logoMesh = (scene.children?.[1] as THREE.Mesh) || null;
       const textPhrase1 = (scene.children?.[2] as THREE.Group) || null;
@@ -930,7 +928,7 @@ const HomePage: FC<HomePageProps> = ({
             scrub: 1,
             invalidateOnRefresh: true,
             refreshPriority: -1,
-            scroller: customScroller,
+            scroller: window,
             onUpdate: (self) => {
               const raw = Math.round(self.progress * 100);
               const capped = isEmbedded
@@ -947,7 +945,7 @@ const HomePage: FC<HomePageProps> = ({
           trigger: scrollElement,
           start: "top top",
           end: "bottom bottom",
-          scroller: customScroller,
+          scroller: window,
           onUpdate: (self) => {
             const progress = self.progress * 100;
 
@@ -967,9 +965,7 @@ const HomePage: FC<HomePageProps> = ({
             if (
               progress >= SCROLL_CONFIG.PORTAL_TRIGGER_PERCENTAGE &&
               !portalTriggeredRef.current &&
-              !isTransitioningRef.current &&
-              !isEmbedded &&
-              !disablePortalTransition
+              !isTransitioningRef.current
             ) {
               portalTriggeredRef.current = true;
               setIsTransitioning(true);
@@ -1096,14 +1092,7 @@ const HomePage: FC<HomePageProps> = ({
       navigationExecutedRef.current = false;
       setIsTransitioning(false);
     };
-  }, [
-    active,
-    isCanvasReady,
-    isEmbedded,
-    maxScrollPercentage,
-    scrollerRef,
-    disablePortalTransition,
-  ]);
+  }, [active, isCanvasReady, isEmbedded, maxScrollPercentage]);
 
   // Scroll-content reducido si compact
   const scrollContentStyle = compact
@@ -1117,10 +1106,12 @@ const HomePage: FC<HomePageProps> = ({
         isEmbedded ? "embedded-home-scope" : ""
       }`}
     >
-      <canvas
-        ref={trailCanvasRef}
-        className="cursor-trail-canvas full-viewport-fixed gpu-accelerated"
-      />
+      {!isEmbedded && (
+        <canvas
+          ref={trailCanvasRef}
+          className="cursor-trail-canvas full-viewport-fixed gpu-accelerated"
+        />
+      )}
 
       <div
         ref={canvasRef}
@@ -1170,7 +1161,7 @@ const HomePage: FC<HomePageProps> = ({
         ref={scrollRef}
         style={scrollContentStyle}
       ></div>
-      {!disableAudio && (
+      {!isEmbedded && (
         <AudioVisualizer onAudioToggle={handleAudioVisualizerToggle} />
       )}
     </div>

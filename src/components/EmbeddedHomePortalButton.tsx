@@ -29,7 +29,11 @@ export const EmbeddedHomePortalButton: React.FC = () => {
   const toggle = useCallback(() => {
     if (!open) {
       setMounted(true); // montar antes de animar
-      requestAnimationFrame(() => setOpen(true));
+      requestAnimationFrame(() => {
+        // Resetear scroll del contenedor embebido antes de abrir
+        if (scrollerRef.current) scrollerRef.current.scrollTop = 0;
+        setOpen(true);
+      });
     } else {
       setOpen(false);
       // esperar animación antes de desmontar para liberar recursos
@@ -64,7 +68,6 @@ export const EmbeddedHomePortalButton: React.FC = () => {
                   disablePortalTransition={false}
                   maxScrollPercentage={100}
                   compact={false}
-                  scrollerRef={scrollerRef}
                 />
               </Suspense>
             </div>
