@@ -56,23 +56,24 @@ export const EmbeddedHomePortalButton: React.FC = () => {
       )}
       {mounted && (
         <div className={`embedded-home-overlay ${open ? "open" : "closing"}`}>
-          <div className="embedded-home-overlay-content">
-            <div className="embedded-home-scroll-wrapper" ref={scrollerRef}>
-              <Suspense
-                fallback={<div className="embedded-loading">Cargando...</div>}
-              >
-                <LazyHomePage
-                  mode="embedded"
-                  // ✅ Props ajustadas para el modo embebido.
-                  // Esto previene la transición de página y solapamiento de audio.
-                  disableAudio={true}
-                  disablePortalTransition={true}
-                  maxScrollPercentage={68} // Limita el scroll justo antes de que se active la transición (70%).
-                  compact={true} // Reduce la altura del scroll para una mejor experiencia en el modal.
-                  scrollerRef={scrollerRef}
-                />
-              </Suspense>
-            </div>
+          <div
+            className="embedded-home-overlay-content"
+            ref={scrollerRef}
+          >
+            <Suspense
+              fallback={<div className="embedded-loading">Cargando...</div>}
+            >
+              <LazyHomePage
+                mode="embedded"
+                // ✅ Props ajustadas para el modo embebido.
+                // Esto previene la transición de página y solapamiento de audio.
+                disableAudio={true}
+                disablePortalTransition={true}
+                maxScrollPercentage={68} // Limita el scroll justo antes de que se active la transición (70%).
+                compact={true} // Reduce la altura del scroll para una mejor experiencia en el modal.
+                scrollerRef={scrollerRef}
+              />
+            </Suspense>
             <button
               className="close-portal-btn"
               onClick={toggle}

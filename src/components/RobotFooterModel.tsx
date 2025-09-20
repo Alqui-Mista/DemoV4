@@ -134,7 +134,7 @@ export const RobotFooterModel: React.FC = () => {
           <AdjustCamera />
           <ambientLight intensity={0.7} />
           <directionalLight position={[5, 5, 5]} intensity={1.2} castShadow />
-          <Environment preset="city" />
+          <Environment files="/potsdamer_platz_1k.hdr" />
           <RobotModel targetAnglesRef={targetAnglesRef} />
         </Suspense>
       </Canvas>

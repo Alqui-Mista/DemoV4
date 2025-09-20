@@ -72,18 +72,42 @@ body {
 }
 
 /* ====== MODO EMBEBIDO (portal dentro de Rebecca) ====== */
-.embedded-home-scope .full-viewport-fixed {
-  position: sticky; /* fijo respecto al contenedor scroll */
+.rebecca-container .embedded-home-scope,
+.rebecca-container .embedded-home-scope * {
+  cursor: auto !important;
+}
+
+/* Make the entire HomePage component fixed within the modal scroller */
+.embedded-home-scope.homepage-container {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh; /* ocupar viewport visible del overlay */
+  height: 100%;
+  overflow: hidden; /* Hide the oversized scroll-content div */
 }
+
+/* The canvas should fill this fixed container */
+.embedded-home-scope .full-viewport-fixed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .embedded-home-scope .canvas-container {
   pointer-events: none;
 }
+
+/* The scroll-content provides the height for the scroller, but is not visible */
 .embedded-home-scope .scroll-content {
   height: 150vh;
+  position: absolute; /* Take it out of flow so it doesn't push anything */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1; /* Put it behind everything */
 }
 
 /* Contenedor del Canvas 3D optimizado con clases consolidadas */

@@ -916,7 +916,7 @@ const HomePage: FC<HomePageProps> = ({
       setupAttemptsRef.current = 0;
 
       // ✅ CORREGIDO: El scroller se define aquí para asegurar que scrollerRef.current tenga valor.
-      const scroller = scrollerRef?.current || window;
+      const scroller = isEmbedded ? scrollerRef.current : window;
       const scene = sceneRef.current!;
       const scrollElement = scrollRef.current!;
 
@@ -952,6 +952,9 @@ const HomePage: FC<HomePageProps> = ({
           end: "bottom bottom",
           scroller: scroller,
           onUpdate: (self) => {
+            // ✅ CORREGIDO: En modo embebido, no se debe activar ni el glitch ni la transición.
+            if (isEmbedded) return;
+
             const progress = self.progress * 100;
 
             if (

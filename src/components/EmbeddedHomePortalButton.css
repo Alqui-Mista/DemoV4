@@ -96,17 +96,11 @@
   position: relative;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-}
-
-.embedded-home-scroll-wrapper {
-  position: absolute;
-  inset: 0;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
-.embedded-home-scroll-wrapper .homepage-container {
+.embedded-home-overlay-content .homepage-container {
   background: #000;
 }
 .embedded-loading {
@@ -133,6 +127,7 @@
   justify-content: center;
   backdrop-filter: blur(4px);
   transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 7000;
 }
 .close-portal-btn:hover {
   background: rgba(255, 140, 0, 0.15);
