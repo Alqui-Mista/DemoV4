@@ -1,461 +1,253 @@
-/* HomePage.css */
-
-/* ✅ Importar fuente Oxanium */
-@import url("https://fonts.googleapis.com/css2?family=Oxanium:wght@700&display=swap");
-/* 🎯 Importar sistema responsive avanzado */
-@import "../styles/responsive.css";
-
-/* 🎯 CURSOR PERSONALIZADO - MANTENER CONSISTENCIA CON REBECCA */
-.homepage-container,
-.homepage-container *,
-.homepage-container button,
-.homepage-container .audio-visualizer-container,
-.homepage-container .audio-activate-button,
-.homepage-container .audio-visualizer-active {
-  cursor: none !important;
-}
-
-/* 📱 VARIABLES CSS: Mobile-First Responsive Heights */
+/* 📱 VARIABLES CSS: Valores consolidados y reutilizables */
 :root {
+  /* Heights responsive */
   --scroll-height-mobile: 250vh; /* Móvil pequeño */
   --scroll-height-medium: 275vh; /* Móvil grande/tablet pequeño */
   --scroll-height-desktop: 300vh; /* Desktop */
   --scroll-height-landscape: 200vh; /* Landscape móvil */
+
+  /* Colores del sistema de glitch */
+  --color-primary-orange: #da8023;
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+  --color-gray-light: #b3b4b0;
+  --color-gray-medium: #8a8b88;
+  --color-gray-dark: #666762;
+
+  /* Z-index system */
+  --z-background: 1;
+  --z-content: 10;
+  --z-transition: 1000;
+  --z-cursor-trail: 10001;
+
+  /* Positioning values */
+  --position-full-cover: fixed;
+  --size-full-viewport: 100vh;
+  --size-full-width: 100%;
 }
 
-/* ✅ Reset global para asegurar scroll correcto */
-* {
-  box-sizing: border-box;
-}
-
+/* ✅ Estilos específicos para HomePage - optimizados y sin duplicaciones */
 body {
   background-color: #000;
-  margin: 0;
-  padding: 0;
   overflow-x: hidden; /* ✅ Evita scroll horizontal */
 }
 
-/* 🚀 CLASE UTILITARIA: Hardware Acceleration consolidada para reutilización */
+/* 🚀 CLASES UTILITARIAS: Hardware Acceleration consolidadas */
 .gpu-accelerated {
   transform: translateZ(0);
   will-change: auto;
 }
 
-/* Canvas trail optimizado con hardware acceleration */
-.cursor-trail-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 10001; /* Por encima del scroll indicator pero debajo de otros elementos críticos */
-  opacity: 1; /* Opacidad completa para mejor visibilidad */
-  background: transparent; /* Asegurar fondo transparente */
+.gpu-accelerated-scroll {
+  transform: translateZ(0);
+  will-change: scroll-position;
 }
 
-/* Contenedor del Canvas 3D (Fondo fijo) con hardware acceleration optimizada */
-.canvas-container {
-  position: fixed;
+.gpu-accelerated-transition {
+  transform: translateZ(0);
+  will-change: opacity, filter;
+}
+
+/* 📍 CLASE UTILITARIA: Full viewport positioning */
+.full-viewport-fixed {
+  position: var(--position-full-cover);
+  top: 0;
+  left: 0;
+  width: var(--size-full-width);
+  height: var(--size-full-viewport);
+}
+
+/* 🎯 CLASE UTILITARIA: Responsive height pattern */
+.responsive-scroll-height {
+  height: var(--scroll-height-mobile);
+  min-height: var(--scroll-height-mobile);
+}
+
+/* Canvas trail optimizado con clases consolidadas */
+.cursor-trail-canvas {
+  pointer-events: none;
+  z-index: var(--z-cursor-trail);
+  opacity: 1;
+  background: var(--color-transparent);
+}
+
+/* ====== MODO EMBEBIDO (portal dentro de Rebecca) ====== */
+.rebecca-container .embedded-home-scope,
+.rebecca-container .embedded-home-scope * {
+  cursor: auto !important;
+}
+
+/* Make the entire HomePage component fixed within the modal scroller */
+.embedded-home-scope.homepage-container {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
-  z-index: 1; /* Detrás de todo */
-  pointer-events: none; /* ✅ Permite que el scroll funcione a través del canvas */
-  /* ✅ OPTIMIZACIÓN: Eliminar transition para evitar micro-trabados durante scroll */
-  /* transition: opacity 0.3s ease-out; ← REMOVIDO */
+  height: 100%;
+  overflow: hidden; /* Hide the oversized scroll-content div */
+}
 
-  /* 🚀 ACELERACIÓN HARDWARE CONSOLIDADA para mejor rendimiento */
-  transform: translateZ(0);
-  will-change: auto; /* Solo cuando sea necesario */
+/* The canvas should fill this fixed container */
+.embedded-home-scope .full-viewport-fixed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.embedded-home-scope .canvas-container {
+  pointer-events: none;
+}
+
+/* The scroll-content provides the height for the scroller, but is not visible */
+.embedded-home-scope .scroll-content {
+  height: 150vh;
+  position: absolute; /* Take it out of flow so it doesn't push anything */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1; /* Put it behind everything */
+}
+
+/* Contenedor del Canvas 3D optimizado con clases consolidadas */
+.canvas-container {
+  z-index: var(--z-background);
+  pointer-events: none; /* Permite que el scroll funcione a través del canvas */
 }
 
 /* 🌀 ESTADO DE TRANSICIÓN PORTAL */
 .canvas-container.transitioning {
   pointer-events: auto;
-  z-index: 1000; /* Encima de todo durante la transición */
-  will-change: opacity, filter; /* Optimizar solo durante transición activa */
+  z-index: var(--z-transition);
 }
 
-/* 🔥 EFECTO DE FALLA DIGITAL - PANTALLA COMPLETA */
+/* 🔥 EFECTO DE FALLA DIGITAL optimizado */
 .canvas-container.digital-glitch {
   animation: digitalGlitchEffect 0.6s ease-in-out;
 }
 
 @keyframes digitalGlitchEffect {
   0% {
+    transform: translate(0);
     filter: none;
-    transform: translateZ(0);
-    background: none;
+    clip-path: inset(0);
   }
   5% {
-    filter: saturate(3) contrast(2) brightness(1.5);
-    transform: translateX(-4px) skewX(1deg);
-    background: repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 2px,
-      #da8023 2px,
-      #da8023 3px,
-      transparent 3px,
-      transparent 8px
-    );
+    transform: translate(-2px, 2px);
+    filter: brightness(2.5) contrast(2);
+    clip-path: inset(10% 20% 50% 5%);
   }
   10% {
-    filter: saturate(5) contrast(3) brightness(0.8);
-    transform: translateX(6px) skewX(-2deg);
-    background: repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 1px,
-      #b3b4b0 1px,
-      #b3b4b0 2px,
-      transparent 2px,
-      transparent 6px,
-      #ffffff 6px,
-      #ffffff 7px,
-      transparent 7px,
-      transparent 12px
-    );
+    transform: translate(3px, -1px);
+    filter: invert(100%);
+    clip-path: inset(80% 30% 2% 10%);
   }
   15% {
-    filter: saturate(7) contrast(4) brightness(2);
-    transform: translateX(-3px) skewX(1.5deg);
-    background: repeating-linear-gradient(
-      0deg,
-      #e8955a 0px,
-      #e8955a 1px,
-      transparent 1px,
-      transparent 4px,
-      #8a8b88 4px,
-      #8a8b88 5px,
-      transparent 5px,
-      transparent 9px
-    );
+    transform: translate(-1px, -3px);
+    filter: brightness(1) contrast(1);
+    clip-path: inset(0);
   }
   20% {
-    filter: saturate(9) contrast(5) brightness(0.4);
-    transform: translateX(8px) skewX(-3deg);
-    background: repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 2px,
-      #ffffff 2px,
-      #ffffff 4px,
-      #da8023 4px,
-      #da8023 5px,
-      transparent 5px,
-      transparent 10px
+    transform: translate(2px, 2px);
+    filter: brightness(3) contrast(3) hue-rotate(90deg);
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 5%,
+      0 5%,
+      0 10%,
+      100% 10%,
+      100% 15%,
+      0 15%
     );
   }
   25% {
-    filter: saturate(8) contrast(6) brightness(3);
-    transform: translateX(-5px) skewX(2deg);
-    background: repeating-linear-gradient(
-      0deg,
-      #c26d1a 0px,
-      #c26d1a 2px,
-      transparent 2px,
-      transparent 3px,
-      #9c9d9a 3px,
-      #9c9d9a 4px,
-      transparent 4px,
-      transparent 7px,
-      #f5f5f5 7px,
-      #f5f5f5 8px,
-      transparent 8px,
-      transparent 11px
-    );
+    transform: translate(-3px, 1px);
+    filter: none;
+    clip-path: inset(40% 0 40% 0);
   }
   30% {
-    filter: saturate(6) contrast(7) brightness(0.6);
-    transform: translateX(7px) skewX(-2.5deg);
-    background: repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 1px,
-      #da8023 1px,
-      #da8023 3px,
-      #666762 3px,
-      #666762 4px,
-      transparent 4px,
-      transparent 8px
-    );
-  }
-  35% {
-    filter: saturate(10) contrast(4) brightness(2.5);
-    transform: translateX(-6px) skewX(3deg);
-    background: repeating-linear-gradient(
-      0deg,
-      #ffffff 0px,
-      #ffffff 1px,
-      transparent 1px,
-      transparent 2px,
-      #b85d1f 2px,
-      #b85d1f 4px,
-      transparent 4px,
-      transparent 5px,
-      #a5a6a3 5px,
-      #a5a6a3 6px,
-      transparent 6px,
-      transparent 9px
-    );
+    transform: translate(0);
+    filter: brightness(1.5) contrast(1.5);
+    clip-path: inset(0);
   }
   40% {
-    filter: saturate(12) contrast(8) brightness(0.3);
-    transform: translateX(9px) skewX(-4deg);
-    background: repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 2px,
-      #e08534 2px,
-      #e08534 3px,
-      #7a7b78 3px,
-      #7a7b78 5px,
-      transparent 5px,
-      transparent 6px,
-      #ffffff 6px,
-      #ffffff 7px,
-      transparent 7px,
-      transparent 12px
-    );
-  }
-  45% {
-    filter: saturate(8) contrast(5) brightness(4);
-    transform: translateX(-4px) skewX(1.8deg);
-    background: repeating-linear-gradient(
-      0deg,
-      #f0f0f0 0px,
-      #f0f0f0 2px,
-      transparent 2px,
-      transparent 3px,
-      #da8023 3px,
-      #da8023 4px,
-      transparent 4px,
-      transparent 8px
-    );
+    transform: translate(5px, 5px) scale(1.1);
+    filter: invert(100%) brightness(4);
+    clip-path: inset(60% 10% 5% 20%);
   }
   50% {
-    filter: saturate(15) contrast(10) brightness(0.2);
-    transform: translateX(10px) skewX(-5deg);
-    background: repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 1px,
-      #a3540f 1px,
-      #a3540f 3px,
-      #59595a 3px,
-      #59595a 4px,
-      transparent 4px,
-      transparent 5px,
-      #e8e8e8 5px,
-      #e8e8e8 7px,
-      transparent 7px,
-      transparent 10px
-    );
-  }
-  55% {
-    filter: saturate(11) contrast(6) brightness(3.5);
-    transform: translateX(-7px) skewX(2.5deg);
-    background: repeating-linear-gradient(
-      0deg,
-      #ffffff 0px,
-      #ffffff 1px,
-      #cf6a18 1px,
-      #cf6a18 2px,
-      transparent 2px,
-      transparent 4px,
-      #8e8f8c 4px,
-      #8e8f8c 6px,
-      transparent 6px,
-      transparent 9px
-    );
+    transform: translate(-5px, -5px) scale(0.9);
+    filter: none;
+    clip-path: inset(10% 5% 70% 15%);
   }
   60% {
-    filter: saturate(13) contrast(9) brightness(0.5);
-    transform: translateX(8px) skewX(-3.5deg);
-    background: repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 2px,
-      #eb8f47 2px,
-      #eb8f47 4px,
-      #747570 4px,
-      #747570 5px,
-      transparent 5px,
-      transparent 7px,
-      #ffffff 7px,
-      #ffffff 8px,
-      transparent 8px,
-      transparent 11px
-    );
-  }
-  65% {
-    filter: saturate(9) contrast(7) brightness(2.8);
-    transform: translateX(-5px) skewX(2.2deg);
-    background: repeating-linear-gradient(
-      0deg,
-      #d5d5d5 0px,
-      #d5d5d5 1px,
-      transparent 1px,
-      transparent 3px,
-      #da8023 3px,
-      #da8023 5px,
-      transparent 5px,
-      transparent 8px
-    );
+    transform: translate(1px, 3px);
+    filter: brightness(2) contrast(1);
+    clip-path: inset(0);
   }
   70% {
-    filter: saturate(16) contrast(12) brightness(0.1);
-    transform: translateX(11px) skewX(-6deg);
-    background: repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 1px,
-      #914a0c 1px,
-      #914a0c 2px,
-      #4d4d4e 2px,
-      #4d4d4e 4px,
-      transparent 4px,
-      transparent 5px,
-      #ffffff 5px,
-      #ffffff 7px,
-      transparent 7px,
-      transparent 12px
-    );
-  }
-  75% {
-    filter: saturate(12) contrast(8) brightness(3.2);
-    transform: translateX(-6px) skewX(3.2deg);
-    background: repeating-linear-gradient(
-      0deg,
-      #ffffff 0px,
-      #ffffff 2px,
-      #e2761d 2px,
-      #e2761d 3px,
-      transparent 3px,
-      transparent 6px,
-      #999a97 6px,
-      #999a97 7px,
-      transparent 7px,
-      transparent 10px
-    );
+    transform: translate(-2px, -1px) scale(1.05);
+    filter: brightness(0.5) contrast(2.5);
+    clip-path: polygon(0 50%, 100% 50%, 100% 55%, 0 55%);
   }
   80% {
-    filter: saturate(10) contrast(6) brightness(0.7);
-    transform: translateX(7px) skewX(-2.8deg);
-    background: repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 2px,
-      #da8023 2px,
-      #da8023 4px,
-      #6b6c69 4px,
-      #6b6c69 5px,
-      transparent 5px,
-      transparent 9px
-    );
-  }
-  85% {
-    filter: saturate(8) contrast(4) brightness(2.2);
-    transform: translateX(-4px) skewX(1.5deg);
-    background: repeating-linear-gradient(
-      0deg,
-      #f8f8f8 0px,
-      #f8f8f8 1px,
-      transparent 1px,
-      transparent 4px,
-      #da8023 4px,
-      #da8023 5px,
-      transparent 5px,
-      transparent 8px
-    );
+    transform: translate(4px, -3px) scale(0.95);
+    filter: invert(100%);
+    clip-path: inset(25% 25% 25% 25%);
   }
   90% {
-    filter: saturate(5) contrast(3) brightness(1.5);
-    transform: translateX(3px) skewX(-1deg);
-    background: repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 3px,
-      #e19048 3px,
-      #e19048 4px,
-      transparent 4px,
-      transparent 7px,
-      #b3b4b0 7px,
-      #b3b4b0 8px,
-      transparent 8px,
-      transparent 12px
-    );
-  }
-  95% {
-    filter: saturate(3) contrast(2) brightness(1.2);
-    transform: translateX(-2px) skewX(0.5deg);
-    background: repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 5px,
-      #da8023 5px,
-      #da8023 6px,
-      transparent 6px,
-      transparent 10px
-    );
+    transform: translate(-1px, 2px);
+    filter: none;
+    clip-path: inset(0);
   }
   100% {
+    transform: translate(0);
     filter: none;
-    transform: translateZ(0);
-    background: none;
+    clip-path: inset(0);
   }
 }
 
-/* Div que genera la barra de scroll con optimización hardware consolidada */
+/* Contenedor de scroll optimizado con clases consolidadas */
 .scroll-content {
   position: relative;
-  z-index: 10; /* Encima del canvas */
-  width: 100%;
-  /* ✅ DIMENSIONES MÍNIMAS GARANTIZADAS para evitar problemas de inicialización */
+  z-index: var(--z-content);
+  width: var(--size-full-width);
   min-width: 100vw;
-  /* ✅ HARDWARE ACCELERATION CONSOLIDADA para asegurar que ScrollTrigger detecte las dimensiones */
-  transform: translateZ(0);
-  will-change: scroll-position;
 
-  /* 📱 MOBILE-FIRST: Altura base usando variables CSS */
-  height: var(--scroll-height-mobile);
-  min-height: var(--scroll-height-mobile);
-
-  /* ✅ Gradiente activado - descomenta si quieres verlo */
+  /* Gradiente sutil de fondo */
   background: linear-gradient(
     to bottom,
-    transparent 0%,
+    var(--color-transparent) 0%,
     rgba(100, 255, 218, 0.01) 25%,
     rgba(255, 100, 218, 0.01) 50%,
     rgba(100, 218, 255, 0.01) 75%,
-    transparent 100%
+    var(--color-transparent) 100%
   );
 }
 
-/* 📱 RESPONSIVE UNIFIED: Estrategia Mobile-First consolidada con variables CSS */
+/* 📱 RESPONSIVE: Media queries consolidadas y optimizadas */
 
-/* 📱 Móvil grande y tablet pequeño */
+/* Móvil grande y tablet pequeño */
 @media (min-width: 481px) {
-  .scroll-content {
+  .responsive-scroll-height {
     height: var(--scroll-height-medium);
     min-height: var(--scroll-height-medium);
   }
 }
 
-/* 💻 Tablet y desktop pequeño */
+/* Tablet y desktop pequeño */
 @media (min-width: 769px) {
-  .scroll-content {
+  .responsive-scroll-height {
     height: var(--scroll-height-desktop);
     min-height: var(--scroll-height-desktop);
   }
 }
 
-/* 🔄 Orientación landscape en móviles - sobrescribe otras reglas */
+/* ✅ Orientación landscape en móviles - !important necesario para sobrescribir las reglas anteriores */
 @media (max-height: 600px) and (orientation: landscape) {
-  .scroll-content {
+  .responsive-scroll-height {
     height: var(--scroll-height-landscape) !important;
     min-height: var(--scroll-height-landscape) !important;
   }

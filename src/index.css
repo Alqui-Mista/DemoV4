@@ -1,27 +1,46 @@
-/* Fuente SOHO */
+/* Fuente InteliMark */
 @font-face {
-  font-family: "SohoPro";
-  src: url("./assets/fonts/SohoPro-UltraItalic.woff2") format("woff2"),
-    url("./assets/fonts/SohoPro-UltraItalic.woff") format("woff"),
-    url("./assets/fonts/SohoPro-UltraItalic.ttf") format("truetype");
+  font-family: "InteliMark";
+  src: url("./assets/fonts/InteliMark_font.woff2") format("woff2");
   font-weight: 900;
   font-style: italic;
   font-display: swap;
 }
 
 :root {
-  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Inter", "Segoe UI", "Roboto", system-ui, Avenir, Helvetica,
+    Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #0a0a0a;
+  background-color: #000; /* ✅ Unificado con HomePage para consistencia */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* 🔧 SISTEMA DE CURSOR PERSONALIZADO CONSOLIDADO */
+* {
+  cursor: none !important;
+}
+
+/* 🔧 REFUERZO ESPECÍFICO PARA ELEMENTOS INTERACTIVOS */
+input,
+textarea,
+select,
+button,
+a,
+.homepage-container,
+.homepage-container *,
+.homepage-container button,
+.homepage-container .audio-visualizer-container,
+.homepage-container .audio-activate-button,
+.homepage-container .audio-visualizer-active {
+  cursor: none !important;
 }
 
 a {
